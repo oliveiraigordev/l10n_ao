@@ -1,0 +1,16 @@
+<odoo>
+  <record id="view_account_tax_iva_custom_form_inherit" model="ir.ui.view">
+    <field name="name">account.tax.iva.custom.form</field>
+    <field name="model">account.tax</field>
+    <field name="inherit_id" ref="account.view_tax_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//notebook" position="inside">
+        <page string="Saldar conta de IVA" attrs="{'invisible': ['|',('iva_tax_type', 'not in', ['NDEDU', 'SUP']), ('type_tax_use', '!=', 'purchase')]}">
+          <group>
+            <field name="iva_balance_debit_account_id" attrs="{'required': [('iva_tax_type', 'in', ['NDEDU', 'SUP']), ('type_tax_use', '=', 'purchase')]}"/>
+          </group>
+        </page>
+      </xpath>
+    </field>
+  </record>
+</odoo>

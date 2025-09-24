@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_vacation_days_wizard_form" model="ir.ui.view">
+        <field name="name">vacation.balance.report.wizard.form</field>
+        <field name="model">vacation.balance.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Criar relatório de saldo de férias">
+                <group>
+                    <group>
+                        <field name="all_employees" widget="boolean_toggle"/>
+                        <field name="company_id" options="{'no_create': True, 'no_open': True}"
+                               attrs="{'invisible': [('all_employees', '!=', True)], 'required': [('all_employees', '=', True)]}"/>
+                        <field name="employee_ids" widget="many2many_tags"
+                               domain="[('company_id', '=', company_id),('admission_date', '!=', False)]"
+                               attrs="{'invisible': [('all_employees', '=', True)], 'required': [('all_employees', '!=', True)]}"
+                               options="{'no_create': True, 'no_open': True}" string="Funcionários"/>
+                        <field name="year"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_create_vacation_balance_report" type="object" string="Criar"
+                            class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_custom_method" model="ir.actions.server">
+        <field name="name">Actualizar os relatórios de saldo de férias</field>
+        <field name="model_id" ref="model_vacation_balance_report_wizard"/>
+        <field name="state">code</field>
+        <field name="code">
+            model.update_vacation_balance_report()
+        </field>
+    </record>
+
+    <record id="action_vacation_days_wizard" model="ir.actions.act_window">
+        <field name="name">Criar relatório de saldo de férias</field>
+        <field name="res_model">vacation.balance.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+            id="menu_create_vacation_balance_report"
+            name="Criar relatório de saldo de férias"
+            parent="hr_holidays.menu_hr_holidays_report"
+            groups="hr_holidays.group_hr_holidays_manager"
+            action="action_vacation_days_wizard"
+            sequence="3"
+    />
+
+    <menuitem
+            id="menu_update_vacation_balance_report"
+            name="Actualizar os relatórios de saldo de férias"
+            parent="hr_holidays.menu_hr_holidays_report"
+            groups="hr_holidays.group_hr_holidays_manager"
+            action="action_custom_method"
+            sequence="4"
+    />
+</odoo>

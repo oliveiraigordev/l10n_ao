@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="l10n_ao_reports_config_settings" model="ir.ui.view">
+        <field name="name">l10n.ao.reports.config.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='default_user_rights']" position="after">
+                <h2 >Regras do Fluxo de Caixa
+                </h2>
+<!--                attrs="{'invisible':[('account_fiscal_country_id','!=',8)]}"-->
+                <div class="row mt16 o_settings_container" id="cash_flow_container"
+                     >
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="cash_flow_in_payment" readonly="0" groups="base.group_no_one" invisible="1"/>
+                            <field name="cash_flow_in_payment_register" readonly="0" groups="base.group_no_one"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="cash_flow_in_payment"  invisible="1"/>
+                            <label for="cash_flow_in_payment_register"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="l10n_ao_account_journal_ao_formview" model="ir.ui.view">
+            <field name="name"> Angola account Journal View</field>
+            <field name="model">account.journal.ao</field>
+              <field name="arch" type="xml">
+                <form string="Journal AO">
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                    <group>
+                        <field name="sequence_id"/>
+                    </group>
+                </form>
+              </field>
+        </record>
+    </data>
+</odoo>

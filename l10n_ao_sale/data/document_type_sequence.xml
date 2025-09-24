@@ -1,0 +1,34 @@
+<odoo>
+  <data noupdate="1">
+      <record id="quotation_sequence" model="ir.sequence">
+          <field name="code">OU</field>
+          <field name="name">SalesOrder: Quotation</field>
+          <field name="prefix">%(range_year)s/</field>
+          <field name="padding">0</field>
+          <field name="number_increment">1</field>
+          <field name="use_date_range">True</field>
+          <field name="implementation">no_gap</field>
+          <field name="company_id" eval="False"/>
+      </record>
+      <record id="proposal_sequence" model="ir.sequence">
+          <field name="code">OR</field>
+          <field name="name">SalesOrder: Proposal</field>
+          <field name="prefix">%(range_year)s/</field>
+          <field name="padding">0</field>
+          <field name="number_increment">1</field>
+          <field name="use_date_range">True</field>
+          <field name="implementation">no_gap</field>
+          <field name="company_id" eval="False"/>
+      </record>
+      <record id="proforma_sequence" model="ir.sequence">
+          <field name="code">PP</field>
+          <field name="name">SalesOrder: Proforma</field>
+          <field name="prefix">%(range_year)s/</field>
+          <field name="padding">0</field>
+          <field name="number_increment">1</field>
+          <field name="use_date_range">True</field>
+          <field name="implementation">no_gap</field>
+          <field name="company_id" eval="False"/>
+      </record>
+  </data>
+</odoo>

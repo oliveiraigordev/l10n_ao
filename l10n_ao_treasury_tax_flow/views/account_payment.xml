@@ -1,0 +1,100 @@
+  <odoo>
+
+    <record id="view_account_payment_inherit_account_batch_payment" model="ir.ui.view">
+      <field name="name">account.payment.inherit.account_batch_payment</field>
+      <field name="model">account.payment</field>
+      <field name="inherit_id" ref="account.view_account_payment_tree"/>
+      <field name="arch" type="xml">
+          <field name="amount_company_currency_signed" position="replace">
+              <field name="amount" widget="monetary" string="Total" sum="Total"/>
+          </field>
+      </field>
+  </record>
+
+  <record id="taxes_account_payment_form_inherit" model="ir.ui.view">
+    <field name="name">account.payment.form</field>
+    <field name="model">account.payment</field>
+    <field name="inherit_id" ref="account.view_account_payment_form"/>
+    <field name="arch" type="xml">
+      <field name="payment_method_line_id" position="after">
+        <field name="is_ip_payment" string="Imposto Predial" invisible="1"/>
+        <field name="post_retention_payment" invisible="1"/>
+        <field name="is_company" invisible="1"/>
+        <field name="is_industrial_tax" string="Imposto Industrial" invisible="1"/>
+        
+        <field name="tax_line_id"
+          context="{'default_partner_id': partner_id, 'default_allow_out_payment': True}"
+          attrs="{'invisible': [('is_ip_payment', '!=', True), ('is_industrial_tax', '!=', True)], 'readonly': [('state', '=', 'posted')]}"
+          options='{"no_create": True, "no_open": True}' force_save="1"/>
+        
+        <field name="partner_accounting_account_id" options='{"no_open": True}' attrs="{'invisible': ['|', ('is_company', '=', True), ('post_retention_payment', '!=', True)]}"/>
+        
+        <field 
+          name="tax_account_id"
+          attrs="{'invisible': [('is_company', '!=', True),'|', '|', ('post_retention_payment', '!=', True), ('is_ip_payment', '!=', True), ('is_industrial_tax', '!=', True)]}"
+          options='{"no_open": True}'/>
+      </field>
+      <field name="partner_id" position="attributes">
+        <attribute name="string">Parceiro</attribute>
+        <attribute name="options">{'no_create': True}</attribute>
+      </field>
+
+       <field name="payment_method_line_id"  position="attributes">
+          <attribute name="invisible">0</attribute>
+       </field> 
+
+      <xpath expr="//form/sheet" position="inside">
+        <notebook name="retention_notebook"
+          attrs="{'invisible': ['|', ('partner_id', '=', False), ('is_industrial_tax', '!=', True)]}">
+          <page name="retention_page" string="Retenção">
+            <group>
+              <group>
+                <field name="retention_tax_ids" widget="many2many_tags"
+                  options="{'no_create': True}" invisible="1"/>
+                <field name="invoice_id" domain="[('id', 'in', available_invoice_ids)]" options='{"no_create": True}' attrs="{'readonly': [('state', '=', 'posted')]}"/>
+                <field name="available_invoice_ids" invisible="1" options='{"no_open": True, "no_create": True}'/>
+              </group>
+              <group>
+                <field name="retention_tax_id" readonly="1" options='{"no_open": True}'/>
+                <field name="confirm_retention" attrs="{'readonly': ['|', ('state', '=', 'posted'),('invoice_id', '=', False)]}"/>
+              </group>
+            </group>
+          </page>
+          <page string="Anexo">
+            <group>
+              <group>
+                <field name="attachment_ids" widget="many2many_binary"/>
+              </group>
+            </group>
+          </page>
+        </notebook>
+      </xpath>
+    </field>
+  </record>
+
+  <record id="action_ip_payment" model="ir.actions.act_window">
+    <field name="name">Imposto Predial</field>
+    <field name="res_model">account.payment</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('is_ip_payment', '=', True)]</field>
+    <field name="context">{'default_is_ip_payment': True, 'show_partner_bank_account': False}</field>
+  </record>
+
+  <record id="action_estate_payment" model="ir.actions.act_window">
+    <field name="name">Pagamento ao Estado</field>
+    <field name="res_model">account.payment</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('is_ip_payment', '=', True)]</field>
+    <field name="context">{'default_is_ip_payment': True, 'show_partner_bank_account': False}</field>
+  </record>
+
+
+  <record id="action_industrial_tax_payment" model="ir.actions.act_window">
+    <field name="name">Imposto Industrial</field>
+    <field name="res_model">account.payment</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('is_industrial_tax', '=', True)]</field>
+    <field name="context">{'default_is_industrial_tax': True, 'show_partner_bank_account': False}</field>
+  </record>
+
+</odoo>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_payment_receipt_document_agt">
+        <t t-call="l10n_ao.external_layout_agt">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <t t-set="address">
+                <div class="row" style="font-size:small;min-height:154px;max-height:154px;overflow:hidden;">
+                    <div id="address_first" class="col-4">
+
+                    </div>
+                    <div id="address_first" class="col-4">
+
+                    </div>
+                    <div style="font-size:small;" class="col-4">
+                        <strong t-esc="o.partner_name"/>
+                        <br t-if="o.partner_street" t-esc="o.partner_street"/>
+                        <t t-if="o.partner_street2">
+                            <br t-esc="o.partner_street2"/>
+                        </t>
+                        <br t-if="o.partner_city" t-esc="o.partner_city"/>,
+                        <t t-if="o.partner_state"><span t-esc="o.partner_state"/>,
+                        </t>
+                        <span t-if="o.partner_id.country_id" t-esc="o.partner_id.country_id.name"/>
+                        <br t-if="o.partner_id.vat and o.partner_id.vat not in ['999999999','9999999999']" class="mt0" style="font-size:small;">
+                            <t t-esc="o.company_id.country_id.vat_label or 'NIF'"/>:
+                            <span t-field="o.partner_id.vat"/>
+                        </br>
+                        <br t-else="" class="mt0" style="font-size:small;">
+                            <t t-esc="o.company_id.country_id.vat_label or 'NIF'"/>:
+                            <span>Consumidor Final</span>
+                        </br>
+                    </div>
+                </div>
+            </t>
+            <t t-set="document_type">
+                <strong>Recibo</strong>
+            </t>
+            <t t-set="document_title">
+                <h4>
+                    <strong>
+                        <span t-esc="o.payment_number"/>
+                    </strong>
+                </h4>
+            </t>
+            <div class="page">
+                <t t-set="custom_agt_header">
+                    <div class="row mt2 mb2" style="white-space: nowrap;font-size:small;">
+                        <div class="col-auto mw-50 mb-2" t-if="o.date">
+                            <strong>Data do Pagamento:</strong>
+                            <p class="m-0" t-field="o.date"/>
+                        </div>
+
+                        <div class="col-auto mw-50 mb-2" t-if="o.payment_method_id">
+                            <strong>Método de Pagamento:</strong>
+                            <p class="m-0" t-field="o.payment_method_id.name"/>
+                        </div>
+                          <div class="col-auto mw-50 mb-2" t-if="o.payment_method_id">
+                            <strong>Emitido Por:</strong>
+                            <p class="m-0" t-field="o.invoice_user_id.name"/>
+                        </div>
+                        <div class="col-auto mw-50 mb-2" t-if="o.amount">
+                            <strong>Valor Pago:</strong>
+                            <p class="m-0" t-field="o.amount"
+                               t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                        </div>
+                        <div class="col-auto mw-50 mb-2" t-if="o.ref">
+                            <strong>Memo:</strong>
+                            <p class="m-0" t-field="o.ref"/>
+                        </div>
+                        <div class="col-auto mw-50 mb-2">
+                            <strong>Via:</strong>
+                            <p t-if="o.print_counter == 1" class="m-0">Original</p>
+                            <p t-if="o.print_counter > 1" class="m-0">2ª Via em conformidade com
+                                original
+                            </p>
+                            <p t-else="">Original
+
+                            </p>
+                        </div>
+                    </div>
+                </t>
+
+                <t t-set="partials" t-value="o.move_id._get_reconciled_invoices_partials()[0]"/>
+                <t t-set="partials" t-value="o.move_id._get_reconciled_invoices_partials()[0]"/>
+                <t t-set="invoices" t-value="{partial[2].move_id for partial in partials}"/>
+                <!-- Check if invoices include different currencies -->
+                <t t-foreach="invoices" t-as="inv">
+                    <t t-if="any(inv.currency_id != par[2].currency_id for par in inv._get_reconciled_invoices_partials()[0])"
+                       t-set="otherCurrency" t-value="True"/>
+                </t>
+
+                <t t-set="has_tax" t-value="false"/>
+                <t t-set="regularized" t-value="0"/>
+                <t t-set="partials" t-value="o.move_id._get_reconciled_invoices_partials()[0]"/>
+                <t t-set="invoices" t-value="{partial[2].move_id for partial in partials}"/>
+                <table class="table table-sm" style="font-size:small;">
+                    <thead>
+                        <tr>
+                            <th>
+                                <span>Data de Emissão</span>
+                            </th>
+                            <th>
+                                <span>Número</span>
+                            </th>
+
+                            <th class="text-end">
+                                <span>Total</span>
+                            </th>
+                            <th class="text-end">
+                                <span>Disc.%</span>
+                            </th>
+                            <!--     <th class="text-end">
+                                     <span>Montante Original</span>
+                                 </th>-->
+                            <th class="text-end">Ret</th>
+                            <th class="text-end">Unpaid</th>
+                            <!--<th class="text-end">
+                                <span>Balance</span>
+                            </th>-->
+                            <th class="text-end">Valor Pago</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="invoices" t-as="inv">
+                            <t t-set="amount" t-value="inv.amount_total"/>
+                            <!--<t t-set="inv" t-value="rec[2].move_id"/>-->
+                            <td>
+                                <span t-field="inv.invoice_date"/>
+                            </td>
+                            <td>
+                                <span t-field="inv.name"/>
+                            </td>
+                            <!--                            <td>
+                                                            <span t-field="inv.ref"/>
+                                                        </td>-->
+                            <td class="text-end">
+                                <span t-field="inv.amount_total"/>
+                            </td>
+                            <td class="text-end">
+                                <span t-field="inv.amount_discount"/>
+                            </td>
+                            <!--     <td class="text-end">
+                                     <span t-esc="amount"
+                                           t-options="{'widget': 'monetary', 'display_currency': inv.currency_id}"/>
+                                 </td>-->
+                            <td class="text-end">
+                                <t t-set="applied_wth"
+                                   t-value="-sum([tax.amount for tax in inv.invoice_line_ids.tax_ids if tax.is_withholding])"/>
+                                <span t-esc="applied_wth"/>
+                            </td>
+                            <!--  <td class="text-end">
+                                  <t t-set="applied_t"
+                                     t-value="-sum([tax.amount for tax in inv.invoice_line_ids.tax_ids if tax.is_withholding])"/>
+                                  <span t-esc="applied_t"/>
+                              </td>-->
+                            <td class="text-end">
+                                <span t-field="inv.amount_residual"/>
+                            </td>
+                            <td class="text-end">
+                                <t t-set="regularized"
+                                   t-value="regularized + (inv.amount_total - inv.amount_residual)"/>
+                                <span t-esc="inv.amount_total - inv.amount_residual"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="clearfix">
+                <div class="row">
+                    <div class="col-4 ml-auto " style="font-size:small;">
+                        <table class="table table-sm">
+                            <tr>
+                                <td>
+                                    <strong>Regularized Amount</strong>
+                                </td>
+                                <td class="text-end">
+                                    <span t-esc="regularized"
+                                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Total Received</strong>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="o.amount"
+                                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 ml-4" t-if="has_tax==true" style="font-size:x-small;">
+                    <strong>Taxes Resume:</strong>
+
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Number</th>
+                                <th>Tax</th>
+                                <th class="text-end">Base</th>
+                                <th class="text-end">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.reconciled_invoice_ids.invoice_line_ids" t-as="inv">
+                                <tr t-foreach="inv.tax_line_ids" t-as="tax">
+                                    <t t-set="has_tax" t-value="true" t-if="tax.tax_exigibility in ['on_payment']"/>
+                                    <td t-if="tax.tax_exigibility == 'on_invoice'">
+                                        <span t-esc="inv.number"/>
+                                    </td>
+                                    <td t-if="tax.tax_exigibility == 'on_invoice'">
+                                        <span t-esc="tax.name"/>
+                                    </td>
+                                    <td class="text-end" t-if="tax.tax_exigibility == 'on_invoice'">
+                                        <span t-esc="tax.base"/>
+                                    </td>
+                                    <td class="text-end" t-if="tax.tax_exigibility == 'on_invoice'">
+                                        <span t-esc="tax.amount"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <t t-set="regularized"
+                                           t-value="regularized + (inv.amount_total - inv.residual)"/>
+                                        <span t-esc="inv.amount_total - inv.residual"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-xs-12 ml-4" style="font-size:small;">
+                        <h6>
+                            <strong>Total Received in text:</strong>
+                            <span t-field="o.amount_text"/>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+            <div id="signature-board" class="col-xs-6 ml-4"
+                         style="margin-top:120px;float:right;">
+                        <span>
+                          <strong>Assinatura do Cliente:</strong>
+                        </span>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <p>_________________________________________</p>
+                    </div>
+
+
+            <t t-if="o.date" t-set="document_signature"
+               t-value="'Processado por Programa Validado n.º' + o.company_id.software_validation_number + ' ' + o.company_id.software_id"/>
+<!--            <t t-set="document_name"-->
+<!--               t-value="'Os bens/serviços foram colocados à disposição do adquirente na data e local constante nas facturas.'"/>-->
+        </t>
+    </template>
+
+    <template id="report_payment_receipt_agt">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-if="o.company_id.country_id.code == 'AO'">
+                    <t t-set="lang" t-value="o.partner_id.lang or o.company_id.partner_id.lang"/>
+                    <t t-call="l10n_ao.report_payment_receipt_document_agt" t-lang="lang"/>
+                </t>
+                <t t-else="">
+                    <t t-set="lang" t-value="o.partner_id.lang or o.company_id.partner_id.lang"/>
+                    <t t-call="account.report_payment_receipt_document" t-lang="lang"/>
+                </t>
+
+            </t>
+        </t>
+    </template>
+</odoo>

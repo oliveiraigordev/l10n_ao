@@ -1,0 +1,21 @@
+<odoo>
+
+    <record id="view_account_move_edit_wizard" model="ir.ui.view">
+        <field name="name">account.move.edit.account.wizard.form</field>
+        <field name="model">account.move.edit.account.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Alterar lançamentos na fatura">
+                <group>
+                    <field name="move_id"/>
+                    <field name="line_id" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="new_account_id" options="{'no_open': True, 'no_create': True}"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" string="Salvar" type="object" class="oe_highlight"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

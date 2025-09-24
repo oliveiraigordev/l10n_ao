@@ -1,0 +1,2231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- L10n_ao_hr Layout-->
+    <template id="internal_layout_l1on_ao_hr">
+
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <div class="header">
+            <div class="row">
+                <div class="col-6 text-start">
+                    <strong>
+                        <span t-esc="company.name" style="font-size: small;"/>
+                    </strong>
+                    <br/>
+                    <p t-esc="company.vat" style="font-size:small;"/>
+                </div>
+                <div class="col-4  text-end">
+                    <span t-if="company.street" t-field="company.street" style="font-size: small;"/>
+                    <span t-if="company.zip" t-field="company.zip" style="font-size: small;"/>
+                    <br/>
+                    <span t-if="company.city" t-field="company.city" style="font-size: small;"/>
+                    <span t-if="company.street2" t-field="company.street2" style="font-size: small;"/>
+                </div>
+                <div class="col-2 offset-3 text-end" style="float:left">
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <span class="page"/>
+                        </li>
+                        <li class="list-inline-item">/</li>
+                        <li class="list-inline-item">
+                            <span class="topage"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-out="0"/>
+        </div>
+    </template>
+
+    <template id="internal_layout_double_l1on_ao_hr">
+
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <div class="header">
+            <div class="row">
+                <div class="col-2 offset-3 text-end" style="float:left">
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <span class="page"/>
+                        </li>
+                        <li class="list-inline-item">/</li>
+                        <li class="list-inline-item">
+                            <span class="topage"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-out="0"/>
+        </div>
+
+    </template>
+
+    <!--REPORT-->
+
+    <template id="report_hr_termination_certificate">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                    <div class="page">
+                        <strong>
+                            <h1 style="text-align: center;">CERTIFICADO DE TRABALHO</h1>
+                        </strong>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <span style="text-align: center;fonte-size: 140px">
+                            A <strong>S.O.S TIS</strong>, certifica para os devidos fins, nos termos do artigo 217ª da
+                            Lei Geral do Trabalho, que
+                            <strong>
+                                <span t-esc="o.employee_id.name"/>
+                            </strong>
+                            , trabalhou nesta empresa pelo período de
+                            <span t-esc="o.date_start"/>
+                            a<span t-esc="o.date_end"/>, tendo exercido a função de
+                            <strong>
+                                <span t-esc="o.employee_id.job_title"/>
+                            </strong>
+                            .
+                        </span>
+                        <br/>
+                        <br/>
+                        <br/>
+
+                        <div style="text-align: center;">
+                            <span style="text-align: center;">Luanda, aos
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>
+                                .
+                            </span>
+                            <br/>
+                            <br/>
+                            <p>
+                                <strong style="text-align: center;">
+                                    ____________________________________________________________________
+                                </strong>
+                            </p>
+                            <p>
+                                <strong style="text-align: center;">S.O.S TIS</strong>
+                            </p>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_work_declaration">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <style type="text/css">
+                        * {padding-bottom: 0 !important;
+                        padding-top: 0 !important;
+                        margin-bottom: 0 !important;margin-top:0 !important; }
+                    </style>
+                    <div class="page">
+                        <div class="text-center">
+                            <h4>
+                                <b>DECLARAÇÃO DE TRABALHO</b>
+                            </h4>
+                        </div>
+                        <div class="text-justify">
+                            <br/>
+                            <br/>
+                            <br/>
+                            <b>
+                                <span t-field="res_company.name"/>
+                            </b>
+                            , com sede em
+                            <span
+                                    t-field="res_company.state_id"/>
+                            ,
+                            <span t-field="res_company.street"/>
+                            ,
+                            resgistada na Conservatória do Registo Comercial em Luanda so o nº
+                            <span
+                                    t-field="res_company.company_registry"/>
+                            , titular do número
+                            de identificação fiscal nº<span t-field="res_company.vat"/>.
+                            <br/>
+                            <br/>
+                            Declara que o funcionário
+                            <b>
+                                <span t-field="o.employee_id"/>
+                            </b>
+                            , natural de
+                            <span
+                                    t-field="o.employee_id.place_of_birth"/>
+                            nascido aos
+                            <span
+                                    t-esc="o.employee_id.birthday.strftime('%d de %B de %Y')"/>
+                            , titular do B.I nº
+                            <span t-field="o.employee_id.identification_id"/>
+                            residente em<span
+                                t-field="o.employee_id.address_home_id.city"/>, é trabalhador desta empresa com um
+                            contracto
+                            activo do tipo
+                            <span t-field="o.contract_type"/>
+                            , tendo uma remuneração mensal de
+                            <span
+                                    t-field="o.wage"/>
+                            conforme o contracto estabelecido.
+                            <br/>
+                            <br/>
+                            <br/>
+                            <span t-field="res_company.state_id.name"/>,
+                            <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d de %B de %Y')"/>
+                        </div>
+                        <div class="text-center">
+                            <br/>
+                            <br/>
+                            A Direcção
+                            <br/>
+                            <br/>
+                            _______________________________________________
+
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_hr_term_of_termination">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="o" t-value="o.with_context(lang=lang)"/>
+
+                    <div class="page">
+                        <strong>
+                            <h4 style="text-align: center;">TERMO DE CESSAÇÃO DO CONTRATO DE TRABALHO POR MÚTUO ACORDO
+                            </h4>
+                        </strong>
+                        <br/>
+                        <br/>
+                        <span>Pelo presente instrumento particular em que são partes:</span>
+                        <br/>
+
+                        <span style="text-align: center;fonte-size: 140px">
+                            <strong>. S.O.S TIS</strong>, com sede em Luanda, neste acto representada por Diretor
+                            Admnistrativo, doravante denominada simplesmente EMPRESA,
+                            <br/>
+                            <br/>
+                            <span>
+                                <strong>1.
+                                    <span t-esc="o.employee_id.name"/>
+                                </strong>
+                                , portador(a) nº<span t-esc="o.employee_id.identification_id"/>, emitido em aos
+                                , natural de<span t-esc="o.employee_id.place_of_birth"/>, têm justo e MUTUAMENTE
+                                acordado o seguinte:
+                            </span>
+                            <br/>
+                            <br/>
+                            <span>
+                                2. Consoante facultado no artigo 222 da Lei Geral do Trabalho de Angola, mesmo não
+                                havendo justa causa para a rescisão do contrato de trabalho, as partes acima elencadas,
+                                doravante denominadas para esta finalidade simplesmente EMPRESA
+                                e TRABALHADOR(A), respectivamente, declaram não ter mais interesse na continuidade, a
+                                partir de
+                                <strong>
+                                    <span t-esc="context_timestamp(datetime.datetime(o.termination_date.year, o.termination_date.month, o.termination_date.day)).strftime('%d/%m/%Y')"/>
+                                </strong>
+                                , do contrato de
+                                trabalho para execução do serviço de
+                                <strong>
+                                    <span t-esc="o.employee_id.job_title"/>
+                                </strong>
+                                , pelo que resolvem por mútuo acordo celebrar o presente Termo.
+                            </span>
+                            <br/>
+                            <br/>
+                            <span>
+                                3. Considerando a livre manifestação de vontade de ambas as Partes (EMPRESA e
+                                TRABALHADOR), resolvem pôr fim ao contrato
+                                de trabalho por tempo certo, celebrado aos
+                                <span
+                                        t-esc="context_timestamp(datetime.datetime(o.date_start.year, o.date_start.month, o.date_start.day)).strftime('%d/%m/%Y')"/>
+                                , o que fazem pelo
+                                presente TERMO, sem vício ou coacção.
+                            </span>
+                            <br/>
+                            <br/>
+                            <span>
+                                4. Pela cessação do contrato de trabalho por mútuo, restou pactuado que o TRABALHADOR
+                                receberá os valores das verbas
+                                rescisórias discriminadas no demonstrativo em anexo.
+                            </span>
+                            <br/>
+                            <br/>
+                            <span>
+                                5. O TRABALHADOR receberá, até o dia
+                                <strong>
+                                    <span t-esc="context_timestamp(datetime.datetime(o.termination_date.year, o.termination_date.month, o.termination_date.day)).strftime('%d/%m/%Y')"/>
+                                </strong>
+                                , por meio de transferência bancária para
+                                o banco, na conta , a quantia AKZ valor
+                                a receber no ato da rescisão (
+                                <strong>
+                                    <span t-esc="o.total_paid_words"/>
+                                </strong>
+                                ), razão pela qual outorga
+                                à EMPRESA, pelo presente instrumento e valores aqui consignados, plena, geral e
+                                irrevogável quitação do objecto do contrato de
+                                trabalho, incluindo todos os valores, indemnizações e compensações decorrentes do
+                                contrato de trabalho, não podendo nada mais
+                                reclamar em juízo ou fora dele.
+                            </span>
+                            <br/>
+                            <br/>
+                            <span>
+                                6. O TRABALHADOR(A) se compromete a não divulgar qualquer informação ou valor contidos
+                                no presente Termo de Mútuo Acordo,
+                                os quais deverão ser mantidos confidenciais pelas PARTES, em especial pelo
+                                TRABALHADOR(A), ad perpetum, ou seja, por prazo
+                                indeterminado e em quaisquer hipóteses.
+                            </span>
+                            <br/>
+                            <br/>
+                            <span>
+                                7. O TRABALHADOR(A) se compromete a não divulgar para qualquer pessoa e por qualquer
+                                meio nenhuma informação sobre
+                                negócios ou documentos que o mesmo participou ou tomou ciência em razão da qualidade de
+                                funcionário da EMPRESA, os quais
+                                deversão ser mantidos confidenciais pelas PARTES, em especial pelo TRABALHADOR(A), ad
+                                perpetum, ou seja, por prazo
+                                indeterminado e para todas as hipóteses.
+                            </span>
+                            <br/>
+                            <br/>
+                            <span>
+                                8. As partes declaram, na presente oportunidade, quitação recíproca do período
+                                compreendido de data de
+                                <strong>
+                                    <span t-esc="context_timestamp(datetime.datetime(o.date_start.year, o.date_start.month, o.date_start.day)).strftime('%d/%m/%Y')"/>
+                                </strong>
+                                a
+                                <strong>
+                                    <span t-esc="context_timestamp(datetime.datetime(o.termination_date.year, o.termination_date.month, o.termination_date.day)).strftime('%d/%m/%Y')"/>
+                                </strong>
+                                .
+                            </span>
+                            <br/>
+                            <br/>
+                            <span>
+                                9. Os efeitos jurídicos do presente TERMO têm seu início na data de sua assinatura e,
+                                portanto, eficácia imediata.
+                            </span>
+                            <br/>
+                            <br/>
+                            <span>
+                                10. A realização do exame ocupacional de desligamento é obrigação do Trabalhador, sendo
+                                de sua única e inteira responsabilidade a
+                                decião de não o fazer, pelo que isenta por completo a empresa nesta hipótese.
+                            </span>
+                            <br/>
+                            <br/>
+                            <span>
+                                11. Fica eleito o Tribunal Provincial de Luanda como único foro competente para dirimir
+                                eventuais dúvidas e litígios advindos do
+                                presente TERMO.
+                            </span>
+                            <br/>
+                            <br/>
+                            <span>
+                                E, por serem partes legítimas, capazes e assim estarem justas e mutuamente acordadas,
+                                firmam, na presença das testemunhas abaixo, o
+                                presente TERMO DE CESSAÇÂO DE CONTRATO DE TRABALHO POR MÚTUO ACORDO, o que fazem livres
+                                de qualquer vício de vontade,
+                                em 2 (duas) vias de igual teor e forma.
+                            </span>
+                        </span>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <div style="text-align: center;">
+                            <span style="text-align: center;">Feito em Luanda, ao
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>
+                                .
+                            </span>
+                            <br/>
+                            <br/>
+                            <p>
+                                <strong style="text-align: center;">S.O.S TIS</strong>
+                                <br/>
+                                <br/>
+                                <strong style="text-align: center;">
+                                    ____________________________________________________________________
+                                </strong>
+                            </p>
+
+                            <br/>
+                            <br/>
+                            <p>
+                                <strong style="text-align: center;">TRABALHADOR</strong>
+                                <br/>
+                                <br/>
+                                <strong style="text-align: center;">
+                                    ____________________________________________________________________
+                                </strong>
+                            </p>
+                            <p>
+                                <strong style="text-align: center;">S.O.S TIS</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_hr_termination_mock_receipt_payslip">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="l10n_ao_hr.internal_layout_l1on_ao_hr">
+                    <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                    <div class="page" style="font-size: xx-small;">
+                        <style type="text/css">
+                            table, tr, td, th{
+                            border: none;
+
+                            }
+                        </style>
+                        <br/>
+                        <br/>
+                        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                             style="margin-top: 20px; margin-bottom: 20px; height: auto; width: 200px;" alt="Logo"/>
+
+                        <div style="border-bottom: 3px solid black; padding-bottom: 10px; margin-bottom: 10px;">
+                            <h4 style="margin: 0px; padding: 0px; font-size: 20px; font-weight: bold">Recibo de
+                                Vencimento(Simulado de Rescisão)
+                            </h4>
+                        </div>
+                        <table class="table table-sm" style="border-collapse: collapse; border: none;">
+                            <tr>
+                                <td style="font-weight: bold; ">Período</td>
+                                <td>
+                                    <span t-field="o.payslip_period"/>
+                                </td>
+                                <td style="font-weight: bold;">Nome</td>
+                                <td>
+                                    <span t-field="o.employee_id"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Data Fecho</td>
+                                <td>
+                                    <span t-field="o.date_to"/>
+                                </td>
+                                <td style="font-weight: bold;">N.º Mecan.</td>
+                                <td>
+                                    <span t-esc="o.employee_id.employee_number and o.employee_id.employee_number.zfill(4) or ''"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Vencimento</td>
+                                <td>
+                                    <!--<span t-field="o.contract_id.wage_final"/>-->
+                                    <span t-field="o.wage"/>
+                                </td>
+                                <td style="font-weight: bold;">Categoria</td>
+                                <td>
+                                    <span t-field="o.employee_id.job_id"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Venc. / Hora</td>
+                                <td>
+                                    <span t-field="o.hour_salary"/>
+                                </td>
+                                <td style="font-weight: bold;">N.º Benef.</td>
+                                <td>
+                                    <span t-field="o.employee_id.social_security"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">N. Dias Mês</td>
+                                <td>
+                                    <span t-field="o.worked_days"/>
+                                </td>
+                                <td style="font-weight: bold;">N.º Contrib.</td>
+                                <td>
+                                    <span t-field="o.employee_id.fiscal_number"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;"/>
+                                <td/>
+                                <td style="font-weight: bold;">Departamento</td>
+                                <td>
+                                    <span t-field="o.employee_id.department_id"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;"/>
+                                <td/>
+                                <td style="font-weight: bold;">Seguro</td>
+                                <td/>
+                            </tr>
+                        </table>
+
+                        <table class="table table-sm">
+                            <tr>
+                                <th colspan="6" style="font-weight: bold; border-bottom: solid 1px black">Faltas
+                                </th>
+                                <th/>
+                                <th colspan="3"
+                                    style="font-weight: bold; margin-right: 10px; border-bottom: solid 1px black">
+                                    Retenção IRT
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="font-weight: bold;">Alim.</th>
+                                <th style="font-weight: bold;">Turno</th>
+                                <th style="font-weight: bold;">CDH</th>
+                                <th style="font-weight: bold;">CDD</th>
+                                <th style="font-weight: bold;">SDH</th>
+                                <th style="font-weight: bold;">SDD</th>
+                                <th/>
+                                <th style="font-weight: bold; text-align: center;">IRT Retido</th>
+                                <th style="font-weight: bold; text-align: center;">Total Remun.</th>
+                            </tr>
+                            <tr>
+                                <td style="border-top: solid 1px lightgray"/>
+                                <td style="border-top: solid 1px lightgray"/>
+                                <td style="border-top: solid 1px lightgray"/>
+                                <td style="border-top: solid 1px lightgray"/>
+                                <td style="border-top: solid 1px lightgray"/>
+                                <td style="border-top: solid 1px lightgray"/>
+                                <td style="border-top: solid 1px lightgray"/>
+                                <td style="text-align: center; border-top: solid 1px lightgray">10,11</td>
+                                <td style="text-align: center; border-top: solid 1px lightgray">
+                                    <span t-field="o.total_remunerations"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="table table-sm">
+                            <tr style="border-top: 1px solid black;">
+                                <th style="font-weight: bold; text-align: left">Código</th>
+                                <th style="font-weight: bold; text-align: left">Data</th>
+                                <th style="font-weight: bold; text-align: left">Descrição</th>
+                                <th style="font-weight: bold; text-align: left"/>
+                                <th style="font-weight: bold; text-align: left">Remunerações</th>
+                                <th style="font-weight: bold; text-align: left">Descontos</th>
+                            </tr>
+
+                            <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">
+                                <td>
+                                    <span t-field="line.code"/>
+                                </td>
+                                <td>
+                                    <span t-field="o.date_to"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.salary_rule_id.name"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-if="line.deduction != 0.0 and line.code in ['ATRA', 'FJNR', 'FI', 'FJR']"
+                                          t-field="line.deduction"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-if="line.remuneration != 0.0" t-field="line.remuneration"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-if="line.deduction != 0.0 and line.code not in ['ATRA', 'FJNR', 'FI', 'FJR']"
+                                          t-field="line.deduction"/>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                        <table class="table table-sm">
+                            <tr>
+                                <td class="col-8"
+                                    style="font-weight: bold; text-align: right; border-top: 1px solid black;">Total
+                                </td>
+                                <td class="col-2"
+                                    style="font-weight: bold; text-align: center; border-top: 1px solid black;">
+                                    <span t-field="o.total_remunerations"/>
+                                </td>
+                                <td class="col-2"
+                                    style="font-weight: bold; text-align: center; border-top: 1px solid black;">
+                                    <span t-field="o.total_deductions"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="table table-sm">
+                            <tr>
+                                <th style="font-weight: bold" colspan="5">Pagamento efetuado em:</th>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; text-align: center; border-top: solid 1px lightgray">%
+                                </td>
+                                <td style="font-weight: bold; border-top: solid 1px lightgray">Remuneração de
+                                    Pagamento
+                                </td>
+                                <td style="font-weight: bold; border-top: solid 1px lightgray">Moeda</td>
+                                <td/>
+                                <td/>
+                                <td style="border-top: solid 1px black; text-align: center">Valor referente ao
+                                    salário
+                                </td>
+                                <td style="font-weight: bold; border-top: solid 1px black; text-align: center">
+                                    <span t-field="o.total_paid"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <br/>
+                                <td style="text-align: center; border-top: solid 1px lightgray">100.00</td>
+                                <td style="text-align: center; border-top: solid 1px lightgray">
+                                    <span t-field="o.employee_id.payment_method"/>
+                                </td>
+                                <td style="border-top: solid 1px lightgray">AKZ</td>
+                                <td/>
+                                <td/>
+                                <td style="text-align: center">Contra Valor em Dólar</td>
+                                <td style="text-align: center">
+                                    <span t-if="o.employee_id.contract_type.code in ['EXPATRIADO_RESIDENTE', 'EXPATRIADO']"
+                                          t-field="o.total_paid_usd"/>
+                                </td>
+                            </tr>
+                            <!--                            <tr>-->
+                            <!--                                <td/>-->
+                            <!--                                <td/>-->
+                            <!--                                <td/>-->
+                            <!--                                <td/>-->
+                            <!--                                <td/>-->
+                            <!--                                <td style="text-align: center">Contra Valor em Euro</td>-->
+                            <!--                                <td style="text-align: center">-->
+                            <!--                                    <span t-if="o.employee_id.contract_type.code in ['EXPATRIADO_RESIDENTE', 'EXPATRIADO']"-->
+                            <!--                                          t-field="o.total_paid_euro"/>-->
+                            <!--                                </td>-->
+                            <!--                            </tr>-->
+                        </table>
+
+                        <br/>
+                        <p style="text-align: center; font-weight: bold">Obs.</p>
+                        <br/>
+                        <p style="font-style: italic">Este documento não serve como um documento original.</p>
+                        <br/>
+                        <p>© ODOO ERP / Licença: TIS</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_hr_simple_payslip">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="l10n_ao_hr.internal_layout_double_l1on_ao_hr">
+                    <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                    <div class="page" style="font-size: xx-small;">
+                        <style type="text/css">
+                            table, tr, td, th{
+                            border: none;
+
+                            }
+                        </style>
+                        <div>
+                            <span style="float:left;">
+                                <span t-esc="o.company_id.name" style="font-weight: bold;font-size: xx-small;"/>
+                                <br/>
+                                <p t-esc="o.company_id.vat" style="font-size: xx-small;"/>
+                            </span>
+                            <span style="float:right;">
+                                <span>
+                                    <span t-if="o.company_id.street" t-field="o.company_id.street"
+                                          style="font-size: xx-small;"/>
+                                    <span t-if="o.company_id.zip" t-field="o.company_id.zip"
+                                          style="font-size: xx-small;"/>,
+                                </span>
+                                <br/>
+                                <span>
+                                    <span t-if="o.company_id.city" t-field="o.company_id.city"
+                                          style="font-size: xx-small;"/>
+                                    <span t-if="o.company_id.street2" t-field="o.company_id.street2"
+                                          style="font-size: xx-small;"/>
+                                </span>
+                            </span>
+                        </div>
+                        <br/>
+                        <br/>
+                        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                             style="margin-top: 20px; margin-bottom: 20px; height: auto; width: 150px;" alt="Logo"/>
+
+                        <div style="border-bottom: 3px solid black; padding-bottom: 10px; margin-bottom: 10px;">
+                            <h4 style="margin: 0px; padding: 0px; font-size: 20px; font-weight: bold">Recibo de
+                                Vencimentos (Original)
+                            </h4>
+                        </div>
+                        <table class="table table-sm" style="border-collapse: collapse; border: none;">
+                            <tr>
+                                <td style="font-weight: bold; ">Período</td>
+                                <td>
+                                    <span t-field="o.payslip_period"/>
+                                </td>
+                                <td style="font-weight: bold;">Nome</td>
+                                <td>
+                                    <span t-field="o.employee_id"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Data Fecho</td>
+                                <td>
+                                    <span t-field="o.date_to"/>
+                                </td>
+                                <td style="font-weight: bold;">N.º Mecan.</td>
+                                <td>
+                                    <span t-esc="o.employee_id.employee_number and o.employee_id.employee_number.zfill(4) or ''"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Vencimento</td>
+                                <td>
+                                    <!--<span t-field="o.contract_id.wage_final"/>-->
+                                    <span t-field="o.wage"/>
+                                </td>
+                                <td style="font-weight: bold;">Categoria</td>
+                                <td>
+                                    <span t-field="o.employee_id.job_id"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Venc. / Hora</td>
+                                <td>
+                                    <span t-field="o.hour_salary"/>
+                                </td>
+                                <td style="font-weight: bold;">N.º Benef.</td>
+                                <td>
+                                    <span t-field="o.employee_id.social_security"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">N. Dias Mês</td>
+                                <td>
+                                    <span t-field="o.worked_days"/>
+                                </td>
+                                <td style="font-weight: bold;">N.º Contrib.</td>
+                                <td>
+                                    <span t-field="o.employee_id.fiscal_number"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;"/>
+                                <td/>
+                                <td style="font-weight: bold;">Departamento</td>
+                                <td>
+                                    <span t-field="o.employee_id.department_id"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;"/>
+                                <td/>
+                                <td style="font-weight: bold;">Seguro</td>
+                                <td/>
+                            </tr>
+                        </table>
+
+                        <table class="table table-sm">
+                            <tr>
+                                <th colspan="6" style="font-weight: bold; border-bottom: solid 1px black">Faltas
+                                </th>
+                                <th/>
+                                <th colspan="3"
+                                    style="font-weight: bold; margin-right: 10px; border-bottom: solid 1px black">
+                                    Retenção IRT
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="font-weight: bold;">Alim.</th>
+                                <th style="font-weight: bold;">Turno</th>
+                                <th style="font-weight: bold;">CDH</th>
+                                <th style="font-weight: bold;">CDD</th>
+                                <th style="font-weight: bold;">SDH</th>
+                                <th style="font-weight: bold;">SDD</th>
+                                <th/>
+                                <th style="font-weight: bold; text-align: center;">IRT Retido</th>
+                                <th style="font-weight: bold; text-align: center;">Total Remun.</th>
+                            </tr>
+                            <tr>
+                                <td style="border-top: solid 1px lightgray"/>
+                                <td style="border-top: solid 1px lightgray"/>
+                                <td style="border-top: solid 1px lightgray"/>
+                                <td style="border-top: solid 1px lightgray"/>
+                                <td style="border-top: solid 1px lightgray"/>
+                                <td style="border-top: solid 1px lightgray"/>
+                                <td style="border-top: solid 1px lightgray"/>
+                                <td style="text-align: center; border-top: solid 1px lightgray">10,11</td>
+                                <td style="text-align: center; border-top: solid 1px lightgray">
+                                    <span t-field="o.total_remunerations"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="table table-sm">
+                            <tr style="border-top: 1px solid black;">
+                                <th style="font-weight: bold; text-align: left">Código</th>
+                                <th style="font-weight: bold; text-align: left">Data</th>
+                                <th style="font-weight: bold; text-align: left">Descrição</th>
+                                <th style="font-weight: bold; text-align: left"/>
+                                <th style="font-weight: bold; text-align: left">Remunerações</th>
+                                <th style="font-weight: bold; text-align: left">Descontos</th>
+                            </tr>
+
+                            <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">
+                                <td>
+                                    <span t-field="line.code"/>
+                                </td>
+                                <td>
+                                    <span t-field="o.date_to"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.salary_rule_id.name"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-if="line.deduction != 0.0 and line.code in ['ATRA', 'FJNR', 'FI', 'FJR']"
+                                          t-field="line.deduction"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-if="line.remuneration != 0.0" t-field="line.remuneration"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-if="line.deduction != 0.0 and line.code not in ['ATRA', 'FJNR', 'FI', 'FJR']"
+                                          t-field="line.deduction"/>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                        <table class="table table-sm">
+                            <tr>
+                                <td class="col-8"
+                                    style="font-weight: bold; text-align: right; border-top: 1px solid black;">Total
+                                </td>
+                                <td class="col-2"
+                                    style="font-weight: bold; text-align: center; border-top: 1px solid black;">
+                                    <span t-field="o.total_remunerations"/>
+                                </td>
+                                <td class="col-2"
+                                    style="font-weight: bold; text-align: center; border-top: 1px solid black;">
+                                    <span t-field="o.total_deductions"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="table table-sm" style="margin-top: -10px;">
+                            <tr>
+                                <th style="font-weight: bold" colspan="5">Pagamento efetuado em:</th>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; text-align: center; border-top: solid 1px lightgray">%
+                                </td>
+                                <td style="font-weight: bold; border-top: solid 1px lightgray">Remuneração de
+                                    Pagamento
+                                </td>
+                                <td style="font-weight: bold; border-top: solid 1px lightgray">Moeda</td>
+                                <td/>
+                                <td/>
+                                <td style="border-top: solid 1px black; text-align: center">Total Pago (AKZ)
+                                </td>
+                                <td style="font-weight: bold; border-top: solid 1px black; text-align: center">
+                                    <span t-field="o.total_paid"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <br/>
+                                <td style="text-align: center; border-top: solid 1px lightgray">100.00</td>
+                                <td style="text-align: center; border-top: solid 1px lightgray">
+                                    <span t-field="o.employee_id.payment_method"/>
+                                </td>
+                                <td style="border-top: solid 1px lightgray">AKZ</td>
+                                <td t-if="o.employee_id.contract_type.code == 'EXPATRIADO_RESIDENTE'"/>
+                                <td t-if="o.employee_id.contract_type.code == 'EXPATRIADO_RESIDENTE'"/>
+                                <td t-if="o.employee_id.contract_type.code == 'EXPATRIADO_RESIDENTE'"
+                                    style="text-align: center">Contra Valor em Dólar
+                                </td>
+                                <td style="text-align: center">
+                                    <span t-if="o.employee_id.contract_type.code == 'EXPATRIADO_RESIDENTE'"
+                                          t-field="o.total_paid_usd"/>
+                                </td>
+
+                            </tr>
+                        </table>
+
+                        <table class="table table-sm" style="margin-top: -10px;"
+                               t-if="o.employee_id.contract_type.code == 'EXPATRIADO'">
+                            <tr>
+                                <th style="font-weight: bold" colspan="5">OUTROS DETALHES</th>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; text-align: center; border-top: solid 1px lightgray">
+                                    Benefícios Recebidos em Kwanzas em Angola Deduzido de
+                                    Adiantamento
+                                </td>
+                                <td style="font-weight: bold; border-top: solid 1px lightgray">Valor liquido a ser
+                                    pago em moeda estrageira
+                                </td>
+                                <td style="font-weight: bold; border-top: solid 1px lightgray">Contra Valor em
+                                    Dólar
+                                </td>
+                            </tr>
+                            <tr>
+                                <br/>
+                                <td style="text-align: center; border-top: solid 1px lightgray">
+                                    <span t-if="o.employee_id.contract_type.code == 'EXPATRIADO'"
+                                          t-field="o.total_recept_kz"/>
+                                </td>
+                                <td style="text-align: center; border-top: solid 1px lightgray">
+                                    <span t-if="o.employee_id.contract_type.code == 'EXPATRIADO'"
+                                          t-field="o.total_recept_usd_kz"/>
+                                </td>
+                                <td style="border-top: solid 1px lightgray">
+                                    <span t-if="o.employee_id.contract_type.code == 'EXPATRIADO'"
+                                          t-field="o.total_paid_usd"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <p style="text-align: center; font-weight: bold">Obs.</p>
+                        <br/>
+                        <div style="padding-bottom: 10px; border-bottom: 1px solid black; max-width: 200px">
+                            <p style="font-style: italic">Declaro que recebi a quantia constante neste recibo.</p>
+                        </div>
+                        <br/>
+                        <br/>
+                        <p>© ODOO ERP / Licença: TISTECH ANGOLA</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="l10n_ao_hr_report_double_payslip">
+        <t t-call="web.html_container">
+            <t t-set="payslip" t-value="2"/>
+            <t t-foreach="docs" t-as="o">
+                <t t-call="l10n_ao_hr.internal_layout_double_l1on_ao_hr">
+                    <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="page" style="width:100%;">
+
+                        <style type="text/css">
+                            table, tr, td, th{
+                            border: none;
+
+                            }
+                        </style>
+
+                        <div class="page" style="font-size: xx-small; width:48%; float:left;margin-top:-110px;">
+                            <div>
+                                <span style="float:left;">
+                                    <span t-esc="o.company_id.name" style="font-weight: bold;font-size: xx-small;"/>
+                                    <br/>
+                                    <p t-esc="o.company_id.vat" style="font-size: xx-small;"/>
+                                </span>
+                                <span style="float:right;">
+                                    <span>
+                                        <span t-if="o.company_id.street" t-field="o.company_id.street"
+                                              style="font-size: xx-small;"/>
+                                        <span t-if="o.company_id.zip" t-field="o.company_id.zip"
+                                              style="font-size: xx-small;"/>,
+                                    </span>
+                                    <br/>
+                                    <span>
+                                        <span t-if="o.company_id.city" t-field="o.company_id.city"
+                                              style="font-size: xx-small;"/>
+                                        <span t-if="o.company_id.street2" t-field="o.company_id.street2"
+                                              style="font-size: xx-small;"/>
+                                    </span>
+                                </span>
+                            </div>
+                            <br/>
+                            <br/>
+                            <strong>
+                                <p style="color:#FFFFFF">OCULTO</p>
+                            </strong>
+                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                 style="margin-top: 20px; margin-bottom: 20px; height: auto; width: 100px;" alt="Logo"/>
+                            <br/>
+                            <div style="border-bottom: 3px solid black; padding-bottom: 10px; margin-bottom: 10px;">
+
+                                <h5 style="margin: 0px; padding: 0px; font-size: 20px; font-weight: bold">Recibo de
+                                    Vencimentos (Original)
+                                </h5>
+                            </div>
+                            <table class="table table-sm" style="border-collapse: collapse; border: none;">
+                                <tr>
+                                    <td style="font-weight: bold; ">Período</td>
+                                    <td>
+                                        <span t-field="o.payslip_period"/>
+                                    </td>
+                                    <td style="font-weight: bold;">Nome</td>
+                                    <td>
+                                        <span t-field="o.employee_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">Data Fecho</td>
+                                    <td>
+                                        <span t-field="o.date_to"/>
+                                    </td>
+                                    <td style="font-weight: bold;">N.º Mecan.</td>
+                                    <td>
+                                        <span t-esc="o.employee_id.employee_number and o.employee_id.employee_number.zfill(4) or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">Vencimento</td>
+                                    <td>
+                                        <!--<span t-field="o.contract_id.wage_final"/>-->
+                                        <span t-field="o.wage"/>
+                                    </td>
+                                    <td style="font-weight: bold;">Categoria</td>
+                                    <td>
+                                        <span t-field="o.employee_id.job_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">Venc. / Hora</td>
+                                    <td>
+                                        <span t-field="o.hour_salary"/>
+                                    </td>
+                                    <td style="font-weight: bold;">N.º Benef.</td>
+                                    <td>
+                                        <span t-field="o.employee_id.social_security"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">N. Dias Mês</td>
+                                    <td>
+                                        <span t-field="o.worked_days"/>
+                                    </td>
+                                    <td style="font-weight: bold;">N.º Contrib.</td>
+                                    <td>
+                                        <span t-field="o.employee_id.fiscal_number"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;"/>
+                                    <td/>
+                                    <td style="font-weight: bold;">Departamento</td>
+                                    <td>
+                                        <span t-field="o.employee_id.department_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;"/>
+                                    <td/>
+                                    <td style="font-weight: bold;">Seguro</td>
+                                    <td/>
+                                </tr>
+                            </table>
+
+                            <table class="table table-sm">
+                                <tr>
+                                    <th colspan="6" style="font-weight: bold; border-bottom: solid 1px black">Faltas
+                                    </th>
+                                    <th/>
+                                    <th colspan="3"
+                                        style="font-weight: bold; margin-right: 10px; border-bottom: solid 1px black">
+                                        Retenção IRT
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th style="font-weight: bold;">Alim.</th>
+                                    <th style="font-weight: bold;">Turno</th>
+                                    <th style="font-weight: bold;">CDH</th>
+                                    <th style="font-weight: bold;">CDD</th>
+                                    <th style="font-weight: bold;">SDH</th>
+                                    <th style="font-weight: bold;">SDD</th>
+                                    <th/>
+                                    <th style="font-weight: bold; text-align: center;">IRT Retido</th>
+                                    <th style="font-weight: bold; text-align: center;">Total Remun.</th>
+                                </tr>
+                                <tr>
+                                    <td style="border-top: solid 1px lightgray"/>
+                                    <td style="border-top: solid 1px lightgray"/>
+                                    <td style="border-top: solid 1px lightgray"/>
+                                    <td style="border-top: solid 1px lightgray"/>
+                                    <td style="border-top: solid 1px lightgray"/>
+                                    <td style="border-top: solid 1px lightgray"/>
+                                    <td style="border-top: solid 1px lightgray"/>
+                                    <td style="text-align: center; border-top: solid 1px lightgray">10,11</td>
+                                    <td style="text-align: center; border-top: solid 1px lightgray">
+                                        <span t-field="o.total_remunerations"/>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table class="table table-sm">
+                                <tr style="border-top: 1px solid black;">
+                                    <th style="font-weight: bold; text-align: left">Código</th>
+                                    <th style="font-weight: bold; text-align: left">Data</th>
+                                    <th style="font-weight: bold; text-align: left">Descrição</th>
+                                    <th style="font-weight: bold; text-align: left"/>
+                                    <th style="font-weight: bold; text-align: left">Remunerações</th>
+                                    <th style="font-weight: bold; text-align: left">Descontos</th>
+                                </tr>
+
+                                <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">
+                                    <td>
+                                        <span t-field="line.code"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.date_to"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.salary_rule_id.name"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-if="line.deduction != 0.0 and line.code in ['ATRA', 'FJNR', 'FI', 'FJR']"
+                                              t-field="line.deduction"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-if="line.remuneration != 0.0" t-field="line.remuneration"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-if="line.deduction != 0.0 and line.code not in ['ATRA', 'FJNR', 'FI', 'FJR']"
+                                              t-field="line.deduction"/>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <table class="table table-sm">
+                                <tr>
+                                    <td class="col-8"
+                                        style="font-weight: bold; text-align: right; border-top: 1px solid black;">Total
+                                    </td>
+                                    <td class="col-2"
+                                        style="font-weight: bold; text-align: center; border-top: 1px solid black;">
+                                        <span t-field="o.total_remunerations"/>
+                                    </td>
+                                    <td class="col-2"
+                                        style="font-weight: bold; text-align: center; border-top: 1px solid black;">
+                                        <span t-field="o.total_deductions"/>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table class="table table-sm" style="margin-top: -10px;">
+                                <tr>
+                                    <th style="font-weight: bold" colspan="5">Pagamento efetuado em:</th>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; text-align: center; border-top: solid 1px lightgray">%
+                                    </td>
+                                    <td style="font-weight: bold; border-top: solid 1px lightgray">Remuneração de
+                                        Pagamento
+                                    </td>
+                                    <td style="font-weight: bold; border-top: solid 1px lightgray">Moeda</td>
+                                    <td/>
+                                    <td/>
+                                    <td style="border-top: solid 1px black; text-align: center">Total Pago (AKZ)
+                                    </td>
+                                    <td style="font-weight: bold; border-top: solid 1px black; text-align: center">
+                                        <span t-field="o.total_paid"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <br/>
+                                    <td style="text-align: center; border-top: solid 1px lightgray">100.00</td>
+                                    <td style="text-align: center; border-top: solid 1px lightgray">
+                                        <span t-field="o.employee_id.payment_method"/>
+                                    </td>
+                                    <td style="border-top: solid 1px lightgray">AKZ</td>
+                                    <td t-if="o.employee_id.contract_type.code == 'EXPATRIADO_RESIDENTE'"/>
+                                    <td t-if="o.employee_id.contract_type.code == 'EXPATRIADO_RESIDENTE'"/>
+                                    <td t-if="o.employee_id.contract_type.code == 'EXPATRIADO_RESIDENTE'"
+                                        style="text-align: center">Contra Valor em Dólar
+                                    </td>
+                                    <td style="text-align: center">
+                                        <span t-if="o.employee_id.contract_type.code == 'EXPATRIADO_RESIDENTE'"
+                                              t-field="o.total_paid_usd"/>
+                                    </td>
+
+                                </tr>
+                            </table>
+
+                            <table class="table table-sm" style="margin-top: -10px;"
+                                   t-if="o.employee_id.contract_type.code == 'EXPATRIADO'">
+                                <tr>
+                                    <th style="font-weight: bold" colspan="5">OUTROS DETALHES</th>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; text-align: center; border-top: solid 1px lightgray">
+                                        Benefícios Recebidos em Kwanzas em Angola Deduzido de
+                                        Adiantamento
+                                    </td>
+                                    <td style="font-weight: bold; border-top: solid 1px lightgray">Valor liquido a ser
+                                        pago em moeda estrageira
+                                    </td>
+                                    <td style="font-weight: bold; border-top: solid 1px lightgray">Contra Valor em
+                                        Dólar
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <br/>
+                                    <td style="text-align: center; border-top: solid 1px lightgray">
+                                        <span t-if="o.employee_id.contract_type.code == 'EXPATRIADO'"
+                                              t-field="o.total_recept_kz"/>
+                                    </td>
+                                    <td style="text-align: center; border-top: solid 1px lightgray">
+                                        <span t-if="o.employee_id.contract_type.code == 'EXPATRIADO'"
+                                              t-field="o.total_recept_usd_kz"/>
+                                    </td>
+                                    <td style="border-top: solid 1px lightgray">
+                                        <span t-if="o.employee_id.contract_type.code == 'EXPATRIADO'"
+                                              t-field="o.total_paid_usd"/>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <p style="text-align: center; font-weight: bold">Obs.</p>
+                            <br/>
+                            <div style="padding-bottom: 10px; border-bottom: 1px solid black; max-width: 200px">
+                                <p style="font-style: italic">Declaro que recebi a quantia constante neste recibo.</p>
+                            </div>
+                            <br/>
+                            <br/>
+                            <p>© ODOO ERP / Licença: TISTECH ANGOLA</p>
+                        </div>
+
+                        <div class="page" style="font-size: xx-small; width:49%;float:right;margin-top:-110px;">
+
+                            <div>
+                                <span style="float:left;">
+                                    <span t-esc="o.company_id.name" style="font-weight: bold;font-size: xx-small;"/>
+                                    <br/>
+                                    <p t-esc="o.company_id.vat" style="font-size: xx-small;"/>
+                                </span>
+                                <span style="float:right;">
+                                    <span>
+                                        <span t-if="o.company_id.street" t-field="o.company_id.street"
+                                              style="font-size: xx-small;"/>
+                                        <span t-if="o.company_id.zip" t-field="o.company_id.zip"
+                                              style="font-size: xx-small;"/>,
+                                    </span>
+                                    <br/>
+                                    <span>
+                                        <span t-if="o.company_id.city" t-field="o.company_id.city"
+                                              style="font-size: xx-small;"/>
+                                        <span t-if="o.company_id.street2" t-field="o.company_id.street2"
+                                              style="font-size: xx-small;"/>
+                                    </span>
+                                </span>
+                            </div>
+                            <br/>
+                            <br/>
+                            <strong>
+                                <p style="color:#FFFFFF">OCULTO</p>
+                            </strong>
+                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                 style="margin-top: 20px; margin-bottom: 20px; height: auto; width: 100px;" alt="Logo"/>
+                            <br/>
+                            <div style="border-bottom: 3px solid black; padding-bottom: 10px; margin-bottom: 10px;">
+
+                                <h4 style="margin: 0px; padding: 0px; font-size: 20px; font-weight: bold">Recibo de
+                                    Vencimentos (Duplicado)
+                                </h4>
+                            </div>
+                            <table class="table table-sm" style="border-collapse: collapse; border: none;">
+                                <tr>
+                                    <td style="font-weight: bold; ">Período</td>
+                                    <td>
+                                        <span t-field="o.payslip_period"/>
+                                    </td>
+                                    <td style="font-weight: bold;">Nome</td>
+                                    <td>
+                                        <span t-field="o.employee_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">Data Fecho</td>
+                                    <td>
+                                        <span t-field="o.date_to"/>
+                                    </td>
+                                    <td style="font-weight: bold;">N.º Mecan.</td>
+                                    <td>
+                                        <span t-esc="o.employee_id.employee_number and o.employee_id.employee_number.zfill(4) or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">Vencimento</td>
+                                    <td>
+                                        <!--<span t-field="o.contract_id.wage_final"/>-->
+                                        <span t-field="o.wage"/>
+                                    </td>
+                                    <td style="font-weight: bold;">Categoria</td>
+                                    <td>
+                                        <span t-field="o.employee_id.job_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">Venc. / Hora</td>
+                                    <td>
+                                        <span t-field="o.hour_salary"/>
+                                    </td>
+                                    <td style="font-weight: bold;">N.º Benef.</td>
+                                    <td>
+                                        <span t-field="o.employee_id.social_security"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">N. Dias Mês</td>
+                                    <td>
+                                        <span t-field="o.worked_days"/>
+                                    </td>
+                                    <td style="font-weight: bold;">N.º Contrib.</td>
+                                    <td>
+                                        <span t-field="o.employee_id.fiscal_number"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;"/>
+                                    <td/>
+                                    <td style="font-weight: bold;">Departamento</td>
+                                    <td>
+                                        <span t-field="o.employee_id.department_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;"/>
+                                    <td/>
+                                    <td style="font-weight: bold;">Seguro</td>
+                                    <td/>
+                                </tr>
+                            </table>
+
+                            <table class="table table-sm">
+                                <tr>
+                                    <th colspan="6" style="font-weight: bold; border-bottom: solid 1px black">Faltas
+                                    </th>
+                                    <th/>
+                                    <th colspan="3"
+                                        style="font-weight: bold; margin-right: 10px; border-bottom: solid 1px black">
+                                        Retenção IRT
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th style="font-weight: bold;">Alim.</th>
+                                    <th style="font-weight: bold;">Turno</th>
+                                    <th style="font-weight: bold;">CDH</th>
+                                    <th style="font-weight: bold;">CDD</th>
+                                    <th style="font-weight: bold;">SDH</th>
+                                    <th style="font-weight: bold;">SDD</th>
+                                    <th/>
+                                    <th style="font-weight: bold; text-align: center;">IRT Retido</th>
+                                    <th style="font-weight: bold; text-align: center;">Total Remun.</th>
+                                </tr>
+                                <tr>
+                                    <td style="border-top: solid 1px lightgray"/>
+                                    <td style="border-top: solid 1px lightgray"/>
+                                    <td style="border-top: solid 1px lightgray"/>
+                                    <td style="border-top: solid 1px lightgray"/>
+                                    <td style="border-top: solid 1px lightgray"/>
+                                    <td style="border-top: solid 1px lightgray"/>
+                                    <td style="border-top: solid 1px lightgray"/>
+                                    <td style="text-align: center; border-top: solid 1px lightgray">10,11</td>
+                                    <td style="text-align: center; border-top: solid 1px lightgray">974,58</td>
+                                </tr>
+                            </table>
+
+                            <table class="table table-sm">
+                                <tr style="border-top: 1px solid black;">
+                                    <th style="font-weight: bold; text-align: left">Código</th>
+                                    <th style="font-weight: bold; text-align: left">Data</th>
+                                    <th style="font-weight: bold; text-align: left">Descrição</th>
+                                    <th style="font-weight: bold; text-align: left"/>
+                                    <th style="font-weight: bold; text-align: left">Remunerações</th>
+                                    <th style="font-weight: bold; text-align: left">Descontos</th>
+                                </tr>
+
+                                <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">
+                                    <td>
+                                        <span t-field="line.code"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.date_to"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.salary_rule_id.name"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-if="line.deduction != 0.0 and line.code in ['ATRA', 'FJNR', 'FI', 'FJR']"
+                                              t-field="line.deduction"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-if="line.remuneration != 0.0" t-field="line.remuneration"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-if="line.deduction != 0.0 and line.code not in ['ATRA', 'FJNR', 'FI', 'FJR']"
+                                              t-field="line.deduction"/>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <table class="table table-sm">
+                                <tr>
+                                    <td class="col-8"
+                                        style="font-weight: bold; text-align: right; border-top: 1px solid black;">Total
+                                    </td>
+                                    <td class="col-2"
+                                        style="font-weight: bold; text-align: center; border-top: 1px solid black;">
+                                        <span t-field="o.total_remunerations"/>
+                                    </td>
+                                    <td class="col-2"
+                                        style="font-weight: bold; text-align: center; border-top: 1px solid black;">
+                                        <span t-field="o.total_deductions"/>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table class="table table-sm" style="margin-top: -10px;">
+                                <tr>
+                                    <th style="font-weight: bold" colspan="5">Pagamento efetuado em:</th>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; text-align: center; border-top: solid 1px lightgray">%
+                                    </td>
+                                    <td style="font-weight: bold; border-top: solid 1px lightgray">Remuneração de
+                                        Pagamento
+                                    </td>
+                                    <td style="font-weight: bold; border-top: solid 1px lightgray">Moeda</td>
+                                    <td/>
+                                    <td/>
+                                    <td style="border-top: solid 1px black; text-align: center">Total Pago (AKZ)
+                                    </td>
+                                    <td style="font-weight: bold; border-top: solid 1px black; text-align: center">
+                                        <span t-field="o.total_paid"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <br/>
+                                    <td style="text-align: center; border-top: solid 1px lightgray">100.00</td>
+                                    <td style="text-align: center; border-top: solid 1px lightgray">
+                                        <span t-field="o.employee_id.payment_method"/>
+                                    </td>
+                                    <td style="border-top: solid 1px lightgray">AKZ</td>
+                                    <td t-if="o.employee_id.contract_type.code == 'EXPATRIADO_RESIDENTE'"/>
+                                    <td t-if="o.employee_id.contract_type.code == 'EXPATRIADO_RESIDENTE'"/>
+                                    <td t-if="o.employee_id.contract_type.code == 'EXPATRIADO_RESIDENTE'"
+                                        style="text-align: center">Contra Valor em Dólar
+                                    </td>
+                                    <td style="text-align: center">
+                                        <span t-if="o.employee_id.contract_type.code == 'EXPATRIADO_RESIDENTE'"
+                                              t-field="o.total_paid_usd"/>
+                                    </td>
+
+                                </tr>
+                            </table>
+
+                            <table class="table table-sm" style="margin-top: -10px;"
+                                   t-if="o.employee_id.contract_type.code == 'EXPATRIADO'">
+                                <tr>
+                                    <th style="font-weight: bold" colspan="5">OUTROS DETALHES</th>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; text-align: center; border-top: solid 1px lightgray">
+                                        Benefícios Recebidos em Kwanzas em Angola Deduzido de
+                                        Adiantamento
+                                    </td>
+                                    <td style="font-weight: bold; border-top: solid 1px lightgray">Valor liquido a ser
+                                        pago em moeda estrageira
+                                    </td>
+                                    <td style="font-weight: bold; border-top: solid 1px lightgray">Contra Valor em
+                                        Dólar
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <br/>
+                                    <td style="text-align: center; border-top: solid 1px lightgray">
+                                        <span t-if="o.employee_id.contract_type.code == 'EXPATRIADO'"
+                                              t-field="o.total_recept_kz"/>
+                                    </td>
+                                    <td style="text-align: center; border-top: solid 1px lightgray">
+                                        <span t-if="o.employee_id.contract_type.code == 'EXPATRIADO'"
+                                              t-field="o.total_recept_usd_kz"/>
+                                    </td>
+                                    <td style="border-top: solid 1px lightgray">
+                                        <span t-if="o.employee_id.contract_type.code == 'EXPATRIADO'"
+                                              t-field="o.total_paid_usd"/>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <p style="text-align: center; font-weight: bold">Obs.</p>
+                            <br/>
+                            <div style="padding-bottom: 10px; border-bottom: 1px solid black; max-width: 200px">
+                                <p style="font-style: italic">Declaro que recebi a quantia constante neste recibo.</p>
+                            </div>
+                            <br/>
+                            <br/>
+                            <p>© ODOO ERP / Licença: TISTECH ANGOLA</p>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="salary_map">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <style type="text/css">
+                        .container2 {
+                        height: 8cm;
+                        /* Width and count aren't respected, but you
+                        have to give at least some dummy value (??). */
+                        /* This is the strange way to define the number of columns:
+                        50% = 2 columns, 33% = 3 columns 25% = 4 columns */
+                        -webkit-columns: 0 0; width: 25%;
+                        /* Gap and rule do work. */
+                        -webkit-column-gap: 1em;
+                        text-align: justify;
+                        }
+                        .text-center {text-align:center;}
+                        .text-left {text-align:left;}
+                        .text-right {text-align:right;}
+                        table
+                        {
+                        border-collapse: collapse;
+                        width:1200px; font-size:12px;
+                        }
+                        table tr th { min-width:12px; border: 2px solid #000;
+                        line-height: 1.42857;
+                        vertical-align: top;
+                        }
+                        table tr td,th{padding:5px;}
+                        hr{border:solid 1px #000;}
+                        .name{width:250px;}
+                        border-bottom: solid 2px #000;
+                        border-collapse: separate;
+                        }
+                        .title{font-size:13px; font-weight: bold;}
+                        .border_bottom {border-bottom: solid black 1px;}
+                        .horizontal_line{
+                        border-bottom: 3px solid black;
+                        }
+                    </style>
+                    <div class="oe_structure"/>
+                    <div>
+                        <div class="horizontal_line"/>
+                        <h4>Mapa Salarial (<t t-esc="period"/>)
+                        </h4>
+                        <div class="col-xs-12">
+                            <t t-set="total_remunerations" t-value="0"/>
+                            <t t-set="total_overtimes" t-value="0"/>
+                            <t t-set="total_other_remunerations" t-value="0"/>
+                            <t t-set="total_misses" t-value="0"/>
+                            <t t-set="total_inss" t-value="0"/>
+                            <t t-set="total_irt" t-value="0"/>
+                            <t t-set="total_extra_deductions" t-value="0"/>
+                            <t t-set="total_paid_amount" t-value="0"/>
+                            <table>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td colspan="3" class=" text-center title">
+                                        <div class="border_bottom">Remunerações</div>
+                                    </td>
+                                    <td colspan="4" class=" text-center title">
+                                        <div class="border_bottom">Deduções</div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>Func.</th>
+                                    <th class="name">Nome</th>
+                                    <th>Venc.</th>
+                                    <th>H. Extra</th>
+                                    <th>Outros</th>
+                                    <th>Atr/Fal</th>
+                                    <th>INSS</th>
+                                    <th>IRT</th>
+                                    <th>Outros</th>
+                                    <th>Pago AKZ</th>
+                                </tr>
+                                <tr t-foreach="docs" t-as="o">
+                                    <td class="text-right">
+                                        <span t-esc="o.employee_id.employee_number and o.employee_id.employee_number.zfill(4) or ''"/>
+                                    </td>
+                                    <td class="text-left name">
+                                        <span t-field="o.employee_id"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-out="o.remuneration"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-out="o.overtimes"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-out=" formatLang(env, line.o.extra_remunerations)"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-out="o.misses"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="formatLang(env, abs(o.amount_inss))"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="formatLang(env, abs(o.amount_irt))"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="formatLang(env, abs(o.extra_deductions))"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="o.total_paid"/>
+                                    </td>
+                                    <t t-set="total_overtimes" t-value="total_overtimes + o.overtimes"/>
+                                    <t t-set="total_other_remunerations"
+                                       t-value="total_other_remunerations + o.total_remunerations - o.remuneration - o.overtimes"/>
+                                    <t t-set="total_inss" t-value="total_inss + o.amount_inss"/>
+                                    <t t-set="total_irt" t-value="total_irt + o.amount_irt"/>
+                                    <t t-set="total_misses" t-value="total_misses + o.misses"/>
+                                    <t t-set="total_extra_deductions"
+                                       t-value="total_extra_deductions + o.extra_deductions"/>
+                                    <t t-set="total_paid_amount" t-value="total_paid_amount + o.total_paid"/>
+                                    <t t-set="total_remunerations" t-value="total_remunerations + o.remuneration"/>
+                                </tr>
+                                <tr>
+                                    <th colspan="2" class="text-right">Totals</th>
+                                    <th class="text-right">
+                                        <span t-esc="formatLang(env, abs(total_remunerations))"/>
+                                    </th>
+                                    <th class="text-right">
+                                        <span t-esc="formatLang(env, abs(total_overtimes))"/>
+                                    </th>
+                                    <th class="text-right">
+                                        <span t-esc="formatLang(env, abs(total_other_remunerations))"/>
+                                    </th>
+                                    <th class="text-right">
+                                        <span t-esc="formatLang(env, abs(total_misses))"/>
+                                    </th>
+                                    <th class="text-right">
+
+                                        <span t-esc="formatLang(env, abs(-total_inss))"/>
+                                    </th>
+                                    <th class="text-right">
+                                        <span t-esc="formatLang(env, abs(-total_irt))"/>
+                                    </th>
+                                    <th class="text-right">
+                                        <t t-if="total_extra_deductions != 0">
+                                            <span t-esc="formatLang(env, abs(-total_extra_deductions))"/>
+                                        </t>
+                                        <t t-if="total_extra_deductions == 0">
+                                            <span t-esc="formatLang(env, abs(total_extra_deductions))"/>
+                                        </t>
+                                    </th>
+                                    <th class="text-right">
+                                        <span t-esc="formatLang(env, abs(total_paid_amount))"/>
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="bank_map">
+        <t t-call="web.html_container">
+            <t t-call="l10n_ao_hr.internal_layout_l1on_ao_hr">
+                <div class="page">
+                    <style type="text/css">
+                        .container2 {
+                        height: 8cm;
+                        /* Width and count aren't respected, but you
+                        have to give at least some dummy value (??). */
+                        /* This is the strange way to define the number of columns:
+                        50% = 2 columns, 33% = 3 columns 25% = 4 columns */
+                        -webkit-columns: 0 0; width: 25%;
+                        /* Gap and rule do work. */
+                        -webkit-column-gap: 1em;
+                        text-align: justify;
+                        }
+                        .text-center {text-align:center;}
+                        .text-left {text-align:left;}
+                        .text-right {text-align:right;}
+                        .conteudo
+                        {
+                        border-collapse: collapse;
+                        width:100%; font-size:12px;
+                        min-height:900px;
+                        }
+                        .conteudo > tr > th, td, th { min-width:12px; border: 1px solid #000;
+                        line-height: 1
+                        vertical-align: top;
+                        padding:5px;
+                        }
+                        hr{border:solid 1px #000;}
+                        .name{width:250px;}
+                        .borda{
+                        border-bottom: solid 1px #000;
+                        border-collapse: separate;
+                        }
+                        .borda_completa{border: solid 1px #000;}
+                        .title{font-weight: bold;}
+                        .no_border{border:none;}
+                        .rep{width:500px;padding-bottom:0;}
+                        .details{width:600px;}
+                        .right{float:right;}
+                        .inf{width:100%;
+                        min-width:30px;
+                        }
+                        .inf tr{line-height:0.5;}
+                        .inf td{border:none;}
+                        .font_12{font-size:12px;}
+                        .font_10{font-size:10px;}
+                        #header .col1{width: 100px;}
+                        #main .col1{width: 450px;}
+                        #main .col2{width: 250px;}
+                    </style>
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div>
+                                <h4 class="text-center" style="color:blue">Relatório de Pagamento Bancário</h4>
+                                <div class="horizontal_line"/>
+                            </div>
+                            <table id="header" class="conteudo font_12 no_border">
+                                <tr class="no_border">
+                                    <th>Período</th>
+                                    <td>
+                                        <t t-esc="period"/>
+                                    </td>
+                                    <th>Ano</th>
+                                    <td>
+                                        <t t-esc="year"/>
+                                    </td>
+                                    <th>Total (AKZ)</th>
+                                    <td>
+                                        <t t-esc="formatLang(env, sum_total_paid)"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <br/>
+                            <tr t-foreach="payslip_data" t-as="data">
+                                <table id="main" class="conteudo font_12">
+                                    <thead>
+                                        <tr>
+                                            <th>Folha Pagamento -
+                                                <t t-esc="data['employee_type']"/>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>Conta :
+                                                <t t-esc="data['bank']"/>
+                                                / AKZ
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <table id="main" class="conteudo font_12">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Nº Conta</th>
+                                            <th>IBAN</th>
+                                            <th>NIB</th>
+                                            <th>Valor (AKZ)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="data['payslip_ids']" t-as="line">
+                                            <td class="text-left col1">
+                                                <span t-field="line.employee_id.name"/>
+                                            </td>
+                                            <td class="text-left col2">
+                                                <span t-field="line.employee_id.bank_account"/>
+                                            </td>
+                                            <td class="text-left col2">
+                                                <span t-field="line.employee_id.bank_iban_account"/>
+                                            </td>
+                                            <td class="text-left col2">
+                                                <span t-field="line.employee_id.bank_nib_account"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="formatLang(env, line.total_paid)"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br/>
+                                <br/>
+                            </tr>
+                            <br/>
+                            <p>© ODOO ERP / Licença: TIS</p>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="inss_map">
+        <t t-call="web.html_container">
+            <t t-call="l10n_ao_hr.internal_layout_double_l1on_ao_hr">
+                <div class="page">
+                    <style type="text/css">
+                        .container2 {
+                        height: 8cm;
+                        /* Width and count aren't respected, but you
+                        have to give at least some dummy value (??). */
+                        /* This is the strange way to define the number of columns:
+                        50% = 2 columns, 33% = 3 columns 25% = 4 columns */
+                        -webkit-columns: 0 0; width: 25%;
+                        /* Gap and rule do work. */
+                        -webkit-column-gap: 1em;
+                        text-align: justify;
+                        }
+                        .text-center {text-align:center;}
+                        .text-left {text-align:left;}
+                        .text-right {text-align:right;}
+                        .conteudo
+                        {
+                        border-collapse: collapse;
+                        width:100%; font-size:12px;
+                        min-height:900px;
+                        }
+                        .conteudo > tr > th, td, th { min-width:12px; border: 1px solid #000;
+                        line-height: 1
+                        vertical-align: top;
+                        padding:5px;
+                        }
+                        hr{border:solid 1px #000;}
+                        .name{width:250px;}
+                        .borda{
+                        border-bottom: solid 1px #000;
+                        border-collapse: separate;
+                        }
+                        .borda_completa{border: solid 1px #000;}
+                        .title{font-weight: bold;}
+                        .no_border{border:none;}
+                        .rep{width:500px;padding-bottom:0;}
+                        .details{width:600px;}
+                        .right{float:right;}
+                        .inf{width:100%;
+                        min-width:30px;
+                        }
+                        .inf tr{line-height:0.5;}
+                        .inf td{border:none;}
+                        .font_12{font-size:12px;}
+                        .font_10{font-size:10px;}
+                    </style>
+                    <div/>
+                    <div>
+                        <div>
+                            <table class="header">
+                                <tr>
+                                    <td class="text-center rep no_border font_12">
+                                        REPÚBLICA DE ANGOLA
+                                        <BR/>
+                                        INSTITUTO NACIONAL DE SEGURANÇA SOCIAL
+                                    </td>
+                                    <td class="details">
+                                        <table class="no_border inf font_10">
+                                            <tr>
+                                                <td class="no_border">ACTIVIDADE</td>
+                                                <td class="no_border">
+                                                    <span t-field="res_company.partner_id.industry_id"/>
+                                                </td>
+                                                <td colspan="3" class="no_border">Nº C0NTRIB. S.SOCIAL</td>
+                                                <td class="no_border">
+                                                    <span t-field="res_company.company_security_number"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="no_border">NOME</td>
+                                                <td colspan="3" class="no_border">
+                                                    <span t-field="res_company.name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="no_border">MORADA</td>
+                                                <td colspan="3" class="no_border">
+                                                    <span t-field="res_company.street"/>
+                                                    <span t-if="res_company.street and res_company.street2"
+                                                          t-esc="', '"/>
+                                                    <span t-field="res_company.street2"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="no_border">LOCALIDADE</td>
+                                                <td colspan="2" class="no_border">
+                                                    <span t-field="res_company.city"/>
+                                                </td>
+                                                <td colspan="2" class="no_border">TELEFONE:
+                                                    <span t-field="res_company.phone"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" class="no_border">CÓDIGO POSTAL</td>
+                                                <td class="no_border">
+                                                    <span t-field="res_company.zip"/>
+                                                </td>
+                                                <td colspan="4" class="no_border">Nº DE IDENTIF. DE PESSOA COLECTIVA
+                                                </td>
+                                                <td class="no_border">
+                                                    <span t-field="res_company.vat"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                        </div>
+                        <div class="col-xs-12 text-left title font_12">
+                            <table class="no_border inf">
+                                <tr class="no_border font_12">
+                                    <td class="title">
+                                        FOLHA DE REMUNERAÇÕES REFERENTES AO MÊS DE
+                                        <span style="float:center">
+                                            <span t-esc="period_month"/>
+                                            DE
+                                            <span t-esc="period_year"/>
+                                        </span>
+                                    </td>
+                                    <td class="title text-center">FOLHA Nº</td>
+                                </tr>
+                            </table>
+                            <br/>
+                        </div>
+                        <div class="col-xs-12">
+                            <t t-set="total_base" t-value="0"/>
+                            <t t-set="total_iliquido" t-value="0"/>
+                            <t t-set="total_extra" t-value="0"/>
+                            <t t-set="total_iliquido3" t-value="0"/>
+                            <t t-set="total_iliquido8" t-value="0"/>
+                            <table class="conteudo font_12">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">Nº</th>
+                                        <th rowspan="2" class="name">Nomes Completos</th>
+                                        <th rowspan="2">Categoria</th>
+                                        <th rowspan="2">Salário Base</th>
+                                        <th rowspan="2">Remuneração Adicional</th>
+                                        <th rowspan="2">Salário Ilíquido</th>
+                                        <th>3%</th>
+                                        <th>8%</th>
+                                        <th rowspan="2">Nº Beneficiario</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Sobre Ilíquido</th>
+                                        <th>Sobre Ilíquido</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="docs" t-as="o">
+                                        <td class="text-right">
+                                            <span t-field="o.employee_id.employee_number"/>
+                                        </td>
+                                        <td class="text-left name">
+                                            <span t-field="o.employee_id"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="o.employee_id.job_id"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="formatLang(env,(o.line_ids.filtered(lambda p: p.code == 'BASE')[0].total))"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="formatLang(env,sum(o.line_ids.filtered(lambda p: p.salary_rule_id.inss_rule and p.code not in ['BASE', 'FAMI', 'sub_fam']).mapped('total')))"/>
+
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="formatLang(env,(o.collected_material_inss))"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="formatLang(env, o.collected_material_inss * 0.03)"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="formatLang(env, o.collected_material_inss * 0.08)"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="o.employee_id.social_security"/>
+                                        </td>
+                                        <t t-set="total_base"
+                                           t-value="total_base + (o.line_ids.filtered(lambda p: p.code == 'BASE')[0].total)"/>
+                                        <t t-set="total_iliquido"
+                                           t-value="total_iliquido + (o.collected_material_inss)"/>
+                                        <t t-set="total_extra"
+                                           t-value="total_extra + sum(o.line_ids.filtered(lambda p: p.salary_rule_id.inss_rule and p.code not in ['BASE', 'FAMI', 'sub_fam']).mapped('total'))"/>
+                                        <t t-set="total_iliquido3"
+                                           t-value="total_iliquido3 + o.collected_material_inss * 0.03"/>
+                                        <t t-set="total_iliquido8"
+                                           t-value="total_iliquido8 + o.collected_material_inss * 0.08"/>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="3" class="text-center">Totais</th>
+                                        <th class="text-right">
+                                            <span t-out="formatLang(env, total_base) "/>
+                                        </th>
+                                        <th class="text-right">
+                                            <span t-out=" formatLang(env, total_extra)"/>
+                                        </th>
+                                        <th class="text-right">
+                                            <span t-out=" formatLang(env, total_iliquido)"/>
+                                        </th>
+                                        <th class="text-right">
+                                            <span t-out=" formatLang(env, total_iliquido3)"/>
+                                        </th>
+                                        <th class="text-right">
+                                            <span t-out=" formatLang(env, total_iliquido8)"/>
+                                        </th>
+                                        <th class="text-right"/>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div>
+                            <table class="no_border inf font_10">
+                                <tr class="no_border font_12">
+                                    <td class="title">Total dos Salários Ilíquidos</td>
+                                    <td class="title text-right">
+                                        <span t-out=" formatLang(env, total_iliquido)"/>
+                                    </td>
+                                    <td/>
+                                    <td/>
+                                </tr>
+                                <tr class="no_border font_12">
+                                    <td class="title">8% Sobre o Salário Ilíquido/Empresa</td>
+                                    <td class="title text-right">
+                                        <span class="text-right" t-out=" formatLang(env, total_iliquido8)"/>
+                                    </td>
+                                    <td/>
+                                    <td/>
+                                </tr>
+                                <tr class="no_border font_12">
+                                    <td class="title">3% Sobre o Salário Ilíquido/Trabalhadores</td>
+                                    <td class="title text-right">
+                                        <span class="text-right" t-out=" formatLang(env, total_iliquido3)"/>
+                                    </td>
+                                    <td/>
+                                    <td/>
+                                </tr>
+                                <tr class="no_border font_12">
+                                    <td class="title">11% Total a Depositar</td>
+                                    <td class="title text-right">
+                                        <span class="text-right"
+                                              t-out=" formatLang(env, total_iliquido3 + total_iliquido8)"/>
+                                    </td>
+                                    <td/>
+                                    <td class="text-center">
+                                        <span><span t-field="res_company.city"/>,
+                                            <span t-esc="day"/>
+                                            DE
+                                            <span t-esc="month"/>
+                                            DE
+                                            <span t-esc="year"/>
+                                        </span>
+                                        <br/>
+                                        <hr/>
+                                        <span class="page"/>
+                                        <p/>(Assinatura e carimbo)
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <br/>
+                    <p>© ODOO ERP / Licença: TIS</p>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="irt_map">
+        <t t-call="web.html_container">
+            <t t-call="l10n_ao_hr.internal_layout_l1on_ao_hr">
+                <div class="page">
+                    <style type="text/css">
+                        .container2 {
+                        height: 8cm;
+                        /* Width and count aren't respected, but you
+                        have to give at least some dummy value (??). */
+                        /* This is the strange way to define the number of columns:
+                        50% = 2 columns, 33% = 3 columns 25% = 4 columns */
+                        -webkit-columns: 0 0; width: 25%;
+                        /* Gap and rule do work. */
+                        -webkit-column-gap: 1em;
+                        text-align: justify;
+                        }
+                        .text-center {text-align:center;}
+                        .text-left {text-align:left;}
+                        .text-right {text-align:right;}
+                        .conteudo
+                        {
+                        border-collapse: collapse;
+                        width:100%; font-size:12px;
+                        min-height:900px;
+                        }
+                        .conteudo > tr > th, td, th { min-width:12px; border: 1px solid #000;
+                        line-height: 1
+                        vertical-align: top;
+                        padding:5px;
+                        }
+                        .name{width:250px;}
+                        .borda{
+                        border-bottom: solid 1px #000;
+                        border-collapse: separate;
+                        }
+                        .borda_completa{border: solid 1px #000;}
+                        .title{font-weight: bold;}
+                        .no_border{border:none;}
+                        .rep{width:500px;padding-bottom:0;}
+                        .details{width:600px;}
+                        .right{float:right;}
+                        .inf{width:100%;
+                        min-width:30px;
+                        }
+                        .inf tr{line-height:0.5;}
+                        .inf td{border:none;}
+                        .font_12{font-size:12px;}
+                        .font_10{font-size:10px;}
+                        .horizontal_line{
+                        border-bottom: 3px solid black; margin-bottom:10px;
+                        }
+                    </style>
+                    <div/>
+                    <div>
+                        <div>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div class="horizontal_line"/>
+                            <div>
+                                <h4 style="float:left;color:blue">Mapa de Liquidação de IRT (<t t-esc="period"/>)
+                                </h4>
+                                <span style="float:right;color:blue">( Valores em AKZ )</span>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <t t-set="total_base_amount_irt" t-value="0"/>
+                                <t t-set="total_liquid" t-value="0"/>
+                                <t t-set="total_other" t-value="0"/>
+                                <t t-set="total_percentual" t-value="0"/>
+                                <table class="conteudo font_12">
+                                    <thead>
+                                        <tr>
+                                            <th>Funcionário</th>
+                                            <th class="name">Nome</th>
+                                            <th>Nº de Contribuinte</th>
+                                            <th>Valor Colectável</th>
+                                            <th>Liquidado</th>
+                                            <th>Outros</th>
+                                            <th>Taxa Média</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="percentual" t-value="0"/>
+                                        <tr t-foreach="docs" t-as="o">
+                                            <td class="text-center">
+                                                <span t-field="o.employee_id.employee_number"/>
+                                            </td>
+                                            <td class="text-left name">
+                                                <span t-field="o.employee_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="o.employee_id.fiscal_number"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="o.amount_base_irt"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="formatLang(env, abs(o.amount_irt))"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="formatLang(env, 0.0)"/>
+                                            </td>
+                                            <t t-set="percentual" t-value="(-o.amount_irt * 100) / o.amount_base_irt"/>
+                                            <td class="text-right">
+                                                <span t-esc="formatLang(env, percentual)"/>
+                                            </td>
+                                            <t t-set="total_base_amount_irt"
+                                               t-value="total_base_amount_irt + o.amount_base_irt "/>
+                                            <t t-set="total_liquid" t-value="total_liquid + abs(o.amount_irt)"/>
+                                            <t t-set="total_other" t-value="total_other + 0.0"/>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3" class="text-center">Totais</th>
+                                            <th class="text-right">
+                                                <span t-out=" formatLang(env, total_base_amount_irt)"/>
+                                            </th>
+                                            <th class="text-right">
+                                                <span t-out=" formatLang(env, total_liquid)"/>
+                                            </th>
+                                            <th class="text-right">
+                                                <span t-out=" formatLang(env, total_other)"/>
+                                            </th>
+                                            <th class="text-right">
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br/>
+                            <br/>
+                            <p>© ODOO ERP / Licença: TIS</p>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

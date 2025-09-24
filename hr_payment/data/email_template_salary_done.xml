@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="email_template_payslip_batch_daf" model="mail.template">
+    <field name="name">Notificação Pagamento em Lote (DAF)</field>
+    <!-- External ID correto para hr.payslip.run é hr_payroll.model_hr_payslip_run -->
+    <field name="model_id" ref="hr_payroll.model_hr_payslip_run"/>
+    <field name="email_from">
+      ${ (user.email_formatted or user.company_id.email) if user else '' }
+    </field>
+    <field name="email_to"><![CDATA[
+      ${ ', '.join(u.partner_id.email for u in ref('seu_modulo.group_daf').users if u.partner_id.email) }
+    ]]></field>
+    <field name="subject">[DAF] Pagamento em Lote "${object.name}" – Estado: ${object.payment_state}</field>
+    <field name="body_html"><![CDATA[
+      <p>Olá,</p>
+      <p>O lote de folha de pagamento <strong>${object.name}</strong> foi enviado para pagamento
+      e agora está no estado <strong>${object.payment_state}</strong>.</p>
+
+      <p><strong>Resumo do Lote:</strong></p>
+      <ul>
+        <li>Nome do Lote: <strong>${object.name}</strong></li>
+        <li>Estado do Pagamento: <strong>${object.payment_state}</strong></li>
+        <li>Qtde de Moves Contábeis: <strong>${object.slip_move_count}</strong></li>
+        <li>Qtde de Pagamentos de Salário: <strong>${object.payment_salary_count}</strong></li>
+      </ul>
+
+      <p>Para verificar detalhes, acesse o menu Folha de Salários → Lotes de Recibos de Vencimento no seu Odoo.</p>
+      <p>Atenciosamente,<br/>Sistema de Folha de Pagamento</p>
+    ]]></field>
+  </record>
+</odoo>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="l10n_ao_hr_work_entry_type_vocation" model="hr.work.entry.type">
+            <field name="name">Paid Vacation</field>
+            <field name="color">0</field>
+            <field name="code">PVOCATION</field>
+            <field name="is_leave" eval="True"/>
+            <field name="round_days">FULL</field>
+            <field name="round_days_type">DOWN</field>
+            <field name="unpaid_structure_ids"
+                   eval="[(4, ref('l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base'))]"/>
+        </record>
+
+        <record id="l10n_ao_hr_leave_type_vocation" model="hr.leave.type">
+            <field name="name">Férias</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">no</field>
+            <field name="leave_validation_type">both</field>
+            <field name="responsible_id" ref="base.user_admin"/>
+            <field name="request_unit">day</field>
+            <field name="support_document" eval="True"/>
+            <field name="time_type">vacation</field>
+            <field name="work_entry_type_id" ref="l10n_ao_hr.l10n_ao_hr_work_entry_type_vocation"/>
+        </record>
+
+        <record id="l10n_ao_hr_leave_typ_falta_injustificada" model="hr.leave.type">
+            <field name="name">Falta Injustificada</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">no</field>
+            <field name="leave_validation_type">hr</field>
+            <field name="responsible_id" ref="base.user_admin"/>
+            <field name="request_unit">hour</field>
+            <field name="support_document" eval="False"/>
+            <field name="time_type">leave</field>
+            <field name="work_entry_type_id" ref="hr_payroll.hr_work_entry_type_out_of_contract"/>
+        </record>
+
+        <record id="l10n_ao_hr_leave_typ_falta_justificada_sem_remuneracao" model="hr.leave.type">
+            <field name="name">Falta justificada Sem Remuneração</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">no</field>
+            <field name="leave_validation_type">hr</field>
+            <field name="responsible_id" ref="base.user_admin"/>
+            <field name="request_unit">hour</field>
+            <field name="support_document" eval="False"/>
+            <field name="time_type">leave</field>
+            <field name="work_entry_type_id" ref="hr_payroll.hr_work_entry_type_out_of_contract"/>
+        </record>
+
+        <record id="l10n_ao_hr_leave_typ_falta_justificada_remunerada" model="hr.leave.type">
+            <field name="name">Falta justificada Remunerada</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">no</field>
+            <field name="leave_validation_type">hr</field>
+            <field name="responsible_id" ref="base.user_admin"/>
+            <field name="request_unit">hour</field>
+            <field name="support_document" eval="False"/>
+            <field name="time_type">leave</field>
+            <field name="work_entry_type_id" ref="hr_work_entry.work_entry_type_attendance"/>
+        </record>
+
+         <record id="l10n_ao_hr_leave_typ_licenca_maternidade" model="hr.leave.type">
+            <field name="name">Licença Maternidade</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">no</field>
+            <field name="leave_validation_type">hr</field>
+            <field name="responsible_id" ref="base.user_admin"/>
+            <field name="request_unit">hour</field>
+            <field name="support_document" eval="False"/>
+            <field name="time_type">leave</field>
+            <field name="work_entry_type_id" ref="hr_work_entry.work_entry_type_attendance"/>
+        </record>
+
+         <record id="l10n_ao_hr_leave_typ_licenca_pre_maternidade" model="hr.leave.type">
+            <field name="name">Licença Pré-Maternidade</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">no</field>
+            <field name="leave_validation_type">hr</field>
+            <field name="responsible_id" ref="base.user_admin"/>
+            <field name="request_unit">hour</field>
+            <field name="support_document" eval="False"/>
+            <field name="time_type">leave</field>
+            <field name="work_entry_type_id" ref="hr_work_entry.work_entry_type_attendance"/>
+        </record>
+    </data>
+</odoo>

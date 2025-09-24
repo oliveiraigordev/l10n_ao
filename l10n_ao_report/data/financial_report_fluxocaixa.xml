@@ -1,0 +1,1132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="account_financial_report_fluxocaixa" model="account.report">
+            <field name="name">Fluxo de Caixa (Directo)</field>
+            <field name="country_id" ref="base.ao"/>
+            <field name="filter_unfold_all" eval="False"/>
+            <field name="filter_journals" eval="False"/>
+            <field name="filter_analytic" eval="False"/>
+            <field name="filter_date_range" eval="True"/>
+            <field name="filter_period_comparison" eval="True"/>
+            <field name="filter_show_draft" eval="False"/>
+            <field name="filter_multi_company">selector</field>
+            <field name="default_opening_date_filter">this_year</field>
+            <field name="search_bar" eval="False"/>
+            <field name="custom_handler_model_id" ref="l10n_ao_report.model_account_fluxo_caixa_report_handler"/>
+            <field name="line_template">l10n_ao_report.line_template_add_notes_ao</field>
+            <field name="main_table_header_template">l10n_ao_report.main_table_header_with_note</field>
+            <field name="column_ids">
+                <record id="account_financial_fluxo_caixa_report_ao_column" model="account.report.column">
+                    <field name="name">.</field>
+                    <field name="expression_label">balance</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="blank_if_zero" eval="False"/>
+                </record>
+            </field>
+        </record>
+
+        <!-- Fluxo de caixa das actividades operacionais -->
+        <record id="account_financial_report_caixa_operacionais" model="account.report.line">
+            <field name="name">FLUXO DE CAIXA DAS ACTIVIDADES OPERACIONAIS</field>
+            <field name="code">CX_OPER</field>
+            <field name="report_id" ref="account_financial_report_fluxocaixa"/>
+            <field eval="1" name="sequence"/>
+            <field eval="0" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+        </record>
+
+        <record id="account_financial_report_caixa_clientes" model="account.report.line">
+            <field name="name">Recebimentos de clientes</field>
+            <field name="code">CX_RECEBI</field>
+            <field name="parent_id" ref="account_financial_report_caixa_operacionais"/>
+            <field eval="2" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Recebimentos de clientes (FC.OPE)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_recebimento_clientes_fc_ope" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_caixa_fornecedores" model="account.report.line">
+            <field name="name">Pagamentos (de caixa) a fornecedores</field>
+            <field name="code">CX_PAGAMEN_FORN</field>
+            <field name="parent_id" ref="account_financial_report_caixa_operacionais"/>
+            <field eval="2" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="default_name">Pagamentos (de caixa) a fornecedores (FC.OPE)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="note"></field>
+            <field name="expression_ids">
+                <record id="account_report_pagamento_clientes_fc_ope" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_caixa_empregados" model="account.report.line">
+            <field name="name">Pagamentos (de caixa) a empregados</field>
+            <field name="code">CX_PAGAMEN_EMPRE</field>
+            <field name="parent_id" ref="account_financial_report_caixa_operacionais"/>
+            <field eval="3" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Pagamentos (de caixa) a empregados (FC.OPE)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_recebimento_empregado_fc_ope" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <!-- Caixa gerada proveniente das operações -->
+        <record id="account_financial_report_caixa_gerada_prov_operac_direc" model="account.report.line">
+            <field name="name">CAIXA GERADA PROVENIENTE DAS OPERAÇÕES:</field>
+            <field name="code">CX_GERA_PROV_OPERAC</field>
+            <field name="parent_id" ref="account_financial_report_caixa_operacionais"/>
+            <field eval="4" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+        </record>
+
+        <record id="account_financial_report_juros_pagos_directo" model="account.report.line">
+            <field name="name">Juros pagos</field>
+            <field name="code">CX_JUROS_PAGOS</field>
+            <field name="parent_id" ref="account_financial_report_caixa_gerada_prov_operac_direc"/>
+            <field eval="5" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="default_name">Juros pagos (FC.OPE)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="note"></field>
+            <field name="expression_ids">
+                <record id="account_report_juros_pagos_fc_ope" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_imposto_lucro_pagos_directo" model="account.report.line">
+            <field name="name">Impostos s/os lucros pagos</field>
+            <field name="code">CX_IMPOSTO_LUCRO_PAGOS</field>
+            <field name="parent_id" ref="account_financial_report_caixa_gerada_prov_operac_direc"/>
+            <field eval="6" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="default_name">Impostos s/os lucros pagos (FC.OPE)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="note"></field>
+            <field name="expression_ids">
+                <record id="account_report_imposto_lucros_pagos_fc_ope" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <!-- Fluxos de caixa antes da rúbrica extraordinária: -->
+        <record id="account_financial_report_cxa_operacionais_extra_1" model="account.report.line">
+            <field name="name">Fluxos de caixa antes da rúbrica extraordinária:</field>
+            <field name="code">CX_OPER_EXTRA_1</field>
+            <field name="parent_id" ref="account_financial_report_caixa_operacionais"/>
+            <field eval="7" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"></field>
+            <field name="expression_ids">
+                <record id="account_report_fluxo_caixa_liquida_fc_ope" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">CX_RECEBI.balance + (CX_PAGAMEN_FORN.balance + CX_PAGAMEN_EMPRE.balance) +
+                        (CX_JUROS_PAGOS.balance + CX_IMPOSTO_LUCRO_PAGOS.balance)
+                    </field>
+                    <field name="subformula">cross_report</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_recebimento_rela_rubr_ope" model="account.report.line">
+            <field name="name">Recebimentos . Relac. Rubricas. Extraordinárias</field>
+            <field name="code">CX_RECEB_RELAC_RUBRIC_EXTRAOR_OPE</field>
+            <field name="parent_id" ref="account_financial_report_cxa_operacionais_extra_1"/>
+            <field eval="8" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="default_name">Recebimentos . Relac. Rubricas. Extraordinárias (FC.OPE)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="note"></field>
+            <field name="expression_ids">
+                <record id="account_report_recebimento_rela_rubr_opera_fc_ope" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_pagameto_rela_rubr_ope" model="account.report.line">
+            <field name="name">Pagamentos Relac. Rubricas. Extraordinárias</field>
+            <field name="code">CX_PAGAM_RELAC_RUBRIC_EXTRAOR_OPE</field>
+            <field name="parent_id" ref="account_financial_report_cxa_operacionais_extra_1"/>
+            <field eval="9" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="default_name">Pagamentos Relac. Rubricas.Extraordinárias (FC.OPE)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="note"></field>
+            <field name="expression_ids">
+                <record id="account_report_pagameto_rela_rubr_operac_fc_ope" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_caixa_liquida_preven_opera" model="account.report.line">
+            <field name="name">Caixa líquida proveniente das actividades operacionais</field>
+            <field name="code">CX_LIQ_OPER</field>
+            <field name="parent_id" ref="account_financial_report_cxa_operacionais_extra_1"/>
+            <field eval="10" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"></field>
+            <field name="expression_ids">
+                <record id="account_report_caixa_liquida_fc_ope" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">CX_RECEBI.balance + (CX_PAGAMEN_FORN.balance + CX_PAGAMEN_EMPRE.balance) +
+                        (CX_JUROS_PAGOS.balance + CX_IMPOSTO_LUCRO_PAGOS.balance) +
+                        (CX_RECEB_RELAC_RUBRIC_EXTRAOR_OPE.balance + CX_PAGAM_RELAC_RUBRIC_EXTRAOR_OPE.balance)
+                    </field>
+                    <field name="subformula">cross_report</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+
+        <!--        FLUXO DE CAIXA DAS ACTIVIDADES DE INVESTIMENTO-->
+        <record id="account_financial_report_caixa_investimento" model="account.report.line">
+            <field name="name">FLUXO DE CAIXA DAS ACTIVIDADES DE INVESTIMENTO</field>
+            <field name="code">CX_INV</field>
+            <field name="report_id" ref="account_financial_report_fluxocaixa"/>
+            <field eval="11" name="sequence"/>
+            <field eval="0" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+        </record>
+
+        <record id="account_financial_report_caixa_inv_rp" model="account.report.line">
+            <field name="name">Recebimentos provenientes de:</field>
+            <field name="code">CX_INV_RP</field>
+            <field name="parent_id" ref="account_financial_report_caixa_investimento"/>
+            <field eval="12" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_cxa_imobiliz_corpor" model="account.report.line">
+            <field name="name">Imobilizações corpóreas</field>
+            <field name="code">CX_IMOBI_CORPO</field>
+            <field name="parent_id" ref="account_financial_report_caixa_investimento"/>
+            <field eval="13" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Imobilizações corpóreas (RECEB.FC.INVEST)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_recebimento_imobiliz_corpor_fc_invest" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_cxa_imobiliz_incorpo" model="account.report.line">
+            <field name="name">Imobilizações incorpóreas</field>
+            <field name="code">CX_IMOBI_INCORPOR</field>
+            <field name="parent_id" ref="account_financial_report_caixa_investimento"/>
+            <field eval="14" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Imobilizações incorpóreas (RECEB.FC.INVEST)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_recebimento_imobiliz_incorpor_fc_invest" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_cxa_investi_financ" model="account.report.line">
+            <field name="name">Investimentos financeiros</field>
+            <field name="code">CX_INVEST_FINANCEIROS</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_investimento"/>
+            <field eval="15" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Investimentos financeiros (RECEB.FC.INVEST)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_recebimento_invest_financ_fc_invest" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_cxa_subsid_invest" model="account.report.line">
+            <field name="name">Subsídios a investimento</field>
+            <field name="code">CX_SUBSID_INVEST</field>
+            <field name="parent_id" ref="account_financial_report_caixa_investimento"/>
+            <field eval="15" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Subsídios a investimento (RECEB.FC.INVEST)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_recebimento_subsid_invest_fc_invest" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_cxa_juros_prove_simila" model="account.report.line">
+            <field name="name">Juros e proveitos similares</field>
+            <field name="code">CX_JUROS_PROVEITOS_SIMILA</field>
+            <field name="parent_id" ref="account_financial_report_caixa_investimento"/>
+            <field eval="16" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Juros e proveitos similares (RECEB.FC.INVEST)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_recebimento_juros_prove_simila_fc_invest" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_cxa_divid_lucro_receb" model="account.report.line">
+            <field name="name">Dividendos ou lucros recebidos</field>
+            <field name="code">CX_DIVID_LUCRO_RECEBI</field>
+            <field name="parent_id" ref="account_financial_report_caixa_investimento"/>
+            <field eval="17" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Dividendos ou lucros recebidos (RECEB.FC.INVEST)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_recebimento_divid_lucro_fc_invest" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_cxa_pagament_respeit" model="account.report.line">
+            <field name="name">Pagamentos respeitantes a:</field>
+            <field name="code">CX_PAGAMENT_RESP</field>
+            <field name="parent_id" ref="account_financial_report_caixa_investimento"/>
+            <field eval="18" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_cxa_imob_corp" model="account.report.line">
+            <field name="name">Imobilizações corpórea</field>
+            <field name="code">CX_IMOB_CORP</field>
+            <field name="parent_id" ref="account_financial_report_caixa_investimento"/>
+            <field eval="19" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Imobilizações corpórea (PAGAM.FC.INVEST)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_pagament_imob_corp_fc_invest" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_cxa_imob_incorp" model="account.report.line">
+            <field name="name">Imobilizações incorpóreas</field>
+            <field name="code">CX_IMOB_INCORP</field>
+            <field name="parent_id" ref="account_financial_report_caixa_investimento"/>
+            <field eval="20" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Imobilizações incorpóreas (PAGAM.FC.INVEST)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_pagament_imob_incorp_fc_invest" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_cxa_inve_fin" model="account.report.line">
+            <field name="name">Investimentos financeiros</field>
+            <field name="code">CX_INVEST_FIN</field>
+            <field name="parent_id" ref="account_financial_report_caixa_investimento"/>
+            <field eval="21" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note">45</field>
+            <field name="default_name">Investimentos financeiros (PAGAM.FC.INVEST)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_pagament_inve_fin_fc_invest" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <!-- Fluxos de caixa antes da rúbrica extraordinária: -->
+        <record id="account_financial_report_cxa_operacionais_extra_2" model="account.report.line">
+            <field name="name">Fluxos de caixa antes da rúbrica extraordinária:</field>
+            <field name="code">CX_OPER_EXTRA_2</field>
+            <field name="parent_id" ref="account_financial_report_caixa_investimento"/>
+            <field eval="22" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"></field>
+            <field name="expression_ids">
+                <record id="account_report_fluxo_caixa_rubr_fc_invest" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">(CX_IMOBI_CORPO.balance + CX_IMOBI_INCORPOR.balance +
+                        CX_INVEST_FINANCEIROS.balance +
+                        CX_SUBSID_INVEST.balance + CX_JUROS_PROVEITOS_SIMILA.balance + CX_DIVID_LUCRO_RECEBI.balance) +
+                        (CX_IMOB_CORP.balance + CX_IMOB_INCORP.balance + CX_INVEST_FIN.balance)
+                    </field>
+                    <field name="subformula">cross_report</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_recebim_rela_rubr_opera_inv" model="account.report.line">
+            <field name="name">Recebimentos . Relac. Rubricas. Extraordinárias</field>
+            <field name="code">CX_RECEB_RELAC_RUBRIC_EXTRAOR_INVEST</field>
+            <field name="parent_id" ref="account_financial_report_cxa_operacionais_extra_2"/>
+            <field eval="23" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="default_name">Recebimentos . Relac. Rubricas. Extraordinárias (FC.INVEST)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="note"></field>
+            <field name="expression_ids">
+                <record id="account_report_recebimento_rela_rubr_opera_fc_invest" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_pagameto_rela_rubr_opera_inves" model="account.report.line">
+            <field name="name">Pagamentos Relac. Rubricas.Extraordinárias</field>
+            <field name="code">CX_PAGAM_RELAC_RUBRIC_EXTRAOR_INVEST</field>
+            <field name="parent_id" ref="account_financial_report_cxa_operacionais_extra_2"/>
+            <field eval="24" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="default_name">Pagamentos Relac. Rubricas.Extraordinárias (FC.INVEST)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="note"></field>
+            <field name="expression_ids">
+                <record id="account_report_pagameto_rela_rubr_opera_fc_ope" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_caixa_liquida_invest" model="account.report.line">
+            <field name="name">Caixa líquida usada nas actividades de investimento</field>
+            <field name="code">CXA_LIQ_INVEST</field>
+            <field name="parent_id" ref="account_financial_report_cxa_operacionais_extra_2"/>
+            <field eval="25" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"></field>
+            <field name="expression_ids">
+                <record id="account_report_caixa_liquida_fc_invest" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">(CX_IMOBI_CORPO.balance + CX_IMOBI_INCORPOR.balance +
+                        CX_INVEST_FINANCEIROS.balance +
+                        CX_SUBSID_INVEST.balance + CX_JUROS_PROVEITOS_SIMILA.balance + CX_DIVID_LUCRO_RECEBI.balance) +
+                        (CX_IMOB_CORP.balance + CX_IMOB_INCORP.balance + CX_INVEST_FIN.balance) +
+                        (CX_RECEB_RELAC_RUBRIC_EXTRAOR_INVEST.balance + CX_PAGAM_RELAC_RUBRIC_EXTRAOR_INVEST.balance)
+                    </field>
+                    <field name="subformula">cross_report</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+
+        <!--FLUXO DE CAIXA DAS ACTIVIDADES DE FINANCIAMENTO-->
+        <record id="account_financial_report_cxa_financiamento" model="account.report.line">
+            <field name="name">FLUXO DE CAIXA DAS ACTIVIDADES DE FINANCIAMENTO</field>
+            <field name="code">CX_FIN</field>
+            <field name="report_id" ref="account_financial_report_fluxocaixa"/>
+            <field eval="26" name="sequence"/>
+            <field eval="0" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+        </record>
+
+        <record id="account_financial_report_cxa_recebime_prove" model="account.report.line">
+            <field name="name">Recebimentos provenientes de:</field>
+            <field name="code">CX_RECEB_PROV</field>
+            <field name="parent_id" ref="account_financial_report_cxa_financiamento"/>
+            <field eval="27" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_aumt_capital_fin" model="account.report.line">
+            <field name="name">Aumentos de capital, prestações suplementares e
+                Vendas de acções ou quotas próprias
+            </field>
+            <field name="code">CX_AUMENTO_CAPITAL_PREST_SUPLE_VENDA</field>
+            <field name="parent_id" ref="account_financial_report_cxa_financiamento"/>
+            <field eval="28" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Aumentos de capital, prestações suplementares e
+                Vendas de acções ou quotas próprias
+                (RECEB.FC.FINAN)
+            </field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_recebimento_aumt_capital_fc_finan" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_cxa_cobertura_prejuizo" model="account.report.line">
+            <field name="name">Cobertura de prejuízos</field>
+            <field name="code">CX_COBERT_PREJUI</field>
+            <field name="parent_id" ref="account_financial_report_cxa_financiamento"/>
+            <field eval="29" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Cobertura de prejuízos (RECEB.FC.FINAN)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_recebimento_cobertura_prejuizo_fc_finan" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_cxa_empresti_obti" model="account.report.line">
+            <field name="name">Empréstimos obtidos</field>
+            <field name="code">CX_EMPREST_OBTIDO</field>
+            <field name="parent_id" ref="account_financial_report_cxa_financiamento"/>
+            <field eval="30" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Empréstimos obtidos (RECEB.FC.FINAN)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_recebimento_empresti_obti_fc_finan" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_cxa_subsi_explo_doac" model="account.report.line">
+            <field name="name">Subsídios à exploração e doações</field>
+            <field name="code">CX_SUBS_EXPLOR_DOAC</field>
+            <field name="parent_id" ref="account_financial_report_cxa_financiamento"/>
+            <field eval="31" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Subsídios à exploração e doações (RECEB.FC.FINAN)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_recebimento_subsi_explo_doac_fc_finan" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_cxa_pagamento_respect" model="account.report.line">
+            <field name="name">Pagamentos respeitantes de:</field>
+            <field name="code">CX_PAGAMENTO_RESPECT</field>
+            <field name="parent_id" ref="account_financial_report_cxa_financiamento"/>
+            <field eval="32" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_cxa_reducoes_capital" model="account.report.line">
+            <field name="name">Reduções de capital e prest. suplemento</field>
+            <field name="code">CX_REDUCOES_CAPITAL</field>
+            <field name="parent_id" ref="account_financial_report_cxa_financiamento"/>
+            <field eval="33" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Reduções de capital e prest. suplemento (PAGAM.FC.FINAN)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_pagament_reducoes_capital_fc_finan" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_cxa_compra_accoes" model="account.report.line">
+            <field name="name">Compras de acções ou quotas próprias</field>
+            <field name="code">CX_COMPRA_ACCOES</field>
+            <field name="parent_id" ref="account_financial_report_cxa_financiamento"/>
+            <field eval="34" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Compras de acções ou quotas próprias (PAGAM.FC.FINAN)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_pagament_compra_accoes_fc_finan" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_cxa_dividendo_lucros" model="account.report.line">
+            <field name="name">Dividendos ou lucros pagos</field>
+            <field name="code">CX_DIVIDENDO_LUCROS</field>
+            <field name="parent_id" ref="account_financial_report_cxa_financiamento"/>
+            <field eval="35" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Dividendos ou lucros pagos (PAGAM.FC.FINAN)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_pagament_dividendo_lucros_fc_finan" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_cxa_emprestim_obtidos" model="account.report.line">
+            <field name="name">Empréstimos obtidos</field>
+            <field name="code">CX_EMPRESTIMO_OBTIDOS</field>
+            <field name="parent_id" ref="account_financial_report_cxa_financiamento"/>
+            <field eval="36" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Empréstimos obtidos (PAGAM.FC.FINAN)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_pagament_emprestim_obtidos_fc_finan" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_cxa_amortiza_contratos" model="account.report.line">
+            <field name="name">Amortiz. de contratos de locação finan.</field>
+            <field name="code">CX_AMORTI_CONTRATOS_LOCAC</field>
+            <field name="parent_id" ref="account_financial_report_cxa_financiamento"/>
+            <field eval="37" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Amortiz. de contratos de locação finan. (PAGAM.FC.FINAN)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_pagament_amortiza_contratos_fc_finan" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_cxa_juros_custos_similares" model="account.report.line">
+            <field name="name">Juros e custos similares pagos</field>
+            <field name="code">CX_JUROS_CUSTOS_SIMILARES</field>
+            <field name="parent_id" ref="account_financial_report_cxa_financiamento"/>
+            <field eval="38" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+            <field name="default_name">Juros e custos similares pagos (PAGAM.FC.FINAN)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="expression_ids">
+                <record id="account_report_pagament_juros_custos_similares_fc_finan" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <!-- Fluxos de caixa antes da rúbrica extraordinária: -->
+        <record id="account_financial_report_cxa_operacionais_extra_3" model="account.report.line">
+            <field name="name">Fluxos de caixa antes da rúbrica extraordinária:</field>
+            <field name="code">CX_OPER_EXTRA_3</field>
+            <field name="parent_id" ref="account_financial_report_cxa_financiamento"/>
+            <field eval="39" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"></field>
+            <field name="expression_ids">
+                <record id="account_report_fluxo_caixa_liquida_fc_financia" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">(CX_AUMENTO_CAPITAL_PREST_SUPLE_VENDA.balance + CX_COBERT_PREJUI.balance +
+                        CX_EMPREST_OBTIDO.balance + CX_SUBS_EXPLOR_DOAC.balance) +
+                        (CX_REDUCOES_CAPITAL.balance + CX_COMPRA_ACCOES.balance + CX_DIVIDENDO_LUCROS.balance +
+                        CX_EMPRESTIMO_OBTIDOS.balance +
+                        CX_AMORTI_CONTRATOS_LOCAC.balance + CX_JUROS_CUSTOS_SIMILARES.balance)
+                    </field>
+                    <field name="subformula">cross_report</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_recebimento_rela_rubr_finac" model="account.report.line">
+            <field name="name">Recebimentos . Relac. Rubricas. Extraordinárias</field>
+            <field name="code">CX_RECEB_RELAC_RUBRIC_EXTRAOR_FINA</field>
+            <field name="parent_id" ref="account_financial_report_cxa_operacionais_extra_3"/>
+            <field eval="40" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="default_name">Recebimentos . Relac. Rubricas. Extraordinárias (FC.FINAN)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="note"></field>
+            <field name="expression_ids">
+                <record id="account_report_recebimento_rela_rubr_opera_fc_finan" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_pagameto_rela_rubr_financ" model="account.report.line">
+            <field name="name">Pagamentos Relac. Rubricas.Extraordinárias</field>
+            <field name="code">CX_PAGAM_RELAC_RUBRIC_EXTRAOR_FINAN</field>
+            <field name="parent_id" ref="account_financial_report_cxa_operacionais_extra_3"/>
+            <field eval="41" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="default_name">Pagamentos Relac. Rubricas.Extraordinárias (FC.FINAN)</field>
+            <field name="active_account_move" eval="True"/>
+            <field name="note"></field>
+            <field name="expression_ids">
+                <record id="account_report_pagameto_rela_rubr_operac_fc_finan" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_caixa_liquida_financiam" model="account.report.line">
+            <field name="name">Caixa liquida usada nas actividades de financiamento</field>
+            <field name="code">CXA_LIQ_FINANC</field>
+            <field name="parent_id" ref="account_financial_report_cxa_operacionais_extra_3"/>
+            <field eval="42" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"></field>
+            <field name="expression_ids">
+                <record id="account_report_caixa_liquida_fc_financia" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">(CX_AUMENTO_CAPITAL_PREST_SUPLE_VENDA.balance + CX_COBERT_PREJUI.balance +
+                        CX_EMPREST_OBTIDO.balance + CX_SUBS_EXPLOR_DOAC.balance) +
+                        (CX_REDUCOES_CAPITAL.balance + CX_COMPRA_ACCOES.balance + CX_DIVIDENDO_LUCROS.balance +
+                        CX_EMPRESTIMO_OBTIDOS.balance+ CX_AMORTI_CONTRATOS_LOCAC.balance +
+                        CX_JUROS_CUSTOS_SIMILARES.balance) + (CX_RECEB_RELAC_RUBRIC_EXTRAOR_FINA.balance +
+                        CX_PAGAM_RELAC_RUBRIC_EXTRAOR_FINAN.balance)
+                    </field>
+                    <field name="subformula">cross_report</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+
+        </record>
+
+        <record id="account_financial_report_caixa_aument_caixa_equiva" model="account.report.line">
+            <field name="name">Aumento líquido de caixa e seus equivalentes</field>
+            <field name="code">CXA_AUMENTO_CAIXA_EQUIVA</field>
+            <field name="parent_id" ref="account_financial_report_cxa_operacionais_extra_3"/>
+            <field eval="43" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"></field>
+            <field name="expression_ids">
+                <record id="account_report_caixa_aumento_caixa_equiva" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">(CX_RECEBI.balance + (CX_PAGAMEN_FORN.balance + CX_PAGAMEN_EMPRE.balance) +
+                        (CX_JUROS_PAGOS.balance + CX_IMPOSTO_LUCRO_PAGOS.balance) +
+                        (CX_RECEB_RELAC_RUBRIC_EXTRAOR_OPE.balance + CX_PAGAM_RELAC_RUBRIC_EXTRAOR_OPE.balance)) +
+
+                        (CX_IMOBI_CORPO.balance + CX_IMOBI_INCORPOR.balance +
+                        CX_INVEST_FINANCEIROS.balance +
+                        CX_SUBSID_INVEST.balance + CX_JUROS_PROVEITOS_SIMILA.balance + CX_DIVID_LUCRO_RECEBI.balance) +
+                        (CX_IMOB_CORP.balance + CX_IMOB_INCORP.balance + CX_INVEST_FIN.balance) +
+                        (CX_RECEB_RELAC_RUBRIC_EXTRAOR_INVEST.balance + CX_PAGAM_RELAC_RUBRIC_EXTRAOR_INVEST.balance) +
+
+                        (CX_AUMENTO_CAPITAL_PREST_SUPLE_VENDA.balance + CX_COBERT_PREJUI.balance +
+                        CX_EMPREST_OBTIDO.balance + CX_SUBS_EXPLOR_DOAC.balance) +
+                        (CX_REDUCOES_CAPITAL.balance + CX_COMPRA_ACCOES.balance + CX_DIVIDENDO_LUCROS.balance +
+                        CX_EMPRESTIMO_OBTIDOS.balance+ CX_AMORTI_CONTRATOS_LOCAC.balance +
+                        CX_JUROS_CUSTOS_SIMILARES.balance) + (CX_RECEB_RELAC_RUBRIC_EXTRAOR_FINA.balance +
+                        CX_PAGAM_RELAC_RUBRIC_EXTRAOR_FINAN.balance)
+                    </field>
+                    <field name="subformula">cross_report</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_caixa_equivale_inicio_period" model="account.report.line">
+            <field name="name">Caixa e seus equivalentes no início do período</field>
+            <field name="code">CXA_EQUIVALEN_INICIO_PERIOD</field>
+            <field name="parent_id" ref="account_financial_report_cxa_operacionais_extra_3"/>
+            <field eval="44" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">43,47</field>
+            <field name="expression_ids">
+                <record id="account_report_caixa_equivale_inicio_period_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">custom</field>
+                    <field name="formula">_report_custom_engine_custom_function_account_move</field>
+                    <field name="subformula">sum</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                    <field name="carryover_target">41,42,43,45,48</field>
+                    <!--                    <field name="label">balance</field>-->
+                    <!--                    <field name="engine">domain</field>-->
+                    <!--                    <field name="formula">['|', '|', '|', ('account_id.code', '=ilike', '41%'), ('account_id.code',-->
+                    <!--                        '=ilike', '42%'), ('account_id.code', '=ilike', '43%'), ('account_id.code', '=ilike', '45%'),('account_id.code', '=ilike', '48%')]-->
+                    <!--                    </field>-->
+                    <!--                    <field name="subformula">sum</field>-->
+                    <!--                    <field eval="1" name="green_on_positive"/>-->
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_caixa_equivale_fim_period" model="account.report.line">
+            <field name="name">Caixa e seus equivalentes no fim do período</field>
+            <field name="code">CXA_EQUIVALEN_FIM_PERIOD</field>
+            <field name="parent_id" ref="account_financial_report_cxa_operacionais_extra_3"/>
+            <field eval="45" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">43,47</field>
+            <field name="expression_ids">
+                <record id="account_report_caixa_equivale_fim_period_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">CXA_AUMENTO_CAIXA_EQUIVA.balance + CXA_EQUIVALEN_INICIO_PERIOD.balance</field>
+                    <field name="subformula">cross_report</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+    </data>
+</odoo>

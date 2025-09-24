@@ -1,0 +1,56 @@
+<odoo>
+    <data>
+        <record id="l10n_ao_account_payment_register_view" model="ir.ui.view">
+            <field name="name">Invoice Payment Register View Inherit</field>
+            <field name="model">account.payment.register</field>
+            <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='amount_div']" position="after">
+                    <label for="current_wth" attrs="{'invisible':['|',('wth_amount','=',0),('payment_with_withholding','=','not_with')]}"/>
+                    <div name="wht_div" class="o_row" attrs="{'invisible':[('wth_amount','=',0)]}">
+                        <field name="current_wth" readonly="True" attrs="{'invisible':[('payment_with_withholding','=','not_with')]}"/>
+                    </div>
+                    <label for="amount_wth_total" attrs="{'invisible':['|',('wth_amount','=',0),('payment_with_withholding','=','not_with')]}"/>
+                    <div name="wht_amount_div" class="o_row" attrs="{'invisible':[('wth_amount','=',0)]}">
+                        <strong>
+                            <field name="amount_wth_total" readonly="True" attrs="{'invisible':[('payment_with_withholding','=','not_with')]}"/>
+                        </strong>
+                    </div>
+                </xpath>
+                <group name="group2" position="inside">
+
+                            <field name="payment_with_withholding" widget="radio" attrs="{'invisible':[('wth_amount','=',0)]}"/>
+                </group>
+                <xpath expr="//form" position="inside">
+                    <div class="alert alert-warning" role="alert" attrs="{'invisible':['|',('wth_amount','=',0),('payment_with_withholding','=','not_with')]}">
+                        <span>
+                            <h2>Warning!</h2>
+                            <div class="o_row">
+                                <span>
+                                    One or more invoices are subject to withholding of value of
+                                    <strong>
+                                        <field name="wth_amount" readonly="True" class="oe_inline"/>
+                                    </strong>
+                                    , the total amount with Withholding for this payment amount is
+                                    <strong>
+                                        <field name="amount_wth_total" readonly="True"/>
+                                    </strong>
+                                    .
+                                    <br/>
+                                    <p>In case you are making a partial payment with withholding invoices, it will be
+                                        automatically withholded for the same ratio of you payment.
+                                    </p>
+                                </span>
+                            </div>
+                        </span>
+                    </div>
+                </xpath>
+
+                <field name="writeoff_label" position="after">
+                    <label for="is_withholding" class="oe_edit_only" />
+                    <field name="is_withholding" />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

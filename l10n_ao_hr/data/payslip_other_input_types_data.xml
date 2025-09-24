@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="l10n_ao_hr_payslip_input_type_work_rate" model="hr.payslip.input.type">
+            <field name="code">work_rate</field>
+            <field name="name">Coeficiente Laboral</field>
+        </record>
+
+        <record id="l10n_ao_hr_horas_extras" model="hr.payslip.input.type">
+            <field name="name">Horas Extras</field>
+            <field name="code">HEXTRAS</field>
+        </record>
+
+        <record id="l10n_ao_hr_horas_extras_50%" model="hr.payslip.input.type">
+            <field name="name">Horas Extras (50%)</field>
+            <field name="code">HEXTRA_50</field>
+        </record>
+
+        <record id="l10n_ao_hr_horas_extras_75%" model="hr.payslip.input.type">
+            <field name="name">Horas Extras (75%)</field>
+            <field name="code">HEXTRA_75</field>
+        </record>
+
+        <record id="l10n_ao_hr_type_delay_hours" model="hr.payslip.input.type">
+            <field name="name">Atraso</field>
+            <field name="code">ATRA</field>
+        </record>
+
+        <record id="l10n_ao_hr_type_missed_hours" model="hr.payslip.input.type">
+            <field name="name">Horas Faltas</field>
+            <field name="code">MISSING_HOUR</field>
+        </record>
+
+        <record id="l10n_ao_hr_type_missed_hours_falta_injustificada" model="hr.payslip.input.type">
+            <field name="name">Falta Injustificada</field>
+            <field name="code">FI</field>
+        </record>
+        <record id="l10n_ao_hr_type_missed_hours_falta_just_nao_remunerada" model="hr.payslip.input.type">
+            <field name="name">Falta Justificada Não Remunerada</field>
+            <field name="code">FJNR</field>
+        </record>
+         <record id="l10n_ao_hr_type_missed_hours_falta_just_remunerada" model="hr.payslip.input.type">
+            <field name="name">Falta Justificada Remunerada</field>
+            <field name="code">FJR</field>
+        </record>
+
+        <record id="l10n_ao_hr_horas_abono_familia" model="hr.payslip.input.type">
+            <field name="name">Abono de Família</field>
+            <field name="code">FAMI</field>
+        </record>
+
+        <record id="l10n_ao_hr_horas_abono_natal" model="hr.payslip.input.type">
+            <field name="name">Subsídio de Natal</field>
+            <field name="code">NAT</field>
+        </record>
+
+        <record id="l10n_ao_hr_horas_ferias" model="hr.payslip.input.type">
+            <field name="name">FÉRIAS</field>
+            <field name="code">FER</field>
+        </record>
+
+        <record id="l10n_ao_hr_antiguidade" model="hr.payslip.input.type">
+            <field name="name">Antiguidade</field>
+            <field name="code">ANTI</field>
+        </record>
+
+        <record id="l10n_ao_hr_aviso_previo_compensacao" model="hr.payslip.input.type">
+            <field name="name">Aviso Prévio (Compensação)</field>
+            <field name="code">AVPREVIOCOMP</field>
+        </record>
+
+        <record id="l10n_ao_hr_aviso_previo_descontado" model="hr.payslip.input.type">
+            <field name="name">Aviso Prévio (Descontado)</field>
+            <field name="code">AVPREVIODESC</field>
+        </record>
+
+        <record id="l10n_ao_hr_trabalho_por_turnos" model="hr.payslip.input.type">
+            <field name="name">Adicional por Turno</field>
+            <field name="code">ADTURNO</field>
+        </record>
+        <record id="l10n_ao_hr_regime_de_disponibilidade" model="hr.payslip.input.type">
+            <field name="name">Adicional em regime de disponibilidade</field>
+            <field name="code">ADREGDISP</field>
+        </record>
+        <record id="l10n_ao_hr_adicional_nocturno" model="hr.payslip.input.type">
+            <field name="name">Adicionar Nocturno</field>
+            <field name="code">ADNOTURNO</field>
+        </record>
+
+        <record id="l10n_ao_hr_gratificacao_voluntaria_acidente" model="hr.payslip.input.type">
+            <field name="name">Gratificação Voluntária e Acidental</field>
+            <field name="code">R188</field>
+        </record>
+
+        <record id="l10n_ao_hr_gratificacao_voluntaria_acidente_2" model="hr.payslip.input.type">
+            <field name="name">Gratificação Voluntária e Acidental 2</field>
+            <field name="code">R189</field>
+        </record>
+
+        <record id="l10n_ao_hr_gratificacao_por_resultado" model="hr.payslip.input.type">
+            <field name="name">Gratificações por Resultado</field>
+            <field name="code">R185</field>
+        </record>
+
+        <record id="l10n_ao_hr_premio_produçao_ajuda_custo" model="hr.payslip.input.type">
+            <field name="name">Prémio de Produção + Ajuda de Custo</field>
+            <field name="code">R20</field>
+        </record>
+
+        <record id="l10n_ao_hr_retroactivos" model="hr.payslip.input.type">
+            <field name="name">Retroactivos</field>
+            <field name="code">R02</field>
+        </record>
+
+        <record id="l10n_ao_hr_diferenca_cambial" model="hr.payslip.input.type">
+            <field name="name">Diferença Cambial</field>
+            <field name="code">R26</field>
+        </record>
+
+        <record id="l10n_ao_hr_licenca_remunerada_mutuo_acordo" model="hr.payslip.input.type">
+            <field name="name">Licença Remunerada - Mútuo Acordo</field>
+            <field name="code">R103</field>
+        </record>
+
+        <record id="l10n_ao_hr_ajuda_custo" model="hr.payslip.input.type">
+            <field name="name">Ajuda de Custo</field>
+            <field name="code">A_CUSTO</field>
+        </record>
+
+        <record id="l10n_ao_hr_alojamento" model="hr.payslip.input.type">
+            <field name="name">Alojamento</field>
+            <field name="code">ALOJAMENTO</field>
+        </record>
+
+        <record id="l10n_ao_hr_gratificacao_reembolso" model="hr.payslip.input.type">
+            <field name="name">Gratificação Reembolso</field>
+            <field name="code">GRAT_REEMB</field>
+        </record>
+
+        <record id="l10n_ao_hr_licenca_maternidade" model="hr.payslip.input.type">
+            <field name="name">Licença Maternidade</field>
+            <field name="code">R105</field>
+        </record>
+
+        <record id="l10n_ao_hr_licenca_pre_maternidade" model="hr.payslip.input.type">
+            <field name="name">Licença Pré-Maternidade</field>
+            <field name="code">R1005</field>
+        </record>
+
+        <record id="l10n_ao_hr_licenca_paternal" model="hr.payslip.input.type">
+            <field name="name">Licença Paternal</field>
+            <field name="code">R1007</field>
+        </record>
+
+        <record id="l10n_ao_hr_licenca_casamento" model="hr.payslip.input.type">
+            <field name="name">Licença Casamento</field>
+            <field name="code">R1006</field>
+        </record>
+
+        <record id="l10n_ao_hr_salario_feria" model="hr.payslip.input.type">
+            <field name="name">Salário Férias</field>
+            <field name="code">SAL_FER</field>
+        </record>
+
+        <record id="l10n_ao_hr_gratificacao_feria" model="hr.payslip.input.type">
+            <field name="name">Grátificação de Férias</field>
+            <field name="code">GRATIF_FER</field>
+        </record>
+
+        <record id="l10n_ao_hr_ferias_proporcional_before" model="hr.payslip.input.type">
+            <field name="name">Férias Proporcional Ano Anterior</field>
+            <field name="code">R89</field>
+        </record>
+
+        <record id="l10n_ao_hr_ferias_proporcional_before_9" model="hr.payslip.input.type">
+            <field name="name">Grátificação de Férias Ano Anterior</field>
+            <field name="code">R899</field>
+        </record>
+
+        <record id="l10n_ao_hr_ferias_proporcional_after" model="hr.payslip.input.type">
+            <field name="name">Férias Proporcional Ano Currente</field>
+            <field name="code">R891</field>
+        </record>
+
+        <record id="l10n_ao_hr_natal_proporcional" model="hr.payslip.input.type">
+            <field name="name">Proporcional Subsídio de Natal</field>
+            <field name="code">R36</field>
+        </record>
+
+        <record id="l10n_ao_hr_gozo_ferias" model="hr.payslip.input.type">
+            <field name="name">Gozo de Férias</field>
+            <field name="code">gozo_ferias</field>
+        </record>
+
+        <record id="l10n_ao_hr_remote_work" model="hr.payslip.input.type">
+            <field name="name">Trabalho Remoto</field>
+            <field name="code">remote_work</field>
+        </record>
+
+        <record id="l10n_ao_hr_desconto_seguro" model="hr.payslip.input.type">
+            <field name="name">Desconto Seguro</field>
+            <field name="code">Desc_Seguro</field>
+        </record>
+
+        <record id="l10n_ao_hr_licenca_sem_vencimento" model="hr.payslip.input.type">
+            <field name="name">Licença Sem Remuneração (LSV)</field>
+            <field name="code">LSV</field>
+        </record>
+
+        <record id="l10n_ao_hr_retroactivo_ajuda_custo" model="hr.payslip.input.type">
+            <field name="name">Retroactivo Ajuda Custo</field>
+            <field name="code">R92</field>
+        </record>
+        <record id="l10n_ao_hr_retroactivo_sub_alim" model="hr.payslip.input.type">
+            <field name="name">Retroactivo Subsídio de Alimentação</field>
+            <field name="code">R68</field>
+        </record>
+        <record id="l10n_ao_hr_retroactivo_sub_trans" model="hr.payslip.input.type">
+            <field name="name">Retroactivo Subsídio de Transporte</field>
+            <field name="code">R67</field>
+        </record>
+
+    </data>
+</odoo>

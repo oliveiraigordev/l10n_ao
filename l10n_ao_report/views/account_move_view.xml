@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <record id="l10n_ao_report_account_move_view" model="ir.ui.view">
+            <field name="name">L10n_ao_report: Account Move View Inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[last()]" position="after">
+                    <page string="Fluxos Caixa"
+                          attrs="{'invisible': [('journal_type','not in', ['bank','cash'])]}">
+                        <group>
+                            <field name="journal_type" invisible="1"/>
+                            <field name="cash_flow_in_payment" invisible="1"/>
+                            <field name="asset_cash_amount_total"/>
+                        </group>
+                        <field name="account_move_report_line_ids"
+                               attrs="{'readonly': [('state','!=', 'draft'), ('cash_flow_in_payment','=', True)]}">
+                            <tree name="Cash Flow Insertion" editable="bottom">
+                                <field name="account_id" options="{'no_create': True, 'no_open': True}" readonly="1"
+                                       invisible="1" save_force="1"/>
+                                <field name="cash_flow_statement_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="cash_flow_statement_line_id" options="{'no_create': True, 'no_open': True}"
+                                       domain="[('cash_flow_statement_id', '=', cash_flow_statement_id)]"/>
+                                <field name="amount"/>
+                            </tree>
+                        </field>
+
+                        <!--                        editable="bottom"-->
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_form_asset_inherit" model="ir.ui.view">
+            <field name="name">account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                    <field name="computed_line_cashflow" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

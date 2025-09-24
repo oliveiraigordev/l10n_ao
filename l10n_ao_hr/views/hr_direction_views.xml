@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_direction_form_view" model="ir.ui.view">
+        <field name="name">HR - Direction Form View</field>
+        <field name="model">hr.direction</field>
+        <field name="arch" type="xml">
+            <form string="Direction">
+                <sheet>
+                    <div class="oe_title" name="title">
+                        <h2>
+                            <field name="name"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <field name="manager_id"/>
+                    </group>
+                </sheet>
+                <!-- Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_direction_tree_view" model="ir.ui.view">
+        <field name="name">HR - Direction Form View Tree</field>
+        <field name="model">hr.direction</field>
+        <field name="arch" type="xml">
+            <tree string="Direction">
+                <field name="name"/>
+                <field name="manager_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_hr_direction" model="ir.actions.act_window">
+        <field name="name">Direcção</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.direction</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

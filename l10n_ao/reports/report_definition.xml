@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_a4_agt" model="report.paperformat">
+            <field name="name">A4 AGT</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">85</field>
+            <field name="margin_bottom">28</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">80</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="paperformat_a4_agt_landscape" model="report.paperformat">
+            <field name="name">A4 AGT Landscape</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_spacing">30</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <!-- QWeb Reports -->
+        <template id="report_invoice_triple_document">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-if="o.company_id.country_id.code == 'AO' and o.print_counter >= 1 and o.print_counter &lt;= 2 and o.move_type == 'out_invoice'">
+                        <t t-if="report_type != 'html'">
+                            <t t-foreach="range(int(o.company_id.invoice_page_printing))" t-as="copies">
+                                <t t-set="copy" t-value="copies"/>
+                                <t t-set="lang"
+                                   t-value="o.user_id.sudo().lang if o.move_type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                                <t t-call="l10n_ao.report_invoice_document_agt" t-lang="lang"/>
+                            </t>
+                        </t>
+                        <t t-else="">
+                            <t t-set="copy" t-value="0"/>
+                            <t t-set="lang"
+                               t-value="o.user_id.sudo().lang if o.move_type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                            <t t-call="l10n_ao.report_invoice_document_agt" t-lang="lang"/>
+                        </t>
+                    </t>
+                    <t t-elif="o.company_id.country_id.code == 'AO'">
+                        <t t-set="lang"
+                           t-value="o.user_id.sudo().lang if o.move_type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                        <t t-call="l10n_ao.report_invoice_document_agt" t-lang="lang"/>
+                    </t>
+                    <t t-else="">
+                        <t t-set="lang"
+                           t-value="o.user_id.sudo().lang if o.move_type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                        <t t-call="account.report_invoice_document" t-lang="lang"/>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+        <record id="account.account_invoices_without_payment" model="ir.actions.report">
+            <field name="name">Invoices without Payment</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">account.report_invoice</field>
+            <field name="report_file">account.report_invoice</field>
+            <field name="print_report_name">(object._get_report_base_filename())</field>
+            <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')
+            </field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
+
+
+        <record id="account.account_invoices" model="ir.actions.report">
+            <field name="name">Invoices</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_ao.report_invoice_triple_document</field>
+            <field name="report_file">l10n_ao.report_invoice_triple_document</field>
+            <field name="print_report_name">(object._get_report_base_filename())</field>
+            <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')
+            </field>
+            <field name="paperformat_id" ref="paperformat_a4_agt"/>
+            <!-- <field name="print_control">True</field>-->
+            <field name="binding_model_id" ref="model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[(4, ref('account.group_account_invoice')),
+ (4, ref('account.group_account_readonly'))]"/>
+        </record>
+
+        <record id="account.action_report_payment_receipt" model="ir.actions.report">
+            <field name="name">Payment Receipt</field>
+            <field name="model">account.payment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_ao.report_payment_receipt_agt</field>
+            <field name="report_file">l10n_ao.report_payment_receipt_agt</field>
+             <field name="paperformat_id" ref="paperformat_a4_agt"/>
+            <field name="binding_model_id" ref="model_account_payment"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- <record id="account.action_report_payment_receipt" model="ir.actions.report">
+             <field name="name">Payment Receipt</field>
+             <field name="model">account.payment</field>
+             <field name="report_type">qweb-pdf</field>
+             <field name="report_name">l10n_ao.report_payment_receipt_agt</field>
+             <field name="report_file">l10n_ao.report_payment_receipt_agt</field>
+             <field name="binding_model_id" ref="model_account_payment"/>
+             <field name="binding_type">report</field>
+             <field name="print_control" eval="True"/>
+         </record>-->
+
+        <!-- <record id="action_report_bank_statement"  model="ir.actions.report">
+             <field name="name">Bank Statement</field>
+             <field name="model">account.bank.statement</field>
+             <field name="report_type">qweb-pdf</field>
+             <field name="report_name">l10n_ao.report_bank_statement</field>
+             <field name="report_file">l10n_ao.report_bank_statement</field>
+             <field name="attachment">((object.journal_id.name) + '_'+ (object.date).replace('/','') +'.pdf')</field>
+         </record>-->
+
+    </data>
+</odoo>

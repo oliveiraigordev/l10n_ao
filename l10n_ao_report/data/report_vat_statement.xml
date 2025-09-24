@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+		<record id="account_financial_html_report_balancesheet0" model="account.financial.html.report">
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="create_date">2016-06-08 10:24:07</field>
+			<field name="name">Balance Sheet</field>
+			<field name="__last_update">2016-09-10 20:48:23</field>
+			<field eval="0" name="debit_credit"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="parent_id" ref="account_reports.account_reports_legal_statements_menu"/>
+			<field eval="1" name="menuitem_created"/>
+			<field name="report_type">no_date_range</field>
+			<field name="write_date">2016-09-10 20:48:23</field>
+			<field name="display_name">Balance Sheet</field>
+			<field name="ao_report" eval="True"/>
+		</record>
+		<record id="account_financial_html_report_line_assets0" model="account.financial.html.report.line">
+			<field name="code">A</field>
+			<field name="create_date">2016-06-08 10:24:07</field>
+			<field eval="1" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">ASSETS</field>
+			<field name="__last_update">2016-09-10 20:48:23</field>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">no_unit</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:48:23</field>
+			<field name="name">ASSETS</field>
+			<field eval="1" name="level"/>
+			<field name="show_domain">always</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_activosnocorrentes0" model="account.financial.html.report.line">
+			<field name="code">ANC</field>
+			<field name="create_date">2016-09-10 09:23:29</field>
+			<field eval="2" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Activos Não Correntes</field>
+			<field name="__last_update">2016-09-10 20:30:18</field>
+			<field name="parent_id" ref="account_reports.account_financial_report_total_assets0"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">no_unit</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:30:18</field>
+			<field name="name">Activos Não Correntes</field>
+			<field eval="2" name="level"/>
+			<field name="show_domain">never</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_imobilizaescorpreas0" model="account.financial.html.report.line">
+			<field name="code">IC</field>
+			<field name="create_date">2016-09-10 09:23:29</field>
+			<field eval="3" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Imobilizações Corpóreas</field>
+			<field name="__last_update">2016-09-10 20:30:18</field>
+			<field model="account.financial.html.report.line" name="parent_id" search="[('name', '=', u'Activos N\xe3o Correntes')]"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:30:18</field>
+			<field name="name">Imobilizações Corpóreas</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">foldable</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_imobilizaesincorpreas0" model="account.financial.html.report.line">
+			<field name="code">II</field>
+			<field name="create_date">2016-09-10 09:23:29</field>
+			<field eval="4" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Imobilizações Incorpóreas</field>
+			<field name="__last_update">2016-09-10 20:30:18</field>
+			<field model="account.financial.html.report.line" name="parent_id" search="[('name', '=', u'Activos N\xe3o Correntes')]"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:30:18</field>
+			<field name="name">Imobilizações Incorpóreas</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">foldable</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_investimentoemsubsidiriaseassociadas0" model="account.financial.html.report.line">
+			<field name="code">ISA</field>
+			<field name="create_date">2016-09-10 09:26:34</field>
+			<field eval="5" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Investimento em Subsidiárias e Associadas</field>
+			<field name="__last_update">2016-09-10 20:30:18</field>
+			<field model="account.financial.html.report.line" name="parent_id" search="[('name', '=', u'Activos N\xe3o Correntes')]"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:30:18</field>
+			<field name="name">Investimento em Subsidiárias e Associadas</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">foldable</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_outrosactivosfinanceiros0" model="account.financial.html.report.line">
+			<field name="code">OAF</field>
+			<field name="create_date">2016-09-10 09:26:34</field>
+			<field eval="6" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Outros Activos Financeiros</field>
+			<field name="__last_update">2016-09-10 20:30:18</field>
+			<field model="account.financial.html.report.line" name="parent_id" search="[('name', '=', u'Activos N\xe3o Correntes')]"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:30:18</field>
+			<field name="name">Outros Activos Financeiros</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">foldable</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_outrosactivosnocorrentes0" model="account.financial.html.report.line">
+			<field name="code">OANC</field>
+			<field name="create_date">2016-09-10 09:26:34</field>
+			<field eval="7" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Outros Activos Não Correntes</field>
+			<field name="__last_update">2016-09-10 20:30:18</field>
+			<field model="account.financial.html.report.line" name="parent_id" search="[('name', '=', u'Activos N\xe3o Correntes')]"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:30:18</field>
+			<field name="name">Outros Activos Não Correntes</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">foldable</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_activoscorrentes0" model="account.financial.html.report.line">
+			<field name="code">AC</field>
+			<field name="create_date">2016-09-10 09:36:05</field>
+			<field eval="8" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Activos Correntes</field>
+			<field name="__last_update">2016-09-10 20:32:25</field>
+			<field name="parent_id" ref="account_reports.account_financial_report_total_assets0"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:32:25</field>
+			<field name="name">Activos Correntes</field>
+			<field eval="2" name="level"/>
+			<field name="show_domain">foldable</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_existncias0" model="account.financial.html.report.line">
+			<field name="code">EXI</field>
+			<field name="create_date">2016-09-10 09:36:05</field>
+			<field eval="10" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Existências</field>
+			<field name="__last_update">2016-09-10 20:32:25</field>
+			<field model="account.financial.html.report.line" name="parent_id" search="[('name', '=', u'Activos Correntes')]"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:32:25</field>
+			<field name="name">Existências</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">foldable</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_contasareceber0" model="account.financial.html.report.line">
+			<field name="code">CR</field>
+			<field name="create_date">2016-09-10 09:40:11</field>
+			<field eval="11" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Contas a Receber</field>
+			<field name="__last_update">2016-09-10 20:32:25</field>
+			<field model="account.financial.html.report.line" name="parent_id" search="[('name', '=', u'Activos Correntes')]"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:32:25</field>
+			<field name="name">Contas a Receber</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">foldable</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_disponibilidades0" model="account.financial.html.report.line">
+			<field name="code">D</field>
+			<field name="create_date">2016-09-10 09:40:11</field>
+			<field eval="13" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Disponibilidades</field>
+			<field name="__last_update">2016-09-10 20:32:25</field>
+			<field model="account.financial.html.report.line" name="parent_id" search="[('name', '=', u'Activos Correntes')]"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:32:25</field>
+			<field name="name">Disponibilidades</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">foldable</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_outrosactivoscorrentes0" model="account.financial.html.report.line">
+			<field name="code">OAC</field>
+			<field name="create_date">2016-09-10 09:40:11</field>
+			<field eval="14" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Outros Activos Correntes</field>
+			<field name="__last_update">2016-09-10 20:32:25</field>
+			<field model="account.financial.html.report.line" name="parent_id" search="[('name', '=', u'Activos Correntes')]"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:32:25</field>
+			<field name="name">Outros Activos Correntes</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">foldable</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_totaldoactivo0" model="account.financial.html.report.line">
+			<field name="code">TA</field>
+			<field name="create_date">2016-09-10 09:40:11</field>
+			<field eval="15" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">TOTAL DO ACTIVO</field>
+			<field name="__last_update">2016-09-10 20:46:02</field>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:46:02</field>
+			<field name="name">TOTAL DO ACTIVO</field>
+			<field name="show_domain">always</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_liabilities0" model="account.financial.html.report.line">
+			<field name="code">CPP</field>
+			<field name="create_date">2016-06-08 10:24:07</field>
+			<field eval="16" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">LIABILITIES</field>
+			<field name="__last_update">2016-09-10 20:38:55</field>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="0" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:38:55</field>
+			<field name="name">LIABILITIES</field>
+			<field eval="1" name="level"/>
+			<field name="show_domain">always</field>
+			<field eval="0" name="hide_if_zero"/>
+			<field name="groupby">account_id</field>
+		</record>
+		<record id="account_financial_html_report_line_equity0" model="account.financial.html.report.line">
+			<field name="code">EQ</field>
+			<field name="create_date">2016-06-08 10:24:07</field>
+			<field eval="17" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">EQUITY</field>
+			<field name="__last_update">2016-09-10 20:38:55</field>
+			<field name="parent_id" ref="account_reports.account_financial_report_liabilities_view0"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:38:55</field>
+			<field name="name">EQUITY</field>
+			<field eval="2" name="level"/>
+			<field name="show_domain">never</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_capital0" model="account.financial.html.report.line">
+			<field name="code">C</field>
+			<field name="create_date">2016-09-10 09:30:04</field>
+			<field eval="18" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Capital</field>
+			<field name="__last_update">2016-09-10 20:38:55</field>
+			<field name="parent_id" ref="account_reports.account_financial_report_equity0"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:38:55</field>
+			<field name="name">Capital</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">always</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_reservas0" model="account.financial.html.report.line">
+			<field name="code">RES</field>
+			<field name="create_date">2016-09-10 09:30:04</field>
+			<field eval="19" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Reservas</field>
+			<field name="__last_update">2016-09-10 20:38:55</field>
+			<field name="parent_id" ref="account_reports.account_financial_report_equity0"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:38:55</field>
+			<field name="name">Reservas</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">always</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_resultadostransitados0" model="account.financial.html.report.line">
+			<field name="code">RT</field>
+			<field name="create_date">2016-09-10 09:30:04</field>
+			<field eval="20" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Resultados Transitados</field>
+			<field name="__last_update">2016-09-10 20:38:55</field>
+			<field name="parent_id" ref="account_reports.account_financial_report_equity0"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:38:55</field>
+			<field name="name">Resultados Transitados</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">always</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_resultadosdoexerccio0" model="account.financial.html.report.line">
+			<field name="code">RE</field>
+			<field name="create_date">2016-09-10 09:30:04</field>
+			<field eval="21" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Resultados do Exercício</field>
+			<field name="__last_update">2016-09-10 20:38:55</field>
+			<field name="parent_id" ref="account_reports.account_financial_report_equity0"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:38:55</field>
+			<field name="name">Resultados do Exercício</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">always</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_passivonocorrente0" model="account.financial.html.report.line">
+			<field name="code">PNC</field>
+			<field name="create_date">2016-09-10 09:30:04</field>
+			<field eval="22" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Passivo Não Corrente</field>
+			<field name="__last_update">2016-09-10 20:42:57</field>
+			<field name="parent_id" ref="account_reports.account_financial_report_liabilities_view0"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:42:57</field>
+			<field name="name">Passivo Não Corrente</field>
+			<field eval="2" name="level"/>
+			<field name="show_domain">foldable</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_emprstimosdemdioelongoprazos0" model="account.financial.html.report.line">
+			<field name="code">EMLP</field>
+			<field name="create_date">2016-09-10 09:34:35</field>
+			<field eval="23" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Empréstimos de médio e longo prazos</field>
+			<field name="__last_update">2016-09-10 20:42:57</field>
+			<field model="account.financial.html.report.line" name="parent_id" search="[('name', '=', u'Passivo N\xe3o Corrente')]"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:42:57</field>
+			<field name="name">Empréstimos de médio e longo prazos</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">always</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_impostosdeferidos0" model="account.financial.html.report.line">
+			<field name="code">ID</field>
+			<field name="create_date">2016-09-10 09:34:35</field>
+			<field eval="24" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Impostos Deferidos</field>
+			<field name="__last_update">2016-09-10 20:42:57</field>
+			<field model="account.financial.html.report.line" name="parent_id" search="[('name', '=', u'Passivo N\xe3o Corrente')]"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:42:57</field>
+			<field name="name">Impostos Deferidos</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">always</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_provisesparapenses0" model="account.financial.html.report.line">
+			<field name="code">PP</field>
+			<field name="create_date">2016-09-10 09:34:35</field>
+			<field eval="25" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Provisões para Pensões</field>
+			<field name="__last_update">2016-09-10 20:42:57</field>
+			<field model="account.financial.html.report.line" name="parent_id" search="[('name', '=', u'Passivo N\xe3o Corrente')]"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:42:57</field>
+			<field name="name">Provisões para Pensões</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">always</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_provisesparaoutrosriscoseencargos0" model="account.financial.html.report.line">
+			<field name="code">PORE</field>
+			<field name="create_date">2016-09-10 09:34:35</field>
+			<field eval="26" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Provisões para outros riscos e encargos</field>
+			<field name="__last_update">2016-09-10 20:42:57</field>
+			<field model="account.financial.html.report.line" name="parent_id" search="[('name', '=', u'Passivo N\xe3o Corrente')]"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:42:57</field>
+			<field name="name">Provisões para outros riscos e encargos</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">always</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_outrospassivosnocorrentes0" model="account.financial.html.report.line">
+			<field name="code">OPNC</field>
+			<field name="create_date">2016-09-10 09:34:35</field>
+			<field eval="27" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Outros passivos não correntes</field>
+			<field name="__last_update">2016-09-10 20:42:57</field>
+			<field model="account.financial.html.report.line" name="parent_id" search="[('name', '=', u'Passivo N\xe3o Corrente')]"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:42:57</field>
+			<field name="name">Outros passivos não correntes</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">always</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_passivocorrente0" model="account.financial.html.report.line">
+			<field name="code">PC</field>
+			<field name="create_date">2016-09-10 09:45:27</field>
+			<field eval="28" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Passivo Corrente</field>
+			<field name="__last_update">2016-09-10 20:38:55</field>
+			<field name="parent_id" ref="account_reports.account_financial_report_liabilities_view0"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:38:55</field>
+			<field name="name">Passivo Corrente</field>
+			<field eval="2" name="level"/>
+			<field name="show_domain">always</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_contasapagar0" model="account.financial.html.report.line">
+			<field name="code">CP</field>
+			<field name="create_date">2016-09-10 09:49:23</field>
+			<field eval="29" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Contas a Pagar</field>
+			<field name="__last_update">2016-09-10 20:38:55</field>
+			<field model="account.financial.html.report.line" name="parent_id" search="[('name', '=', u'Passivo Corrente')]"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:38:55</field>
+			<field name="name">Contas a Pagar</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">always</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_emprstimosdecurtoprazo0" model="account.financial.html.report.line">
+			<field name="code">ECP</field>
+			<field name="create_date">2016-09-10 09:49:23</field>
+			<field eval="30" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Empréstimos de Curto Prazo</field>
+			<field name="__last_update">2016-09-10 20:38:55</field>
+			<field model="account.financial.html.report.line" name="parent_id" search="[('name', '=', u'Passivo Corrente')]"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:38:55</field>
+			<field name="name">Empréstimos de Curto Prazo</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">foldable</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_partecordosempramdioelongoprazos0" model="account.financial.html.report.line">
+			<field name="code">PCEMLP</field>
+			<field name="create_date">2016-09-10 09:49:23</field>
+			<field eval="31" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Parte cor. dos empr. a médio e longo prazos</field>
+			<field name="__last_update">2016-09-10 20:38:55</field>
+			<field model="account.financial.html.report.line" name="parent_id" search="[('name', '=', u'Passivo Corrente')]"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:38:55</field>
+			<field name="name">Parte cor. dos empr. a médio e longo prazos</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">always</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_outrospassivoscorrentes0" model="account.financial.html.report.line">
+			<field name="code">OPC</field>
+			<field name="create_date">2016-09-10 09:49:23</field>
+			<field eval="32" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">Outros Passivos Correntes</field>
+			<field name="__last_update">2016-09-10 20:38:55</field>
+			<field model="account.financial.html.report.line" name="parent_id" search="[('name', '=', u'Passivo Corrente')]"/>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:38:55</field>
+			<field name="name">Outros Passivos Correntes</field>
+			<field eval="3" name="level"/>
+			<field name="show_domain">always</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+		<record id="account_financial_html_report_line_totaldocapitalprprioepassivo0" model="account.financial.html.report.line">
+			<field name="code">TCPP</field>
+			<field name="create_date">2016-09-10 09:49:23</field>
+			<field eval="33" name="sequence"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="special_date_changer">normal</field>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">TOTAL DO CAPITAL PRÓPRIO E PASSIVO</field>
+			<field name="__last_update">2016-09-10 20:45:16</field>
+			<field name="financial_report_id" ref="account_reports.account_financial_report_balancesheet0"/>
+			<field name="figure_type">float</field>
+			<field eval="1" name="green_on_positive"/>
+			<field name="write_date">2016-09-10 20:45:16</field>
+			<field name="name">TOTAL DO CAPITAL PRÓPRIO E PASSIVO</field>
+			<field name="show_domain">always</field>
+			<field eval="0" name="hide_if_zero"/>
+		</record>
+	</data>
+
+</odoo>

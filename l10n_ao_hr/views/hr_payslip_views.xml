@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- modify payslip form view -->
+        <record id="l10n_ao_hr_payslip_form_view" model="ir.ui.view">
+            <field name="name">Inherited Payslip Form View</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="priority" eval="1024"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='employee_id']" position="attributes">
+                    <attribute name="domain">['|', ('company_id', '=', False), ('company_id', '=',
+                        company_id),('employee_type', '=', 'employee')]
+                    </attribute>
+                    <attribute name="options">
+                        {'no_create':True,'no_create_edit':True,'no_open':True}
+                    </attribute>
+                </xpath>
+
+                <field name="note" position="replace"/>
+                <xpath expr="//notebook" position="after">
+                    <group>
+                        <field name="note" string="Observations" placeholder="Add an observation..."/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//button[@name='compute_sheet']" position="after">
+                    <button name="action_send_email" type="object" string="Send by Email"
+                            attrs="{'invisible':['|',('country_id','!=',%(base.ao)d),('state', '=', 'draft')]}"/>
+                </xpath>
+
+                <!-- HIDEN BUTTON  action_print_payslip-->
+                <button name="action_print_payslip" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+
+                <xpath expr="//field[@name='contract_id']" position="attributes">
+                    <attribute name="domain">[('state', '=', 'open'), ('employee_id', '=', employee_id)]
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='number']" position="attributes">
+                    <attribute name="attrs">{'invisible':[('state', '=', 'draft')],'readonly':[('state', '!=',
+                        'draft')]}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='action_print_payslip']" position="after">
+                    <button name="action_report_double_payslip" type="object" string="Print Double"
+                            attrs="{'invisible':['|',('country_id','!=',%(base.ao)d),('state', '=', 'draft')]}"/>
+                </xpath>
+
+                <field name="struct_id" position="after">
+                    <field name="exchange_rate_id" domain="[('active_use','=',True)]"
+                           options="{'no_create':True,'no_create_edit':True,'no_open':True}"
+                           attrs="{'invisible': ['|','|',('country_id','!=',%(base.ao)d),('contract_type_id', '=', %(l10n_ao_hr.l10n_ao_hr_contract_type_nacional)d),('process_automatically_exchange', '!=', False)], 'readonly': [('state', 'not in', ['draft','verify'])]}"/>
+                </field>
+
+                <xpath expr="//notebook" position="before">
+                    <field name="process_automatically_exchange" invisible="1"/>
+                    <field name="contract_type_id" invisible="1"/>
+                    <group col="2">
+                        <group>
+                            <field name="process_irt_vacation"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','verify'])]}"/>
+                            <field name="dont_return_irt"
+                                   attrs="{'invisible': ['|',('country_id','!=',%(base.ao)d),('contract_type_id', '=', %(l10n_ao_hr.l10n_ao_hr_contract_type_nacional)d)], 'readonly': [('state', 'not in', ['draft','verify'])]}"/>
+                        </group>
+                        <group>
+
+                            <field name="dont_process_allowance_automatically"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','verify'])]}"/>
+                            <field name="dont_process_christmas_allowance"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','verify'])]}"/>
+                        </group>
+                    </group>
+                </xpath>
+
+                <field name="employee_id" position="after">
+                    <div attrs="{'invisible':[('country_id','!=',%(base.ao)d)]}">
+                        <label for="employee_register_number" string="Nº do Colaborador"/>
+                        <field name="employee_register_number"/>
+                    </div>
+                </field>
+
+                <field name="line_ids" position="replace">
+                    <group attrs="{'invisible':[('country_id','!=',%(base.ao)d)]}">
+                        <group string="Informação Geral do Pagamento">
+                            <field name="total_remunerations" string="Total Bruto"/>
+                            <field name="total_deductions" string="Total de Deduções"/>
+                            <field name="total_paid" string="Total Líquido"/>
+                            <field name="collected_material_irt" readonly="1" force_save="1"
+                                   string="Matéria colectável de IRT"/>
+                            <field name="collected_material_irt_with_exedent" readonly="1" force_save="1"
+                                   string="Matéria colectável de IRT com excedente"/>
+                            <field name="collected_material_inss" readonly="1" force_save="1"
+                                   string="Matéria Colectável de INSS"/>
+                            <field name="total_paid_words" invisible="1"/>
+                            <field name="amount_base_irt" invisible="1"/>
+                            <field name="show_total_paid_usd" invisible="1"/>
+                            <field name="hour_salary" invisible="1"/>
+                            <field name="wage" invisible="1"/>
+                            <field name="worked_days" invisible="1"/>
+                        </group>
+
+                        <group attrs="{'invisible': [('contract_type_id', '!=', %(l10n_ao_hr.l10n_ao_hr_contract_type_expatriado)d)]}">
+                            <field name="exchange_rate" force_save="1" string="Câmbio" invisible="1"
+                                   attrs="{'invisible': ['|',('contract_type_id', '=', %(l10n_ao_hr.l10n_ao_hr_contract_type_nacional)d),('process_automatically_exchange', '!=', False)]}"/>
+                            <group string="Benefícios Recebidos em Kwanzas em Angola Deduzido de Adiantamento">
+                                <field name="total_recept_kz" force_save="1"/>
+                            </group>
+                            <group string="Valor liquido a ser pago em moeda estrageira">
+                                <field name="total_recept_usd_kz" force_save="1"/>
+                                <field name="total_paid_usd"/>
+                                <field name="total_paid_euro" invisible="1"/>
+                            </group>
+                        </group>
+
+                        <group attrs="{'invisible': [('contract_type_id', '!=', %(l10n_ao_hr.l10n_ao_hr_contract_type_expatriado_residente)d)]}">
+                            <field name="exchange_rate" force_save="1" string="Câmbio" invisible="1"
+                                   attrs="{'invisible': ['|',('contract_type_id', '=', %(l10n_ao_hr.l10n_ao_hr_contract_type_nacional)d),('process_automatically_exchange', '!=', False)]}"/>
+                            <group string="Valor liquido em dolar">
+                                <field name="total_paid_usd"/>
+                            </group>
+                        </group>
+
+                        <field name="company_id" readonly="1" invisible="1"/>
+                    </group>
+                    <!-- Linhas do Processamento -->
+                    <field name="line_ids" colspan="4" nolabel="1">
+                        <tree string="Salary Structure" editable="bottom" decoration-info="total == 0" create="0"
+                              delete="0">
+                            <field name="name" invisible="1"/>
+                            <field name="salary_rule_id" readonly="1" force_save="1" options="{'no_open': True}"/>
+                            <field name="code" readonly="1" force_save="1" optional="hide"/>
+                            <field name="category_id" readonly="1" force_save="1" options="{'no_open': True}"/>
+                            <field name="sequence" invisible="1" readonly="1" force_save="1"/>
+                            <field name="quantity" readonly="1" force_save="1" invisible="1"/>
+                            <field name="quantity_days" readonly="1" force_save="1"/>
+                            <field name="rate" readonly="1" force_save="1"/>
+                            <field name="amount" readonly="1" force_save="1" invisible="1"/>
+                            <field name="amount_before_discount" readonly="1" force_save="1"/>
+                            <field name="total" readonly="1" force_save="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </tree>
+                        <form string="Payslip Line">
+                            <group col="4">
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="category_id"/>
+                                <field name="sequence"/>
+                                <field name="quantity"/>
+                                <field name="rate"/>
+                                <field name="amount"/>
+                                <field name="total"/>
+                                <field name="salary_rule_id"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="quantity_days"/>
+                                <field name="amount_before_discount"/>
+                            </group>
+                        </form>
+                    </field>
+                </field>
+
+
+                <field name="input_line_ids" position="replace">
+                    <field name="input_line_ids" colspan="4" nolabel="1">
+                        <tree string="Outras Entradas: Linhas dos subsídios não fixos" editable="bottom">
+                            <!--
+                                Required 0 to force client to send on change request even when not defined
+                                Salary Attachments would otherwise not properly be computed and payslip_id is
+                                required for _allowed_input_type_ids to work..
+                            -->
+                            <field name="payslip_id" invisible="1" required="0"/>
+                            <field name="_allowed_input_type_ids" invisible="1"/>
+                            <field name="input_type_id"/>
+                            <field name="name" invisible="1"/>
+                            <field name="description"/>
+                            <field name="code" invisible="True"/>
+                            <field name="type_of_overtime" force_save="1"
+                                   attrs="{'readonly': [('code', '!=', 'HEXTRAS')], 'required': [('code', '=', 'HEXTRAS')]}"/>
+                            <field name="type_missed_hours" force_save="1"
+                                   attrs="{'readonly': [('code', '!=', 'MISSING_HOUR')], 'required': [('code', '=', 'MISSING_HOUR')]}"/>
+                            <field name="date_start"
+                                   attrs="{'required': [('code', 'in', ['HEXTRAS', 'MISSING_HOUR', 'ATRA'])]}"
+                                   force_save="1"/>
+                            <field name="date_end"
+                                   attrs="{'required': [('code', 'in', ['HEXTRAS', 'MISSING_HOUR', 'ATRA'])]}"
+                                   force_save="1"/>
+                            <field name="quantity_days" string="Nº Dias/Anos"
+                                   attrs="{'required': [('code', 'in', ['HEXTRAS','MISSING_HOUR','R92','R68','R67'])], 'readonly': [('code', '=', 'MISSING_HOUR')]}"
+                                   force_save="1"/>
+                            <field name="hours" widget="float_time" force_save="1"
+                                   attrs="{'required': [('code', 'in', ['HEXTRAS'])], 'readonly': [('code', 'in', ['MISSING_HOUR','GRATIF_FER','LSV'])]}"/>
+                            <field name="amount" force_save="1" string="Total com base no salário base"
+                                   attrs="{'readonly': [('code', 'in', ['HEXTRAS', 'MISSING_HOUR','FJNR', 'FI','LSV','R89','R92','R68','R67','ANTI'])]}"/>
+                            <field name="contract_id" invisible="True"/>
+                            <field name="sequence" invisible="True"/>
+                        </tree>
+                        <form string="Outras Entradas: Linhas dos subsídios não fixos">
+                            <group col="4">
+                                <field name="payslip_id" invisible="1"/>
+                                <field name="_allowed_input_type_ids" invisible="1"/>
+                                <field name="input_type_id"/>
+                                <field name="name"/>
+                                <field name="sequence"/>
+                                <field name="amount"/>
+                                <field name="contract_id"/>
+                            </group>
+                        </form>
+                    </field>
+                </field>
+
+            </field>
+        </record>
+
+        <!-- modify payslip tree view -->
+        <record id="l10n_ao_hr_payslip_tree_view" model="ir.ui.view">
+            <field name="name">Inherited Payslip Tree View</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+            <field name="arch" type="xml">
+                <field name="basic_wage" widget="monetary" options="{'currency_field': 'currency_id'}"
+                       position="replace">
+                    <field name="wage" string="Salário Base"/>
+                </field>
+                <field name="wage" position="after">
+                    <field name="total_remunerations" string="Salário Bruto" widget="monetary"/>
+                </field>
+                <field name="net_wage" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="1"
+                       position="replace">
+                    <field name="total_paid" string="Salário Líquido" widget="monetary"/>
+                </field>
+                <field name="number" position="after">
+                    <field name="credit_note"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="l10n_ao_hr_payslip_run_form_inherit" model="ir.ui.view">
+            <field name="name">hr.Payslip.run.Form.View.Inherited</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+            <field name="arch" type="xml">
+                <button name="action_draft" position="after">
+                    <button name="action_send_email" type="object" string="Enviar Recibos por Email"
+                            attrs="{'invisible':[('state', '=', 'draft')]}"/>
+                    <button name="action_open_add_extra_rules_wizard" type="object" string="Adicionar Regras Extra"
+                            attrs="{'invisible':[('state', 'in', ['draft','close','paid'])]}"/>
+                </button>
+
+                <field name="company_id" position="after">
+                    <field name="exchange_rate_id" domain="[('active_use','=',True)]"
+                           options="{'no_create':True,'no_create_edit':True,'no_open':True}"
+                           attrs="{'readonly': [('state', '!=', 'draft')],'invisible':[('country_id','!=',%(base.ao)d)]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

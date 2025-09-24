@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_hr_payslip_run_form" model="ir.ui.view">
+            <field name="name">hr.payslip.run.form.inherit</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                    <field name="payment_state" invisible="1"/>
+                    <button name="post_treasury" type="object"
+                            attrs="{'invisible':['|', ('payment_state','not in', ['not_paid']),('state','in',['paid'])]}"
+                            icon="fa-mail-forward" class="oe_stat_button">
+                        <span class="o_stat_text text-success">
+                            Pagar o Lote
+                        </span>
+                    </button>
+                    <xpath expr="//div[@name='button_box']/button[@name='action_open_payslips']" position="after">
+                        <button name="action_open_related_moves"
+                                class="oe_stat_button"
+                                icon="fa-file-text-o"
+                                type="object"
+                                help="Ver movimentos contábeis relacionados aos recibos">
+                            <field name="slip_move_count" widget="statinfo" string="Lançamento"/>
+                        </button>
+                    </xpath>
+                    <xpath expr="//div[@name='button_box']" position="inside">
+                        <button name="action_view_salary_payments"
+                                type="object"
+                                string="Pagamentos Contábeis"
+                                class="oe_stat_button"
+                                icon="fa-credit-card"
+                                attrs="{'invisible': [('payment_state', '=', 'not_paid')]}">
+                            <field name="payment_salary_count" widget="statinfo" string="Pagamentos"/>
+                        </button>
+                    </xpath>
+                    <widget name="web_ribbon" title="Em Pagamento" bg_color="bg-success"
+                            attrs="{'invisible': [('payment_state', 'in', ['not_paid','partial','paid'])]}"/>
+                    <widget name="web_ribbon" title="Pago" bg_color="bg-success"
+                            attrs="{'invisible': [('payment_state', 'in', ['not_paid','partial','in_payment'])]}"/>
+                    <widget name="web_ribbon" title="Parcial" bg_color="bg-warning"
+                            attrs="{'invisible': [('payment_state', 'in', ['not_paid','paid','in_payment'])]}"/>
+                </xpath>
+                 <!-- Campo novo após o campo date_end -->
+        <xpath expr="//field[@name='company_id']" position="after">
+            <field name="is_expatriate_batch"/>
+        </xpath>
+            </field>
+        </record>
+        <record id="view_hr_payslip_run_tree" model="ir.ui.view">
+            <field name="name">hr.payslip.run.tree</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="before">
+                    <field name="payment_state" widget="badge" decoration-danger="payment_state == 'not_paid'"
+                           decoration-info="payment_state  == 'in_payment'" decoration-success="payment_state == 'paid'"
+                           decoration-warning="payment_state == 'partial'"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

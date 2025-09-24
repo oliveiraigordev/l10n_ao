@@ -1,0 +1,155 @@
+<odoo>
+    <data>
+        <record id="view_account_asset_in_progress_form" model="ir.ui.view">
+            <field name="name">account.asset.in.progress.form</field>
+            <field name="model">account.asset.in_progress</field>
+            <field name="arch" type="xml">
+                <form string="Imobilizado em Curso">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="is_imported" />
+                        </group>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                            <group string="Informações do Imobilizado">
+                                <field name="asset_condition" widget="radio" required="1" />
+                                <field name="date_of_use" required="1" attrs="{'invisible': [('asset_condition', '=', False)]}" />
+                                <field name="acquisition_date" attrs="{'invisible': [('asset_condition', '=', False)]}" />
+                                <field name="asset_value" />
+                                <field name="annual_rate" />
+                                <field name="corrected_rate" attrs="{'invisible': [('asset_condition', '!=', 'in_use')], 'required': [('asset_condition', '=', 'in_use')]}"/>
+                            </group>
+                            <group string="Contabilidade">
+                                <field name="account_asset_id"
+                                    domain="[('account_type', 'in', (
+                                        'asset_fixed',
+                                        'asset_non_current',
+                                        'asset_current'))]"
+                                    context="{
+                                        'default_account_type': 'asset_fixed',
+                                        'account_type_domain': [('account_type', 'in', (
+                                            'asset_fixed',
+                                            'asset_non_current'))]}"/>
+                                <field name="account_depreciation_id"
+                                    domain="[('account_type', 'in', (
+                                        'asset_fixed',
+                                        'asset_non_current',
+                                        'asset_current'))]"
+                                    context="{
+                                        'default_account_type': 'asset_non_current',
+                                        'account_type_domain': [('account_type', 'in', (
+                                            'asset_fixed',
+                                            'asset_non_current'))]}"/>
+                                <field name="account_depreciation_expense_id"
+                                    domain="[('account_type', 'in', (
+                                        'expense_depreciation',
+                                        'expense'))]"
+                                    context="{
+                                        'default_account_type': 'expense_depreciation',
+                                        'default_tax_ids': [],
+                                        'account_type_domain': [('account_type', 'in', (
+                                            'expense_depreciation',
+                                            'expense'))]}"/>
+                                <field name="journal_id" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_account_asset_in_progress_kanban" model="ir.ui.view">
+        <field name="name">account.asset.in.progress.kanban</field>
+        <field name="model">account.asset.in_progress</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" sample="1">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="row mb4">
+                                <div class="col-10 o_account_asset_kanban_title">
+                                    <strong><span><field name="name"/></span></strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5">
+                                    Valor de Aquisição
+                                </div>
+                                <div class="col-7 text-end">
+                                    <span><field name="acquisition_date" widget="monetary"/></span>
+                                    <span><field name="currency_id" invisible="1"/></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5">
+                                        Condição do Imobilizado
+                                </div>
+                                <div class="col-7 text-end">
+                                    <span><field name="asset_condition"/></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5">
+                                        Data de Aquisição
+                                </div>
+                                <div class="col-7 text-end">
+                                    <span><field name="acquisition_date"/></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5">
+                                    Data de Utilização
+                                </div>
+                                <div class="col-7 text-end">
+                                    <field name="date_of_use"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+        <record id="view_account_asset_in_progress_tree" model="ir.ui.view">
+            <field name="name">account.asset.in.progress.tree</field>
+            <field name="model">account.asset.in_progress</field>
+            <field name="arch" type="xml">
+                <tree string="Imobilizado em Curso">
+                    <field name="name" />
+                    <field name="asset_condition" />
+                    <field name="date_of_use" />
+                    <field name="acquisition_date" />
+                    <field name="asset_value" />
+                    <field name="annual_rate" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_account_asset_in_progress" model="ir.actions.act_window">
+            <field name="name">Imobilizado em Curso</field>
+            <field name="res_model">account.asset.in_progress</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="view_id" ref="view_account_asset_in_progress_tree" />
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Você pode criar um novo Imobilizado em Curso clicando no botão "Criar".
+                </p>
+            </field>
+        </record>
+
+        <menuitem parent="account.menu_finance_entries_management" id="menu_action_account_asset_in_progress" action="action_account_asset_in_progress" sequence="102" groups="account.group_account_readonly"/>
+    
+    </data>
+</odoo>

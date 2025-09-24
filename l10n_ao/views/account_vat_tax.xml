@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="account_vat_form_view">
+            <field name="name">Tax VAT Form</field>
+            <field name="model">account.vat.tax</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="compute_settlement" class="oe_highlight" states="draft"
+                                attrs="{'invisible': ['|', '|', ('start_period','=',False), ('end_period','=',False), ('state', '!=', 'draft')]}"
+                                string="Compute" type="object"/>
+                        <button name="compute_refund" class="oe_highlight" string="Request Refund" type="object"
+                                attrs="{'invisible': [('type','not in',['refund']),'|', ('amount_receive','&lt;', 300000), ('refund_move_state','=', 'posted'),]}"/>
+                        <button name="compute_refund" string="Move to Next period" type="object"
+                                context="{'move_to_next_period':True}"
+                                attrs="{'invisible': ['|',('state', 'not in', ['rejected','refund','move']), ('refund_move_state','=', 'posted')]}"/>
+                        <button name="refund_acceptance" class="oe_highlight" string="Request Accepted" type="object"
+                                context="{'refund_approved':True}"
+                                attrs="{'invisible': ['|','|', '|','|', ('refund_move_id','=',False), ('refund_move_state','!=','posted'), ('state', 'in', ['accepted','rejected']), ('refund_next_period', '=', True),('refund_acceptance_move_state','=', 'posted')]}"/>
+                        <button name="refund_acceptance" string="Request Rejected" type="object"
+                                context="{'refund_approved':False}"
+                                attrs="{'invisible': ['|','|', '|','|', ('refund_move_id','=',False), ('refund_move_state','!=','posted'), ('state', 'in', ['accepted','rejected']), ('refund_next_period', '=', True), ('refund_acceptance_move_state','=', 'posted')]}"/>
+                        <button name="refund_complaining" string="Complain" type="object" class="oe_highlight"
+                                context="{'complain':True}"
+                                attrs="{'invisible': ['|', ('refund_complain_move_state','=','posted'), ('state', 'not in', ['complain','expense'])]}"/>
+                        <button name="refund_complaining" string="Register Expense" type="object"
+                                context="{'expense':True}"
+                                attrs="{'invisible': ['|', ('refund_complain_move_state','=','posted'), ('state', 'not in', ['complain','expense'])]}"/>
+                        <button name="vat_payment" class="oe_highlight" string="Pay Refund" type="object"
+                                context="{'refund_payment':True}"
+                                attrs="{'invisible': [('state', '!=', 'refund_payment')]}"/>
+                        <button name="vat_payment" class="oe_highlight" string="Pay VAT" type="object"
+                                context="{'vat_payment':True}" attrs="{'invisible': [('state', '!=', 'payment')]}"/>
+                        <button name="complain_acceptance" class="oe_highlight" string="Complain Accepted" type="object"
+                                context="{'complain_approved':True}"
+                                attrs="{'invisible': ['|', ('complain_acceptance_move_state','=','posted'), ('state', 'not in', ['complain', 'complain_accepted','complain_rejected'])]}"/>
+                        <button name="complain_acceptance" string="Complain Rejected" type="object"
+                                context="{'complain_approved':False}"
+                                attrs="{'invisible': ['|', ('complain_acceptance_move_state','=','posted'), ('state', 'not in', ['complain', 'complain_accepted','complain_rejected'])]}"/>
+                        <button name="post" class="oe_highlight" string="Post" type="object"
+                                attrs="{'invisible': [('enable_post','=',False)]}"/>
+                        <button name="action_cancel" string="Cancel" type="object"
+                                attrs="{'invisible':[('move_id','=', False)]}"
+                                confirm="This button will cancel all movements associated to the VAT Settlement and delete this moves. Are you sure to proceed?"/>
+                        <!--                         <button name="set_draft" string="Set to Draft" type="object" states="cancel"/> -->
+                        <field name="state" widget="statusbar" statusbar_visible="draft,posted,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date" required="1" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="start_period" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="fiscal_year" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                                <field name="type"/>
+                                <field name="refund_acceptance_percentage"
+                                       attrs="{'invisible': [('state', '!=', 'refund')], 'required': [('state', '=', 'refund'), ('refund_acceptance_move_state', '=', 'posted')]}"/>
+                            </group>
+                            <group attrs="{'readonly': [('state','!=','draft')]}">
+                                <field name="journal_id" ref="account_iva_journal" domain="[('type','=','general')]"
+                                       attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="end_period" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="currency_id" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="refund_acceptance_payment"
+                                       attrs="{'invisible': [('refund_acceptance_move_state', '!=', 'posted')], 'required': ['|',('refund_acceptance_move_state', '=', 'posted'), ('refund_complain_move_state', '=', 'posted')], 'readonly': [('state','not in',['refund_payment','payment'])]}"/>
+                                <field name="journal_payment_id" domain="[('type','in',['bank','cash'])]"
+                                       options="{'no_quick_create':True,'no_create_edit':True,}"
+                                       attrs="{'invisible':[('type', '!=', 'pay')],'required': [('state', '=', 'payment')], 'readonly': [('state','not in',['payment'])]}"/>
+                                <field name="enable_post" invisible="1"/>
+                                <field name="move_state" invisible="1"/>
+                                <field name="refund_move_state" invisible="1"/>
+                                <field name="refund_acceptance_move_state" invisible="1"/>
+                                <field name="refund_complain_move_state" invisible="1"/>
+                                <field name="complain_acceptance_move_state" invisible="1"/>
+                                <field name="payment_move_state" invisible="1"/>
+                                <field name="refund_requested" invisible="1"/>
+                                <field name="refund_next_period" invisible="1"/>
+                                <field name="refund_accepted" invisible="1"/>
+                                <field name="refund_rejected" invisible="1"/>
+                                <field name="refund_complain" invisible="1"/>
+                                <field name="refund_expense" invisible="1"/>
+                                <field name="complain_accepted" invisible="1"/>
+                                <field name="complain_rejected" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Settlement Moves">
+                                <field name="move_lines">
+                                    <tree>
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="ref"/>
+                                        <field name="debit" sum="Total Debit"/>
+                                        <field name="credit" sum="Total Credit"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="amount_pay" readonly="1" class="oe_subtotal_separator"/>
+                                    <field name="amount_receive" readonly="1" class="oe_subtotal_separator"/>
+                                    <field name="amount_min" readonly="1" class="oe_subtotal_separator"/>
+                                </group>
+                            </page>
+                            <page string="Request Refund Moves" attrs="{'invisible': [('refund_requested','=',False)]}">
+                                <field name="refund_move_lines">
+                                    <tree>
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="ref"/>
+                                        <field name="debit" sum="Total Debit"/>
+                                        <field name="credit" sum="Total Credit"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Refund moved to next period"
+                                  attrs="{'invisible': [('refund_next_period','=',False)]}">
+                                <field name="refund_move_lines">
+                                    <tree>
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="ref"/>
+                                        <field name="debit" sum="Total Debit"/>
+                                        <field name="credit" sum="Total Credit"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Refund Approved Move" attrs="{'invisible': [('refund_accepted','=',False)]}">
+                                <field name="refund_acceptance_move_lines">
+                                    <tree>
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="ref"/>
+                                        <field name="debit" sum="Total Debit"/>
+                                        <field name="credit" sum="Total Credit"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Refund Rejected Move" attrs="{'invisible': [('refund_rejected','=',False)]}">
+                                <field name="refund_acceptance_move_lines">
+                                    <tree>
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="ref"/>
+                                        <field name="debit" sum="Total Debit"/>
+                                        <field name="credit" sum="Total Credit"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Refund Complain Move" attrs="{'invisible': [('refund_complain','=',False)]}">
+                                <field name="refund_complain_move_lines">
+                                    <tree>
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="ref"/>
+                                        <field name="debit" sum="Total Debit"/>
+                                        <field name="credit" sum="Total Credit"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Refund Expense Move" attrs="{'invisible': [('refund_expense','=',False)]}">
+                                <field name="refund_complain_move_lines">
+                                    <tree>
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="ref"/>
+                                        <field name="debit" sum="Total Debit"/>
+                                        <field name="credit" sum="Total Credit"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Complain Accepted Moves"
+                                  attrs="{'invisible': [('complain_accepted','=',False)]}">
+                                <field name="complain_acceptance_move_lines">
+                                    <tree>
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="ref"/>
+                                        <field name="debit" sum="Total Debit"/>
+                                        <field name="credit" sum="Total Credit"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Complain Rejection Moves"
+                                  attrs="{'invisible': [('complain_rejected','=',False)]}">
+                                <field name="complain_acceptance_move_lines">
+                                    <tree>
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="ref"/>
+                                        <field name="debit" sum="Total Debit"/>
+                                        <field name="credit" sum="Total Credit"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Refund Payment Moves"
+                                  attrs="{'invisible': ['|', '|',('refund_accepted','=',False), ('type', '!=', 'refund'), ('refund_acceptance_move_state','!=','posted')]}">
+                                <field name="payment_move_lines">
+                                    <tree>
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="ref"/>
+                                        <field name="debit" sum="Total Debit"/>
+                                        <field name="credit" sum="Total Credit"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="VAT Payment Moves" attrs="{'invisible': [('type', '!=', 'pay')]}">
+                                <field name="payment_move_lines">
+                                    <tree>
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="ref"/>
+                                        <field name="debit" sum="Total Debit"/>
+                                        <field name="credit" sum="Total Credit"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Other Information">
+                                <div>
+                                    <label for="move_id"/>
+                                    <field name="move_id" nolabel="1"/>
+                                </div>
+                                <div>
+                                    <label for="refund_move_id" string="Move to Next Period"
+                                           attrs="{'invisible':[('refund_next_period','=',False),]}"/>
+                                    <label for="refund_move_id" string="VAT Refund Request"
+                                           attrs="{'invisible':[('refund_requested','=',False),]}"/>
+                                    <field name="refund_move_id" nolabel="1"/>
+                                </div>
+                                <div>
+                                    <label for="refund_acceptance_move_id" string="VAT Refund Accepted"
+                                           attrs="{'invisible':[('refund_accepted','=',False),]}"/>
+                                    <label for="refund_acceptance_move_id" string="VAT Refund Rejected"
+                                           attrs="{'invisible':[('refund_rejected','=',False),]}"/>
+                                    <field name="refund_acceptance_move_id" readonly="1" nolabel="1"
+                                           attrs="{'invisible': [('refund_acceptance_move_id','=', False)]}"/>
+                                </div>
+                                <div>
+                                    <label for="refund_complain_move_id" string="VAT Refund Complain"
+                                           attrs="{'invisible':[('refund_complain','=',False)]}"/>
+                                    <label for="refund_complain_move_id" string="VAT Expense"
+                                           attrs="{'invisible':[('refund_expense','=', False)]}"/>
+                                    <field name="refund_complain_move_id" readonly="1" nolabel="1"
+                                           attrs="{'invisible': [('refund_complain_move_id','=', False)]}"/>
+                                </div>
+                                <div>
+                                    <label for="complain_acceptance_move_id" string="VAT Complain Accepted"
+                                           attrs="{'invisible':[('complain_accepted','=',False)]}"/>
+                                    <label for="complain_acceptance_move_id" string="VAT Complain Expense"
+                                           attrs="{'invisible':[('complain_rejected','=', False)]}"/>
+                                    <field name="complain_acceptance_move_id" readonly="1" nolabel="1"
+                                           attrs="{'invisible': [('complain_acceptance_move_id','=', False)]}"/>
+                                </div>
+                                <div>
+                                    <label for="payment_move_id" string="VAT Payment"
+                                           attrs="{'invisible':[('type','=','pay'),]}"/>
+                                    <label for="refund_acceptance_move_id" string="Refund Payment"
+                                           attrs="{'invisible':[('type','=','refund'),]}"/>
+                                    <field name="payment_move_id" readonly="1"
+                                           attrs="{'invisible': [('payment_move_id','=', False)]}"/>
+                                </div>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="account_vat_tree_view">
+            <field name="name">Account VAT Tree</field>
+            <field name="model">account.vat.tax</field>
+            <field name="arch" type="xml">
+                <tree decoration-success="amount_receive > 0" decoration-danger="amount_pay > 0 and state !='done'"
+                      decoration-muted="state=='done'">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="start_period"/>
+                    <field name="end_period"/>
+                    <field name="fiscal_year"/>
+                    <field name="journal_id"/>
+                    <field name="amount_pay"/>
+                    <field name="amount_receive"/>
+                    <field name="type"/>
+                    <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <!--  Search view Buildings
+                <record id="account_withholding_search_view" model="ir.ui.view">
+                    <field name="name">Search View withhold</field>
+                    <field name="model">account.tax.vat</field>
+                    <field name="arch" type="xml">
+                        <search string="Search Withhold">
+                            <field name="name" string="Ref" filter_domain="[('name','ilike',self)]"/>
+                            <field name="partner_id"/>
+                            <field name="dar_number"/>
+                            <field name="invoice_id"/>
+                            <separator/>
+                            <filter name="my_withhold" domain="[('create_uid','=',uid)]" help="My Withhold"/>
+                            <filter name="to_receive" domain="[('type','=','receive')]" help="To Receive"/>
+                            <filter name="to_send" domain="[('type','=','py')]" help="To Pay"/>
+                            <group expand="0" string="Group By">
+                                <filter name="dar" string="DU" domain="[]" context="{'group_by':'dar_number'}"/>
+                                <filter name="tax" string="Tax" domain="[]" context="{'group_by':'tax_id'}"/>
+                                <filter name="done" string="Done date" domain="[]" context="{'group_by':'done_date'}"/>
+                                <filter name="tax_date" string="Tax date" domain="[]" context="{'group_by':'tax_date'}"/>
+                                <filter name="due_date" string="Due date" domain="[]" context="{'group_by':'due_date'}"/>
+                            </group>
+                        </search>
+                    </field>
+                </record> -->
+        <record model="ir.actions.act_window" id="action_vat_tree_view">
+            <field name="name">VAT Settlement</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.vat.tax</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="account_tax_vat_menu" name="VAT Management" parent="menu_saft_register_ao" sequence="2"/>
+        <menuitem id="account_vat_management_menu" name="VAT Settlements" parent="account_tax_vat_menu"
+                  action="action_vat_tree_view"/>
+    </data>
+</odoo>

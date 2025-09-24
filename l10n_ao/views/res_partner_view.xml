@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="res_partner_county_view">
+        <field name="name">Partner inherit view Form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="country_id" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="city" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="country_id" position="after">
+                <field name="county_id" placeholder="County" class="o_address_city"
+                       options="{'no_open': True, 'no_create':True, 'no_edit':True}" context="{'state_id': state_id}"/>
+            </field>
+            <field name="property_supplier_payment_term_id" position="before">
+                <field name="is_supplier"/>
+            </field>
+            <field name="property_account_receivable_id" position="before">
+                <field name="sequence_code" readonly="1"/>
+            </field>
+            <xpath expr="//page[@name='accounting']//group[@name='accounting_entries']" position="inside">
+                <field name="type_of_account"  required="True" attrs="{'invisible':[('supplier_immobilized','=',True)]}"/>
+                <field name="supplier_immobilized"/>
+                <field name="type_of_immobilized" attrs="{'invisible':[('supplier_immobilized','!=',True)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="res_county_state_county_view">
+        <field name="name">State County</field>
+        <field name="model">res.country.state</field>
+        <field name="inherit_id" ref="base.view_country_state_form"/>
+        <field name="arch" type="xml">
+            <field name="country_id" position="after">
+                <field name="county_ids">
+                    <tree>
+                        <field name="code"/>
+                        <field name="name"/>
+                    </tree>
+                </field>
+            </field>
+        </field>
+    </record>
+
+     <record id="view_partner_form_retention" model="ir.ui.view">
+    <field name="name">res.partner.form.retention</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//page[@name='accounting']" position="inside">
+            <group string="Entidade Cativadora" name="group_retention">
+                <field name="is_retaining_entity_100"/>
+                <field name="is_retaining_entity_50"/>
+            </group>
+        </xpath>
+    </field>
+</record>
+</odoo>

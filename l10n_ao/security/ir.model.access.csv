@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_tax_regime,account.tax.regime,model_account_tax_regime,account.group_account_user,1,0,0,0
+access_tax_exemption_reason,tax.exemption.reason,model_tax_exemption_reason,account.group_account_user,1,0,0,0
+access_res_state_county,res.state.county,model_res_state_county,account.group_account_user,1,0,0,0
+access_saft_register_file,saft.register.file,model_saft_register_file,account.group_account_invoice,1,1,1,1
+access_angola_saft_wizard,angola.saft.wizard,model_angola_saft_wizard,account.group_account_invoice,1,1,1,1
+access_cancel_move_wizard,cancel.move.wizard,model_cancel_move_wizard,account.group_account_invoice,1,1,1,1
+access_wizard_retention_map,access_wizard_retention_map,model_wizard_retention_map,account.group_account_invoice,1,1,1,1
+access_wizard_supplier_retention_map,access_wizard_supplier_retention_map,model_wizard_supplier_retention_map,account.group_account_invoice,1,1,1,1
+access_account_vat_tax,account.vat.tax,model_account_vat_tax,account.group_account_invoice,1,1,1,0
+access_account_journal_ao,account.journal.ao,model_account_journal_ao,account.group_account_invoice,1,1,1,0
+access_attachment_supplier_ao,access_attachment_supplier_ao,model_supplier_attachment_ao,account.group_account_invoice,1,1,1,1
+access_client_regularization_ao,access_client_regularization_ao,model_client_regularization_ao,account.group_account_invoice,1,1,1,1
+access_supplier_regularization_ao,access_supplier_regularization_ao,model_supplier_reg_attachment_ao,account.group_account_invoice,1,1,1,1
+access_periodic_iva_map,access_periodic_iva_map,model_periodic_iva_map,account.group_account_invoice,1,1,1,1
+access_account_result_settlement,account.result.settlement,model_account_result_settlement,account.group_account_invoice,1,1,1,1
+access_l10n_ao_batch_transfer_user,l10n_ao.l10n_ao.batch.transfer,model_l10n_ao_batch_transfer,base.group_user,1,1,1,1

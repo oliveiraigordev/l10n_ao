@@ -1,0 +1,45 @@
+<odoo>
+
+    <record id="l10n_ao_attachment_supplier_reg_wizard_view" model="ir.ui.view">
+        <field name="name">l10n_ao.supplier.reg.attachment.ao.wizard.view</field>
+        <field name="model">supplier.reg.attachment.ao</field>
+        <field name="arch" type="xml">
+            <form string="Anexo de Regularização Fornecedores">
+                <group>
+                    <field name="month" required="1" />
+                    <field name="year" required="1" />
+                </group>
+                <group>
+                    <field name="url_download" readonly="1" invisible="1" widget="url"/>
+                </group>
+                <footer>
+                    <button name="print_report" string="Imprimir" type="object" class="print btn-primary" data-hotkey="q"/>
+                    <button name="print_report_xlsx" string="GERAR XLSX"
+                        type="object" class="oe_highlight"
+                        attrs="{'invisible':[('url_download', '!=', False)]}"/>
+                    <button name="action_reg_supplier_xlsx_file" string="SALVAR XLSX"
+                        type="object" class="oe_highlight"
+                        attrs="{'invisible':[('url_download', '=', False)]}"/>
+                    <button string="Cancelar" special="cancel" class="btn-secondary" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+1
+    <record id="l10n_ao_attachment_supplier_reg_wizard_action" model="ir.actions.act_window">
+        <field name="name">Anexo de Regularização Fornecedores</field>
+        <field name="res_model">supplier.reg.attachment.ao</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="l10n_ao_attachments" name="Anexos" parent="menu_saft_register_ao" sequence="5"/>
+    <menuitem
+        id="menu_l10n_ao_attachments_supplier_reg"
+        sequence="60"
+        name="Anexo de Regularização Fornecedores"
+        parent="l10n_ao.l10n_ao_attachments"
+        action="l10n_ao.l10n_ao_attachment_supplier_reg_wizard_action"
+    />
+
+</odoo>

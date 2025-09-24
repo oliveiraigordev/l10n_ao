@@ -1,0 +1,110 @@
+<odoo>
+
+    <template id="main_template_abates_ao" inherit_id="account_reports.main_template" primary="True">
+        <xpath expr="//div[hasclass('o_account_reports_page')]" position="attributes">
+            <attribute name="class" add="o_l10n_ao_account_assets_report" separator=" "/>
+        </xpath>
+        <xpath expr="//table[hasclass('o_account_reports_table')]" position="inside">
+            <colgroup>
+                <col span="5"/>
+                <col class="o_account_asset_column_contrast" style="background-color:ligthgray;"/>
+                <col/>
+                <col class="o_account_asset_column_contrast"  style="background-color:ligthgray"/>
+                <col/>
+                <col class="o_account_asset_column_contrast"  style="background-color:ligthgray"/>
+                <col/>
+                <col class="o_account_asset_column_contrast"  style="background-color:ligthgray"/>
+                <col/>
+                <col class="o_account_asset_column_contrast"  style="background-color:ligthgray"/>
+            </colgroup>
+        </xpath>
+    </template>
+
+    <record id="abates_report_ao" model="account.report">
+        <field name="name">MAPA DE ABATES</field>
+        <field name="filter_hierarchy">never</field>
+        <field name="filter_unfold_all" eval="True"/>
+        <field name="filter_period_comparison" eval="False"/>
+        <field name="custom_handler_model_id" ref="l10n_ao_account_asset.model_abates_report_handler"/>
+        <field name="search_template">account_asset.assets_search_template</field>
+        <field name="main_template">l10n_ao_account_asset.main_template_abates_ao</field>
+        <field name="main_table_header_template">l10n_ao_account_asset.main_header_assets_template_ao</field>
+        <field name="load_more_limit" eval="80"/>
+        <field name="column_ids">
+
+            <record id="abates_report_num_ficha_ao_ao" model="account.report.column">
+                <field name="name">Número</field>
+                <field name="expression_label">num_ficha</field>
+                <field name="figure_type">none</field>
+                <field name="sequence">10</field>
+            </record>
+            <record id="abates_report_conta_plano_n_ao_ao" model="account.report.column">
+                <field name="name">Conta do Plano Geral</field>
+                <field name="expression_label">conta_plano_geral</field>
+                <field name="figure_type">none</field>
+                <field name="sequence">20</field>
+            </record>
+            <record id="abates_report_descricao_ativo" model="account.report.column">
+                <field name="name">Descrição do Ativo</field>
+                <field name="expression_label">descricao_ativo</field>
+                <field name="figure_type">none</field>
+                <field name="sequence">30</field>
+            </record>
+            <record id="abates_report_acquisition_date_ao" model="account.report.column">
+                <field name="name">Aquisição/ Construção/ Fabrico/ Doação/ Reparação ou Benfeitoria</field>
+                <field name="expression_label">acquisition_date</field>
+                <field name="figure_type">none</field>
+                <field name="sequence">40</field>
+            </record>
+            <record id="abates_report_entrada_em_funcionamento_ao" model="account.report.column">
+                <field name="name">Entrada em funcionamento/ Inicio de utilização</field>
+                <field name="expression_label">prorata_date</field>
+                <field name="figure_type">none</field>
+                <field name="sequence">50</field>
+            </record>
+            <record id="abates_report_valores_de_aquisicao_ao" model="account.report.column">
+                <field name="name">Valor de aquisição/ Construção/ Fabrico/ Doação/ Reparação ou Benfeitoria</field>
+                <field name="expression_label">valores_de_aquisicao</field>
+                <field name="figure_type">none</field>
+                <field name="sequence">70</field>
+            </record>
+
+            <record id="abates_report_amortizacoes_acumuladas_ao" model="account.report.column">
+                <field name="name">Valores das Depreciações/ Amortizações Acumuladas</field>
+                <field name="expression_label">valor_amortizacoes_acumuladas</field>
+                <field name="figure_type">none</field>
+                <field name="sequence">160</field>
+            </record>
+            <record id="abates_report_valor_contabilistico_residual_ao" model="account.report.column">
+                <field name="name">Valor Contabilistico Residual</field>
+                <field name="expression_label">valor_contabilistico_residual</field>
+                <field name="figure_type">none</field>
+                <field name="sequence">170</field>
+            </record>
+            <record id="abates_report_valor_venda_ao" model="account.report.column">
+                <field name="name">Valor da Venda</field>
+                <field name="expression_label">valor_venda</field>
+                <field name="figure_type">none</field>
+                <field name="sequence">180</field>
+            </record>
+            <record id="abates_report_valor_valia_ao" model="account.report.column">
+                <field name="name">Valor da mais-valia ou menos-valia</field>
+                <field name="expression_label">valor_valia</field>
+                <field name="figure_type">none</field>
+                <field name="sequence">190</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="action_account_report_abates_ao" model="ir.actions.client">
+        <field name="name">Mapa de Abates</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'report_id': ref('l10n_ao_account_asset.abates_report_ao')}"/>
+    </record>
+
+    <menuitem id="menu_action_account_report_abates_ao"
+                name="Mapa de Abates"
+                action="action_account_report_abates_ao"
+                parent="l10n_ao_report.account_reports_ao_statements_menu"
+                groups="account.group_account_readonly"/>
+</odoo>

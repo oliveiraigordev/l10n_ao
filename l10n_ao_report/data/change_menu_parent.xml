@@ -1,0 +1,5 @@
+<odoo>
+    <record id="l10n_ao.menu_saft_register_ao" model="ir.ui.menu">
+        <field name="parent_id" ref="account_accountant.menu_accounting"/>
+    </record>
+</odoo>

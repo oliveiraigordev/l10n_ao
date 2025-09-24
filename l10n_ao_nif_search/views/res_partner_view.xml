@@ -1,0 +1,12 @@
+<odoo>
+    <record id="view_partner_vat_autocomplete" model="ir.ui.view">
+        <field name="name">res.partner.form.vat.autocomplete</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="attributes">
+                <attribute name="widget">vat_autocomplete</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

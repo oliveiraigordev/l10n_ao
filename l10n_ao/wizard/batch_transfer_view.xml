@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="l10n_ao_batch_transfer_view" model="ir.ui.view">
+        <field name="name">l10n_ao.batch.transfer.form</field>
+        <field name="model">l10n_ao.batch.transfer</field>
+        <field name="arch" type="xml">
+            <form string="Batch Transfer">
+                <group>
+                    <group>
+                        <field name="origin_account_id" />
+                        <field name="destination_account_id" />
+                        <field name="amount" />
+                        <field name="transfer_date" />
+                        <field name="ref" />
+                    </group>
+                    <group>
+                        <field name="origin_account_balance" readonly="1" />
+                        <field name="destination_account_balance" readonly="1" />
+                    </group>
+                </group>
+                <footer>
+                    <button string="Transfer" type="object" name="action_transfer" class="btn-primary" />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="l10n_ao_batch_transfer_action" model="ir.actions.act_window">
+        <field name="name">Transferência em Lote</field>
+        <field name="res_model">l10n_ao.batch.transfer</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="l10n_ao_batch_transfer_view" />
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_action_move_journal_line_form" action="l10n_ao_batch_transfer_action" parent="account.menu_finance_entries_accounting_miscellaneous" groups="account.group_account_readonly" sequence="5" />
+
+
+</odoo>

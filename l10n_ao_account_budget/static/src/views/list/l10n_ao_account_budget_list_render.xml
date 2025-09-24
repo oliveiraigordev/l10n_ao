@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="l10n_ao_account_budget.L10nAOAccountBudgetListRenderer" t-inherit="web.ListRenderer"
+       t-inherit-mode="primary" owl="1">
+        <xpath expr="//div[hasclass('o_list_renderer')]"
+               position="before">
+            <div class="l10n_ao_account_budget_search_panel flex-grow-0 flex-shrink-0 border-end pe-2 pb-5 ps-4 h-100 bg-view overflow-auto"
+                 style="float:left">
+                <section class="">
+                    <header class=" pt-4 pb-2 text-uppercase cursor-default">
+                        <i class="fa fa-folder o_search_panel_section_icon text-odoo me-2" style="null"></i>
+                        <b>Orçamento</b>
+                    </header>
+                    <ul class="list-group d-block">
+                        <li t-foreach="props.budgetList" t-as="budget" t-key="budget.id"
+                            class="list-group-item py-1 ps-4 border-0 pe-2"
+                            t-att-id="'budget_year_' + budget.budget_year"
+                            t-on-click="(ev)=> this.onSelectBudget(ev, budget)">
+                            <span class=" text-truncate" t-att-data-tooltip="budget.name">
+                                <b t-esc="budget.budget_year"/>
+                            </span>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[hasclass('o_list_renderer')]/table/tbody/t[@t-call='{{ constructor.rowsTemplate }}']"
+               position="before">
+            <tr t-if="state.showInitialBalance" id="initial_balance" class="o_data_row" data-id="datapoint_00">
+                <td class="o_list_record_selector"></td>
+
+                <td colspan="0" class="o_data_cell cursor-pointer o_field_cell o_list_char" style="font-weight:bold;">
+                    Saldo Inicial
+                </td>
+
+                <td t-if="!state.selectedBudget"/>
+                <t t-else="">
+                    <t t-foreach="this.state.initial_balance" t-as="monthData" t-key="monthData_index">
+                        <td class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                            style="font-weight:bold; text-align: right;width:200px">
+                            <t t-if="monthData.record"
+                               t-esc="_getFormattedValue(monthData.record, monthData.month, monthData.balance) "/>
+                        </td>
+
+                        <td class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                            style="font-weight:bold; text-align: right;">
+                            <t t-if="monthData.record"
+                               t-esc="_getFormattedValue(monthData.record, monthData.month + '_accomplished', monthData.accomplished) "/>
+                        </td>
+
+                        <td class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                            style="font-weight:bold; text-align: right;" t-esc="monthData.variance + '%'"/>
+                    </t>
+
+                    <td t-if="state.initial_balance[0]" class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                        style="font-weight:bold; text-align: right;"
+                        t-esc="_getFormattedValue(state.initial_balance[0].record, 'total', state.initial_total_balance)"/>
+
+                    <td t-if="state.initial_balance[0]" class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                        style="font-weight:bold; text-align: right;"
+                        t-esc="_getFormattedValue(state.initial_balance[0].record, 'total_accomplished', state.initial_total_accomplished)"/>
+
+                    <td t-if="state.initial_balance[0]" class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                        style="font-weight:bold; text-align: right;"
+                        t-esc="state.initial_total_variance + '%'"/>
+                    <td></td>
+
+                </t>
+            </tr>
+        </xpath>
+
+        <xpath expr="//div[hasclass('o_list_renderer')]/table/tbody/t[@t-call='{{ constructor.rowsTemplate }}']"
+               position="after">
+            <t t-if="state.showInitialBalance">
+
+                <!-- BLANK LINE -->
+                <tr id="in_coming_balance" class="o_data_row" data-id="datapoint_000">
+                    <td class="o_list_record_selector"></td>
+
+                    <td colspan="50%" class="o_data_cell cursor-pointer o_field_cell o_list_char">.</td>
+                </tr>
+
+                <!-- IN COMING CASH LINE -->
+                <tr id="in_coming_balance" class="o_data_row" data-id="datapoint_001">
+                    <td class="o_list_record_selector"></td>
+
+                    <td colspan="0" class="o_data_cell cursor-pointer o_field_cell o_list_char"
+                        style="font-weight:bold">
+                        Entrada de Caixa
+                    </td>
+
+                    <t t-foreach="state.cash_in_coming" t-as="monthData" t-key="monthData_index">
+                        <td class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                            style="font-weight:bold; text-align: right;width:200px">
+                            <t t-if="monthData.record"
+                               t-esc="_getFormattedValue(monthData.record, monthData.month, monthData.balance) "/>
+                        </td>
+
+                        <td class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                            style="font-weight:bold; text-align: right;">
+                            <t t-if="monthData.record"
+                               t-esc="_getFormattedValue(monthData.record, monthData.month + '_accomplished', monthData.accomplished)"/>
+                        </td>
+
+                        <td class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                            style="font-weight:bold; text-align: right;" t-esc="monthData.variance + '%'"/>
+                    </t>
+
+                    <td t-if="this.state.cash_in_coming[0]"
+                        class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                        style="font-weight:bold; text-align: right;"
+                        t-esc="_getFormattedValue(state.cash_in_coming[0].record, 'total', state.cash_in_coming_total_balance)"/>
+
+                    <td t-if="this.state.cash_in_coming[0]"
+                        class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                        style="font-weight:bold; text-align: right;"
+                        t-esc="_getFormattedValue(state.cash_in_coming[0].record, 'total', state.cash_in_coming_total_accomplished)"/>
+                    <td class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                        style="font-weight:bold; text-align: right;" t-esc="state.cash_in_coming_total_variance + '%'"/>
+                    <td></td>
+                </tr>
+                <!-- OUT COMING CASH LINE -->
+                <tr id="out_coming_balance" class="o_data_row" data-id="datapoint_002">
+                    <td class="o_list_record_selector"></td>
+
+                    <td colspan="0" class="o_data_cell cursor-pointer o_field_cell o_list_char"
+                        style="font-weight:bold">
+                        Saída de Caixa
+                    </td>
+
+                    <t t-foreach="state.cash_out_coming" t-as="monthData" t-key="monthData_index">
+                        <td class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                            style="font-weight:bold; text-align: right;width:200px">
+                            <t t-if="monthData.record"
+                               t-esc="_getFormattedValue(monthData.record, monthData.month, monthData.balance) "/>
+                        </td>
+
+                        <td class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                            style="font-weight:bold; text-align: right;">
+                            <t t-if="monthData.record"
+                               t-esc="_getFormattedValue(monthData.record, monthData.month + '_accomplished', monthData.accomplished)"/>
+                        </td>
+
+                        <td class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                            style="font-weight:bold; text-align: right;" t-esc="monthData.variance + '%'"/>
+                    </t>
+
+                    <td t-if="this.state.cash_out_coming[0]"
+                        class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                        style="font-weight:bold; text-align: right;"
+                        t-esc="_getFormattedValue(state.cash_out_coming[0].record, 'total', state.cash_out_coming_total_balance)"/>
+
+                    <td t-if="this.state.cash_out_coming[0]"
+                        class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                        style="font-weight:bold; text-align: right;"
+                        t-esc="_getFormattedValue(state.cash_out_coming[0].record, 'total', state.cash_out_coming_total_accomplished)"/>
+                    <td class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                        style="font-weight:bold; text-align: right;"
+                        t-esc="state.cash_out_coming_total_variance + '%'"/>
+                    <td></td>
+                </tr>
+                <!-- AVAILABILITY LINE -->
+                <tr id="availability_balance" class="o_data_row" data-id="datapoint_003">
+                <td class="o_list_record_selector"></td>
+
+                    <td colspan="0" class="o_data_cell cursor-pointer o_field_cell o_list_char" style="font-weight:bold">
+                    Disponibilidade
+                </td>
+
+                <t t-foreach="state.availability" t-as="monthData" t-key="monthData_index">
+                    <td class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                        style="font-weight:bold; text-align: right;width:200px">
+                        <t t-if="monthData.record"
+                           t-esc="_getFormattedValue(monthData.record, monthData.month, monthData.balance) "/>
+                    </td>
+
+                    <td class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                        style="font-weight:bold; text-align: right;">
+                        <t t-if="monthData.record"
+                           t-esc="_getFormattedValue(monthData.record, monthData.month + '_accomplished', monthData.accomplished)"/>
+                    </td>
+
+                    <td class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                        style="font-weight:bold; text-align: right;" t-esc="monthData.variance + '%'"/>
+                </t>
+
+                <td t-if="this.state.availability[0]" class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                    style="font-weight:bold; text-align: right;"
+                    t-esc="_getFormattedValue(state.availability[0].record, 'total', state.total_balance)"/>
+
+                <td t-if="this.state.availability[0]" class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                    style="font-weight:bold; text-align: right;"
+                    t-esc="_getFormattedValue(state.availability[0].record, 'total', state.total_accomplished)"/>
+                <td class="o_data_cell cursor-pointer o_field_cell o_list_number"
+                    style="font-weight:bold; text-align: right;" t-esc="state.total_variance + '%'"/>
+                <td></td>
+            </tr>
+            </t>
+
+        </xpath>
+    </t>
+</templates>

@@ -1,0 +1,36 @@
+<odoo>
+    <data noupdate="1">
+        <!--  Chart template  -->
+        <record id="ao_chart_template" model="account.chart.template">
+            <field name="name">Plano de Contas Angola</field>
+            <field name="property_account_receivable_id" ref="account_chart_311211"/>
+            <field name="property_account_payable_id" ref="account_chart_321211"/>
+            <field name="default_pos_receivable_account_id" ref="account_chart_311211"/>
+            <field name="property_account_income_categ_id" ref="account_chart_62111"/>
+            <field name="property_account_expense_categ_id" ref="account_chart_752191"/>
+            <field name="property_account_income_id" ref="account_chart_62111"/>
+             <field name="income_currency_exchange_account_id" ref="account_chart_6621"/>
+            <field name="property_account_expense_id" ref="account_chart_752191"/>
+            <field name="property_account_income_credit_id" ref="account_chart_3194"/>
+            <field name="property_account_expense_credit_id" ref="account_chart_680124"/>
+
+            <field name="account_journal_early_pay_discount_loss_account_id" ref="account_chart_7631"/>
+            <field name="account_journal_early_pay_discount_gain_account_id" ref="account_chart_6631"/>
+            <field name="tax_withhold_journal_id" model="account.journal" search="[('code', '=', u'WTH')]"/>
+            <field name="expense_currency_exchange_account_id" ref="account_chart_7621"/>
+            <field name="partner_receivable_code_prefix">31121</field>
+            <field name="partner_payable_code_prefix">32121</field>
+            <field name="fpartner_receivable_code_prefix">31122</field>
+            <field name="fpartner_payable_code_prefix">32122</field>
+            <field name="employee_payslip_code_prefix">3612</field>
+            <field name="employee_advance_code_prefix">3632</field>
+            <field name="employee_inss_account_code">3461</field>
+            <field name="company_inss_account_code">3462</field>
+            <field name="code_digits">0</field>
+        </record>
+        <!--<record id="ao_account_subtotal" model="ir.config_parameter">
+            <field name="key">account.show_line_subtotals_tax_selection</field>
+            <field name="value">tax_included</field>
+        </record>-->
+    </data>
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="l10nao_product_product_view" model="ir.ui.view">
+            <field name="name">Product inherit View</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <field name="taxes_id" position="attributes">
+                    <attribute name="required">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="l10naos_product_product_view" model="ir.ui.view">
+            <field name="name">Product Template View</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="account.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <field name="taxes_id" position="attributes">
+                    <attribute name="required">1</attribute>
+                </field>
+            </field>
+        </record>
+        <record id="l10nao_product_template_view" model="ir.ui.view">
+            <field name="name">Product Template View</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_tag_ids']" position="after">
+                    
+                        <field name="operation_type" required="True"/>
+                        <field name="tipology" />
+                   
+
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_product_template_form_inherit" model="ir.ui.view">
+            <field name="name">view.product.template.form.inherit (in l10n_ao_sale)</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='properties']" position="after">
+                    <group name="tax_parameters" string="Parâmetros de Tributação" col="2">
+                        <field name="get_account_from_sub_accounts" groups="account.group_account_readonly"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        </data>
+    </odoo>

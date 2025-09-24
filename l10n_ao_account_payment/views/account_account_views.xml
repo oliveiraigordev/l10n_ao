@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="l10n_ao_account_payment_account_account_form_inherit" model="ir.ui.view">
+        <field name="name">account.account.view.form.inherit (in l10n_ao_account_payment)</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account_accountant.view_account_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='reconcile']" position="before">
+                <field name="force_same_account_on_reconcile" />
+            </xpath>
+            <xpath expr="//label[@for='reconcile']" position="attributes">
+                <attribute name="attrs">{'invisible': [('force_same_account_on_reconcile', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//label[@for='reconcile']" position="after">
+                <field name="reconcile" attrs="{'invisible': [('force_same_account_on_reconcile', '=', False)]}" nolabel="1"/>
+                <button name="action_open_reconcile" class="oe_link" type="object" string=" -> Reconcile" attrs="{'invisible': [('reconcile', '=', False)]}"/>
+                <br/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="l10n_ao_account_payment_account_account_tree_inherit" model="ir.ui.view">
+        <field name="name">account.account.view.tree.inherit (in l10n_ao_account_payment)</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='reconcile']" position="attributes">
+                <attribute name="attrs">
+                    {'invisible': ['|', ('account_type', '=', 'liability_credit_card'), ('internal_group', '=', 'off_balance')]}
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

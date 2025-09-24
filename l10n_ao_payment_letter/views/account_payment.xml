@@ -1,0 +1,226 @@
+<odoo>
+    <record id="view_account_payment_form_inherit" model="ir.ui.view">
+        <field name="name">account.payment.form.inherit</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_open_journal_entry']" position="after">
+                <button name="action_letter_payment"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-sticky-note"
+                        attrs="{'invisible': [('payment_type', '=', 'inbound')]}"
+                >
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Carta de Pagamento</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="paperformat_a4_tis_tech" model="report.paperformat">
+        <field name="name">A4 Tis Tech</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">32</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_spacing">10</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <report
+            id="report_letter_payment_pdf"
+            model="account.payment"
+            string="Carta de Pagamento"
+            report_type="qweb-pdf"
+            name="l10n_ao_payment_letter.report_letter_payment_template"
+            file="l10n_ao_payment_letter.report_letter_payment_template"
+            attachment_use="False"
+            paperformat="l10n_ao_payment_letter.paperformat_a4_tis_tech"
+    />
+
+
+
+
+    <template id="external_layout_payment">
+        <div t-attf-class="header" t-att-style="report_header_style">
+            <div class="o_background_header">
+                <div id="document_info"
+                     t-attf-class="#{'col-3' if report_type != 'html' else 'col-sm-4 col-md-3'} float-end">
+                    <div class="text-uppercase text-left">
+                        <div class="mr-2 mt-0 float-start" style="font-size:x-small;">
+                            <t t-raw="document_copy"/>
+                        </div>
+                        <h2 class="pt-1 mb-0 float-end" style="max-width:298px;min-width:298px;">
+                            <strong style="float:right;">
+                                <t t-raw="document_type"/>
+                            </strong>
+                        </h2>
+                    </div>
+                    <div class="text-uppercase text-end float-end" style="min-width:170px;border:5px 5px;">
+                        <h6 class="mb-0">
+                            <t t-raw="document_title"/>
+                        </h6>
+                    </div>
+                    <div class="mt0 float-start"
+                         style="font-size:x-small;font-style:italic;max-height:20px;overflow:hidden;">
+                        <span class="" t-esc="doc.company_id.report_header"/>
+                    </div>
+                </div>
+                <div style="min-height:120px;font-size:x-small;overflow:hidden;">
+                    <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"
+                         class="float-start m-0"
+                         alt="Logo"
+                         style="max-width: 250px;max-height:150px;overflow:hidden;"/>
+                </div>
+            </div>
+        </div>
+        <div t-attf-class="o_company_#{doc.company_id.id}_layout article o_report_layout_striped {{ 'o_report_layout_background' if doc.company_id.layout_background in ['Geometric', 'Custom'] else '' }}"
+             t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % doc.company_id.layout_background_image.decode('utf-8') if doc.company_id.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' }});"
+             t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-out="0"/>
+        </div>
+        <div t-attf-class="o_company_#{doc.company_id.id}_layout footer o_background_footer">
+            <div class="text-center" style="font-size: xx-small; text-align: center;">
+                <footer style="margin: 0 auto;">
+                    <p>
+                        <strong>Tis Tech Angola – Tecnologia, Informação e Serviços</strong>
+                    </p>
+                    <p>Condomínio Belas Business Park, Edifício Cabina 1ª andar, Talatona, Município de Belas – Luanda
+                    </p>
+                </footer>
+            </div>
+
+            <div t-if="report_type == 'pdf'" class="text-muted"
+                 style="font-size:xx-small;white-space: nowrap;width:10%;margin:0 auto;">
+                Page:
+                <span class="page"/>
+                of
+                <span class="topage"/>
+            </div>
+        </div>
+    </template>
+
+
+    <template id="report_letter_payment_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="l10n_ao_payment_letter.external_layout_payment">
+                    <div class="page" style="color: black;">
+                        <!-- Cabeçalho e Saudação -->
+                        <h3>
+                            <strong>
+                                <p>Ao</p>
+                            </strong>
+                            <p>
+                                <strong>
+                                    <t t-esc="doc.journal_id.bank_id.name"/>
+                                </strong>
+                            </p>
+                            <strong>
+                                <p>LUANDA</p>
+                            </strong>
+                        </h3>
+                        <br></br>
+                        <!-- Referência -->
+                        <p>
+                            <strong>Ref.: TIS TECH
+                                <t t-esc="doc.format_seq"/>
+                            </strong>
+                        </p>
+                        <br></br>
+                        <p>Nossos melhores cumprimentos,</p>
+                        <br></br>
+                        <p style="text-indent: 50px;">Queiram por favor, efetuar o débito no valor de AKZ
+                            <strong>
+                                <t t-esc="doc.amount"/>
+                            </strong>
+                            (<t t-esc="doc.amount_text"/>)
+                            <t t-foreach="doc.partner_id.bank_ids" t-as="bank">
+                                na conta nº
+                                <strong>
+                                    <t t-esc="bank.acc_number"/>
+                                </strong>
+                            </t>
+                            e proceder com a ordem de pagamento conforme dados abaixo:
+                        </p>
+                        <!-- Detalhes Bancários -->
+                        <br></br>
+                        <t t-foreach="doc.partner_id.bank_ids" t-as="bank">
+                                <p>
+                                    <strong>BANCO:</strong>
+                                    <t t-esc="bank.bank_name"/>
+                                </p>
+                                <p>
+                                    <strong>IBAN:</strong>
+                                    <t t-esc="bank.acc_iban"/>
+                                </p>
+                                <p>
+                                    <strong>BENEFICIÁRIO:</strong>
+                                    <t t-esc="doc.partner_id.name"/>
+                                </p>
+                                <br></br>
+                        </t>
+                        <br></br>
+                        <p>
+                            <strong>OBS: Pagamento de
+                                <t t-esc="doc.ref"/>
+                            </strong>
+                        </p>
+                        <br></br>
+                        <!-- Data e Assinaturas -->
+                        <p>Luanda, aos
+                            <t t-esc="doc.format_date"/>
+                        </p>
+                        <br></br>
+                        <p>Atenciosamente,</p>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td colspan="3"
+                                    style="text-align: center; border: 1px solid white; background-color: transparent; color: black;">
+                                    _________________________________
+                                </td>
+                                <td colspan="3"
+                                    style="text-align: center; border: 1px solid white; background-color: transparent; color: black;">
+                                    _________________________________
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"
+                                    style="text-align: center; border: 1px solid white; background-color: transparent; color: black;">
+<!--                                    <strong>Willian de Oliveira</strong>-->
+                                </td>
+                                <td colspan="3"
+                                    style="text-align: center; border: 1px solid white; background-color: transparent; color: black;">
+<!--                                    <strong>Paulo Inácio</strong>-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"
+                                    style="text-align: center; border: 1px solid white; background-color: transparent; color: black;">
+                                    Procurador
+                                </td>
+                                <td colspan="3"
+                                    style="text-align: center; border: 1px solid white; background-color: transparent; color: black;">
+                                    Procurador
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+
+</odoo>

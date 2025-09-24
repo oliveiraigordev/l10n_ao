@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="stock.action_report_picking" model="ir.actions.report">
+            <field name="name">Picking Operations</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_ao_stocks.report_stock_picking_agt</field>
+            <field name="report_file">l10n_ao_stocks.report_stock_picking_agt</field>
+            <field name="print_report_name">'Picking Operations - %s -  %s' % (object.partner_id.name or '', object.name)</field>
+            <field name="binding_model_id" ref="model_stock_picking"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="stock.action_report_delivery" model="ir.actions.report">
+            <field name="name">Delivery Slip</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_ao_stocks.report_deliveryship_print_agt</field>
+            <field name="report_file">l10n_ao_stocks.report_deliveryship_print_agt</field>
+            <field name="print_report_name">'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)</field>
+            <field name="binding_model_id" ref="model_stock_picking"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

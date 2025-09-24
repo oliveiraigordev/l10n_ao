@@ -1,0 +1,53 @@
+<odoo>
+    <record id="view_apuramento_iva_line_form" model="ir.ui.view">
+    <field name="name">apuramento.iva.line.form</field>
+    <field name="model">apuramento.iva.line</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" placeholder="Rascunho" readonly="1" />
+                    </h1>
+                </div>
+                <group string="Apuramento IVA">
+                    <group>
+                        <field name="year" string="Número" />
+                        <field name="currency_id" string="Moeda" sum="1"/>
+                        <field name="journal_id"/>
+                        <field name="move_id" readonly="1" />
+                        <field name="reimburse_move_id" readonly="1" attrs="{'invisible': [('reimburse_move_id', '=', False)]}" />
+                    </group>
+                    <group>
+                        <field name="amount_to_pay" string="IVA Pagar" sum="1"/>
+                        <field name="amount_to_recover" string="IVA Recuperar" sum="1" />
+                        <field name="amount_to_report" string="IVA Reportar" sum="1"/>
+                        <field name="is_amount_to_report_overdue" string="IVA Fora do prazo"/>
+                        <field name="amount_reimburse" string="IVA Reembolso" sum="1"/>
+                        <field name="create_date" string="Data" widget="date" />
+                    </group>
+                </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+    <record model="ir.ui.view" id="view_apuramento_iva_line_tree">
+        <field name="name">apuramento.iva.line.tree</field>
+        <field name="model">apuramento.iva.line</field>
+        <field name="arch" type="xml">
+            <tree string="Apuramento IVA" create="0" delete="0">
+                <field name="year" string="Número"/>
+                <field name="currency_id" string="Moeda" sum="1"/>
+                <field name="journal_id"/>
+                <field name="name" />
+                <field name="move_id" readonly="1"/>
+                <field name="amount_to_pay" string="IVA Pagar" sum="1"/>
+                <field name="amount_to_recover" string="IVA Recuperar" sum="1" />
+                <field name="amount_to_report" string="IVA Reportar" sum="1"/>
+                <field name="is_amount_to_report_overdue" string="IVA Fora do prazo"/>
+                <field name="amount_reimburse" string="IVA Reembolso" sum="1"/>
+                <field name="create_date" string="Data" widget="date" />
+            </tree>
+        </field>
+    </record>
+</odoo>

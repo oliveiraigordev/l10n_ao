@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_wizard_contract_update_form" model="ir.ui.view">
+        <field name="name">view.wizard.contract.update.form</field>
+        <field name="model">wizard.contract.update</field>
+        <field name="arch" type="xml">
+            <form string="Contract Update Wizard">
+                <group string="">
+                    <field name="contract_id" domain="[('state', '=', 'open')]"
+                           options="{'no_create': True, 'no_open': True, 'no_write': True}"/>
+                </group>
+                <group col="2">
+
+                    <group string="Detalhes do Novo Contracto">
+                        <field name="contract_type"/>
+                        <field name="department_id" options="{'no_create': True, 'no_open': True, 'no_write': True}"/>
+                        <field name="job_id" options="{'no_create': True, 'no_open': True, 'no_write': True}"/>
+
+                        <label for="wage"/>
+                        <div class="o_row mw-50" name="wage">
+                            <field name="wage" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                            <div class="mb-3">/ month</div>
+                        </div>
+                    </group>
+
+                    <group string="Período">
+                        <field name="date_from" widget="date"/>
+                        <field name="date_to" widget="date"/>
+                    </group>
+                </group>
+
+                <footer>
+                    <button name="update_contract" type="object" string="Apply" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_wizard_contract_update" model="ir.actions.act_window">
+        <field name="name">Menu de Actualização de Contractos</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wizard.contract.update</field>
+        <field name="view_mode">form</field>
+        <field name="binding_model_id" ref="model_wizard_contract_update"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_wizard_contract_update" name="Actualização de Contractos"
+              parent="hr_payroll.menu_hr_payroll_employees_root" action="action_wizard_contract_update"
+              sequence="35"/>
+
+</odoo>

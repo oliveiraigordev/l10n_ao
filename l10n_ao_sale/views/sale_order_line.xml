@@ -1,0 +1,25 @@
+<!--
+<odoo>
+    <record id="ao_sales_order_line_form_view" model="ir.ui.view">
+        <field name="name">sale.order.line.form.view</field>
+        <field name="model">sale.order.line</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="sale.sale_order_line_view_form_readonly"/>
+        <field name="arch" type="xml">
+            <field name="discount" position="after">
+                <field name="margin_total" optional="hide"/>
+            </field>
+        </field>
+    </record>
+    <record id="ao_sales_order_line_tree_view" model="ir.ui.view">
+        <field name="name">sale.order.line.tree.view</field>
+        <field name="model">sale.order.line</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="sale.view_order_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="discount" position="after">
+                <field name="margin_total" optional="hide"/>
+            </field>
+        </field>
+    </record>
+</odoo>-->

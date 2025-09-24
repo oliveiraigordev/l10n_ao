@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="account_budget_economic_lines_tree_view" model="ir.ui.view">
+        <field name="name">view account budget_line_tree</field>
+        <field name="model">account.budget.lines</field>
+        <field name="arch" type="xml">
+            <tree string="Linhas do orçamento" editable="top" create="1" edit="1" expand="True">
+                <field name="currency_id" invisible="1"/>
+                <field name="account_id"/>
+                <field name="january"/>
+                <field name="february"/>
+                <field name="march"/>
+                <field name="april"/>
+                <field name="may"/>
+                <field name="june"/>
+                <field name="july"/>
+                <field name="august"/>
+                <field name="september"/>
+                <field name="october"/>
+                <field name="november"/>
+                <field name="december"/>
+
+                <button type="object" name="action_open_budget_entries" string="Movimentos"
+                        icon="fa-arrow-circle-o-right"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_budget_lines_tree_view" model="ir.ui.view">
+        <field name="name">view account budget_line_tree</field>
+        <field name="model">account.budget.lines</field>
+        <field name="arch" type="xml">
+            <tree string="Linhas do orçamento" editable="top" create="1" edit="1" expand="True">
+                <field name="currency_id" invisible="1"/>
+                <field name="account_id"/>
+                <field name="budget_line_type" required="1" readonly="0"/>
+                <field name="january"/>
+                <field name="february"/>
+                <field name="march"/>
+                <field name="april"/>
+                <field name="may"/>
+                <field name="june"/>
+                <field name="july"/>
+                <field name="august"/>
+                <field name="september"/>
+                <field name="october"/>
+                <field name="november"/>
+                <field name="december"/>
+
+                <button type="object" name="action_open_budget_entries" string="Movimentos"
+                        icon="fa-arrow-circle-o-right"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="account_budget_lines_search_view" model="ir.ui.view">
+        <field name="name">account budget view line search</field>
+        <field name="model">account.budget.lines</field>
+        <field name="arch" type="xml">
+            <search string="Posição Orçamental">
+                <field name="account_id"/>
+                <field name="budget_line_type"/>
+                <field name="account_budget_line_group_id"/>
+                <group expand="1">
+                    <filter name="budget_line_category_by" string="Posição orçamental"
+                            context="{'group_by':'account_budget_line_group_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+</odoo>

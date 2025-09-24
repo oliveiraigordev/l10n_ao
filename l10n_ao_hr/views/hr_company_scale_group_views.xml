@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_company_scale_group_form_view" model="ir.ui.view">
+        <field name="name">HR - Company Scale Group Form View</field>
+        <field name="model">hr.company.scale.group</field>
+        <field name="arch" type="xml">
+            <form string="Company Scale Group">
+                <header>
+                    <button class="oe_highlight" type="object" string="Definir como Padrão"
+                            name="action_set_active" attrs="{'invisible': [('set_active', '=', True)]}"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Default" bg_color="bg-primary"
+                            attrs="{'invisible': [('set_active', '=', False)]}"/>
+                    <div class="oe_title" name="title">
+                        <h2>
+                            <field name="name" readonly="1" attrs="{'invisible': [('scale', '=', False)]}"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="set_active" invisible="1"/>
+                            <field name="scale" required="1"/>
+                        </group>
+                    </group>
+
+                    <group string="PERCENTAGEM DE GANHOS E DESCONTOS CORRESPONDENTES À TABELA">
+                        <group>
+                            <group>
+                                <field name="shift_work" required="1"/>
+                            </group>
+                            <group>
+                                <span>%</span>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="night_work" required="1"/>
+                            </group>
+                            <group>
+                                <span>%</span>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="availability_system" required="1"/>
+                            </group>
+                            <group>
+                                <span>%</span>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="working_days_moth_salary" required="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="calendar_days_moth_salary" required="1"/>
+                            </group>
+                        </group>
+                    </group>
+
+                    <group string="TIPO DE PROCESSAMENTO DE SALÁRIOS">
+                        <group>
+                            <group>
+                                <field name="variable_working_days" required="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="fixed_days" required="1"/>
+                            </group>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="TIPO DE HORA EXTRA" id="extra_hours_type">
+                            <group>
+                                <group>
+                                    <group>
+                                        <field name="limit_hours" required="1"/>
+                                    </group>
+                                    <group>
+                                        <span>Hours</span>
+                                    </group>
+                                </group>
+
+                                <group>
+                                    <group>
+                                        <field name="limit_of_30_hours_per_month" required="1"/>
+                                    </group>
+                                    <group>
+                                        <span>%</span>
+                                    </group>
+                                </group>
+
+                                <group>
+                                    <group>
+                                        <field name="hours_exceeding_30_hours_per_month" required="1"/>
+                                    </group>
+                                    <group>
+                                        <span>%</span>
+                                    </group>
+                                </group>
+
+                                <group>
+                                    <group>
+                                        <field name="work_on_rest_days" required="1"/>
+                                    </group>
+                                    <group>
+                                        <span>%</span>
+                                    </group>
+                                </group>
+
+                                <group>
+                                    <group>
+                                        <field name="extra_hour_are_not_fractions_time_less_than" required="1"/>
+                                    </group>
+                                    <group>
+                                        <span>Minute</span>
+                                    </group>
+                                </group>
+
+                                <group>
+                                    <group>
+                                        <field name="extra_hour_counted_half_hour" required="1"/>
+                                    </group>
+                                    <group>
+                                        <span>Minute</span>
+                                    </group>
+
+                                    <group>
+                                        <field name="extra_hour_half_hour_of_until" required="1"/>
+                                    </group>
+                                    <group>
+                                        <span>Minute</span>
+                                    </group>
+                                </group>
+
+                                <group>
+                                    <group>
+                                        <field name="extra_hour_considered_as_one" required="1"/>
+                                    </group>
+                                    <group>
+                                        <span>Minute</span>
+                                    </group>
+                                    <group>
+                                        <field name="extra_hour_as_on_hour_of_until" required="1"/>
+                                    </group>
+                                    <group>
+                                        <span>Minute</span>
+                                    </group>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="TIPO DE HORA DE FALTA" id="hours_left_type">
+                            <group>
+                                <group>
+                                    <field name="hour_left_counted_half_hour" required="1"/>
+                                    <field name="hour_left_half_hour_of_until" required="1"/>
+                                </group>
+
+                                <group>
+                                    <field name="hour_left_considered_as_one" required="1"/>
+                                    <field name="hour_left_as_on_hour_of_until" required="1"/>
+                                </group>
+
+                                <group>
+                                    <field name="hour_left_are_not_fractions_time_less_than" required="1"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="ANTIGUIDADE" id="antique">
+                            <group>
+                                <group>
+                                    <group>
+                                        <field name="seniority_limit"/>
+                                    </group>
+                                    <group>
+                                        <span>Years</span>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="seniority_percentage"/>
+                                    </group>
+                                    <group>
+                                        <span>%</span>
+                                    </group>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="not_influence_number_of_years" widget="boolean_toggle"/>
+                            </group>
+                        </page>
+
+                        <page string="ABONO FAMÍLIA" id=" family_allowance">
+                            <group>
+                                <group>
+                                    <field name="type_of_dependents" required="1"/>
+                                    <field name="dependent_limit" required="1"/>
+                                </group>
+
+                                <group>
+                                    <field name="age_range_dependent_children" required="1"/>
+                                    <field name="dependent_children_until" required="1"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="SUBSÍDIO DE NATAL" id="christmas_allowance">
+                            <group>
+                                <group>
+                                    <field name="christmas_bonus" required="1"/>
+                                    <field name="christmas_payment_date"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="FÉRIAS" id="vocations">
+                            <group>
+                                <group>
+                                    <group>
+                                        <field name="take_vacation_after_admission" required="1"/>
+                                    </group>
+                                </group>
+
+                                <group>
+                                    <group>
+                                        <field name="vocation_bonus" required="1"/>
+                                    </group>
+                                    <group>
+                                        <span>%</span>
+                                    </group>
+                                </group>
+
+                                <group>
+                                    <group>
+                                        <field name="maximum_number_vacation_days_off" required="1"/>
+                                    </group>
+                                </group>
+
+                                <group>
+                                    <group>
+                                        <field name="right_to_more_vocation" required="1"/>
+                                    </group>
+                                </group>
+
+                                <group>
+                                    <group>
+                                        <field name="enjoyment_collaborators_for_children" required="1"/>
+                                    </group>
+                                </group>
+
+                                <group>
+                                    <group>
+                                        <field name="vocation_until" required="1"/>
+                                    </group>
+                                </group>
+
+                                <group>
+                                    <group>
+                                        <field name="discount_of_vocation_days_for_justified_absences" required="1"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="vocation_days_for_justified_absences_for_each" required="1"/>
+                                    </group>
+                                </group>
+
+                                <group>
+                                    <group>
+                                        <field name="discount_of_vocation_days_for_unjustified_absences" required="1"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="vocation_days_for_unjustified_absences_for_each" required="1"/>
+                                    </group>
+                                </group>
+
+                                <group>
+                                    <group>
+                                        <field name="process_automatically_vacation" widget="boolean_toggle"/>
+                                    </group>
+                                </group>
+
+
+                                <group>
+                                    <group>
+                                        <field name="vacation_payment" required="1"/>
+                                        <field name="vocation_pay_month"
+                                               attrs="{'invisible': [('vacation_payment', '!=', 'full_payment_fixed_month')], 'required': [('vacation_payment', '=', 'full_payment_fixed_month')]}"/>
+                                    </group>
+                                </group>
+
+                                <group>
+                                    <group>
+                                        <field name="vacation_expatri_payment_date"/>
+                                    </group>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_company_scale_group_tree_view" model="ir.ui.view">
+        <field name="name">HR - Company Scale Group Form View Tree</field>
+        <field name="model">hr.company.scale.group</field>
+        <field name="arch" type="xml">
+            <tree string="Company Scale Group" sample="1" multi_edit="1">
+                <field name="set_active" widget="boolean_toggle" readonly="1"/>
+                <field name="scale"/>
+                <field name="shift_work" string="Trabalho por Turnos (%)"/>
+                <field name="night_work" string="Trabalho Noturno (%)"/>
+                <field name="limit_of_30_hours_per_month" string="Limite de 30 horas por mês (%)"/>
+                <field name="hours_exceeding_30_hours_per_month" string="Horas que excedem 30 horas por mês (%)"/>
+                <field name="work_on_rest_days" string="Trabalhar nos dias de descanso (%)"/>
+                <field name="seniority_limit" string="Limite de Antiguidade (%)"/>
+                <field name="seniority_percentage" string="Percentagem de Antiguidade(%)"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_hr_company_scale_group" model="ir.actions.act_window">
+        <field name="name">Grupo de Escalas da Empresa</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.company.scale.group</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

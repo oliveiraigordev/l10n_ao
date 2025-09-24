@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <!-- ===== FORM (Expatriados) ===== -->
+    <record id="view_account_payment_salary_expat_form" model="ir.ui.view">
+      <field name="name">account_payment_view_expat_form</field>
+      <field name="model">account.payment.salary</field>
+      <field name="arch" type="xml">
+        <form string="Pagamento de Salários (Expatriados)">
+          <header>
+            <!-- Ações principais -->
+            <button name="hr_payment_post"
+                    type="object"
+                    string="Pagamento total"
+                    class="oe_highlight"
+                    states="draft"
+                    icon="fa-check"/>
+            <button name="action_open_partial_payment_wizard"
+                    type="object"
+                    string="Pagamento Parcial"
+                    class="btn btn-primary"
+                    icon="fa-money-check-alt"
+                    attrs="{'invisible': [('state', '=', 'posted')]}"/>
+
+            <!-- Multas & Juros (smart buttons no header) -->
+            <button name="action_open_penalty_wizard"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-gavel"
+                    attrs="{'invisible': [('state','!=','posted')]}">
+              <field name="total_penalties" widget="statinfo" string="Multas &amp; Juros"/>
+            </button>
+            <!-- Impostos -->
+            <button name="toggle_pay_tax"
+                    type="object"
+                    string="(Exc) Incluir Impostos"
+                    class="btn btn-outline-warning"
+                    icon="fa-balance-scale"
+                    attrs="{'invisible': [('tax_paid', '=', True)]}"/>
+            <button name="action_pay_tax"
+                    type="object"
+                    string="Pagar Impostos"
+                    class="btn btn-info"
+                    icon="fa-money-bill"
+                    attrs="{'invisible': [('state', '!=', 'posted'), ('tax_paid', '=', True)]}"/>
+
+            <!-- Workflow -->
+            <button name="action_draft"
+                    type="object"
+                    string="Voltar para Rascunho"
+                    class="btn btn-outline-secondary"
+                    icon="fa-undo"
+                    attrs="{'invisible': [('state', 'not in', ('posted', 'cancel'))]}"/>
+
+            <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
+          </header>
+
+          <!-- Preferência de impostos (mostra só quando relevante) -->
+          <group string="Impostos" attrs="{'invisible': [('pay_tax', '=', False)]}" col="2">
+            <field name="pay_irt" widget="boolean_toggle"
+                   string="Incluir IRT"
+                   help="Inclui o IRT (Imposto sobre o Rendimento do Trabalho) neste pagamento."/>
+            <field name="pay_ss" widget="boolean_toggle"
+                   string="Incluir Segurança Social"
+                   help="Inclui a contribuição do INSS neste pagamento."/>
+            <field name="pay_tax" invisible="1" readonly="1"/>
+            <field name="tax_paid" invisible="1"/>
+          </group>
+
+          <sheet>
+            <!-- Título pós-postagem -->
+            <div class="oe_title" attrs="{'invisible': [('state', '=', 'draft')]}">
+              <h1><field name="name" readonly="1"/></h1>
+            </div>
+
+            <group>
+              <!-- Coluna Resumo -->
+              <group string="Resumo">
+                <field name="payment_type" widget="radio" options="{'horizontal': True}"
+                       readonly="1" force_save="1" string="Tipo de Operação"/>
+                <label for="slip_amount" string="Valor Líquido"/>
+                <div class="o_row">
+                  <field name="slip_amount" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                  <field name="currency_id"
+                         options="{'no_create': True, 'no_open': True}"
+                         attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                </div>
+
+                <label for="amount_paid" string="Valor Bruto"/>
+                <div class="o_row">
+                  <field name="amount_paid" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                  <field name="currency_id"
+                         options="{'no_create': True, 'no_open': True}"
+                         attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                </div>
+
+                <label for="hr_irt_amount" string="Total IRT"/>
+                <div class="o_row">
+                  <field name="hr_irt_amount" readonly="1"/>
+                  <field name="currency_id"
+                         options="{'no_create': True, 'no_open': True}"
+                         attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                </div>
+
+                <label for="hr_ss_amount" string="Total INSS"/>
+                <div class="o_row">
+                  <field name="hr_ss_amount" readonly="1"/>
+                  <field name="currency_id"
+                         options="{'no_create': True, 'no_open': True}"
+                         attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                </div>
+
+                <label for="total_deductions" string="Outros Descontos"/>
+                <div class="o_row">
+                  <field name="total_deductions" readonly="1"/>
+                  <field name="currency_id"
+                         options="{'no_create': True, 'no_open': True}"
+                         attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                </div>
+              </group>
+
+              <!-- Coluna Configuração -->
+              <group string="Configuração">
+                <field name="date" string="Data"/>
+                <field name="ref"
+                       string="Referência"
+                       attrs="{'invisible': [('state', '!=', 'draft'), ('ref', '=', False)], 'readonly': [('state', '!=', 'draft')]}"/>
+                <field name="hr_payment" required="1" string="Lote de Referência"
+                       domain="[('state','=','treasury')]"
+                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                <field name="journal_id" domain="[('type', 'in', ('bank', 'cash'))]"
+                       options="{'no_create': True, 'no_open': True}"
+                       string="Banco"/>
+                <field name="payment_method" string="Forma de Pagamento"
+                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+
+                <separator string="Contra-valor" colspan="2"/>
+                <field name="counter_currency_id"
+                       options="{'no_create': True}"
+                       placeholder="Moeda de Contra-valor"/>
+                <field name="exchange_rate"
+                       placeholder="Taxa de Câmbio"/>
+                <field name="amount_counter"
+                       placeholder="Contra-valor"
+                       attrs="{'readonly': True}"/>
+
+                <field name="company_id" invisible="1"/>
+                <field name="partial_paid_total" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                <field name="remaining_amount" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+              </group>
+            </group>
+
+            <!-- Totais de Expatriados (apenas quando lote é de expatriados) -->
+            <group string="Totais (Expatriados)" colspan="2"
+                   attrs="{'invisible': [('expatriate_only', '=', False)]}">
+              <field name="total_kz" widget="monetary" string="Total Líquido (Kz)"/>
+              <field name="total_usd" widget="monetary" string="Total Líquido (USD)"/>
+<!--              <field name="rate" string="Câmbio" digits="[12, 6]"/>-->
+              <field name="expatriate_only" invisible="1"/>
+            </group>
+
+            <notebook>
+              <!-- Linhas -->
+              <page name="lines" string="Linhas do pagamento (Expatriados)">
+                <field name="lines" attrs="{'readonly':[('state','!=', 'draft')]}">
+                  <tree editable="bottom" string="Itens do Pagamento">
+                    <field name="name" readonly="1" force_save="1" string="Descrição"/>
+                    <field name="irt_amount" invisible="1"/>
+                    <field name="ss_amount" invisible="1"/>
+
+                    <field name="amount_paid"
+                           string="Salário Bruto"
+                           sum="Total Bruto"
+                           attrs="{'readonly':[('payment_split','!=', 'manual')]}"/>
+                    <field name="slip_amount"
+                           string="Salário Líquido"
+                           readonly="1"
+                           sum="Total Líquido"
+                           required="1"/>
+
+                    <field name="total_usd" string="Líquido (USD)"/>
+                    <field name="total_kz" string="Líquido (KZ)"/>
+                    <field name="exchange_rate" string="Câmbio Usado" digits="[12, 6]"/>
+                    <field name="payment_split" invisible="1"/>
+                  </tree>
+                </field>
+              </page>
+
+              <!-- Impostos gerados -->
+              <page string="Lançamentos de Impostos">
+                <field name="tax_move_ids" readonly="1" context="{'form_view_ref': 'account.view_move_form'}">
+                  <tree string="Lançamentos de Impostos" editable="false">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="amount_total" string="Valor"/>
+                    <field name="state"/>
+                  </tree>
+                </field>
+              </page>
+
+              <!-- Pagamentos Parciais -->
+              <page string="Pagamentos Parciais">
+                <field name="partial_move_ids" context="{'default_move_type': 'entry'}">
+                  <tree>
+                    <field name="date"/>
+                    <field name="ref"/>
+                    <field name="amount_total" string="Valor"/>
+                    <field name="state"/>
+                  </tree>
+                </field>
+              </page>
+
+              <!-- Lançamento principal -->
+              <page string="Pagamento">
+                <field name="move_id" readonly="1" context="{'form_view_ref': 'account.view_move_form'}">
+                  <tree string="Lançamentos do pagamento" editable="false">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="amount_total" string="Valor"/>
+                    <field name="state"/>
+                  </tree>
+                </field>
+              </page>
+
+              <!-- Multas & Juros gerados -->
+              <page string="Multas &amp; Juros">
+                <field name="penalty_move_ids" readonly="1" context="{'form_view_ref': 'account.view_move_form'}">
+                  <tree string="Lançamentos de Multas/Juros" editable="false">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="amount_total" string="Valor"/>
+                    <field name="state"/>
+                  </tree>
+                </field>
+              </page>
+            </notebook>
+          </sheet>
+
+          <div class="oe_chatter">
+            <field name="message_follower_ids" groups="base.group_user"/>
+            <field name="activity_ids"/>
+            <field name="message_ids"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- ===== TREE (Expatriados) ===== -->
+    <record id="view_account_payment_salary_expat_view_tree" model="ir.ui.view">
+      <field name="name">account_payment_salary_expat_view_tree</field>
+      <field name="model">account.payment.salary</field>
+      <field name="arch" type="xml">
+        <tree string="Pagamentos de Salários (Expatriados)">
+          <field name="expatriate_only" invisible="1"/>
+          <field name="payslip_run_id" string="Lote"/>
+          <field name="name" string="Descrição"/>
+          <field name="slip_amount" string="Total Líquido" sum="Total Líquido"/>
+          <field name="amount_paid"  string="Total Bruto"   sum="Total Bruto"/>
+          <field name="hr_ss_amount" string="Total INSS"    sum="Total INSS"/>
+          <field name="hr_irt_amount" string="Total IRT"    sum="Total IRT"/>
+          <field name="journal_id" string="Banco"/>
+          <field name="hr_payment" string="Referência"/>
+          <field name="state" string="Estado"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- ===== ACTION (Expatriados) ===== -->
+    <record id="action_salary_payment_usd" model="ir.actions.act_window">
+      <field name="name">Pagto Salários Expatriados (USD)</field>
+      <field name="res_model">account.payment.salary</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_ids" eval="[
+        (5, 0, 0),
+        (0, 0, {'view_mode':'tree','view_id': ref('view_account_payment_salary_expat_view_tree')}),
+        (0, 0, {'view_mode':'form','view_id': ref('view_account_payment_salary_expat_form')})
+      ]"/>
+      <field name="domain">[('expatriate_only', '=', True)]</field>
+      <field name="context" eval="{'default_counter_currency_id': ref('base.USD')}"/>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_salary_root"
+              name="Salários"
+              parent="account.menu_finance_payables"
+              sequence="20"/>
+    <menuitem id="menu_salary_expat"
+              name="Pagamento de Salário Expatriado"
+              parent="menu_salary_root"
+              action="action_salary_payment_usd"
+              sequence="6"/>
+
+  </data>
+</odoo>

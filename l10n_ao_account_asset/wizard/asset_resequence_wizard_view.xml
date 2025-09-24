@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="asset_resequence_wizard_form_view" model="ir.ui.view">
+        <field name="name">asset.resequence.wizard.form</field>
+        <field name="model">asset.resequence.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Resequenciar Ativos">
+                <sheet>
+                    <group>
+                        <span class="text-muted" colspan="2">Se deseja incluir um código inicial à sequência, por exemplo, ABC para uma sequência ABC001</span>
+                        <span class="text-muted" colspan="2">Mantenha desmarcado se a sequência for apenas numérica</span>
+                        <field name="has_prefix" />
+                        <field name="prefix" attrs="{'invisible': [('has_prefix', '=', False)], 'required': [('has_prefix', '=', True)]}" />
+                        <span class="text-muted" colspan="2">Selecione o número de dígitos da sequência, por exemplo, 3 para a sequência 001</span>
+                        <field name="padding" />
+                        <span class="text-muted" colspan="2">Selecione o número inicial do ativo:</span>
+                        <field name="next_number" />
+                        <separator />
+                        <span class="text-muted" colspan="2">O próximo número de patrimônio terá a seguinte sequência:</span>
+                        <field name="sequence_example" readonly="1" />
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Atualizar Sequência" name="action_update_sequence" type="object" class="btn-primary" />
+                    <button string="Cancelar" special="cancel" class="btn-secondary" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_asset_resequence_wizard" model="ir.actions.act_window">
+        <field name="name">Resequenciar Ativos</field>
+        <field name="res_model">asset.resequence.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="account_asset.model_account_asset" />
+    </record>
+</odoo>

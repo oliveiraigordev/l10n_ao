@@ -1,0 +1,253 @@
+<odoo>
+    <data>
+
+        <template id="main_header_assets_template_ao">
+            <thead class="o_account_reports_header_hierarchy">
+                <tr>
+                    <th colspan="3"></th>
+                    <th colspan="2" style="text-align: left !important;">Nº de Identificação Fiscal: <t t-esc="options['company_vat']" />
+                    </th>
+                    <th colspan="2" rowspan="5" style="text-align: right">Natureza do Ativo:</th>
+                    <th colspan="2" style="text-align: left !important;">Activos Fixos Intangíveis</th>
+                </tr>
+                <tr>
+                    <th colspan="3"></th>
+                    <th colspan="2" style="text-align: left">Método Utilizado: Quotas Constantes</th>
+                    <th colspan="2" style="text-align: left">Activos Fixos Tangíveis</th>
+                </tr>
+                <tr>
+                    <th colspan="3"></th>
+                    <th colspan="2"></th>
+                    <th colspan="2" style="text-align: left">Activos Biológicos Não Consumíveis</th>
+                </tr>
+                <tr>
+                    <th colspan="3"></th>
+                    <th colspan="2"></th>
+                    <th colspan="2" style="text-align: left">Propriedade de Investimento</th>
+                </tr>
+                <tr>
+                    <th colspan="3"></th>
+                    <th colspan="2"></th>
+                    <th colspan="2" style="text-align: left">Outros</th>
+                </tr>
+
+                <t t-foreach="enumerate([{'style': 'width: 100%'}] + options['columns'])" t-as="index_cell">
+                    <t t-set="index" t-value="index_cell[0]" />
+                    <!--So, indexing of options['columns'] starts here at one, which is consistent with options['order_column']-->
+                    <t t-set="cell" t-value="index_cell[1]" />
+
+                    <t t-set="sortable_column_classes" t-value="'' if not cell.get('sortable') else 'sortable %s' % ('' if not options['order_column'] or abs(options['order_column']) != index else options['order_column'] > 0 and ' up' or ' down')" />
+                    <th t-att-class="'o_account_report_column_header ' + sortable_column_classes" colspan="cell.get('colspan', 1)" t-att-style="cell.get('style', 'text-align: right;')">
+                        <t t-call="{{cell.get('template', 'account_reports.cell_template')}}" />
+                    </th>
+                </t>
+
+                <th t-if="options['show_debug_column']" class="o_account_report_column_header" style="width: 1%; text-align: right;">
+                    <!--Empty, just so that we don't have a "gap" in the header beneath the debug label.-->
+                </th>
+            </thead>
+        </template>
+
+        <template id="cell_template">
+            <t t-if="cell.get('info_popup_data') or cell.get('edit_popup_data') or cell.get('auditable')">
+                <table style="width:100%;">
+                    <tr>
+                        <td t-if="cell.get('info_popup_data')" style="padding-left:0; padding-right:0; padding-top:0; padding-bottom:0; text-align:left;">
+                            <a class="o_account_report_popup fa fa-question-circle" template="accountReports.ColumnInfoPopupTemplate" t-att-data="cell['info_popup_data']" tabindex="1" role="button" />
+                        </td>
+
+                        <td t-if="cell.get('edit_popup_data')" style="padding-left:0; padding-right:0; padding-top:0; padding-bottom:0; text-align:left;">
+                            <a class="o_account_report_popup fa fa-pencil" template="accountReports.EditColumnTemplate" t-att-data="cell['edit_popup_data']" tabindex="-1" role="button" />
+                        </td>
+
+                        <td t-att-style="'padding-right:0; padding-top:0; padding-bottom:0; ' + (style or 'text-align:right;')" t-att-class="classes">
+                            <t t-if="cell.get('auditable')">
+                                <a tabindex="-1" action="action_audit_cell" title="Audit" t-att-data-report_line_id="cell['report_line_id']" t-att-data-calling_line_dict_id="calling_line_dict_id" t-att-data-column_group_key="cell['column_group_key']" t-att-data-expression_label="cell['expression_label']" t-out="cell.get('name')" />
+                            </t>
+                        </td>
+                    </tr>
+                </table>
+            </t>
+            <t t-else="">
+                <div style="width: 150px; text-align: right">
+                    <t t-out="cell.get('name')" />
+                </div>
+            </t>
+        </template>
+
+        <template id="main_template_assets_ao" inherit_id="account_reports.main_template" primary="True">
+            <xpath expr="//div[hasclass('o_account_reports_page')]" position="attributes">
+                <attribute name="class" add="o_account_assets_report o_l10n_ao_account_assets_report" separator=" " />
+            </xpath>
+            <xpath expr="//table[hasclass('o_account_reports_table')]" position="inside">
+                <colgroup>
+                    <col span="5" />
+                    <col class="o_account_asset_column_contrast" style="background-color:ligthgray;" />
+                    <col />
+                    <col class="o_account_asset_column_contrast" style="background-color:ligthgray" />
+                    <col />
+                    <col class="o_account_asset_column_contrast" style="background-color:ligthgray" />
+                    <col />
+                    <col class="o_account_asset_column_contrast" style="background-color:ligthgray" />
+                    <col />
+                    <col class="o_account_asset_column_contrast" style="background-color:ligthgray" />
+                </colgroup>
+            </xpath>
+        </template>
+
+        <record id="paperformat_a4_asset" model="report.paperformat">
+            <field name="name">A4 Amortização</field>
+            <field name="default" eval="True" />
+            <field name="format">A2</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_spacing">30</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="action_report_asset_pdf" model="ir.actions.report">
+            <field name="name">Quotation / Order</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">sale.report_saleorder</field>
+            <field name="report_file">sale.report_saleorder</field>
+            <field name="print_report_name">(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or
+                'Order - %s' % (object.name)
+            </field>
+            <field name="binding_model_id" ref="sale.model_sale_order" />
+            <field name="paperformat_id" ref="l10n_ao_account_asset.paperformat_a4_asset" />
+            <field name="binding_type">report</field>
+        </record>
+
+
+        <record id="assets_report_ao" model="account.report">
+            <field name="name">MAPA DE REINTEGRAÇÕES E AMORTIZAÇÕES</field>
+            <field name="filter_hierarchy">never</field>
+            <field name="filter_unfold_all" eval="True" />
+            <field name="filter_period_comparison" eval="False" />
+            <field name="custom_handler_model_id" ref="account_asset.model_account_asset_report_handler" />
+            <field name="search_template">account_asset.assets_search_template</field>
+            <field name="main_template">l10n_ao_account_asset.main_template_assets_ao</field>
+            <field name="main_table_header_template">l10n_ao_account_asset.main_header_assets_template_ao</field>
+            <field name="load_more_limit" eval="80" />
+            <field name="column_ids">
+
+                <record id="assets_report_num_ficha_ao_ao" model="account.report.column">
+                    <field name="name">Número</field>
+                    <field name="expression_label">num_ficha</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">10</field>
+                </record>
+                <record id="assets_report_conta_plano_n_ao_ao" model="account.report.column">
+                    <field name="name">Conta do Plano Geral</field>
+                    <field name="expression_label">conta_plano_geral</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">20</field>
+                </record>
+                <record id="assets_report_descricao_imobilizado_ao" model="account.report.column">
+                    <field name="name">Descrição do Activo Imobilizado</field>
+                    <field name="expression_label">atividade_economica_related</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">30</field>
+                </record>
+                <record id="assets_report_acquisition_date_ao" model="account.report.column">
+                    <field name="name">Aquisição/ Construção/ Fabrico/ Doação/ Reparação ou Benfeitoria</field>
+                    <field name="expression_label">acquisition_date</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">40</field>
+                </record>
+                <record id="assets_report_entrada_em_funcionamento_ao" model="account.report.column">
+                    <field name="name">Entrada em funcionamento/ Inicio de utilização</field>
+                    <field name="expression_label">prorata_date</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">50</field>
+                </record>
+                <record id="assets_report_codigo_aduaneiro_ao" model="account.report.column">
+                    <field name="name">Isenção no codigo Aduaneiro (Activo Importado)(Sim ou Não)</field>
+                    <field name="expression_label">activo_importado</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">60</field>
+                </record>
+                <record id="assets_report_valores_de_aquisicao_ao" model="account.report.column">
+                    <field name="name">Valor de Aquisição/ Construção/ Fabrico/ Doação/ Reparação ou Benfeitoria</field>
+                    <field name="expression_label">valores_de_aquisicao</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">70</field>
+                </record>
+                <record id="assets_report_utilidade_esperada_ao" model="account.report.column">
+                    <field name="name">Numero de anos de utilidade esperada</field>
+                    <field name="expression_label">vida_util_related</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">80</field>
+                </record>
+                <record id="assets_report_reavaliacao_ao" model="account.report.column">
+                    <field name="name">Ano da Reavaliação</field>
+                    <field name="expression_label">depreciation_move_ids</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">90</field>
+                </record>
+                <record id="assets_report_acrescimo_da_reavaliacao_ao" model="account.report.column">
+                    <field name="name">Valor do Acrescimo da Reavaliação</field>
+                    <field name="expression_label">valor_do_acrescimo_reavaliacao</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">100</field>
+                </record>
+                <record id="assets_report_total_reavaliado_ao" model="account.report.column">
+                    <field name="name">Valor Total Reavaliado</field>
+                    <field name="expression_label">valor_total_reavaliado</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">110</field>
+                </record>
+                <record id="assets_report_exercicios_anteriores_ao" model="account.report.column">
+                    <field name="name">Valores de Exercícios Anteriores</field>
+                    <field name="expression_label">exercicios_anteriores</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">120</field>
+                </record>
+                <record id="assets_report_taxa_ao" model="account.report.column">
+                    <field name="name">Taxa %</field>
+                    <field name="expression_label">taxa</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">130</field>
+                </record>
+                <record id="assets_report_taxa_corrigida_ao" model="account.report.column">
+                    <field name="name">Taxa Corrigida %</field>
+                    <field name="expression_label">taxa_corrigida</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">140</field>
+                </record>
+
+                <record id="assets_report_valores_ao" model="account.report.column">
+                    <field name="name">Valores</field>
+                    <field name="expression_label">valores</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">150</field>
+                </record>
+                <record id="assets_report_amortizacoes_acumuladas_ao" model="account.report.column">
+                    <field name="name">Valores das Depreciações/Amortizações acumuladas</field>
+                    <field name="expression_label">valor_amortizacoes_acumuladas</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">160</field>
+                </record>
+                <record id="assets_report_valor_contabilistico_residual_ao" model="account.report.column">
+                    <field name="name">Valor Contabilistico Residual</field>
+                    <field name="expression_label">valor_contabilistico_residual</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">170</field>
+                </record>
+            </field>
+        </record>
+
+        <record id="action_account_report_assets_ao" model="ir.actions.client">
+            <field name="name">MAPA DE REINTEGRAÇÕES E AMORTIZAÇÕES</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'report_id': ref('l10n_ao_account_asset.assets_report_ao')}" />
+        </record>
+
+        <!-- <menuitem id="menu_action_account_report_assets_ao" name="Mapa de Reitegrações e Amortizações" action="action_account_report_assets_ao" parent="l10n_ao_report.account_reports_ao_statements_menu" groups="account.group_account_readonly" /> -->
+
+    </data>
+</odoo>

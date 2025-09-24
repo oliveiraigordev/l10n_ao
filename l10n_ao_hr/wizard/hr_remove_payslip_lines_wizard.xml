@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_remuneration_removal_wizard_form" model="ir.ui.view">
+        <field name="name">view.hr.payslip.remove.lines.wizard.form</field>
+        <field name="model">hr.payslip.remove.lines</field>
+        <field name="arch" type="xml">
+            <form string="Remuneration Removal Wizard">
+                <group col="2">
+                    <group string="Period">
+                        <field name="date_start" widget="date" string="Data Inicial"/>
+                        <field name="date_end" widget="date" string="Data Final"/>
+                    </group>
+                </group>
+                <separator string="Funcionários"/>
+                <group>
+                    <field name="employee_ids" widget="many2many_tags" string="Funcionários"
+                           options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+                </group>
+                <separator string="Selecione as linhas de remuneração a serem removidas"/>
+                <field name="line_ids">
+                    <tree editable="bottom" create="false" delete="true" edit="false">
+                        <field name="name" readonly="1"/>
+                        <field name="code" readonly="1"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button name="removal_payslip_lines" type="object" string="Remover" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_remuneration_removal_wizard" model="ir.actions.act_window">
+        <field name="name">Pay Lines Removal Wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.payslip.remove.lines</field>
+        <field name="view_mode">form</field>
+        <field name="binding_model_id" ref="model_hr_payslip_remove_lines"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_remunerations_removal_wizard" name="Remoção de Linhas de Remunerações"
+              parent="hr_payroll.menu_hr_payroll_payslips" action="action_remuneration_removal_wizard" sequence="100"/>
+
+</odoo>

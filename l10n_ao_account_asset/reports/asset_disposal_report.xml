@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="asset_disposal_report" model="ir.actions.report">
+        <field name="name">Mapa de Abates</field>
+        <field name="model">asset.disposal.report.wizard</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">l10n_ao_account_asset.asset_disposal</field>
+        <field name="report_file">l10n_ao_account_asset.asset_disposal</field>
+        <field name="paperformat_id" ref="l10n_ao_account_asset.paperformat_landscape" />
+    </record>
+
+    <record id="asset_disposal_report_pdf" model="ir.actions.report">
+        <field name="name">Mapa de Abates</field>
+        <field name="model">asset.disposal.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_ao_account_asset.asset_disposal</field>
+        <field name="report_file">l10n_ao_account_asset.asset_disposal</field>
+        <field name="paperformat_id" ref="l10n_ao_account_asset.paperformat_landscape" />
+    </record>
+
+</odoo>

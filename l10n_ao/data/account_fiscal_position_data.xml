@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="fiscal_position_cativo_50" model="account.fiscal.position.template">
+            <field name="name">IVA Cativo a 50%</field>
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="tax_ids" eval="[(6,0,[ref('tax_iva_sales_14'),ref('tax_iva_sales_cativo_2_50')]),
+(6,0,[ref('tax_iva_sales_2'),ref('tax_iva_sales_cativo_2_50')]),
+(6,0,[ref('tax_iva_sales_5'),ref('tax_iva_sales_cativo_5_50')])]"/>
+        </record>
+        <record id="fiscal_position_cativo_100" model="account.fiscal.position.template">
+            <field name="name">IVA Cativo a 100%</field>
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="tax_ids" eval="[(6,0,[ref('tax_iva_sales_14'),ref('tax_iva_sales_cativo_100')]),
+(6,0,[ref('tax_iva_sales_2'),ref('tax_iva_sales_cativo_2_100')]),
+(6,0,[ref('tax_iva_sales_5'),ref('tax_iva_sales_cativo_5_100')])]"/>
+        </record>
+        <record id="fiscal_position_nao_sujeição" model="account.fiscal.position.template">
+            <field name="name">Regime de Não Sujeição</field>
+            <field name="chart_template_id" ref="ao_chart_template"/>
+        </record>
+        <record id="fiscal_position_template_2" model="account.fiscal.position.template">
+            <field name="name">Estrangeiro</field>
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="tax_ids" eval="[(6,0,[ref('tax_iva_sales_14'),ref('tax_iva_sales_isento_estrangeiro')]),
+(6,0,[ref('tax_iva_sales_2'),ref('tax_iva_sales_isento_estrangeiro')]),
+(6,0,[ref('tax_iva_sales_5'),ref('tax_iva_sales_isento_estrangeiro')])]"/>
+        </record>
+        <record id="fiscal_position_template_3" model="account.fiscal.position.template">
+            <field name="name">Isenção de Taxa</field>
+            <field name="chart_template_id" ref="ao_chart_template"/>
+        </record>
+    </data>
+</odoo>

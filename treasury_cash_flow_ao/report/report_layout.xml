@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="external_fluxo_layout_standard">
+            <div t-attf-class="header o_company_#{order.company_id.id}_layout" t-att-style="report_header_style">
+                <div id="document_info"
+                     t-attf-class="#{'col-3' if report_type != 'html' else 'col-sm-4 col-md-3'}  float-end">
+                    <div class="text-uppercase text-left" style="float-end">
+                        <h2 class="pt-1 mb-0  float-end" style="max-width:290px;min-width:290px;">
+                            <strong style="float:right;">
+                                <t t-raw="document_type"/>
+                            </strong>
+                        </h2>
+                    </div>
+                    <div class="text-uppercase text-left float-end">
+                        <h4 class="mb-0">
+                            <t t-raw="document_title"/>
+                        </h4>
+                    </div>
+                    <div class="mt0 float-start"
+                         style="font-size:x-small;font-style:italic;max-height:20px;overflow:hidden;">
+                        <span class="" t-field="order.company_id.report_header"/>
+                    </div>
+                </div>
+                <div style="font-size:x-small;min-height:124px;" class="">
+                    <img t-if="order.company_id.logo" t-att-src="image_data_uri(order.company_id.logo)" class="float-start" alt="Logo"
+                         style="max-width: 250px;max-height:100px;overflow:hidden;margin-top:-30px;"/>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <div class="float-start company_address pl-8"
+                         style="max-height:124px;overflow:hidden;width:330px;margin-left:-100px;">
+                        <strong t-field="order.company_id.name" style="min-width:230px;overflow:hidden;font-size:14px;"/>
+                        <br/>
+                        <t t-if="order.company_id.street">
+                            <span t-field="order.company_id.street"/>
+                            <br/>
+                        </t>
+                        <t t-if="order.company_id.street2">
+                            <span t-field="order.company_id.street2"/>
+                            <br/>
+                        </t>
+                        <t t-if="order.company_id.city">
+                            <span t-field="order.company_id.city"/>
+                            -
+                        </t>
+                        <span t-field="order.company_id.country_id.name"/>
+                        <br t-if="order.company_id.vat" style="font-size:small;">NIF:
+                            <span t-field="order.company_id.vat"/>
+                        </br>
+                    </div>
+                </div>
+
+                <t t-raw="address"/>
+                <div class="custom_header" style="font-size:small;">
+                    <t t-raw="custom_header"/>
+                </div>
+                <div class="custom_agt_header" style="font-size:small;">
+                    <t t-raw="custom_agt_header"/>
+                </div>
+            </div>
+            <div t-attf-class="article o_report_layout_standard o_company_#{order.company_id.id}_layout {{'o_report_layout_background' if order.company_id.layout_background in ['Geometric', 'Custom']  else  '' }}" t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % order.company_id.layout_background_image.decode('utf-8') if order.company_id.layout_background_image and order.company_id.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if order.company_id.layout_background == 'Geometric' else ''}});"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <div class="pt-2">
+                </div>
+                <t t-out="0"/>
+            </div>
+
+            <div t-attf-class="footer o_standard_footer o_company_#{order.company_id.id}_layout">
+                <div class="text-center" style="border-top: 1px solid black;font-size:xx-small;">
+                    <div class="text-center" style="border-top: 1px solid black;">
+                        <br/>
+                        <br/>
+                        <div id="processed_by" class="list-inline"
+                             style="font-size:xx-small;white-space: nowrap;margin-top:-10px;">
+                            <strong style="font-size: 12px;">
+                                <span t-if="document_signature" t-esc="document_signature"/>
+                            </strong>
+
+                        </div>
+                        <div id="document_name" class="list-inline"
+                             style="font-size:xx-small;white-space: nowrap;">
+                            <strong style="font-size: 12px;">
+                                <span t-esc="document_name"/>
+                            </strong>
+                        </div>
+
+                    </div>
+                    <br/>
+                    <div t-if="report_type == 'pdf'" class="text-muted"
+                         style="font-size:xx-small;white-space: nowrap;width:10%;margin:0 auto;">
+                        Page:
+                        <span class="page"/>
+                        /
+                        <span class="topage"/>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </data>
+</odoo>

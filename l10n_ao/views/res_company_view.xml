@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="company_inherit_form_view" model="ir.ui.view">
+        <field name="name">Company inherit form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <field name="favicon" position="after">
+                <field name="tax_regime_id" readonly="0"
+                       attrs="{'invisible':[('country_id','!=',%(base.ao)d)],'required':[('country_id','=', %(base.ao)d)]}"/>
+            </field>
+            <field name="street" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="vat" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="company_registry" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+             <field name="city" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+              <field name="phone" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="country_id" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="currency_id" position="attributes">
+                    <attribute name="attrs">{'readonly':[('country_id','=',%(base.ao)d)]}</attribute>
+                </field>
+            <field name="country_id" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit':True}</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

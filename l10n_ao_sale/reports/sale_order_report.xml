@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_saleorder_document_agt">
+        <t t-call="l10n_ao.external_layout_agt">
+            <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
+            <t t-set="address">
+                <div class="row mt4" style="font-size:small;min-height:155px;max-height:155px;overflow:hidden;">
+                    <div class="col-4">
+                        <strong t-if="doc.partner_shipping_id == doc.partner_invoice_id">
+                            Invoicing and shipping address:
+                            <br/>
+                        </strong>
+                        <strong t-if="doc.partner_shipping_id != doc.partner_invoice_id">
+                            Invoicing address:
+                            <br/>
+                        </strong>
+                        <t t-if="doc.partner_invoice_id.display_name">
+                            <span t-esc="doc.partner_invoice_id.display_name"/>
+                            <br/>
+                        </t>
+                        <t t-if="doc.partner_invoice_id.street">
+                            <span t-esc="doc.partner_invoice_id.street"/>
+                            <br/>
+                        </t>
+                        <t t-if="doc.partner_invoice_id.street2">
+                            <span t-esc="doc.partner_invoice_id.street2"/>
+                            <br/>
+                        </t>
+                        <t t-if="doc.partner_invoice_id.city">
+                            <span t-esc="doc.partner_invoice_id.city"/>
+                            -
+                        </t>
+                        <t t-if="doc.partner_invoice_id.country_id.name">
+                            <span t-esc="doc.partner_invoice_id.country_id.name"/>
+                            <br/>
+                        </t>
+                        <t t-if="doc.partner_invoice_id.phone">
+                            <span t-esc="doc.partner_invoice_id.phone"/>
+                            <br/>
+                        </t>
+
+                        <div t-field="doc.partner_invoice_id"
+                             t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                    </div>
+                    <div class="col-4">
+                        <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
+                            <strong class="">Shipping address:</strong>
+                            <br/>
+                            <t t-if="doc.partner_shipping_id.display_name">
+                                <span t-esc="doc.partner_shipping_id.display_name"/>
+                                <br/>
+                            </t>
+                            <t t-if="doc.partner_shipping_id.street">
+                                <span t-esc="doc.partner_shipping_id.street"/>
+                                <br/>
+                            </t>
+                            <t t-if="doc.partner_shipping_id.street2">
+                                <span t-esc="doc.partner_shipping_id.street2"/>
+                                <br/>
+                            </t>
+                            <t t-if="doc.partner_shipping_id.city">
+                                <span t-esc="doc.partner_shipping_id.city"/>
+                                -
+                            </t>
+                            <t t-if="doc.partner_shipping_id.country_id.name">
+                                <span t-esc="doc.partner_shipping_id.country_id.name"/>
+                                <br/>
+                            </t>
+                            <t t-if="doc.partner_shipping_id.phone">
+                                <span t-esc="doc.partner_shipping_id.phone"/>
+                                <br/>
+                            </t>
+                            <div t-field="doc.partner_shipping_id"
+                                 t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                        </t>
+                    </div>
+                    <div class="col-4">
+                        <address style="font-size:small;" class="mb0">
+                            <strong>
+                                Customer:
+                                <br/>
+                            </strong>
+                            <span t-esc="doc.partner_name"/>
+                            <t t-if="doc.partner_street">
+                                <br t-esc="doc.partner_street"/>
+                                ,
+                            </t>
+                            <t t-if="doc.partner_street2">
+                                <span t-esc="doc.partner_street2"/>
+                            </t>
+                            <t t-if="doc.partner_city">
+                                <br t-esc="doc.partner_city"/>
+                                -
+                            </t>
+                            <p t-if="doc.partner_state"><span t-esc="doc.partner_state"/>-
+                            </p>
+                            <span t-if="doc.partner_id.country_id" t-esc="doc.partner_id.country_id.name"/>
+                            <p style="font-size:small" t-if="doc.partner_vat">
+                                <t t-esc="doc.company_id.country_id.vat_label or 'NIF'"/>
+                                :
+                                <span t-field="doc.partner_id.vat"/>
+                            </p>
+                            <p style="font-size:small;" t-if="not doc.partner_id.vat">
+                                <t t-esc="'NIF'"/>
+                                :
+                                <span>Consumidor Final</span>
+                            </p>
+                        </address>
+                    </div>
+                </div>
+            </t>
+            <div class="page">
+                <div class="oe_structure"/>
+                <t t-set="document_type" class="">
+                    <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
+                        <span t-if="doc.document_type_id.id == 1">Cotação</span>
+                        <h4 t-if="doc.document_type_id.id == 2">Orçamento</h4>
+                        <h4 t-if="doc.document_type_id.id == 3">Pro-Forma</h4>
+                    </t>
+                    <t t-if="env.context.get('proforma', False) or is_pro_forma">
+                        <span>Pro-Forma</span>
+                    </t>
+                </t>
+                <t t-set="document_title">
+                    <span t-field="doc.name"/>
+                </t>
+                <t t-set="custom_agt_header">
+                    <div class="row mt32 mb32" id="informations" style="font-size:small;">
+                        <div t-if="doc.client_order_ref" class="col-auto col-3 mw-100 mb-2">
+                            <strong>Your Reference:</strong>
+                            <p class="m-0" t-field="doc.client_order_ref"/>
+                        </div>
+                        <div t-if="doc.date_order and doc.state not in ['draft','sent']"
+                             class="col-auto col-3 mw-100 mb-2">
+                            <strong>Order Date:</strong>
+                            <p class="m-0" t-field="doc.date_order"/>
+                        </div>
+                        <div t-if="doc.date_order and doc.state in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
+                            <strong>Quotation Date:</strong>
+                            <p class="m-0" t-field="doc.date_order" t-options="{'widget': 'date'}"/>
+                        </div>
+                        <div t-if="doc.validity_date and doc.state in ['draft', 'sent', 'valid'] and doc.document_type_id.id in [2,3]"
+                             class="col-auto col-3 mw-100 mb-2" name="expiration_date">
+                            <strong>Expiration:</strong>
+                            <p class="m-0" t-field="doc.validity_date"/>
+                        </div>
+                        <div t-if="doc.user_id.name" class="col-auto col-3 mw-100 mb-2">
+                            <strong>Salesperson:</strong>
+                            <p class="m-0" t-field="doc.user_id"/>
+                        </div>
+                    </div>
+                </t>
+                <t t-set="lines_to_report" t-value="doc._get_order_lines_to_report()"/>
+                <t t-set="display_discount" t-value="any([l.discount for l in doc.order_line])"/>
+                <table class="table table-sm o_main_table">
+                    <thead style="font-size:small;">
+                        <tr>
+                            <t t-set="colspan" t-value="5"/>
+                            <th class="text-start">Description</th>
+                            <th class="text-end">Quantity</th>
+                            <th class="text-end">Unit Price</th>
+                            <th class="text-end">
+                                <span>Disc.(%)</span>
+                                <t t-set="colspan" t-value="colspan+1"/>
+                            </th>
+                            <th class="text-end">Taxa</th>
+                            <th class="text-end">Ret.</th>
+                            <th class="text-end">
+                                <!-- <t groups="account.group_show_line_subtotals_tax_excluded">Amount</t>-->
+                                <t>Total Price</t>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="sale_tbody" style="font-size:small;color:black">
+                        <t t-set="current_subtotal" t-value="0"/>
+                        <t t-set="num_rows" t-value="0"/>
+                        <t t-foreach="lines_to_report" t-as="line">
+                            <t t-set="current_subtotal" t-value="current_subtotal + line.price_total"/>
+                            <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                <t t-if="not line.display_type">
+                                    <td>
+                                        <span t-field="line.product_id.name"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="line.product_uom_qty"/>
+                                        <span t-field="line.product_uom" groups="uom.group_uom"/>
+                                    </td>
+                                    <td class="text-end"  style="color:black">
+                                        <span t-field="line.price_unit"/>
+                                    </td>
+                                    <td class="text-end" style="color:black">
+                                        <span t-field="line.discount"/>
+                                    </td>
+                                    <td class="text-end"  style="1px solid #e7eaed;">
+                                        <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_id.filtered(lambda t: not t.hide_invoice and t.tax_type == 'IVA') ))"/>
+                                    </td>
+                                    <td class="text-end"  style="1px solid #e7eaed;">
+                                        <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_id.filtered(lambda t: not t.hide_invoice and t.is_withholding)))"/>
+                                    </td>
+                                    <td class="text-end o_price_total"  style="c1px solid #e7eaed;">
+                                        <span t-field="line.price_total"/>
+                                    </td>
+                                </t>
+                                <t t-if="line.display_type == 'line_section'">
+                                    <td name="td_section_line" colspan="99">
+                                        <span t-field="line.name"/>
+                                    </td>
+                                    <t t-set="current_section" t-value="line"/>
+                                    <t t-set="current_subtotal" t-value="0"/>
+                                </t>
+                                <t t-if="line.display_type == 'line_note'">
+                                    <td name="td_section_line" colspan="99">
+                                        <span t-field="line.name"/>
+                                    </td>
+                                </t>
+                            </tr>
+                            <t t-if="current_section and (line_last or doc.order_line[line_index+1].display_type == 'line_section') and not line.is_downpayment">
+                                <tr class="is-subtotal text-end">
+                                    <td colspan="99">
+                                        <strong class="mr16">Subtotal</strong>
+                                        <span t-esc="current_subtotal"
+                                              t-options="{'widget': 'monetary', 'display_currency': doc.pricelist_id.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <!-- <t t-if="doc.company_id.external_report_layout_id == doc.env.ref('web.external_layout_background')">
+                                 <t t-set="total_rows" t-value="25"/>
+                             </t>
+                             <t t-elif="doc.company_id.external_report_layout_id == doc.env.ref('web.external_layout_standard')">
+                                 <t t-set="total_rows" t-value="24"/>
+                             </t>
+                             <t t-else="">
+                                 <t t-set="total_rows" t-value="24"/>
+                             </t>-->
+                            <!--<t t-if="num_rows % total_rows == 0 and num_rows >0 and current_subtotal > 0">
+                                <tr class="is-subtotal text-right">
+                                    <td colspan="99">
+                                        <strong class="mr16">Valor a Transportar</strong>
+                                        <span t-esc="current_subtotal"
+                                              t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                    </td>
+                                </tr>
+                                <tr class="is-subtotal text-right">
+                                    <td colspan="99">
+                                        <strong class="mr16">Valor Transportado</strong>
+                                        <span t-esc="current_subtotal" t-options="{'widget': 'monetary', '
+                                        display_currency': doc.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-set="num_rows" t-value="num_rows + 1"/>-->
+                        </t>
+                    </tbody>
+                </table>
+                <div class="clearfix" name="so_total_summary">
+                    <div id="total" class="row" style="font-size:small;">
+                        <t t-set="has_wht" t-value="False"/>
+                        <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
+                            <table class="table table-sm">
+                                <!--<tr class="border-black" style="">
+                                    <td>
+                                        <strong>Subtotal</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="doc.amount_untaxed"
+                                              t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                                    </td>
+                                </tr>-->
+
+                                <tr>
+                                    <td>Discount</td>
+                                    <td class="text-end">
+                                        <span t-field="doc.total_discount"
+                                              t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                                    </td>
+                                </tr>
+
+                                <tr t-if="doc.amount_total_wth > 0" class="border-black o_total">
+                                    <td>
+                                        <strong>Total w/ Withhold</strong>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="doc.amount_total_wth" t-options="{'widget': 'monetary', '
+                                        display_currency': doc.pricelist_id.currency_id}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <t t-set="tax_totals" t-value="doc.tax_totals"/>
+                                </tr>
+                                <tr>
+                                    <t t-call="account.document_tax_totals"/>
+                                </tr>
+                                <tr t-if="doc.counter_value > 0">
+                                    <td>Contra Valor</td>
+                                    <td class="text-end">
+                                        <span t-field="doc.counter_value"
+                                              t-options='{"widget": "monetary", "display_currency": doc.counter_pricelist_id.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <!--<t t-foreach="doc.tax_totals_json" t-as="amount_by_group">
+                                    <tr style="">
+                                        <t t-if="amount_by_group[3] == 1 and doc.amount_untaxed == amount_by_group[2]">
+                                            <td>
+                                                <span t-esc="amount_by_group[0]"/>
+                                                <span>
+                                                    <span>on</span>
+                                                    <t t-esc="amount_by_group[2]" t-options="{'widget': 'monetary', '
+                                                    display_currency': doc.pricelist_id.currency_id}"/>
+                                                </span>
+                                            </td>
+                                            <td class="text-right o_price_total">
+                                                <span t-esc="amount_by_group[1]" t-options="{'widget': 'monetary', '
+                                                display_currency': doc.pricelist_id.currency_id}"/>
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td>
+                                                <span t-esc="amount_by_group[0]"/>
+                                            </td>
+                                            <td class="text-right o_price_total">
+                                                <span t-esc="amount_by_group[1]" t-options="{'widget': 'monetary', '
+                                                display_currency': doc.pricelist_id.currency_id}"/>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </t>-->
+                                <!--    <div  name="so_total_summary">
+                                        <div id="total" class="row" name="total">
+                                            <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
+                                                <table class="table table-sm">
+                                                    &lt;!&ndash; Tax totals &ndash;&gt;
+                                                    <t t-set="tax_totals" t-value="doc.tax_totals"/>
+                                                  &lt;!&ndash;  <t t-call="account.document_tax_totals"/>&ndash;&gt;
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                <!--<tr class="border-black o_total">
+                                    <td>
+                                        <strong>Total</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="doc.amount_total"/>
+                                    </td>
+                                </tr>-->
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <p t-field="doc.note" style="font-size:small;"/>
+                <p t-if="doc.payment_term_id.note">
+                    <span style="font-size:small;" t-field="doc.payment_term_id.note"/>
+                </p>
+                <p id="fiscal_position_remark" t-if="doc.fiscal_position_id and doc.fiscal_position_id.sudo().note">
+                    <strong>Fiscal Position Remark:</strong>
+                    <span t-field="doc.fiscal_position_id.sudo().note"/>
+                </p>
+                <div t-if="doc.signature" class="mt32 ml16 mr16" name="signature">
+                    <div class="offset-8">
+                        <strong>Signature</strong>
+                    </div>
+                    <div class="offset-8">
+                        <img t-att-src="image_data_uri(doc.signature)" style="max-height: 4cm; max-width: 8cm;"/>
+                    </div>
+                    <div class="offset-8 text-center">
+                        <p t-field="doc.signed_by"/>
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+                <div class="row mt32 mb32">
+                    <t t-set="banks"
+                       t-value="doc.bank_account_ids if doc.bank_account_ids else doc.company_id.partner_id.bank_ids.filtered('show_document')"/>
+
+                    <div class="col-xs-6 ml-4" t-if="banks" style="font-size: small;">
+                        <t t-if="any([bank.id for bank in banks if bank.acc_type == 'IBAN'])">
+                            <t t-set="show_iban" t-value="True"/>
+                        </t>
+                        <br/>
+                        <table class="table table-sm" style="width:45%;page-break-inside:avoid;">
+                            <thead>
+                                <tr>
+                                    <th colspan="5">
+                                        <span>
+                                            <strong>Bank Accounts:</strong>
+                                        </span>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>Bank</th>
+                                    <th class="text-center">Currency</th>
+                                    <th class="text-left">Número da Conta</th>
+                                    <th class="text-left">IBAN</th>
+                                    <!--                <th class="text-left">Swift Code</th>-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="banks" t-as="bank">
+                                    <tr>
+                                        <td>
+                                            <span t-esc="bank.bank_id.name or bank.bank_id.code"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-esc="bank.currency_id.name or doc.company_id.currency_id.name"/>
+                                        </td>
+                                        <td class="text-left" style="font-size:12px;">
+                                            <span t-esc="bank.acc_number"/>
+                                        </td>
+                                        <td class="text-left" style="font-size:12px;">
+                                            <span t-field="bank.acc_iban"/>
+                                        </td>
+                                        <!--                    <td class="text-left" style="font-size:12px;">-->
+                                        <!--                        <span t-esc="bank.bank_id.bic"/>-->
+                                        <!--                    </td>-->
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--                    <div class="col-xs-6 ml-4"-->
+                    <!--                         t-if="any([bank.id for bank in doc.company_id.partner_id.bank_ids if bank.show_document == True])"-->
+                    <!--                         style="font-size: small;">-->
+                    <!--                        <t t-if="any([ bank.id for bank in doc.company_id.partner_id.bank_ids if bank.acc_type == 'IBAN'])">-->
+                    <!--                            <t t-set="show_iban" t-value="True"/>-->
+                    <!--                        </t>-->
+                    <!--                        <br/>-->
+                    <!--                        <table class="table table-sm" style="width:45%;page-break-inside:avoid;">-->
+                    <!--                            <thead>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th colspan="4">-->
+                    <!--                                        <span>-->
+                    <!--                                            <strong>Bank Accounts:</strong>-->
+                    <!--                                        </span>-->
+                    <!--                                    </th>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr>-->
+                    <!--                                    <th>Bank</th>-->
+                    <!--                                    <th class="text-center">Currency</th>-->
+                    <!--                                    &lt;!&ndash;                                    <th t-if="show_iban" class="text-left">IBAN</th>&ndash;&gt;-->
+                    <!--                                    <th class="text-left">Número da Conta</th>-->
+                    <!--                                    <th class="text-left">IBAN</th>-->
+                    <!--                                </tr>-->
+                    <!--                            </thead>-->
+                    <!--                            <t t-foreach="doc.company_id.partner_id.bank_ids" t-as="bank">-->
+                    <!--                                <tr t-if="bank.show_document">-->
+                    <!--                                    <td>-->
+                    <!--                                        <span t-esc="bank.bank_id.code"/>-->
+                    <!--                                    </td>-->
+                    <!--                                    <td class="text-center">-->
+                    <!--                                        <span t-if="bank.currency_id.name" t-esc="bank.currency_id.name"/>-->
+                    <!--                                        <span t-if="not bank.currency_id.name" t-esc="doc.company_id.currency_id.name"/>-->
+                    <!--                                    </td>-->
+                    <!--                                    <td class="text-left" style="font-size:12px;">-->
+                    <!--                                        <span t-esc="bank.acc_number"/>-->
+                    <!--                                    </td>-->
+                    <!--                                    <td class="text-left" style="font-size:12px;">-->
+                    <!--                                        <span t-field="bank.acc_iban"/>-->
+                    <!--                                    </td>-->
+                    <!--                                    &lt;!&ndash;                                    <td t-if="show_iban" class="text-left">&ndash;&gt;-->
+                    <!--                                    &lt;!&ndash;                                        <span t-field="bank.iban"/>&ndash;&gt;-->
+                    <!--                                    &lt;!&ndash;                                    </td>&ndash;&gt;-->
+                    <!--                                </tr>-->
+                    <!--                            </t>-->
+                    <!--                        </table>-->
+                    <!--                    </div>-->
+                </div>
+
+                <!--                <div class="row mt32 mb32">-->
+                <!--                    <div class="col-xs-6 ml-4"-->
+                <!--                         t-if="any([bank.id for bank in doc.company_id.partner_id.bank_ids if bank.show_document == True])"-->
+                <!--                         style="font-size: small;">-->
+                <!--                        <t t-if="any([ bank.id for bank in doc.company_id.partner_id.bank_ids if bank.acc_type == 'IBAN'])">-->
+                <!--                            <t t-set="show_iban" t-value="True"/>-->
+                <!--                        </t>-->
+                <!--                        <br/>-->
+                <!--                        <table class="table table-sm" style="width:45%;page-break-inside:avoid;">-->
+                <!--                            <thead>-->
+                <!--                                <tr>-->
+                <!--                                    <th colspan="4">-->
+                <!--                                        <span>-->
+                <!--                                            <strong>Bank Accounts:</strong>-->
+                <!--                                        </span>-->
+                <!--                                    </th>-->
+                <!--                                </tr>-->
+                <!--                                <tr>-->
+                <!--                                    <th>Bank</th>-->
+                <!--                                    <th class="text-center">Currency</th>-->
+                <!--                                    &lt;!&ndash;                                    <th t-if="show_iban" class="text-left">IBAN</th>&ndash;&gt;-->
+                <!--                                    <th class="text-left">Número da Conta</th>-->
+                <!--                                    <th class="text-left">IBAN</th>-->
+                <!--                                </tr>-->
+                <!--                            </thead>-->
+                <!--                            <t t-foreach="doc.company_id.partner_id.bank_ids" t-as="bank">-->
+                <!--                                <tr t-if="bank.show_document">-->
+                <!--                                    <td>-->
+                <!--                                        <span t-esc="bank.bank_id.code"/>-->
+                <!--                                    </td>-->
+                <!--                                    <td class="text-center">-->
+                <!--                                        <span t-if="bank.currency_id.name" t-esc="bank.currency_id.name"/>-->
+                <!--                                        <span t-if="not bank.currency_id.name" t-esc="doc.company_id.currency_id.name"/>-->
+                <!--                                    </td>-->
+                <!--                                    <td class="text-left" style="font-size:12px;">-->
+                <!--                                        <span t-esc="bank.acc_number"/>-->
+                <!--                                    </td>-->
+                <!--                                    <td class="text-left" style="font-size:12px;">-->
+                <!--                                        <span t-field="bank.acc_iban"/>-->
+                <!--                                    </td>-->
+                <!--                                    &lt;!&ndash;                                    <td t-if="show_iban" class="text-left">&ndash;&gt;-->
+                <!--                                    &lt;!&ndash;                                        <span t-field="bank.iban"/>&ndash;&gt;-->
+                <!--                                    &lt;!&ndash;                                    </td>&ndash;&gt;-->
+                <!--                                </tr>-->
+                <!--                            </t>-->
+                <!--                        </table>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+            </div>
+            <t t-set="document_name" t-value="'Este documento não serve de factura'"/>
+            <t t-if="doc.hash" t-set="document_signature"
+               t-value="doc.hash[1]+doc.hash[11]+doc.hash[21]+doc.hash[31] + ' - Processado por Programa Validado n.º' + doc.company_id.software_id"/>
+            <t t-if="not doc.hash" t-set="document_signature"
+               t-value="'Processado por Programa Validado n.º' + doc.company_id.software_id"/> <!--' + doc.company_id.software_id"/>-->
+        </t>
+    </template>
+    <template id="report_saleorder_agt">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-if="doc.company_id.country_id.code == 'AO'">
+                    <t t-call="l10n_ao_sale.report_saleorder_document_agt" t-lang="doc.partner_id.lang"/>
+                </t>
+                <t t-else="">
+                    <t t-call="sale.report_saleorder_document" t-lang="doc.partner_id.lang"/>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="report_saleorder_pro_forma_agt">
+        <t t-call="web.html_container">
+            <t t-set="is_pro_forma" t-value="True"/>
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="l10n_ao_sale.report_saleorder_document_agt" t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

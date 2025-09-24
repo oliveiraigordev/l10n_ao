@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="hr_payment_form_view" model="ir.ui.view">
+            <field name="name">hr.payment.form</field>
+            <field name="model">hr.payment</field>
+            <field name="arch" type="xml">
+                <form string="Hr Payment">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" placeholder="Ref" required="1"
+                                       attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                                <field name="journal_id" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="company_id" required="1" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                                <field name="payslip_run_id" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="lines" string="Payment Lines">
+                                <field name="lines" attrs="{'readonly':[('state','!=', 'draft')]}">
+                                    <tree editable="bottom" string="Payment Items">
+                                        <field name="employee_id"/>
+                                        <field name="amount"/>
+                                        <field name="amount_paid"/>
+                                        <field name="amount_debt"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="amount_paid" class="oe_subtotal_footer_separator"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_payment_tree_view" model="ir.ui.view">
+            <field name="name">hr.payment.tree</field>
+            <field name="model">hr.payment</field>
+            <field name="arch" type="xml">
+                <tree string="Hr Payment">
+                    <field name="name"/>
+                    <field name="payslip_run_id"/>
+                    <field name="company_id"/>
+                    <field name="journal_id"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_payment_search_view" model="ir.ui.view">
+            <field name="name">hr.payment.search</field>
+            <field name="model">hr.payment</field>
+            <field name="arch" type="xml">
+                <search string="ModelTitle">
+                    <group expand="1" string="Group By">
+                        <field name="name"/>
+                        <filter string="PaySlip Batch" name="payslip_run_id" domain="[('payslip_run_id','!=', False)]"
+                                context="{'group_by':'payslip_run_id'}"/>
+                        <filter string="Company" name="company_id" domain="[('company_id','!=', False)]"
+                                context="{'group_by':'company_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="hr_payment_act_window" model="ir.actions.act_window">
+            <field name="name">Payment Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payment</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

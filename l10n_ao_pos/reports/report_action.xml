@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="sr_pos_session_report" model="ir.actions.report">
+            <field name="name">Session Summary Report</field>
+            <field name="model">pos.session</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_ao_pos.pos_session_report_template</field>
+            <field name="report_file">l10n_ao_pos.pos_session_report_template</field>
+            <field name="attachment">(object.name).replace('/','')+'.pdf'
+            </field>
+            <field name="binding_type">report</field>
+            <!--<field name="paperformat_id" ref="base.paperformat_euro"/>-->
+        </record>
+
+        <record id="pos_order_a4_report" model="ir.actions.report">
+            <field name="name">Pos Report</field>
+            <field name="model">pos.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_ao_pos.pos_report_body</field>
+            <field name="report_file">l10n_ao_pos.pos_report_body</field>
+            <field name="attachment">(object.name).replace('/','')+'.pdf'
+            </field>
+            <field name="binding_type">report</field>
+            <field name="binding_model_id" ref="model_pos_order"/>
+           <field name="paperformat_id" ref="l10n_ao.paperformat_a4_agt"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="asset_disposal_report_wizard_view">
+        <field name="name">asset.disposal.report.wizard.form</field>
+        <field name="model">asset.disposal.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Asset Disposal Report">
+                <group>
+                    <group>
+                        <field name="period_selection" required="1" />
+                        <field name="date_from" widget="daterange" string="De" class="oe_inline" options="{'related_end_date': 'date_to'}" attrs="{'invisible': [('period_selection', '!=', 'custom')], 'required': [('period_selection', '=', 'custom')]}" />
+                        <field name="date_to" widget="daterange" string="Até" class="oe_inline" options="{'related_start_date': 'date_from'}" attrs="{'invisible': [('period_selection', '!=', 'custom')], 'required': [('period_selection', '=', 'custom')]}" />
+                        <field name="asset_nature_ids" widget="many2many_tags" required="1" options="{'no_create': True}" placeholder="Selecione as naturezas de ativos" />
+                    </group>
+                    <group>
+                        <field name="method" required="1" />
+                        <field name="unfold_all" />
+                        <field name="only_posted" invisible="1"/>
+                        <field name="group_by_account" invisible="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Gerar Relatório" type="object" name="action_generate_report" class="btn-primary" />
+                    <button string="Gerar PDF" type="object" name="action_generate_report_pdf" class="btn-primary" />
+                    <button string="Cancelar" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_asset_disposal_report_wizard" model="ir.actions.act_window">
+        <field name="name">Asset Disposal Report</field>
+        <field name="res_model">asset.disposal.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_action_account_report_abates_ao" name="Mapa de Abates" action="action_asset_disposal_report_wizard" parent="l10n_ao_report.account_reports_ao_statements_menu" groups="account.group_account_readonly" />
+
+</odoo>

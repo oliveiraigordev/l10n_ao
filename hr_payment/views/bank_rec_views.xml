@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="salary_reconciliation_ao_bank_rec_widget_form_extend" model="ir.ui.view">
+      <field name="name">bank.rec.widget.form.salary.extend</field>
+      <field name="model">bank.rec.widget</field>
+      <field name="inherit_id" ref="account_accountant.view_bank_rec_widget_form"/>
+      <field name="arch" type="xml">
+
+        <!-- 2) Aba "Itens de Salário" dentro do notebook -->
+        <xpath expr="//notebook[@name='bank_rec_widget_notebook']" position="inside">
+          <page name="salary_items_page"
+                string="Itens de Salário"
+                attrs="{'invisible': [('salary_move_ids','=',[])]}">
+
+            <!-- Movimentos Disponíveis -->
+            <group string="Movimentos de Salário Disponíveis">
+              <field name="salary_move_ids"
+                     widget="one2many_list"
+                     readonly="1"
+                     options="{'no_create': True, 'no_open': True}"
+                     colspan="2">
+                <tree>
+                  <field name="move_id"/>
+                  <field name="account_id"/>
+                  <field name="name"/>
+                  <field name="debit"/>
+                  <field name="credit"/>
+                  <field name="amount_currency"/>
+                  <field name="date"/>
+                </tree>
+              </field>
+            </group>
+
+            <!-- Seleção de Movimentos -->
+            <group string="Selecionar Movimentos para Reconciliação">
+              <field name="salary_move_selected"
+                     widget="many2many_checkboxes"
+                     domain="[('id','in', salary_move_ids)]"
+                     options="{'no_create': True}"
+                     colspan="2"/>
+            </group>
+
+            <!-- Botão de Reconciliação (duplicado aqui para facilitar) -->
+            <div class="oe_button_box" style="text-align: center; margin-top: 15px;">
+              <button name="action_reconcile_salary"
+                      string="Executar Reconciliação"
+                      type="object"
+                      class="btn btn-success"
+                      attrs="{'invisible': [('salary_move_selected','=',[])]}"/>
+            </div>
+          </page>
+        </xpath>
+
+      </field>
+    </record>
+  </data>
+</odoo>

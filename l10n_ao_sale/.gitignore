@@ -1,0 +1,9 @@
+config/odoo.conf
+
+.idea
+*/.idea
+
+__pycache__/
+*__pycache__/
+.vscode
+*.vscode

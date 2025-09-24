@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="l10n_cash_flow_statement_form_view" model="ir.ui.view">
+        <field name="name">L10N - Cash Flow Statement Form View</field>
+        <field name="model">cash.flow.statement</field>
+        <field name="arch" type="xml">
+            <form string="Cash Flow Statement">
+                <sheet>
+                    <div class="oe_title" name="title">
+                        <h2>
+                            <field name="name" readonly="1" force_save="1"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="account_report_id" widget="many2one_tags"
+                                   domain="[('id','in',[%(l10n_ao_report.account_financial_report_fluxocaixa)d,%(l10n_ao_report.account_financial_report_fluxocaixa_indirecto)d])]"
+                                   options="{'no_edit': True, 'no_create': True, 'no_open': True}"/>
+                            <field name="account_report_line_id" widget="many2one_tags"
+                                   domain="[('report_id','=',account_report_id), ('active_account_move', '!=', False)]"
+                                   options="{'no_edit': True, 'no_create': True, 'no_open': True}"/>
+
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Linhas do Fluxo" id="cash_flow_statement_line">
+                            <field name="cash_flow_statement_ids">
+                                <tree limit="100" editable="bottom">
+                                    <field name="code" readonly="1"/>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="inherit_cash_flow_statement_form_view" model="ir.ui.view">
+        <field name="name">Inherit L10N - Cash Flow Statement Form View</field>
+        <field name="model">cash.flow.statement</field>
+        <field name="inherit_id" ref="l10n_ao_report.l10n_cash_flow_statement_form_view"/>
+        <field name="arch" type="xml">
+
+             <xpath expr="//field[@name='account_report_line_id']" position="after">
+                    <field name="register_cashflow" placeholder="Descrição"/>
+            </xpath>
+            <xpath expr="//page[@id='cash_flow_statement_line']" position="replace">
+            <page string="Linhas do Fluxo" id="cash_flow_statement_line" attrs="{'invisible': [('register_cashflow', '=', False)]}">
+                <field name="cash_flow_statement_ids">
+                    <tree limit="100" editable="bottom">
+                        <field name="code" readonly="1"/>
+                        <field name="name"/>
+                        <!-- Adicione outros campos que você deseja exibir aqui -->
+                    </tree>
+                </field>
+            </page>
+        </xpath>
+
+        </field>
+    </record>
+
+    <record id="l10n_cash_flow_statement_tree_view" model="ir.ui.view">
+        <field name="name">L10N - Cash Flow Statement Form View Tree</field>
+        <field name="model">cash.flow.statement</field>
+        <field name="arch" type="xml">
+            <tree string="Cash Flow Statement">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="account_report_line_id"/>
+                <field name="cash_flow_statement_ids" widget="many2many_tags"/>
+                <!--widget="many2many_tags"-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="l10n_cash_flow_statement_search_view" model="ir.ui.view">
+        <field name="name">Extracto do Fluxo de Caixa.search.view</field>
+        <field name="model">cash.flow.statement</field>
+        <field name="arch" type="xml">
+            <search string="Fluxos de Caixa">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="account_report_id"/>
+                <field name="account_report_line_id"/>
+                <filter string="Descrição" name="name" domain="[('name','ilike','name')]"/>
+                <filter string="Código" name="code" domain="[('code','ilike','code')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="account_report_id" string="Relatório de Contas"
+                            context="{'group_by': 'account_report_id'}"
+                            domain="[('account_report_id','ilike','account_report_id')]"/>
+                    <filter name="account_report_line_id" string="Linha do Relatório de Contas"
+                            context="{'group_by': 'account_report_line_id'}"
+                            domain="[('account_report_line_id','ilike','account_report_line_id')]"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cash_flow_statement" model="ir.actions.act_window">
+        <field name="name">Fluxos de Caixa</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cash.flow.statement</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="l10n_cash_flow_statement_search_view"/>
+    </record>
+
+    <menuitem id="cash_flow_statement_menu"
+              name="Fluxo de Caixa"
+              parent="l10n_ao.menu_saft_register_ao"
+              sequence="22"/>
+
+    <menuitem id="account_result_settlement_wizard_menu"
+              name="Registar Fluxo de Caixa"
+              parent="cash_flow_statement_menu"
+              sequence="1"
+              action="action_cash_flow_statement"/>
+</odoo>

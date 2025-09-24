@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- modify employee tree view -->
+    <record id="l10n_ao_hr_employee_tree_view" model="ir.ui.view">
+        <field name="name">Inherited Employee Tree View</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='activity_date_deadline']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <field name="work_phone" position="after">
+                <field name="personal_mobile"/>
+            </field>
+            <field name="work_email" position="after">
+                <field name="personal_email"/>
+            </field>
+            <field name="department_id" position="after">
+                <field name="direction_id"/>
+            </field>
+
+            <field name="job_id" position="after">
+                <field name="company_country_id" invisible="1"/>
+                <field name="salary_scale_id" string="Scala"
+                       attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}"/>
+                <field name="steps_ids" string="Nível" attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- modify employee Kanban view -->
+    <record id="l10n_ao_hr_employee_kanban_view" model="ir.ui.view">
+        <field name="name">Inherited Employee Kanban View</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="company_country_id" invisible="1"/>
+                <span t-if="record.salary_scale_id.raw_value" class="o_kanban_record_subtitle"
+                      attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}">
+                    <field name="salary_scale_id"/>
+                </span>
+                <span t-if="record.steps_ids.raw_value" class="o_kanban_record_subtitle"
+                      attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}">
+                    <field name="steps_ids"/>
+                </span>
+            </field>
+        </field>
+    </record>
+
+    <!-- modify employee form view -->
+    <record id="l10n_ao_hr_employee_form_view" model="ir.ui.view">
+        <field name="name">L10n_ao_hr - Inherited Employee Form View</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+
+            <field name="name" position="after">
+                <div attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}">
+                    <div class="float-right oe_title">
+                        <widget name="web_ribbon" text="Activo" bg_color="bg-success"
+                                attrs="{'invisible': [('employee_situation', '!=', 'active')]}"/>
+                    </div>
+
+                    <div class="float-right oe_title">
+                        <widget name="web_ribbon" text="Demitido" bg_color="bg-danger"
+                                attrs="{'invisible': [('employee_situation', '!=', 'fired')]}"/>
+                    </div>
+
+                    <div class="float-right oe_title">
+                        <widget name="web_ribbon" text="Rescisão" bg_color="bg-danger"
+                                attrs="{'invisible': [('employee_situation', '!=', 'termination')]}"/>
+                    </div>
+
+                    <div class="float-right oe_title">
+                        <widget name="web_ribbon" text="Férias não Remuneradas" bg_color="bg-warning"
+                                attrs="{'invisible': [('employee_situation', '!=', 'unpaid_leave')]}"/>
+                    </div>
+
+                    <div class="float-right oe_title">
+                        <widget name="web_ribbon" text="Licença Maternidade" bg_color="bg-warning"
+                                attrs="{'invisible': [('employee_situation', '!=', 'maternity_leave')]}"/>
+                    </div>
+
+                    <div class="float-right oe_title">
+                        <widget name="web_ribbon" text="Licença Pré-Maternidade" bg_color="bg-warning"
+                                attrs="{'invisible': [('employee_situation', '!=', 'pre_maternity_leave')]}"/>
+                    </div>
+
+                    <div class="float-right oe_title">
+                        <widget name="web_ribbon" text="Comissão de Serviço" bg_color="bg-secondary"
+                                attrs="{'invisible': [('employee_situation', '!=', 'service_commission')]}"/>
+                    </div>
+                </div>
+            </field>
+
+            <!-- Invisible Fields-->
+            <xpath expr="//field[@name='job_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='mobile_phone']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='private_email']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='phone']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='bank_account_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Normal Fields-->
+
+            <xpath expr="//field[@name='job_title']" position="attributes">
+                <attribute name="attrs">{'readonly':[('hr_job','!=', True)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+
+            <field name="work_phone" position="after">
+                <field name="personal_mobile"/>
+                <field name="employee_situation" invisible="1"/>
+            </field>
+            <field name="work_email" position="after">
+                <field name="personal_email"/>
+            </field>
+
+            <field name="employee_type" position="after">
+                <label for="service_provider_wage" attrs="{'invisible':[(('employee_type','!=','service_provider'))]}"/>
+                <div class="o_row mw-50" attrs="{'invisible':[(('employee_type','!=','service_provider'))]}">
+                    <field name="service_provider_wage" class="oe_inline o_hr_narrow_field" nolabel="1" force_save="1"
+                           attrs="{'invisible':[(('employee_type','!=','service_provider'))]}"/>
+                    <div class="mb-3" attrs="{'invisible':[(('employee_type','!=','service_provider'))]}">
+                        <field name="currency_type"
+                               attrs="{'invisible':[(('employee_type','!=','service_provider'))]}"/>
+                    </div>
+                </div>
+                <field name="admission_date"/>
+                <field name="last_work_date"/>
+                <field name="departure_raison" />
+                <field name="type_of_agreement" />
+                <field name="departure_reason_description" />
+            </field>
+
+            <field name="department_id" position="after">
+                <field name="direction_id"/>
+                <field name="hr_job" widget="many2one_tags" required="1"/>
+                <field name="sector_id" domain="[('department_id','=',department_id)]" widget="many2one_tags"
+                       options="{'no_edit': True, 'no_create': True, 'no_open': True}"/>
+            </field>
+
+            <field name="country_id" position="before">
+                <field name="contract_type" widget="many2one_tags"
+                       attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)], 'required':[('company_country_id','=',%(base.ao)d)]}"
+                       options="{'no_edit': True, 'no_create': True, 'no_open': True}"/>
+            </field>
+
+            <field name="passport_id" position="after">
+                <field name="first_job" widget="boolean_toggle"
+                       attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}"/>
+                <field name="social_security" placeholder="Ex: Registo de INSS"
+                       attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)], 'required': [('first_job', '=', False)]}"/>
+                <field name="fiscal_number" placeholder="Ex: Declaração de Contribuente"
+                       attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}"/>
+            </field>
+
+            <field name="address_home_id" position="after">
+                <field name="address_province" attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}"/>
+                <field name="address_county" placeholder="Insira aqui o município Funcionário."
+                       attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}"/>
+                <field name="address_address" placeholder="Insirir aqui o endereço do Funcionários."
+                       attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}"/>
+            </field>
+
+            <field name="identification_id" position="after">
+                <field name="identification_emission_date" attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}"/>
+                <field name="identification_expiration_date" attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}"/>
+            </field>
+
+
+            <page name="hr_settings" position="inside">
+                <group string="Bank Account" attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}">
+                    <group>
+                        <field name="payment_method" groups="hr_payroll.group_hr_payroll_user"
+                               attrs="{'required':[('company_country_id','=',%(base.ao)d)]}"/>
+                        <field name="bank_bank"
+                               attrs="{'required':[('payment_method','=','bank')], 'invisible':[(('payment_method','!=','bank'))]}"
+                               widget="many2one_tags" options="{'no_edit': True, 'no_create': True, 'no_open': True}"
+                               groups="hr_payroll.group_hr_payroll_user"/>
+                        <field name="bank_account"
+                               attrs="{'required':[('payment_method','=','bank')], 'invisible':[(('payment_method','!=','bank'))]}"
+                               groups="hr_payroll.group_hr_payroll_user"/>
+                        <field name="bank_iban_account"
+                               attrs="{'required':[('payment_method','=','bank')], 'invisible':[(('payment_method','!=','bank'))]}"
+                               groups="hr_payroll.group_hr_payroll_user"/>
+                        <field name="bank_nib_account"
+                               attrs="{'required':[('payment_method','=','bank')], 'invisible':[(('payment_method','!=','bank'))]}"
+                               groups="hr_payroll.group_hr_payroll_user"/>
+                    </group>
+                    <group>
+                        <field name="hierarchical_level_id" widget="many2one_tags"
+                               options="{'no_edit': True, 'no_create': True, 'no_open': True}"
+                               domain="[('department_id','=',department_id),('sector_id','=',sector_id)]"/>
+                        <field name="salary_scale_id"
+                               options="{'no_edit': True, 'no_create': True, 'no_open': True}"
+                               domain="[('hierarchical_level_id','=',hierarchical_level_id), ('job_id','=',hr_job)]"
+                               widget="many2one_tags"/>
+                        <field name="steps_ids" attrs="{'required':[('salary_scale_id','=', True)]}"
+                               domain="[('salary_scale_id','=',salary_scale_id)]"
+                               options="{'no_edit': True, 'no_create': True, 'no_open': True}"/>
+                    </group>
+                </group>
+            </page>
+
+
+            <xpath expr="//notebook/page[last()]" position="after">
+                <page string="Dependentes" attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}">
+                    <field name="dependents_ids">
+                        <tree name="Dependents" editable="bottom">
+                            <field name="name"/>
+                            <field name="degree_of_kinship" string="Grau de Parentesco"/>
+                            <field name="gender" string="Género"/>
+                            <field name="date_of_birth"/>
+                            <field name="has_document"/>
+                            <field name="has_insurance"/>
+                            <field name="date_of_inclusion" attrs="{'readonly': [('has_insurance', '=', False)]}"/>
+                            <field name="quarterly_value" attrs="{'readonly': [('has_insurance', '=', False)]}"/>
+                            <field name="annual_value" attrs="{'readonly': [('has_insurance', '=', False)]}"/>
+                            <field name="date_expiration" attrs="{'readonly': [('has_insurance', '=', False)]}"/>
+                            <!--                            <field name="notes"/>-->
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+
+
+        </field>
+    </record>
+
+    <record id="l10n_ao_hr_employee_form_search" model="ir.ui.view">
+        <field name="name">employee.search</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//group" position="before">
+                <separator/>
+                 <filter string="Todos" name="active"
+                        domain="['|',('active','=',True),('active','=',False)]"/>
+                <separator/>
+                <filter string="Funcionários" name="employee_type"
+                        domain="[('employee_type', '!=', 'service_provider')]"/>
+                <filter string="Prestadores de Serviço" name="employee_type"
+                        domain="[('employee_type', '=', 'service_provider')]"/>
+
+                <filter name="group_employee_type" string="Tipo de Funcionário" domain="[]"
+                        context="{'group_by': 'employee_type'}"/>
+            </xpath>
+
+            <xpath expr="//searchpanel/field[@name='department_id']" position="after">
+                <field name="employee_type" string="Tipo de Funcionário"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

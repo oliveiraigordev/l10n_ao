@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        <record id="l10n_ao_report_account_payment_register_view" model="ir.ui.view">
+            <field name="name">L10n_ao_report: Account Payment Register View Inherit</field>
+            <field name="model">account.payment.register</field>
+            <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+            <field name="arch" type="xml">
+                <group>
+                    <group>
+                        <field name="register_cashflow"/>
+                    </group>
+                    <field name="register_cashflow_computed" invisible="1"/>
+                    <field name="cash_flow_in_payment" invisible="1"/>
+                     <field name="account_payment_report_line_ids" string="Fluxo de Caixa"
+                           attrs="{'invisible': [('register_cashflow', '=', False)]}">
+                        <form name="Fluxo de Caixa">
+                            <group>
+                                <field name="cash_flow_statement_id" string="Rubrica de Fluxo de Caixa"/>
+                                <field name="line_cashflow"/>
+                                <field name="cash_flow_statement_line_id"
+                                       options="{'no_create': True, 'no_open': True}"
+                                       domain="[('cash_flow_statement_id', '=', cash_flow_statement_id)]"
+                                       required="0"
+                                       attrs="{'invisible': [('line_cashflow', '=', False)]}"
+                                />
+                                <field name="amount" string="Valor"/>
+                            </group>
+                        </form>
+
+                    </field>
+                </group>
+            </field>
+        </record>
+
+    </data>
+</odoo>

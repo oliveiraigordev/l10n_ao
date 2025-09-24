@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="account_reports.line_template">
+
+            <t t-if="lines[0].get('type_balancete') == 'Balancete Periodo'">
+                <th>
+                    <span style="color: #000; padding-left: 5%;">Conta</span> <span style="color: #000; padding-left: 7%;">Descrição</span>
+                </th>
+            </t>
+            <t t-elif="lines[0].get('type_balancete') == 'Balancete Anterior. Periodo. Acumulado.'">
+                <th>
+                    <span style="color: #000; padding-left: 10%;">Conta</span> <span style="color: #000; padding-left: 17%;">Descrição</span>
+                </th>
+            </t>
+
+            <t t-set="caret_options_dict" t-value="report._get_caret_options()"/>
+
+            <t t-foreach="lines" t-as="line">
+                <t t-set="trclass" t-value="'o_account_reports_default_style'"/>
+                <t t-set="domainClass" t-value="'o_account_reports_domain_line_2 account_report_line_name'"/>
+                <t t-if="line.get('level') != None">
+                    <t t-set="trclass" t-value="'o_account_searchable_line o_account_reports_level'+str(line['level'])"/>
+                    <t t-if="line.get('caret_options')">
+                        <t t-set="domainClass" t-value="'o_account_reports_domain_line_' + str(line['level']) + ' account_report_line_name'"/>
+                    </t>
+                </t>
+
+                <t t-if="line.get('page_break') and context.get('print_mode')">
+                    <t t-out="table_end"/>
+                    <t t-call="{{model.main_table_header_template}}"/>
+                    <t t-out="table_start"/>
+                </t>
+
+                <tr t-attf-class="#{trclass} #{line.get('class', '')} #{'o_js_account_report_parent_row_unfolded' if line.get('unfolded', False) else ''}"
+                    tabindex="0"
+                    t-att-data-parent-id="line.get('parent_id', False)"
+                    t-att="{k: v for k, v in line.items() if k.startswith('data-')}"
+                    t-att-style="line.get('style', '')">
+                    <td
+                        t-att-data-id="line['id']"
+                        t-att-class="'o_account_report_name_ellipsis o_account_report_line o_account_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable o_foldable_total' or '') + ' ' + line.get('name_class', '')"
+                        t-att-data-unfolded="line.get('unfolded', False)"
+                        t-att-data-groupby="line.get('groupby')"
+                        t-att-data-expand-function="line.get('expand_function')"
+                        t-att-data-offset="line.get('offset', 0)"
+                        t-att-data-progress="line.get('progress')"
+                        t-att-data-parent-id="line.get('parent_id')"
+                        t-att-colspan="line.get('colspan', '1')"
+                    >
+                            <t t-if="line.get('unfoldable')">
+                                <span t-att-data-id="line['id']" class="o_account_reports_caret_icon">
+                                    <i class="fa fa-caret-down" t-if="line.get('unfolded')" role="img" aria-label="Unfolded" title="Unfolded"/>
+                                    <i class="fa fa-caret-right" t-if="not line.get('unfolded')" role="img" aria-label="Folded" title="Folded"/>
+                                </span>
+                            </t>
+                            <t t-elif="not line.get('caret_options')">
+                                <span t-att-data-id="line['id']" class="o_account_reports_caret_icon">
+                                    <i class="fa fa-caret-right invisible" role="img" aria-label="Unfolded" title="Unfolded"/>
+                                </span>
+                            </t>
+                            <t t-if="not line.get('caret_options')">
+                                <span class="account_report_line_name" t-att-title="line.get('title_hover')"
+                                    t-att-data-search-key="line.get('search_key')">
+                                    <a t-if="line.get('action_id')" t-att-data-id="line['id']" t-att-data-action-id="line['action_id']" t-att-action="line.get('action', 'execute_action')">
+                                        <t t-out="line.get('name')"/>
+                                    </a>
+                                    <t t-else="" t-out="line.get('name')"/>
+                                    <span class="js_account_report_line_footnote" t-att-data-id="line['id']">
+                                        <sup t-if="line.get('footnote')"><b class="o_account_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-out="line['footnote']"/></b></sup>
+                                    </span>
+                                </span>
+                            </t>
+                            <t t-else="">
+                                <t t-if="not context.get('print_mode')">
+                                    <div class="dropdown dropend">
+                                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href='#'>
+                                            <span t-att-data-id="line['id']" t-att-class="domainClass" t-att-title="line.get('title_hover')"
+                                                t-att-data-search-key="line.get('search_key')">
+                                                <t t-out="line.get('name')"/>
+
+                                                <t t-if="lines[0].get('type_balancete') == 'Balancete Periodo' or lines[0].get('type_balancete') == 'Balancete Anterior. Periodo. Acumulado.'">
+                                                    <div style="display: inline-block; padding-left: 25px">
+                                                        <t t-out="line.get('description')" style="padding-left: 15%;"/> <i class="fa fa-caret-down no_print"/>
+                                                    </div>
+                                                </t>
+                                            </span>
+                                        </a>
+                                        <span class="js_account_report_line_footnote" t-att-data-id="line['id']"><sup t-if="line.get('footnote')"><b class="o_account_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-out="line['footnote']"/></b></sup></span>
+                                        <div class="dropdown-menu o_account_reports_domain_dropdown" role="menu">
+                                            <t t-call="account_reports.line_caret_options">
+                                                <t t-set="caret_options_list" t-value="caret_options_dict.get(line.get('caret_options'), [])"/>
+                                                <t t-set="line" t-value="line"/>
+                                            </t>
+                                            <a role="menuitem" tabindex="-1" t-att-data-id="line['id']" class="dropdown-item js_account_reports_add_footnote">Annotate</a>
+                                        </div>
+                                    </div>
+                                </t>
+                                <t t-else="">
+                                    <span t-att-data-id="line['id']" t-att-class="domainClass" t-att-title="line.get('title_hover')"
+                                        t-att-data-search-key="line.get('search_key')">
+                                        <t t-out="line.get('name')"/>
+                                    </span>
+                                    <span class="js_account_report_line_footnote" t-att-data-id="line['id']"><sup t-if="line.get('footnote')"><b class="o_account_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-out="line['footnote']"/></b></sup></span>
+                                </t>
+                            </t>
+                    </td>
+
+                    <t t-foreach="line.get('columns')" t-as="cell">
+                        <t t-set="cell_classes" t-value="(cell.get('class', '') + (line.get('unfoldable') and ' o_foldable_total' or ''))"/>
+
+                        <td>
+                            <div class="o_account_report_column_value">
+                                <t t-call="{{cell.get('template', 'account_reports.cell_template')}}">
+                                    <t t-set="calling_line_dict_id" t-value="line['id']"/>
+                                    <t t-set="style" t-value="cell.get('style')"/>
+                                    <t t-set="title" t-value="cell.get('title')"/>
+                                    <t t-set="classes" t-value="'o_account_report_line ' + cell_classes"/>
+                                    <t t-set="context" t-value="context"/>
+                                </t>
+                            </div>
+                        </td>
+                    </t>
+
+                    <td t-if="options.get('show_growth_comparison')" style="width: 1%; text-align: right;">
+                        <t t-call="account_reports.cell_template_growth_comparison"/>
+                    </td>
+
+                    <td t-if="options['show_debug_column']" style="width: 1%; text-align: right;">
+                        <t t-call="account_reports.cell_template_debug_column"/>
+                    </td>
+                </tr>
+            </t>
+        </template>
+</odoo>

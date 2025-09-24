@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_economic_budget_tree" model="ir.ui.view">
+        <field name="name">view.economic.budget.line.tree</field>
+        <field name="model">account.budget.lines</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" expand="True" sample="1" js_class="l10n_ao_account_budget_list">
+                <field name="budget_line_type" invisible="1"/>
+                <field name="account_id"/>
+                <field name="january"/>
+                <field name="january_accomplished"/>
+                <field name="january_variance" widget="percentage"/>
+                <field name="february"/>
+                <field name="february_accomplished"/>
+                <field name="february_variance" widget="percentage"/>
+                <field name="march"/>
+                <field name="march_accomplished"/>
+                <field name="march_variance" widget="percentage"/>
+                <field name="april"/>
+                <field name="april_accomplished"/>
+                <field name="april_variance" widget="percentage"/>
+                <field name="may"/>
+                <field name="may_accomplished"/>
+                <field name="may_variance" widget="percentage"/>
+                <field name="june"/>
+                <field name="june_accomplished"/>
+                <field name="june_variance" widget="percentage"/>
+                <field name="july"/>
+                <field name="july_accomplished"/>
+                <field name="july_variance" widget="percentage"/>
+                <field name="august"/>
+                <field name="august_accomplished"/>
+                <field name="august_variance" widget="percentage"/>
+                <field name="september"/>
+                <field name="september_accomplished"/>
+                <field name="september_variance" widget="percentage"/>
+                <field name="october"/>
+                <field name="october_accomplished"/>
+                <field name="october_variance" widget="percentage"/>
+                <field name="november"/>
+                <field name="november_accomplished"/>
+                <field name="november_variance" widget="percentage"/>
+                <field name="december"/>
+                <field name="december_accomplished"/>
+                <field name="december_variance" widget="percentage"/>
+
+                <field name="total"/>
+                <field name="total_accomplished"/>
+                <field name="total_variance" widget="percentage"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_economic_budget_filter" model="ir.ui.view">
+        <field name="name">account.budget.lines.filter</field>
+        <field name="model">account.budget.lines</field>
+        <field name="arch" type="xml">
+            <search string="Search Budget">
+                <field name="account_id"/>
+                <group expand="0" string="Group By">
+                    <filter name="budget_line_type" string="Entrada ou Saída"  context="{'group_by':'budget_line_type'}"/>
+                    <filter name="account_budget_line_group_id_by" string="Categória" context="{'group_by':'account_budget_line_group_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="act_economic_budget_analysis">
+        <field name="name">Análise Orçamento Econômico</field>
+        <field name="res_model">account.budget.lines</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" eval="view_economic_budget_tree"/>
+        <field name="search_view_id" ref="view_economic_budget_filter"/>
+        <field name="domain">[("budget_type", "=", "economic")]</field>
+    </record>
+</odoo>

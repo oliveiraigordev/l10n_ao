@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ao_hr_leave_form_view" model="ir.ui.view">
+        <field name="name">Inherited Leave Form View</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_payroll_holidays.hr_leave_view_form_inherit"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//label[@for='number_of_days_display']" position="attributes">
+                <attribute name="attrs">{'invisible':[('time_type','=', 'extra_hour')]}
+                </attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='payslip_state']" position="attributes">
+                <attribute name="attrs">{'invisible':[('time_type','=', 'extra_hour')]}
+                </attribute>
+            </xpath>
+
+            <xpath expr="//div[@name='duration_display']" position="attributes">
+                <attribute name="attrs">{'invisible':[('time_type','=', 'extra_hour')]}
+                </attribute>
+            </xpath>
+
+            <field name="holiday_status_id" position="after">
+                <field name="time_type" invisible="1"/>
+                <field name="check_in"
+                       attrs="{'invisible':[('time_type','in',  ['other', 'leave', 'vacation'])], 'required':[('time_type','in',  ['extra_hour', 'delay'])], 'readonly':[('state','=',  'validate')]}"/>
+                <field name="check_out"
+                       attrs="{'invisible':[('time_type','in',  ['other', 'leave', 'vacation'])], 'required':[('time_type','in',  ['extra_hour', 'delay'])], 'readonly':[('state','=',  'validate')]}"/>
+            </field>
+
+            <field name="name" position="before">
+                <field name="number_extra_hours" widget="float_time"
+                       attrs="{'invisible':[('time_type','in',  ['other', 'leave', 'vacation'])]}"/>
+            </field>
+
+        </field>
+    </record>
+
+    <record id="l10n_hr_hr_leave_search_view" model="ir.ui.view">
+        <field name="name">hr_leave.search.view</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_search_manager"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="before">
+                <separator/>
+                <field name="direction_id"/>
+                <filter name="group_direction_id" string="Direcção" context="{'group_by': 'direction_id'}"
+                        domain="[('direction_id','ilike','direction_id')]"/>
+                <separator/>
+                <filter string="Nacional" name="contract_type_id"
+                        domain="[('contract_type_id', '=', %(l10n_ao_hr.l10n_ao_hr_contract_type_nacional)d)]"/>
+                <filter string="EXPATRIADO" name="contract_type_id"
+                        domain="[('contract_type_id', '=', %(l10n_ao_hr.l10n_ao_hr_contract_type_expatriado)d)]"/>
+                <filter string="EXPATRIADO_RESIDENTE" name="contract_type_id"
+                        domain="[('contract_type_id', '=', %(l10n_ao_hr.l10n_ao_hr_contract_type_expatriado_residente)d)]"/>
+                <separator/>
+                <filter string="Horas Extras" name="extra_hours"
+                        domain="[('holiday_status_id', '=', %(l10n_ao_hr_holidays.hr_leave_type_extra_hours)d)]"/>
+                <filter string="Delay" name="Delay"
+                        domain="[('holiday_status_id', '=', %(l10n_ao_hr_holidays.l10n_ao_hr_leave_typ_trabalho_delays)d)]"/>
+                <separator/>
+                <filter string="Férias" name="vacation"
+                        domain="[('holiday_status_id', '=', %(l10n_ao_hr_holidays.l10n_ao_hr_leave_type_vocation)d)]"/>
+                <filter string="Faltas Injustificadas" name="injustificadas"
+                        domain="[('holiday_status_id', '=', %(l10n_ao_hr_holidays.l10n_ao_hr_leave_typ_falta_injustificada)d)]"/>
+                <filter string="Faltas justificada Sem Remuneração" name="justificada_sem_remuneracao"
+                        domain="[('holiday_status_id', '=', %(l10n_ao_hr_holidays.l10n_ao_hr_leave_typ_falta_justificada_sem_remuneracao)d)]"/>
+                <filter string="Faltas justificada Remunerada" name="justificada_remunerada"
+                        domain="[('holiday_status_id', '=', %(l10n_ao_hr_holidays.l10n_ao_hr_leave_typ_falta_justificada_remunerada)d)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_leave_tree_view" model="ir.ui.view">
+        <field name="name">hr_leave.tree.view</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="duration_display" position="after">
+                <field name="number_extra_hours" widget="float_time" sum="Total Geral"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

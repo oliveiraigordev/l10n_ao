@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <odoo>
+      
+    <!-- View account.journal form -->
+    <record id="view_account_journal_form_inherit" model="ir.ui.view">
+        <field name="name">view.account.journal.form.inherit (in l10n_ao_account)</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='currency_id']" position="after">
+              <field name="force_same_account_on_reconcile" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_journal_dashboard_kanban_inherit" model="ir.ui.view">
+      <field name="name">account.journal.dashboard.kanban.inherit (in l10n_ao_account_payment)</field>
+      <field name="model">account.journal</field>
+      <field name="inherit_id" ref="account.account_journal_dashboard_kanban_view"/>
+      <field name="arch" type="xml">
+        <xpath expr="//div[@id='dashboard_bank_cash_right']" position="after">
+          <div>
+            <button type="object" name="update_dashboard_data" class="btn btn-primary mt-2">Atualizar</button>
+          </div>
+        </xpath>
+      </field>
+    </record>
+
+  </odoo>

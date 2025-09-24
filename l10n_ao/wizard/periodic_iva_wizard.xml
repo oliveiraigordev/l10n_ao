@@ -1,0 +1,37 @@
+<odoo>
+
+    <record id="l10n_ao_periodic_iva_view" model="ir.ui.view">
+        <field name="name">l10n_ao.periodic.iva.wizard.view</field>
+        <field name="model">periodic.iva.map</field>
+        <field name="arch" type="xml">
+            <form string="Modelo Declaração Iva Periódico">
+                <group>
+                    <field name="month" required="1" />
+                    <field name="year" required="1" />
+                </group>
+                <footer>
+                    <button name="print_report" string="Imprimir" type="object" class="print btn-primary" data-hotkey="q"/>
+
+                    <button string="Cancelar" special="cancel" class="btn-secondary" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="l10n_ao_periodic_iva_view_action" model="ir.actions.act_window">
+        <field name="name">Modelo Declaração Iva Periódico</field>
+        <field name="res_model">periodic.iva.map</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="l10n_ao_periodic_iva" name="Declaração Periódica do Modelo 7" parent="menu_saft_register_ao" sequence="6"/>
+    <menuitem
+        id="menu_l10n_ao_periodic_iva_view_action"
+        sequence="40"
+        name="Declaração Periódica do Modelo 7"
+        parent="l10n_ao.l10n_ao_periodic_iva"
+        action="l10n_ao.l10n_ao_periodic_iva_view_action"
+    />
+
+</odoo>

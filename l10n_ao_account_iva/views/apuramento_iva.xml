@@ -1,0 +1,108 @@
+<odoo>
+    <record id="view_apuramento_iva_form" model="ir.ui.view">
+        <field name="name">apuramento.iva.form</field>
+        <field name="model">apuramento.iva</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="show_reimburse_report_iva" invisible="1" />
+                    <button name="generate_account_move_iva" type="object" string="Apurar IVA"
+                        attrs="{'invisible': [('line_ids', '!=', [])]}" class="btn btn-primary" />
+                    <button name="reimburse_iva" type="object" string="Solicitar Reembolso"
+                        attrs="{'invisible': [('show_reimburse_report_iva', '=', False)]}" class="btn btn-primary" />
+                    <button name="report_iva" type="object" string="Reportar IVA"
+                        attrs="{'invisible': [('show_reimburse_report_iva', '=', False)]}" class="btn btn-primary"/>
+                    <button name="report_iva_overdue" type="object" string="Reportar IVA Fora do Prazo"
+                        attrs="{'invisible': [('show_reimburse_report_iva', '=', False)]}" class="btn btn-primary"/>
+                     <!-- NOVO: Voltar a Rascunho -->
+                    <button name="action_reset_to_draft" type="object" string="Voltar a Rascunho"
+                            class="btn btn-secondary"
+                            attrs="{'invisible': [('line_ids', '=', [])]}"
+                            confirm="Isto irá voltar os lançamentos ligados a este apuramento para rascunho e limpar as linhas. Continuar?"/>
+                </header>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button class="oe_stat_button" name="action_view_iva"
+                                type="object" icon="fa-bars" help="Itens de Diário">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Itens de Diário</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" name="action_view_iva_move"
+                                type="object" icon="fa-bars" help="Lançamentos IVA"
+                                attrs="{'invisible': [('line_ids', '=', [])]}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Lançamentos IVA</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" name="action_view_iva_reimburse_move"
+                                type="object" icon="fa-bars" help="Reembolso IVA"
+                                attrs="{'invisible': ['|', ('show_reimburse_date', '=', False), ('show_reimburse_report_iva', '=', True)]}" >
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Reembolso</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group string="Apuramento IVA">
+                        <group>
+                            <field name="year" string="Ano" />
+                            <field name="month" string="Mês" />
+                            <field name="day" string="Dia" />
+                            <field name="journal_id" string="Diário" required="1" />
+                        </group>
+                        <group>
+                            <label for="date_start" string="Período" />
+                            <div class="o_row">
+                                <field name="date_start" widget="daterange" required="1"
+                                        options='{"related_end_date": "date_end"}'/>
+                                <i class="fa fa-long-arrow-right mx-1" aria-label="Arrow icon" title="Arrow"/>
+                                <field name="date_end" widget="daterange"
+                                        options='{"related_start_date": "date_start"}' required="1"/>
+                            </div>
+                            <field name="show_reimburse_date" invisible="1" />
+                            <field name="show_iva_report_date" invisible="1" />
+                            <field name="reimbursement_date"
+                                attrs="{'invisible': [('show_reimburse_date', '=', False)], 'readonly': [('show_reimburse_date', '=', True), ('show_reimburse_report_iva', '=', False)]}" />
+                            <field name="is_overdue" string="Fora do Prazo"/>
+                            <field name="iva_report_date"
+                                attrs="{'invisible': [('show_iva_report_date', '=', False)], 'readonly': [('show_iva_report_date', '=', True), ('show_reimburse_report_iva', '=', False)]}" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="apuracao" string="Apuramento">
+                            <field name="line_ids" nolabel="1" colspan="2" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_apuramento_iva_tree">
+        <field name="name">apuramento.iva.tree</field>
+        <field name="model">apuramento.iva</field>
+        <field name="arch" type="xml">
+            <tree string="Apuramento IVA">
+                <field name="year"/>
+                <field name="month"/>
+                <field name="day"/>
+                <field name="journal_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_apuramento_iva_2" model="ir.actions.act_window">
+        <field name="name">Apuramento IVA</field>
+        <field name="res_model">apuramento.iva</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <menuitem id="menu_action_apuramento_iva"
+        name="Apuramento IVA"
+        action="l10n_ao_account_iva.action_apuramento_iva_2"
+        parent="l10n_ao.menu_saft_register_ao"
+    />
+
+</odoo>

@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Salary Rules - Base, INSS and IRT classes -->
+    <data noupdate="1">
+        <record id="hr_salary_rule_ordenado_base" model="hr.salary.rule">
+            <field name="code">BASE</field>
+            <field eval="100" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="note">Ordenado base definido com valor igual ao estipulado no contrato</field>
+            <field name="condition_select">none</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">percentage</field>
+            <field name="amount_percentage_base">contract.wage</field>
+            <field name="quantity">
+                <![CDATA[((inputs.work_rate and inputs.work_rate.amount != 0 and inputs.work_rate.amount) or 1)]]>
+            </field>
+            <field name="amount_percentage" eval="100"/>
+            <field eval="1" name="active"/>
+            <field name="name">Vencimento</field>
+            <field name="category_id" ref="hr_payroll.BASIC"/>
+        </record>
+
+        <record id="hr_salary_rule_seguranca_social" model="hr.salary.rule">
+            <field name="code">INSS</field>
+            <field eval="149" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="note">Contribuição para o regime de Segurança Social</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python"><![CDATA[
+result = not employee.is_foreign
+]]>
+            </field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Segurança Social</field>
+            <field name="amount_python_compute"><![CDATA[
+base_calculo = categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOINSS + categories.ABOINSSIRT + categories.DEDINSSIRT
+result = base_calculo * 0.03 * -1.0
+]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_inss"/>
+        </record>
+
+        <!-- INSS 8% PAGAMENTO AO ESTADO -->
+        <record id="hr_salary_rule_seguranca_social8" model="hr.salary.rule">
+            <field name="code">INSS8</field>
+            <field eval="151" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="note">Segurança Social 8%</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python"><![CDATA[
+result = not employee.is_foreign
+]]>
+            </field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Segurança Social 8%</field>
+            <field name="amount_python_compute"><![CDATA[
+base_calculo = categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOINSS + categories.ABOINSSIRT + categories.DEDINSSIRT
+result = base_calculo * 0.08
+]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_inss8"/>
+        </record>
+
+        <!--        <record id="hr_salary_rule_imposto_rendimento_sobre_trabalho_10" model="hr.salary.rule">-->
+        <!--            <field name="code">IRT10</field>-->
+        <!--            <field eval="152" name="sequence"/>-->
+        <!--            <field eval="1" name="appears_on_payslip"/>-->
+        <!--            <field name="condition_range"><![CDATA[-->
+        <!--round(categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS, 2)-->
+        <!--]]>-->
+        <!--            </field>-->
+        <!--            <field name="note">Desconto de imposto de rendimento sobre o trabalho - 10%</field>-->
+        <!--            <field eval="70000.01" name="condition_range_min"/>-->
+        <!--            <field name="condition_select">range</field>-->
+        <!--            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>-->
+        <!--            <field name="amount_select">code</field>-->
+        <!--            <field eval="1" name="active"/>-->
+        <!--            <field eval="100000.0" name="condition_range_max"/>-->
+        <!--            <field name="name">IRT(10%)</field>-->
+        <!--            <field name="amount_python_compute"><![CDATA[-->
+        <!--baseCalculo = categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS-->
+        <!--result = ((baseCalculo - 70000) * 0.1) + 3000-->
+        <!--result = -result-->
+        <!--]]>-->
+        <!--            </field>-->
+        <!--            <field name="category_id" ref="hr_payroll_salary_rule_category_irt"/>-->
+        <!--        </record>-->
+
+        <record id="hr_salary_rule_imposto_rendimento_sobre_trabalho_13" model="hr.salary.rule">
+            <field name="code">IRT13</field>
+            <field eval="153" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range"><![CDATA[
+round(categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS, 2)
+]]>
+            </field>
+            <field name="note">Desconto de imposto de rendimento sobre o trabalho - 13%</field>
+            <field eval="100000.01" name="condition_range_min"/>
+            <field eval="150000.0" name="condition_range_max"/>
+            <field eval="0" name="cool_parcel"/>
+            <field name="condition_select">range</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">IRT(13%)</field>
+            <field name="amount_python_compute"><![CDATA[
+baseCalculo = categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS
+result = ((baseCalculo - 100000) * 0.13)
+result = -result
+]]>
+            </field>
+            <field eval="13" name="irt_tax"/>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_irt"/>
+        </record>
+
+        <record id="hr_salary_rule_imposto_rendimentos_trabalho_16" model="hr.salary.rule">
+            <field name="code">IRT16</field>
+            <field eval="154" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range"><![CDATA[
+round(categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS, 2)
+]]>
+            </field>
+            <field name="note">Desconto de imposto de rendimento sobre o trabalho - 16%</field>
+            <field eval="12500" name="cool_parcel"/>
+            <field eval="150000.01" name="condition_range_min"/>
+            <field eval="200000.0" name="condition_range_max"/>
+            <field name="condition_select">range</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">IRT(16%)</field>
+            <field name="amount_python_compute"><![CDATA[
+baseCalculo = categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS
+result = ((baseCalculo - 150000) * 0.16) + 12500
+result = -result
+]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_irt"/>
+            <field eval="16" name="irt_tax"/>
+        </record>
+
+        <record id="hr_salary_rule_imposto_rendimentos_trabalho_18" model="hr.salary.rule">
+            <field name="code">IRT18</field>
+            <field eval="155" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range"><![CDATA[
+round(categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS, 2)
+]]>
+            </field>
+            <field name="note">Desconto de imposto de rendimento sobre o trabalho - 10%</field>
+            <field eval="31250" name="cool_parcel"/>
+            <field eval="200000.01" name="condition_range_min"/>
+            <field eval="300000.0" name="condition_range_max"/>
+            <field name="condition_select">range</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">IRT(18%)</field>
+            <field name="amount_python_compute"><![CDATA[
+baseCalculo = categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS
+result = ((baseCalculo - 200000) * 0.18) + 31250
+result = -result
+]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_irt"/>
+            <field eval="18" name="irt_tax"/>
+        </record>
+
+        <record id="hr_salary_rule_imposto_rendimentos_trabalho_19" model="hr.salary.rule">
+            <field name="code">IRT19</field>
+            <field eval="156" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range"><![CDATA[
+round(categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS, 2)
+]]>
+            </field>
+            <field name="note">Desconto de imposto de rendimento sobre o trabalho - 19%</field>
+            <field eval="49259" name="cool_parcel"/>
+            <field eval="300000.01" name="condition_range_min"/>
+            <field eval="500000.0" name="condition_range_max"/>
+            <field name="condition_select">range</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">IRT(19%)</field>
+            <field name="amount_python_compute"><![CDATA[
+baseCalculo = categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS
+result = ((baseCalculo - 300000) * 0.19) + 49259
+result = -result
+]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_irt"/>
+            <field eval="19" name="irt_tax"/>
+        </record>
+
+        <record id="hr_salary_rule_imposto_rendimentos_trabalho_20" model="hr.salary.rule">
+            <field name="code">IRT20</field>
+            <field eval="157" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range"><![CDATA[
+round(categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS, 2)
+]]>
+            </field>
+            <field name="note">Desconto de imposto de rendimento sobre o trabalho - 20%</field>
+            <field eval="87250" name="cool_parcel"/>
+            <field eval="500000.01" name="condition_range_min"/>
+            <field eval="1000000.0" name="condition_range_max"/>
+            <field name="condition_select">range</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">IRT(20%)</field>
+            <field name="amount_python_compute"><![CDATA[
+baseCalculo = categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS
+result = ((baseCalculo - 500000) * 0.2) + 87250
+result = -result
+]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_irt"/>
+            <field eval="20" name="irt_tax"/>
+        </record>
+
+        <record id="hr_salary_rule_imposto_rendimentos_trabalho_21" model="hr.salary.rule">
+            <field name="code">IRT21</field>
+            <field eval="158" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range"><![CDATA[
+round(categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS, 2)
+]]>
+            </field>
+            <field name="note">Desconto de imposto de rendimento sobre o trabalho - 21%</field>
+            <field eval="187249" name="cool_parcel"/>
+            <field eval="1000000.01" name="condition_range_min"/>
+            <field eval="1500000.0" name="condition_range_max"/>
+            <field name="condition_select">range</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">IRT(21%)</field>
+            <field name="amount_python_compute"><![CDATA[
+baseCalculo = categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS
+result = ((baseCalculo - 1000001) * 0.21) + 187250
+result = -result
+]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_irt"/>
+            <field eval="21" name="irt_tax"/>
+        </record>
+
+        <record id="hr_salary_rule_imposto_rendimentos_trabalho_22" model="hr.salary.rule">
+            <field name="code">IRT22</field>
+            <field eval="159" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range"><![CDATA[
+round(categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS, 2)
+]]>
+            </field>
+            <field name="note">Desconto de imposto de rendimento sobre o trabalho - 22%</field>
+            <field eval="292249" name="cool_parcel"/>
+            <field eval="1500000.01" name="condition_range_min"/>
+            <field eval="2000000.0" name="condition_range_max"/>
+            <field name="condition_select">range</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+
+            <field name="name">IRT(22%)</field>
+            <field name="amount_python_compute"><![CDATA[
+baseCalculo = categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS
+result = ((baseCalculo - 1500000) * 0.22) + 292249
+result = -result
+]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_irt"/>
+            <field eval="22" name="irt_tax"/>
+        </record>
+
+        <record id="hr_salary_rule_imposto_rendimentos_trabalho_23" model="hr.salary.rule">
+            <field name="code">IRT23</field>
+            <field eval="160" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range"><![CDATA[
+round(categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS, 2)
+]]>
+            </field>
+            <field name="note">Desconto de imposto de rendimento sobre o trabalho - 23%</field>
+            <field eval="402249" name="cool_parcel"/>
+            <field eval="2000000.01" name="condition_range_min"/>
+            <field name="condition_select">range</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field eval="2500000.0" name="condition_range_max"/>
+            <field name="name">IRT(23%)</field>
+            <field name="amount_python_compute"><![CDATA[
+baseCalculo = categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS
+result = ((baseCalculo - 2000000) * 0.23) + 402249
+result = -result
+]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_irt"/>
+            <field eval="23" name="irt_tax"/>
+        </record>
+
+        <record id="hr_salary_rule_imposto_rendimentos_trabalho_24" model="hr.salary.rule">
+            <field name="code">IRT24</field>
+            <field eval="161" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range"><![CDATA[
+round(categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS, 2)
+]]>
+            </field>
+            <field name="note">Desconto de imposto de rendimento sobre o trabalho - 24%</field>
+            <field eval="517249" name="cool_parcel"/>
+            <field eval="2500000.01" name="condition_range_min"/>
+            <field name="condition_select">range</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field eval="5000000.0" name="condition_range_max"/>
+            <field name="name">IRT(24%)</field>
+            <field name="amount_python_compute"><![CDATA[
+baseCalculo = categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS
+result = ((baseCalculo - 2500000) * 0.24) + 517249
+result = -result
+]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_irt"/>
+            <field eval="24" name="irt_tax"/>
+        </record>
+
+        <record id="hr_salary_rule_imposto_rendimentos_trabalho_25" model="hr.salary.rule">
+            <field name="code">IRT24,5</field>
+            <field eval="161" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range"><![CDATA[
+round(categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS, 2)
+]]>
+            </field>
+            <field name="note">Desconto de imposto de rendimento sobre o trabalho - 24,5%</field>
+            <field eval="1117249" name="cool_parcel"/>
+            <field eval="5000000.01" name="condition_range_min"/>
+            <field name="condition_select">range</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field eval="10000000.0" name="condition_range_max"/>
+            <field name="name">IRT(24,5%)</field>
+            <field name="amount_python_compute"><![CDATA[
+baseCalculo = categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS
+result = ((baseCalculo - 5000000) * 0.245) + 1117249
+result = -result
+]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_irt"/>
+            <field eval="24.5" name="irt_tax"/>
+        </record>
+
+        <record id="hr_salary_rule_imposto_rendimentos_trabalho_26" model="hr.salary.rule">
+            <field name="code">IRT25</field>
+            <field eval="162" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="note">Desconto de imposto de rendimento sobre o trabalho - 25%</field>
+            <field eval="2342248" name="cool_parcel"/>
+            <field eval="10000000.01" name="condition_range_min"/>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">IRT(25%)</field>
+            <field name="condition_python"><![CDATA[
+baseCalculo = round(categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS, 2)
+result = baseCalculo >= 10000000.01
+]]>
+            </field>
+            <field name="amount_python_compute"><![CDATA[
+# A base de cálculo para o IRT será o Vencimento Base + Horas extras - Faltas + Abonos e deduções sujeitos IRT - Segurança Social
+baseCalculo = categories.BAS + categories.HEXTRA + categories.FALTA + categories.ABOIRT + categories.ABOINSSIRT + categories.DEDINSSIRT + categories.INSS
+result = ((baseCalculo - 10000000) * 0.25) + 2342248
+result = -result
+]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_irt"/>
+            <field eval="25" name="irt_tax"/>
+        </record>
+    </data>
+</odoo>

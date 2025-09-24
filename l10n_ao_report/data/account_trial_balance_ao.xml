@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+        <template id="account_trial_balance_ao_extension" inherit_id="account_reports.main_template" primary="True">
+            <xpath expr="//div[hasclass('o_account_reports_page')]" position="attributes">
+                <attribute name="class" add="o_account_trial_balance_report" separator=" "/>
+            </xpath>
+        </template>
+
+        <record id="account_trial_balance_ao_report" model="account.report">
+            <field name="name">Balancete Periodo</field>
+            <field name="filter_journals" eval="True"/>
+            <field name="filter_analytic" eval="True"/>
+            <field name="filter_growth_comparison" eval="False"/>
+            <field name="filter_multi_company">selector</field>
+            <field name="filter_unfold_all" eval="True"/>
+            <field name="filter_hierarchy">by_default</field>
+            <field name="default_opening_date_filter">this_month</field>
+            <field name="search_bar" eval="True"/>
+            <field name="custom_handler_model_id" ref="l10n_ao_report.model_account_trial_balance_report_handler_ao"/>
+            <field name="main_template">l10n_ao_report.account_trial_balance_ao_extension</field>
+            <field name="column_ids">
+                <record id="trial_balance_report_debit_ao" model="account.report.column">
+                    <field name="name">Débito</field>
+                    <field name="expression_label">debit</field>
+                    <field name="figure_type">monetary</field>
+                </record>
+                <record id="trial_balance_report_credit_ao" model="account.report.column">
+                    <field name="name">Crédito</field>
+                    <field name="expression_label">credit</field>
+                    <field name="figure_type">monetary</field>
+                </record>
+                <record id="trial_balance_report_acc" model="account.report.column">
+                    <field name="name">Saldo</field>
+                    <field name="expression_label">balance</field>
+                    <field name="figure_type">monetary</field>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_trial_balance_ao_anterior_periodo_acumulado_report" model="account.report">
+            <field name="name">Balancete Anterior. Periodo. Acumulado.</field>
+            <field name="filter_journals" eval="True"/>
+            <field name="filter_analytic" eval="True"/>
+            <field name="filter_growth_comparison" eval="False"/>
+            <field name="filter_multi_company">selector</field>
+            <field name="filter_unfold_all" eval="True"/>
+            <field name="filter_hierarchy">by_default</field>
+            <field name="default_opening_date_filter">this_year</field>
+            <field name="search_bar" eval="True"/>
+            <field name="search_template">l10n_ao_report.search_template_ao</field>
+            <field name="custom_handler_model_id" ref="l10n_ao_report.model_account_trial_balance_report_handler_ao"/>
+            <field name="main_template">l10n_ao_report.account_trial_balance_ao_extension</field>
+            <field name="column_ids">
+                <record id="trial_balance_report_debit_ao_anterior_periodo_acumulado" model="account.report.column">
+                    <field name="name">Débito</field>
+                    <field name="expression_label">debit</field>
+                    <field name="figure_type">monetary</field>
+                </record>
+                <record id="trial_balance_report_credit_ao_anterior_periodo_acumulado" model="account.report.column">
+                    <field name="name">Crédito</field>
+                    <field name="expression_label">credit</field>
+                    <field name="figure_type">monetary</field>
+                </record>
+                <record id="trial_balance_report_acc_anterior_periodo_acumulado" model="account.report.column">
+                    <field name="name">Saldo</field>
+                    <field name="expression_label">balance</field>
+                    <field name="figure_type">monetary</field>
+                </record>
+            </field>
+        </record>
+    </data>
+</odoo>
+    

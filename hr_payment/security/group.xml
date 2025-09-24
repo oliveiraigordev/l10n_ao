@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="group_daf" model="res.groups">
+    <field name="name">DAF (Depto. Administração Financeira)</field>
+    <field name="category_id" ref="hr.group_hr_user"/>
+  </record>
+</odoo>
+
+
+  <!-- (Opcional) adicionar logo depois usuários padrão via XML, se for o caso: -->
+  <!--
+  <record id="user_alex_daf" model="res.users">
+    <field name="name">Alex Financeiro</field>
+    <field name="login">alex.daf@example.com</field>
+    <field name="groups_id" eval="[(4, ref('group_daf'))]"/>
+  </record>
+  -->

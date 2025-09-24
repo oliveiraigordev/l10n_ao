@@ -1,0 +1,221 @@
+<odoo>
+    <record id="report_action_client_regularization" model="ir.actions.report">
+        <field name="name">Anexo Regularizações Cliente</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_ao.report_client_regularization_attachment</field>
+        <field name="report_file">l10n_ao.report_client_regularization</field>
+        <field name="paperformat_id" ref="paperformat_a4_agt_landscape"/>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'Anexo Regularizações Cliente {}-{}'.format(object[0].invoice_date.month, object[0].invoice_date.year)</field>
+    </record>
+
+
+    <template id="report_client_regularization_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <table class="retention-map-report">
+                    <thead>
+                        <tr>
+                            <th colspan="13">
+                                <p class="background-gray">ANEXO DE CLIENTES<br/>
+REGULARIZAÇÕES</p>
+                            </th>
+                        </tr>
+                        <tr class="bold">
+                            <th class="no-line-break">
+                                01 - 
+                            </th>
+                            <th colspan="12" class="background-gray">
+                                PERÍODO DE TRIBUTAÇÃO E NÚMERO DE IDENTIFICAÇÃO FISCAL
+                            </th>
+                        </tr>
+                         <tr class="large-line">
+                            <th colspan="9">ANO: <div class="text-box-border">
+                                <t t-esc="year" />
+                            </div>  MÊS <div class="text-box-border">
+                            <t t-esc="month_number" />
+                        </div>
+                        <div class="text-box-border-bottom">
+                            <t t-esc="month" />
+                        </div>
+                    </th>
+                    <th colspan="6">NIF <div class="text-box-border">
+                        <t t-esc="o.company_id.vat" />
+                    </div>
+                </th>
+            </tr>
+            <tr class="bold">
+                <th class="no-line-break">
+                                02 - 
+                </th>
+                <th colspan="15" class="background-gray">
+                                REGULARIZAÇÕES DE IVA LIQUIDADO
+                </th>
+            </tr>
+        </thead>
+        <t t-set="total_amount" t-value="0" />
+        <t t-set="total_paid" t-value="0" />
+        <t t-set="total_IVA_value" t-value="0" />
+        <t t-set="total_tax_value" t-value="0" />
+        <tbody>
+            <tr class="text-center">
+                <td >Nº ORDEM</td>
+                <td  >OPERAÇÕES</td>
+                <td >Número de Identificação Fiscal</td>
+                <td >NOME OU DESIGNAÇÃO SOCIAL</td>
+                <td >TIPO DE DOCUMENTO</td>
+                <td >DATA DO DOCUMENTO</td>
+                <td >NÚMERO DO DOCUMENTO</td>
+                <td >VALOR DA FACTURA OU DOCUMENTO EQUIVALENTE</td>
+                <td >VALOR TRIBUTÁVEL</td>
+                <td >IVA LIQUIDADO</td>
+                <td >PERÍODO DE REFERENCIA (AAAA-MM)</td>
+                <td >LINHA DE DESTINO NO MODELO</td>
+
+            </tr>
+
+            <t t-foreach="invoice_data" t-as="line">
+
+
+
+
+                <tr>
+                    <td>
+                        <t t-out="line['order_number']" />
+                    </td>
+                    <td>
+                        <t t-out="line['ops']" />
+                    </td>
+                    <td>
+                        <t t-out="line['partner_vat']" />
+                    </td>
+
+                    <td>
+                        <t t-out="line['partner_name']" />
+                    </td>
+                    <td class="no-line-break">
+                        <span t-out="line['document_type']" />
+                    </td>
+                    <td class="no-line-break">
+                        <span t-out="line['date_invoice']" />
+                    </td>
+                    <td>
+                        <t t-out="line['document_number']" />
+                    </td>
+
+                    <td>
+
+                        <t t-out="line['amount_total']" />
+
+                    </td>
+                    <td>
+
+
+                        <t t-out="line['amount_untaxed']" />
+
+
+
+                    </td>
+                    <td>
+                        <t t-out="line['liq_iva']" />
+                    </td>
+
+
+                    <td>
+                        <t t-out="line['period_ref']" />
+                    </td>
+
+                  
+                    <td>
+                        <span t-esc="line['dest_tipology']"/>
+                    </td>
+
+                </tr>
+
+            </t>
+            <!-- <t t-foreach="reversed_invoice_data" t-as="reversed">
+                <tr>
+                    <td>
+                        <t t-out="reversed['order_number']" />
+                    </td>
+                    <td>
+                        DECL ANTERIOR
+                    </td>
+                    <td>
+                        <t t-out="reversed['partner_vat']" />
+                    </td>
+
+                    <td>
+                        <t t-out="reversed['partner_name']" />
+                    </td>
+                    <td class="no-line-break">
+                        <span t-out="reversed['document_type']" />
+                    </td>
+                    <td class="no-line-break">
+                        <span t-out="reversed['date_invoice']" />
+                    </td>
+                    <td>
+                        <t t-out="reversed['document_number']" />
+                    </td>
+
+                    <td>
+
+                        <t t-out="reversed['amount_total']" />
+
+                    </td>
+                    <td>
+
+
+                        <t t-out="reversed['amount_untaxed']" />
+
+
+
+                    </td>
+                    <td>
+                        <t t-out="reversed['liq_iva']" />
+                    </td>
+
+
+                    <td>
+                        <t t-out="reversed['period_ref']" />
+                    </td>
+
+                  
+                    <td>
+                        <span t-esc="reversed['dest_tipology']"/>
+                    </td>
+
+                </tr>
+            </t> -->
+
+
+            <tr class="background-gray">
+                <td class="text-right" colspan="7">TOTAL</td>
+                <td>
+                    <t t-out="amount_invoice_total" />
+                </td>
+                <td>
+                    <t t-out="amount_untaxed_total" />
+                </td>
+                <td>
+                    <t t-out="amount_liq_iva_total" />
+                </td>
+
+                <td colspan="2"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</t>
+</template>
+
+<template id="report_client_regularization_attachment">
+<t t-call="web.html_container">
+<t t-set="o" t-value="docs[0] if docs else False" />
+<t t-set="lang" t-value="o.user_id.partner_id.lang"/>
+<t t-call="l10n_ao.report_client_regularization_document" />
+</t>
+</template>
+</odoo>

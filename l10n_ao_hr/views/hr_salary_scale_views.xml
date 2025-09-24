@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_salary_scale_form_view" model="ir.ui.view">
+        <field name="name">HR- Salary Scale Form View</field>
+        <field name="model">hr.salary.scale</field>
+        <field name="arch" type="xml">
+            <form string="Salary Scale">
+                <sheet>
+                    <div class="oe_title" name="title">
+                        <h2>
+                            <field name="name"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="hierarchical_level_id" widget="many2one_tags"/>
+                            <field name="job_id" widget="many2one_tags"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="steps_ids">
+                            <tree name="Steps" editable="bottom" sample="1" expand="context.get('expand', False)">
+                                <field name="name"/>
+                                <field name="percentage" readonly="1"/>
+                                <field name="amount_in_dollar" widget="monetary"/>
+                                <field name="amount_in_euro" widget="monetary"/>
+                                <field name="amount_in_kwanza" widget="monetary"/>
+                                <field name="irt_akz_compensation_amount" widget="monetary"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_salary_scale_tree_view" model="ir.ui.view">
+        <field name="name">HR - Salary Scale Form View Tree</field>
+        <field name="model">hr.salary.scale</field>
+        <field name="arch" type="xml">
+            <tree string="Salary Scale" sample="1" multi_edit="1" expand="context.get('expand', False)">
+                <field name="name"/>
+                <field name="hierarchical_level_id"/>
+                <field name="job_id"/>
+                <field name="steps_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_hr_salary_scale" model="ir.actions.act_window">
+        <field name="name">Escala Salarial</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.salary.scale</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

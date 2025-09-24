@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <menuitem id="menu_estate_ip_payment" name="Pagamento ao Estado" sequence="3" parent="account_accountant.menu_accounting">
+      <menuitem id="menu_action_iac_payment" name="Imposto de Aplicação de Capitais" sequence="0" action="action_iac_payment" />
+      <menuitem id="menu_action_ip_payment" name="Imposto Predial" sequence="5" action="action_ip_payment" />
+       <menuitem id="menu_ip_payment" action="action_industrial_tax_payment" name="Imposto Industrial e Serviços" sequence="10"/>
+  </menuitem> 
+</odoo>

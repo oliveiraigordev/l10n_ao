@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="main_table_header_with_note" inherit_id="account_reports.main_table_header" primary="True">
+        <xpath expr="//thead/t/tr/t[@id='populate_headers_loop_id']" position="attributes">
+            <attribute name="t-foreach">[{'style': 'width: 100%;', 'colspan': 2}]+ header_level * column_headers_render_data['level_repetitions'][header_level_index]</attribute>
+
+        </xpath>
+        <xpath expr="//thead/t[@t-as='index_cell']" position="replace">
+            <t t-foreach="enumerate([{'style': 'width: 100%;text-align:left', 'name':'Designação'}, {'style': 'width: 0%;text-align:center', 'name': 'Notas'}] + options['columns'])" t-as="index_cell">
+                <t t-set="index" t-value="index_cell[0]"/>
+                <t t-set="cell" t-value="index_cell[1]"/>
+
+                <t t-set="sortable_column_classes" t-value="'' if not cell.get('sortable') else 'sortable %s' % ('' if not options['order_column'] or abs(options['order_column']) != index else options['order_column'] > 0 and ' up' or ' down')"/>
+                <th t-att-class="'o_account_report_column_header ' + sortable_column_classes" colspan="cell.get('colspan', 1)" t-att-style="cell.get('style', 'text-align: right;')">
+                    <t t-call="{{cell.get('template', 'l10n_ao_report.cell_template_note_ao')}}"/>
+                </th>
+            </t>
+
+        </xpath>
+
+        <xpath expr="//thead/t/tr/t[@id='populate_headers_loop_id']/th" position="attributes">
+            <attribute name="t-att-style">header.get('style', 'text-align: right;')</attribute>
+        </xpath>
+    </template>
+
+</odoo>

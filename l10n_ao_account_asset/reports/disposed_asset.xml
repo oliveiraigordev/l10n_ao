@@ -1,0 +1,124 @@
+<odoo>
+    <record id="action_report_disposed_asset" model="ir.actions.report">
+        <field name="name">Ativos Abatidos</field>
+        <field name="model">account.asset</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_ao_account_asset.disposed_asset</field>
+        <field name="report_file">l10n_ao_account_asset.disposed_asset</field>
+        <field name="print_report_name">'Ativo - %s (%s)' % (object.name, object.num_ficha)</field>
+        <field name="binding_model_id" ref="account_asset.model_account_asset"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="external_layout_basic">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div id="document_info"
+                    t-attf-class="#{'col-3' if report_type != 'html' else 'col-sm-4 col-md-3'}  float-end">
+                <div class="text-uppercase text-left" style="float-end">
+                    <h2 class="pt-1 mb-0  float-end" style="max-width:290px;min-width:290px;">
+                        <strong style="float:right;">
+                            <t t-raw="document_type"/>
+                        </strong>
+                    </h2>
+                </div>
+                <div class="mt0 float-start"
+                        style="font-size:x-small;font-style:italic;max-height:20px;overflow:hidden;">
+                    <span class="" t-field="company.report_header"/>
+                </div>
+            </div>
+            <div style="font-size:x-small;min-height:124px;width: 100%;" class="">
+                <div class="float-start company_address ml-2"
+                        style="max-height:124px;overflow:hidden;width:330px;">
+                    <strong t-field="company.name" style="min-width:230px;overflow:hidden;font-size:14px;"/>
+                </div>
+                <div t-if="report_type == 'pdf'" class="text-muted"
+                        style="font-size:xx-small;white-space: nowrap;width:10%;margin:0 auto; float: right;">
+                    Pág:
+                    <span class="page"/>
+                    /
+                    <span class="topage"/>
+                </div>
+            </div>
+        </div>
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_report_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}"
+                t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});"
+                t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <div class="pt-2">
+            </div>
+            <t t-out="0"/>
+        </div>
+
+        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout"></div>
+    </template>
+
+    <template id="report_disposed_asset">
+        <t t-call="l10n_ao_account_asset.external_layout_basic">
+            <div class="page" style="font-size: 10pt;">
+                <h1>Documentos de Abate</h1>
+                <div style="width: 100%; margin: auto">
+                    <div class="mt8" style="font-weight: bolder; width: 100%" >
+                        <span style="margin-right: 30px;">Exercício: <t t-esc="data.get(doc.id, {}).get('exercicio')" /></span>
+                        <span style="margin-right: 30px;">Numerador: 28</span>
+                    </div>
+                    <div class="mt-2 d-flex" style="font-weight: bolder; width: 100%" >
+                        <span style="margin-right: 30px;">Data Doc: <t t-esc="today" /></span>
+                        <span style="margin-right: 30px;">Data Intr: <span t-field="doc.disposal_date" /></span>
+                        <span style="margin-right: 30px;">Doc Externo:</span>
+                    </div>
+                    <div class="mt-2 d-flex" style="font-weight: bolder; width: 100%" >
+                        <span style="margin-right: 30px;">Moeda: <t t-esc="doc.currency_id.name" /></span>
+                    </div>
+                </div>
+                <table style="margin-top: 30px; width: 100%;">
+                    <thead>
+                        <tr style="text-align: center">
+                            <th><div style="border-bottom: solid 2px black; margin-right: 5px;">Ficha</div></th>
+                            <th><div style="border-bottom: solid 2px black; margin-right: 5px;">Descrição</div></th>
+                            <th><div style="border-bottom: solid 2px black; margin-right: 5px;">Valor Abate</div></th>
+                            <th><div style="border-bottom: solid 2px black; margin-right: 5px;">Valor Atual</div></th>
+                            <th><div style="border-bottom: solid 2px black; margin-right: 5px;">Depreciação</div></th>
+                            <th><div style="border-bottom: solid 2px black; margin-right: 5px;">Imparidade</div></th>
+                            <th><div style="border-bottom: solid 2px black; margin-right: 5px;">Mais/Menos Valias</div></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><t t-esc="doc.num_ficha" /></td>
+                            <td><t t-esc="doc.name" /></td>
+                            <td><span t-field="doc.valor_abate" /></td> 
+                         
+                            <td><span t-field="doc.valor_contabilistico_residual" /></td>
+                            <td><span t-field="doc.valor_amortizacao_acululada" /></td>
+                            <td>0,00</td>
+                            <td><span t-field="doc.valor_valia" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <template id="disposed_asset">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="l10n_ao_account_asset.report_disposed_asset" />
+            </t>
+        </t>
+    </template>
+
+</odoo>

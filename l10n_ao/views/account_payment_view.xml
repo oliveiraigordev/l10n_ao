@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="ao_account_payment_view_tree" model="ir.ui.view">
+            <field name="name">Payment View tree Inherit</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="payment_number"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="ao_account_payment_view_form" model="ir.ui.view">
+            <field name="name">Payment View form Inherit</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="payment_number" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="ao_view_account_payment_search" model="ir.ui.view">
+            <field name="name">account.payment.search</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_search"/>
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="payment_number" string="Payment Number"
+                           filter_domain="['|', '|', ('name', 'ilike', self), ('partner_id', 'ilike', self), ('ref', 'ilike', self)]"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

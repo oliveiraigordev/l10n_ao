@@ -1,0 +1,75 @@
+$main-color: grey;
+
+.retention-map-report{
+    border: solid 1px black;
+    width: 90%;
+    margin: auto;
+    border-collapse: collapse;
+    font-size: 10px;
+
+    td,th{
+        padding: 5px;
+        border: solid 1px black;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .agt-logo{
+        height: 100px;
+        width: auto;
+    }
+    .bold{
+        font-weight: bold;
+    }
+    .bold-blue{
+        font-size: 1.5em;
+        font-weight: bold;
+        color: $main-color;
+    }
+    .text-box-border{
+        border: solid 1px black;
+        display: inline-block;
+        margin-right: 10px;
+        padding: 10px;
+    }
+    .text-box-border-bottom{
+        border-bottom: solid 1px black;
+        display: inline-block;
+        margin-right: 10px;
+        padding: 10px;
+    }
+    .dark-background{
+        color: white;
+        background-color: $main-color;
+        text-align: left;
+        padding-left: 10px;
+    }
+    .brown-background{
+        color: white;
+        background-color: #422600;
+        text-align: left;
+        padding-left: 10px;
+    }
+    .light-brown-background{
+        color: white;
+        background-color: #b49264;
+        text-align: left;
+        padding-left: 10px;
+    }
+
+    .background-gray{
+        background-color: #d9d9d9;
+        font-weight: bold;
+        .text-right{
+            text-align: right;
+        }
+    }
+
+    .large-line{
+        padding: 20px;
+    }
+
+    .no-line-break{
+        white-space: nowrap;
+    }
+}

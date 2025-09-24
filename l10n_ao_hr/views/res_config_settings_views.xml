@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="l10n_ao_hr_res_company_view_form" model="ir.ui.view">
+        <field name="name">res.company.view.form.inherit.l10n_ao_hr</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <field name="company_registry" position="after">
+                <field name="company_security_number"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="l10n_ao_hr_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.l10n_ao_hr</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr_payroll.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div id="hr_payroll_accountant" position="after">
+                <field name="account_fiscal_country_id" invisible="1"/>
+                <h2 attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}">Miscellaneous</h2>
+                <div attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}"
+                     class="row mt16 o_settings_container" id="close_date_payroll">
+                    <div class="col-lg-6 col-12 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Close Date</span>
+                            <div class="text-muted">
+                                Salary Processing End Date
+                            </div>
+                            <div class="content-group">
+                                <field name="close_date_payroll" class="o_light_label mt16" readonly="0"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}"
+                     class="row mt16 o_settings_container" id="l10n_ao_hr_payroll">
+                    <div class="col-lg-6 col-12 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="show_paid_usd" readonly="0" widget="boolean_toggle"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="show_paid_usd" string="Show paid amount in USD in the Payslip"/>
+                            <div class="text-muted">
+                                Will allow to manage currency rate and display a counter currency amount int he Payslip
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="rate_date"
+                         title="How the exchange rate is calculated."
+                         attrs="{'invisible': [('show_paid_usd', '=', False)]}">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Rate Date</span>
+                            <span class="fa fa-lg fa-building-o" title="valor do cambio do dia."
+                                  aria-label="Cabio do fecho da folha Salarial." groups="base.group_multi_company"
+                                  role="img"/>
+                            <div class="text-muted">
+                                How the exchange rate is calculated
+                            </div>
+                            <div class="content-group">
+                                <field name="rate_date_at" class="o_light_label mt16" widget="radio" readonly="0"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}">Company Type</h2>
+                <div attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}"
+                     class="row mt16 o_settings_container" id="company_scale">
+                    <span class="o_form_label">PERCENTAGEM DOS PROVENTOS E DESCONTOS CORRESPONDENTES A EMPRESA</span>
+                    <div class="col-lg-6 col-12 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Type</span>
+                            <div class="content-group">
+                                <field name="company_scale" class="o_light_label mt16" readonly="1" force_save="1"/>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-12 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="term_responsibility"
+                                       attrs="{'invisible': [('company_scale', '!=', 'others')]}"/>
+                                <div class="content-group"
+                                     attrs="{'invisible': [('company_scale', '!=', 'others')]}">
+                                    <span class="o_form_label text-danger">The company TisTech is not responsible for
+                                        the settings made by the user
+                                        manually
+                                    </span>
+                                </div>
+                                <div class="content-group" attrs="{'invisible': [('company_scale', '!=', 'others')]}">
+                                    <field name="term_responsibility" readonly="0" widget="boolean_toggle"
+                                           force_save="1"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="shift_work"/>
+                            <div class="content-group">
+                                <field name="shift_work" widget="integer"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="night_work"/>
+                            <div class="content-group">
+                                <field name="night_work" widget="integer"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+
+                        <div class="o_setting_right_pane">
+                            <label for="national_minimum_wage"/>
+                            <div class="content-group">
+                                <field name="national_minimum_wage" force_save="1"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-12 o_setting_box">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="availability_system"/>
+                                <div class="content-group">
+                                    <field name="availability_system" widget="integer"
+                                           attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="working_days_moth_salary"/>
+                                <div class="content-group">
+                                    <field name="working_days_moth_salary" widget="integer"
+                                           attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="calendar_days_moth_salary"/>
+                                <div class="content-group">
+                                    <field name="calendar_days_moth_salary" widget="integer"
+                                           attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                                </div>
+                            </div>
+
+                            <div class="o_setting_right_pane">
+                                <label for="process_tis"/>
+                                <div class="content-group">
+                                    <field name="process_tis" force_save="1"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="process_automatically_exchange"/>
+                            <div class="content-group">
+                                <field name="process_automatically_exchange" widget="boolean_toggle"/>
+                            </div>
+                        </div>
+
+                        <div class="o_setting_right_pane">
+                            <label for="currency"/>
+                            <div class="content-group">
+                                <field name="currency"
+                                       attrs="{'readonly': [('process_automatically_exchange', '!=', False)]}"
+                                       force_save="1"/>
+                            </div>
+                        </div>
+
+                        <div class="o_setting_right_pane">
+                            <label for="initial_date"/>
+                            <div class="content-group">
+                                <field name="initial_date"
+                                       attrs="{'readonly': [('process_automatically_exchange', '!=', False)]}"
+                                       force_save="1"/>
+                            </div>
+                        </div>
+
+                        <div class="o_setting_right_pane">
+                            <label for="end_date"/>
+                            <div class="content-group">
+                                <field name="end_date"
+                                       attrs="{'readonly': [('process_automatically_exchange', '!=', False)]}"
+                                       force_save="1"/>
+                            </div>
+                        </div>
+
+                        <div class="o_setting_right_pane">
+                            <label for="exchange_rate"/>
+                            <div class="content-group">
+                                <field name="exchange_rate"
+                                       attrs="{'readonly': [('process_automatically_exchange', '!=', False)]}"
+                                       force_save="1"/>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <h2 attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}">TIPO DE PROCESSAMENTO DE
+                    SALÁRIOS
+                </h2>
+                <div attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}"
+                     class="row mt16 o_settings_container" id="tipo_horas_falta">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="variable_working_days"/>
+                            <div class="content-group">
+                                <field name="variable_working_days"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="fixed_days"/>
+                            <div class="content-group">
+                                <field name="fixed_days"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="holidays_processing_day_start"/>
+                            <div class="content-group">
+                                <field name="holidays_processing_day_start" force_save="1"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="holidays_processing_day_end"/>
+                            <div class="content-group">
+                                <field name="holidays_processing_day_end" force_save="1"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}">TIPO DE HORA EXTRA</h2>
+                <div attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}"
+                     class="row mt16 o_settings_container" id="tipo_horas_extra">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="limit_of_30_hours_per_month"/>
+                            <div class="content-group">
+                                <field name="limit_of_30_hours_per_month" widget="integer"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="hours_exceeding_30_hours_per_month"/>
+                            <div class="content-group">
+                                <field name="hours_exceeding_30_hours_per_month" widget="integer"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="limit_hours"/>
+                            <div class="content-group">
+                                <field name="limit_hours" widget="integer"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="work_on_rest_days"/>
+                            <div class="content-group">
+                                <field name="work_on_rest_days" widget="integer"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="extra_hour_are_not_fractions_time_less_than"/>
+                            <div class="content-group">
+                                <field name="extra_hour_are_not_fractions_time_less_than"
+                                       widget="integer" attrs="{'readonly': [('company_scale', '!=', 'others')]}"
+                                       force_save="1"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-12 o_setting_box">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="extra_hour_counted_half_hour"/>
+                                <div class="content-group">
+                                    <field name="extra_hour_counted_half_hour" widget="integer"
+                                           attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="extra_hour_half_hour_of_until"/>
+                                <div class="content-group">
+                                    <field name="extra_hour_half_hour_of_until" widget="integer"
+                                           attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="extra_hour_considered_as_one"/>
+                                <div class="content-group">
+                                    <field name="extra_hour_considered_as_one" widget="integer"
+                                           attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="extra_hour_as_on_hour_of_until"/>
+                                <div class="content-group">
+                                    <field name="extra_hour_as_on_hour_of_until" widget="integer"
+                                           attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <h2 attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}">TIPO DE HORA DE FALTA</h2>
+                <div attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}"
+                     class="row mt16 o_settings_container" id="tipo_horas_falta">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="hour_left_counted_half_hour"/>
+                            <div class="content-group">
+                                <field name="hour_left_counted_half_hour" widget="integer"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="hour_left_half_hour_of_until"/>
+                            <div class="content-group">
+                                <field name="hour_left_half_hour_of_until" widget="integer"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="hour_left_are_not_fractions_time_less_than"/>
+                            <div class="content-group">
+                                <field name="hour_left_are_not_fractions_time_less_than" widget="integer"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="hour_left_considered_as_one"/>
+                            <div class="content-group">
+                                <field name="hour_left_considered_as_one" widget="integer"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="hour_left_as_on_hour_of_until"/>
+                            <div class="content-group">
+                                <field name="hour_left_as_on_hour_of_until" widget="integer"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}">ANTIGUIDADE</h2>
+                <div attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}"
+                     class="row mt16 o_settings_container" id="antiguidade">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="seniority_limit"/>
+                            <div class="content-group">
+                                <field name="seniority_limit" widget="integer"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="seniority_percentage"/>
+                            <div class="content-group">
+                                <field name="seniority_percentage" widget="integer"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+
+                        <div class="o_setting_right_pane">
+                            <label for="not_influence_number_of_years"/>
+                            <div class="content-group">
+                                <field name="not_influence_number_of_years" widget="boolean_toggle"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}">ABONO DE FAMÍLIA</h2>
+                <div attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}"
+                     class="row mt16 o_settings_container" id="abono_familia">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="type_of_dependents"/>
+                            <div class="content-group">
+                                <field name="type_of_dependents"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="dependent_limit"/>
+                            <div class="content-group">
+                                <field name="dependent_limit" widget="integer"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="age_range_dependent_children"/>
+                            <div class="content-group">
+                                <field name="age_range_dependent_children" widget="integer"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="dependent_children_until"/>
+                            <div class="content-group">
+                                <field name="dependent_children_until" widget="integer"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}">SUBSÍDIO DE NATAL</h2>
+                <div attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}"
+                     class="row mt16 o_settings_container" id="abono_familia">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="christmas_bonus"/>
+                            <div class="content-group">
+                                <field name="christmas_bonus"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                            <label for="christmas_payment_date"/>
+                            <div class="content-group">
+                                <field name="christmas_payment_date"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}">FÉRIAS</h2>
+                <div attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}"
+                     class="row mt16 o_settings_container" id="ferias">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="take_vacation_after_admission"/>
+                            <div class="content-group">
+                                <field name="take_vacation_after_admission"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="vocation_bonus"/>
+                            <div class="content-group">
+                                <field name="vocation_bonus" attrs="{'readonly': [('company_scale', '!=', 'others')]}"
+                                       force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="maximum_number_vacation_days_off"/>
+                            <div class="content-group">
+                                <field name="maximum_number_vacation_days_off"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="discount_of_vocation_days_for_justified_absences"/>
+                            <div class="content-group">
+                                <field name="discount_of_vocation_days_for_justified_absences"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="vocation_days_for_justified_absences_for_each"/>
+                            <div class="content-group">
+                                <field name="vocation_days_for_justified_absences_for_each"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="discount_of_vocation_days_for_unjustified_absences"/>
+                            <div class="content-group">
+                                <field name="discount_of_vocation_days_for_unjustified_absences"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="vocation_days_for_unjustified_absences_for_each"/>
+                            <div class="content-group">
+                                <field name="vocation_days_for_unjustified_absences_for_each"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="right_to_more_vocation"/>
+                            <div class="content-group">
+                                <field name="right_to_more_vocation"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="enjoyment_collaborators_for_children"/>
+                            <div class="content-group">
+                                <field name="enjoyment_collaborators_for_children"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="vocation_until"/>
+                            <div class="content-group">
+                                <field name="vocation_until" attrs="{'readonly': [('company_scale', '!=', 'others')]}"
+                                       force_save="1"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="vacation_payment"/>
+                            <div class="content-group">
+                                <field name="vacation_payment"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane"
+                             attrs="{'invisible': [('vacation_payment', '!=', 'full_payment_fixed_month')]}">
+                            <label for="vocation_pay_month"/>
+                            <div class="content-group">
+                                <field name="vocation_pay_month"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+
+                        <div class="o_setting_right_pane">
+                            <label for="process_automatically_vacation"/>
+                            <div class="content-group">
+                                <field name="process_automatically_vacation" widget="boolean_toggle"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+
+                        <div class="o_setting_right_pane">
+                            <label for="vacation_expatri_payment_date"/>
+                            <div class="content-group">
+                                <field name="vacation_expatri_payment_date"
+                                       attrs="{'readonly': [('company_scale', '!=', 'others')]}" force_save="1"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="l10n_ao_account_tax_form_mview" model="ir.ui.view">
+            <field name="name">account tax View Inherit</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="SAFT" attrs="{'invisible': [('country_id','!=',%(base.ao)d)]}">
+                        <group>
+                            <group>
+                                <field name="tax_code"/>
+                                <field name="tax_type"/>
+                                <field name="wth_type"
+                                       attrs="{'invisible': [('is_withholding','=',False)], 'required': [('is_withholding','=',True)]}"/>
+                            </group>
+                            <group>
+                                <!--<field name="expiration_date"/>-->
+                                <!--<field name="exemption_reason" attrs="{'required':[('saft_tax_code','=','ISE')]}"/>-->
+                                <field name="iva_tax_exemption_reason_id"
+                                       attrs="{'required':[('tax_code','in',['ISE','NS'])]}"/>
+                                <!--<field name="company_country_id" invisible="1"/>-->
+                            </group>
+                            <group>
+                                <field name="iva_tax_type" required = "1"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <field name="tax_exigibility" position="replace">
+                    <field name="tax_exigibility" widget="radio" attrs="{'invisible':[('amount_type','=', 'group')]}"
+                           />
+                </field>
+                <field name="tax_group_id" position="after">
+                    <field name="is_withholding" attrs="{'invisible': [('tax_exigibility','!=','on_payment')]}"/>
+                    <field name="limit_amount_wht"
+                           attrs="{'invisible':[('is_withholding','=',False)], 'required':[('is_withholding','=', True)]}"/>
+                </field>
+                <field name="tax_exigibility" position="before">
+                    <field name="dont_affect_invoice"/>
+                    <field name="hide_invoice"/>
+                    <field name="margin_affect"/>
+                </field>
+
+               <!-- <field name="tax_scope" position="after">
+                    <field name="tax_regime_ids" widget="many2many_tags" attrs="{'invisible': [('company_country_id','!=',%(base.ao)d)]}"/>
+                </field>-->
+                <field name="description" position="attributes">
+                    <attribute name="attrs">{'readonly': [('country_id','=',%(base.ao)d)]}</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+
+</odoo>

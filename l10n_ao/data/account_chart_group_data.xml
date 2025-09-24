@@ -1,0 +1,3140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="account.group.template" id="account_group_1">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">MEIOS FIXOS E INVESTIMENTOS</field>
+            <field name="code_prefix_start">1</field>
+        </record>
+        <record model="account.group.template" id="account_group_11">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imobilizações corpóreas</field>
+            <field name="code_prefix_start">11</field>
+            <field name="parent_id" ref="account_group_1"/>
+        </record>
+        <record model="account.group.template" id="account_group_111">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Terrenos e recurso naturais</field>
+            <field name="code_prefix_start">111</field>
+            <field name="parent_id" ref="account_group_11"/>
+        </record>
+        <record model="account.group.template" id="account_group_112">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Edifícios e outras construções</field>
+            <field name="code_prefix_start">112</field>
+            <field name="parent_id" ref="account_group_11"/>
+        </record>
+        <record model="account.group.template" id="account_group_1121">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Edificios</field>
+            <field name="code_prefix_start">1121</field>
+            <field name="parent_id" ref="account_group_112"/>
+        </record>
+        <record model="account.group.template" id="account_group_1114">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Terrenos com edifícios</field>
+            <field name="code_prefix_start">1114</field>
+            <field name="parent_id" ref="account_group_111"/>
+        </record>
+
+        <record model="account.group.template" id="account_group_113">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Equipamento básico</field>
+            <field name="code_prefix_start">113</field>
+            <field name="parent_id" ref="account_group_11"/>
+        </record>
+
+        <record model="account.group.template" id="account_group_114">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Equipamento de carga e transporte</field>
+            <field name="code_prefix_start">114</field>
+            <field name="parent_id" ref="account_group_11"/>
+        </record>
+
+        <record model="account.group.template" id="account_group_115">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Equipamento administrativo</field>
+            <field name="code_prefix_start">115</field>
+            <field name="parent_id" ref="account_group_11"/>
+        </record>
+
+        <record model="account.group.template" id="account_group_116">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Taras e vasilhame</field>
+            <field name="code_prefix_start">116</field>
+            <field name="parent_id" ref="account_group_11"/>
+        </record>
+        <record model="account.group.template" id="account_group_119">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outras imobilizações corpóreas</field>
+            <field name="code_prefix_start">119</field>
+            <field name="parent_id" ref="account_group_11"/>
+        </record>
+
+        <record model="account.group.template" id="account_group_12">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imobilizações incorpóreas</field>
+            <field name="code_prefix_start">12</field>
+            <field name="parent_id" ref="account_group_1"/>
+        </record>
+
+        <record model="account.group.template" id="account_group_121">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Trespasses</field>
+            <field name="code_prefix_start">121</field>
+            <field name="parent_id" ref="account_group_12"/>
+        </record>
+
+        <record model="account.group.template" id="account_group_122">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Despesas de investigação e desenvolvimento</field>
+            <field name="code_prefix_start">122</field>
+            <field name="parent_id" ref="account_group_12"/>
+        </record>
+
+        <record model="account.group.template" id="account_group_123">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Propriedade industrial e outros direitos e contratos</field>
+            <field name="code_prefix_start">123</field>
+            <field name="parent_id" ref="account_group_12"/>
+        </record>
+        <record model="account.group.template" id="account_group_124">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Despesas de constituição</field>
+            <field name="code_prefix_start">124</field>
+            <field name="parent_id" ref="account_group_12"/>
+        </record>
+        <record model="account.group.template" id="account_group_129">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outras imobilizações incorpóreas</field>
+            <field name="code_prefix_start">129</field>
+            <field name="parent_id" ref="account_group_12"/>
+        </record>
+        <record model="account.group.template" id="account_group_13">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Investimentos Financeiros</field>
+            <field name="code_prefix_start">13</field>
+            <field name="parent_id" ref="account_group_1"/>
+        </record>
+        <record model="account.group.template" id="account_group_131">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Empresas subsidiária</field>
+            <field name="code_prefix_start">131</field>
+            <field name="parent_id" ref="account_group_13"/>
+        </record>
+        <record model="account.group.template" id="account_group_132">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Empresas associadas</field>
+            <field name="code_prefix_start">132</field>
+            <field name="parent_id" ref="account_group_13"/>
+        </record>
+        <record model="account.group.template" id="account_group_133">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outras empresas</field>
+            <field name="code_prefix_start">133</field>
+            <field name="parent_id" ref="account_group_13"/>
+        </record>
+        <record model="account.group.template" id="account_group_134">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Investimentos em imóveis</field>
+            <field name="code_prefix_start">134</field>
+            <field name="parent_id" ref="account_group_13"/>
+        </record>
+        <record model="account.group.template" id="account_group_135">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Fundos</field>
+            <field name="code_prefix_start">135</field>
+            <field name="parent_id" ref="account_group_13"/>
+        </record>
+        <record model="account.group.template" id="account_group_139">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros Investimentos Financeiros</field>
+            <field name="code_prefix_start">139</field>
+            <field name="parent_id" ref="account_group_13"/>
+        </record>
+        <record model="account.group.template" id="account_group_14">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imobilizações em curso</field>
+            <field name="code_prefix_start">14</field>
+            <field name="parent_id" ref="account_group_1"/>
+        </record>
+        <record model="account.group.template" id="account_group_141">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Obras em curso</field>
+            <field name="code_prefix_start">141</field>
+            <field name="parent_id" ref="account_group_14"/>
+        </record>
+        <record model="account.group.template" id="account_group_142">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Obras em curso</field>
+            <field name="code_prefix_start">142</field>
+            <field name="parent_id" ref="account_group_14"/>
+        </record>
+        <record model="account.group.template" id="account_group_147">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Adiantamentos por conta de imobilizado corpóreo</field>
+            <field name="code_prefix_start">147</field>
+            <field name="parent_id" ref="account_group_14"/>
+        </record>
+        <record model="account.group.template" id="account_group_148">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Adiantamentos por conta de imobilizado incorpóreo</field>
+            <field name="code_prefix_start">148</field>
+            <field name="parent_id" ref="account_group_14"/>
+        </record>
+        <record model="account.group.template" id="account_group_149">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Adiantamentos por conta de investimentos financeiros</field>
+            <field name="code_prefix_start">149</field>
+            <field name="parent_id" ref="account_group_14"/>
+        </record>
+        <record model="account.group.template" id="account_group_15">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">A definir pela empresa</field>
+            <field name="code_prefix_start">15</field>
+            <field name="parent_id" ref="account_group_1"/>
+        </record>
+        <record model="account.group.template" id="account_group_16">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">A definir pela empresa</field>
+            <field name="code_prefix_start">16</field>
+            <field name="parent_id" ref="account_group_1"/>
+        </record>
+        <record model="account.group.template" id="account_group_17">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">A definir pela empresa</field>
+            <field name="code_prefix_start">17</field>
+            <field name="parent_id" ref="account_group_1"/>
+        </record>
+        <record model="account.group.template" id="account_group_18">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Amortizações acumuladas</field>
+            <field name="code_prefix_start">18</field>
+            <field name="parent_id" ref="account_group_1"/>
+        </record>
+        <record model="account.group.template" id="account_group_181">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imobilizações corpóreas</field>
+            <field name="code_prefix_start">181</field>
+            <field name="parent_id" ref="account_group_18"/>
+        </record>
+        <record model="account.group.template" id="account_group_182">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imobilizações incorpóreas</field>
+            <field name="code_prefix_start">182</field>
+            <field name="parent_id" ref="account_group_18"/>
+        </record>
+        <record model="account.group.template" id="account_group_183">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Investimentos financeiros em imóveis</field>
+            <field name="code_prefix_start">183</field>
+            <field name="parent_id" ref="account_group_18"/>
+        </record>
+        <record model="account.group.template" id="account_group_19">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Provisões para investimentos financeiros</field>
+            <field name="code_prefix_start">19</field>
+            <field name="parent_id" ref="account_group_1"/>
+        </record>
+        <record model="account.group.template" id="account_group_191">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Empresas subsidiárias</field>
+            <field name="code_prefix_start">191</field>
+            <field name="parent_id" ref="account_group_19"/>
+        </record>
+        <record model="account.group.template" id="account_group_192">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Empresas associadas</field>
+            <field name="code_prefix_start">192</field>
+            <field name="parent_id" ref="account_group_19"/>
+        </record>
+        <record model="account.group.template" id="account_group_193">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outras empresas</field>
+            <field name="code_prefix_start">193</field>
+            <field name="parent_id" ref="account_group_19"/>
+        </record>
+        <record model="account.group.template" id="account_group_194">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Fundos</field>
+            <field name="code_prefix_start">194</field>
+            <field name="parent_id" ref="account_group_19"/>
+        </record>
+        <record model="account.group.template" id="account_group_199">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros investimentos financeiros</field>
+            <field name="code_prefix_start">199</field>
+            <field name="parent_id" ref="account_group_19"/>
+        </record>
+        <record model="account.group.template" id="account_group_2">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">EXISTÊNCIAS</field>
+            <field name="code_prefix_start">2</field>
+        </record>
+        <record model="account.group.template" id="account_group_21">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Compras</field>
+            <field name="code_prefix_start">21</field>
+            <field name="parent_id" ref="account_group_2"/>
+        </record>
+        <record model="account.group.template" id="account_group_211">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias-primas, subsidiárias e de consumo</field>
+            <field name="code_prefix_start">211</field>
+            <field name="parent_id" ref="account_group_21"/>
+        </record>
+        <record model="account.group.template" id="account_group_2111">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias primas</field>
+            <field name="code_prefix_start">2111</field>
+            <field name="parent_id" ref="account_group_211"/>
+        </record>
+        <record model="account.group.template" id="account_group_21111">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Nacional</field>
+            <field name="code_prefix_start">21111</field>
+            <field name="parent_id" ref="account_group_2111"/>
+        </record>
+        <record model="account.group.template" id="account_group_21112">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">21112</field>
+            <field name="parent_id" ref="account_group_2111"/>
+        </record>
+        <record model="account.group.template" id="account_group_211121">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">211121</field>
+            <field name="parent_id" ref="account_group_21112"/>
+        </record>
+        <record model="account.group.template" id="account_group_211122">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros Mercados</field>
+            <field name="code_prefix_start">211122</field>
+            <field name="parent_id" ref="account_group_21112"/>
+        </record>
+        <record model="account.group.template" id="account_group_2112">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matériais subsidiárias</field>
+            <field name="code_prefix_start">2112</field>
+            <field name="parent_id" ref="account_group_211"/>
+        </record>
+        <record model="account.group.template" id="account_group_21121">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Nacional</field>
+            <field name="code_prefix_start">21121</field>
+            <field name="parent_id" ref="account_group_2112"/>
+        </record>
+        <record model="account.group.template" id="account_group_21122">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">21122</field>
+            <field name="parent_id" ref="account_group_2112"/>
+        </record>
+        <record model="account.group.template" id="account_group_211221">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Africano</field>
+            <field name="code_prefix_start">211221</field>
+            <field name="parent_id" ref="account_group_21122"/>
+        </record>
+        <record model="account.group.template" id="account_group_211222">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Africano</field>
+            <field name="code_prefix_start">211222</field>
+            <field name="parent_id" ref="account_group_21122"/>
+        </record>
+        <record model="account.group.template" id="account_group_2113">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Materiais diversos</field>
+            <field name="code_prefix_start">2113</field>
+            <field name="parent_id" ref="account_group_211"/>
+        </record>
+        <record model="account.group.template" id="account_group_21131">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Nacional</field>
+            <field name="code_prefix_start">21131</field>
+            <field name="parent_id" ref="account_group_2113"/>
+        </record>
+        <record model="account.group.template" id="account_group_21132">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">21132</field>
+            <field name="parent_id" ref="account_group_2113"/>
+        </record>
+        <record model="account.group.template" id="account_group_211321">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Africano</field>
+            <field name="code_prefix_start">211321</field>
+            <field name="parent_id" ref="account_group_21132"/>
+        </record>
+        <record model="account.group.template" id="account_group_211322">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Africano</field>
+            <field name="code_prefix_start">211322</field>
+            <field name="parent_id" ref="account_group_21132"/>
+        </record>
+        <record model="account.group.template" id="account_group_2114">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Embalagens de consumo</field>
+            <field name="code_prefix_start">2114</field>
+            <field name="parent_id" ref="account_group_211"/>
+        </record>
+        <record model="account.group.template" id="account_group_21141">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Nacional</field>
+            <field name="code_prefix_start">21141</field>
+            <field name="parent_id" ref="account_group_2114"/>
+        </record>
+        <record model="account.group.template" id="account_group_21142">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">21142</field>
+            <field name="parent_id" ref="account_group_2114"/>
+        </record>
+        <record model="account.group.template" id="account_group_211421">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Africano</field>
+            <field name="code_prefix_start">211421</field>
+            <field name="parent_id" ref="account_group_21142"/>
+        </record>
+        <record model="account.group.template" id="account_group_211422">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros Mercados</field>
+            <field name="code_prefix_start">211422</field>
+            <field name="parent_id" ref="account_group_21142"/>
+        </record>
+        <record model="account.group.template" id="account_group_212">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercadoria</field>
+            <field name="code_prefix_start">212</field>
+            <field name="parent_id" ref="account_group_21"/>
+        </record>
+        <record model="account.group.template" id="account_group_2121">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercadorias</field>
+            <field name="code_prefix_start">2121</field>
+            <field name="parent_id" ref="account_group_212"/>
+        </record>
+        <record model="account.group.template" id="account_group_21211">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Nacional</field>
+            <field name="code_prefix_start">21211</field>
+            <field name="parent_id" ref="account_group_2121"/>
+        </record>
+        <record model="account.group.template" id="account_group_21212">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">21212</field>
+            <field name="parent_id" ref="account_group_2121"/>
+        </record>
+        <record model="account.group.template" id="account_group_212121">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Africano</field>
+            <field name="code_prefix_start">212121</field>
+            <field name="parent_id" ref="account_group_21212"/>
+        </record>
+        <record model="account.group.template" id="account_group_2121211">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Custo de Factura</field>
+            <field name="code_prefix_start">2121211</field>
+            <field name="parent_id" ref="account_group_212121"/>
+        </record>
+        <record model="account.group.template" id="account_group_212122">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros Mercados</field>
+            <field name="code_prefix_start">212122</field>
+            <field name="parent_id" ref="account_group_21212"/>
+        </record>
+        <record model="account.group.template" id="account_group_219">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Desconto diversos</field>
+            <field name="code_prefix_start">219</field>
+            <field name="parent_id" ref="account_group_21"/>
+        </record>
+        <record model="account.group.template" id="account_group_217">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Devolução de compras</field>
+            <field name="code_prefix_start">217</field>
+            <field name="parent_id" ref="account_group_21"/>
+        </record>
+        <record id="account_group_2171" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias-primas, subsidiárias e de consumo</field>
+            <field name="code_prefix_start">2171</field>
+            <field name="parent_id" ref="account_group_217"/>
+        </record>
+        <record id="account_group_21711" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias primas</field>
+            <field name="code_prefix_start">21711</field>
+            <field name="parent_id" ref="account_group_2171"/>
+        </record>
+        <record id="account_group_217112" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">217112</field>
+            <field name="parent_id" ref="account_group_21711"/>
+        </record>
+        <record id="account_group_2171121" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado africano</field>
+            <field name="code_prefix_start">2171121</field>
+            <field name="parent_id" ref="account_group_217112"/>
+        </record>
+        <record id="account_group_2171121" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado africano</field>
+            <field name="code_prefix_start">2171121</field>
+            <field name="parent_id" ref="account_group_217112"/>
+        </record>
+        <record id="account_group_21712" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias subsidiárias</field>
+            <field name="code_prefix_start">21712</field>
+            <field name="parent_id" ref="account_group_2171"/>
+        </record>
+        <record id="account_group_217122" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias Estrangeiro</field>
+            <field name="code_prefix_start">217122</field>
+            <field name="parent_id" ref="account_group_21712"/>
+        </record>
+        <record id="account_group_21713" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Materias Diversos</field>
+            <field name="code_prefix_start">21713</field>
+            <field name="parent_id" ref="account_group_2171"/>
+        </record>
+        <record id="account_group_217132" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">217132</field>
+            <field name="parent_id" ref="account_group_21713"/>
+        </record>
+        <record id="account_group_21714" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias subsidiárias</field>
+            <field name="code_prefix_start">21714</field>
+            <field name="parent_id" ref="account_group_2171"/>
+        </record>
+        <record id="account_group_217142" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">217142</field>
+            <field name="parent_id" ref="account_group_21714"/>
+        </record>
+        <record id="account_group_21715" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros materiais</field>
+            <field name="code_prefix_start">21715</field>
+            <field name="parent_id" ref="account_group_2171"/>
+        </record>
+        <record id="account_group_217152" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">217152</field>
+            <field name="parent_id" ref="account_group_21715"/>
+        </record>
+        <record id="account_group_2172" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercadorias</field>
+            <field name="code_prefix_start">2172</field>
+            <field name="parent_id" ref="account_group_217"/>
+        </record>
+        <record id="account_group_21721" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercadorias</field>
+            <field name="code_prefix_start">21721</field>
+            <field name="parent_id" ref="account_group_2172"/>
+        </record>
+        <record id="account_group_217212" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">217212</field>
+            <field name="parent_id" ref="account_group_21721"/>
+        </record>
+        <record id="account_group_21724" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Embalagens</field>
+            <field name="code_prefix_start">21724</field>
+            <field name="parent_id" ref="account_group_2172"/>
+        </record>
+        <record id="account_group_217242" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">217242</field>
+            <field name="parent_id" ref="account_group_21724"/>
+        </record>
+        <record id="account_group_218" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Desconto e abatimentos em compras</field>
+            <field name="code_prefix_start">218</field>
+            <field name="parent_id" ref="account_group_21"/>
+        </record>
+        <record id="account_group_2181" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias primas, subsidiárias e de consumo</field>
+            <field name="code_prefix_start">2181</field>
+            <field name="parent_id" ref="account_group_218"/>
+        </record>
+        <record id="account_group_21811" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias primas</field>
+            <field name="code_prefix_start">21811</field>
+            <field name="parent_id" ref="account_group_2181"/>
+        </record>
+        <record id="account_group_218112" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">218112</field>
+            <field name="parent_id" ref="account_group_21811"/>
+        </record>
+        <record id="account_group_21812" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias subsidiárias</field>
+            <field name="code_prefix_start">21812</field>
+            <field name="parent_id" ref="account_group_2181"/>
+        </record>
+        <record id="account_group_218122" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">218122</field>
+            <field name="parent_id" ref="account_group_21812"/>
+        </record>
+        <record id="account_group_21813" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Materiais diversos</field>
+            <field name="code_prefix_start">21813</field>
+            <field name="parent_id" ref="account_group_2181"/>
+        </record>
+        <record id="account_group_218132" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">218132</field>
+            <field name="parent_id" ref="account_group_21813"/>
+        </record>
+        <record id="account_group_21814" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Embalagens de consumo</field>
+            <field name="code_prefix_start">21814</field>
+            <field name="parent_id" ref="account_group_2181"/>
+        </record>
+        <record id="account_group_218142" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">218142</field>
+            <field name="parent_id" ref="account_group_21814"/>
+        </record>
+        <record id="account_group_21815" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros materiais</field>
+            <field name="code_prefix_start">21815</field>
+            <field name="parent_id" ref="account_group_2181"/>
+        </record>
+        <record id="account_group_218152" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">218152</field>
+            <field name="parent_id" ref="account_group_21815"/>
+        </record>
+        <record id="account_group_2182" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercadorias</field>
+            <field name="code_prefix_start">2182</field>
+            <field name="parent_id" ref="account_group_218"/>
+        </record>
+        <record id="account_group_21821" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercadorias</field>
+            <field name="code_prefix_start">21821</field>
+            <field name="parent_id" ref="account_group_2182"/>
+        </record>
+        <record id="account_group_218212" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">218212</field>
+            <field name="parent_id" ref="account_group_21821"/>
+        </record>
+        <record id="account_group_21824" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Embalagens</field>
+            <field name="code_prefix_start">21824</field>
+            <field name="parent_id" ref="account_group_2182"/>
+        </record>
+        <record id="account_group_218242" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">218242</field>
+            <field name="parent_id" ref="account_group_21824"/>
+        </record>
+        <record id="account_group_219" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Desconto diversos</field>
+            <field name="code_prefix_start">219</field>
+            <field name="parent_id" ref="account_group_21"/>
+        </record>
+        <record id="account_group_22" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias-primas subsidiárias e de consumo</field>
+            <field name="code_prefix_start">22</field>
+            <field name="parent_id" ref="account_group_2"/>
+        </record>
+        <record id="account_group_221" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias-primas</field>
+            <field name="code_prefix_start">221</field>
+            <field name="parent_id" ref="account_group_22"/>
+        </record>
+        <record id="account_group_222" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias subsidiárias</field>
+            <field name="code_prefix_start">222</field>
+            <field name="parent_id" ref="account_group_22"/>
+        </record>
+        <record id="account_group_223" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Materias diversos</field>
+            <field name="code_prefix_start">223</field>
+            <field name="parent_id" ref="account_group_22"/>
+        </record>
+        <record id="account_group_224" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Embalagens de consumo</field>
+            <field name="code_prefix_start">224</field>
+            <field name="parent_id" ref="account_group_22"/>
+        </record>
+        <record id="account_group_225" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros materiais</field>
+            <field name="code_prefix_start">225</field>
+            <field name="parent_id" ref="account_group_22"/>
+        </record>
+        <record id="account_group_23" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Produtos e trabalhos em curso</field>
+            <field name="code_prefix_start">23</field>
+            <field name="parent_id" ref="account_group_2"/>
+        </record>
+        <record id="account_group_24" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Produtos acabados e intermédios</field>
+            <field name="code_prefix_start">24</field>
+            <field name="parent_id" ref="account_group_2"/>
+        </record>
+        <record id="account_group_241" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Produtos acabados</field>
+            <field name="code_prefix_start">241</field>
+            <field name="parent_id" ref="account_group_24"/>
+        </record>
+        <record id="account_group_242" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Produtos intermédios</field>
+            <field name="code_prefix_start">242</field>
+            <field name="parent_id" ref="account_group_24"/>
+        </record>
+        <record id="account_group_249" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Em poder de terceiros</field>
+            <field name="code_prefix_start">249</field>
+            <field name="parent_id" ref="account_group_24"/>
+        </record>
+        <record id="account_group_25" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Sub-produtos, desperdícios, resíduos e refugos</field>
+            <field name="code_prefix_start">25</field>
+            <field name="parent_id" ref="account_group_2"/>
+        </record>
+        <record id="account_group_251" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Sub-produtos</field>
+            <field name="code_prefix_start">251</field>
+            <field name="parent_id" ref="account_group_25"/>
+        </record>
+        <record id="account_group_252" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Desperdícios, resíduos e refugos</field>
+            <field name="code_prefix_start">252</field>
+            <field name="parent_id" ref="account_group_25"/>
+        </record>
+        <record id="account_group_26" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercadorias</field>
+            <field name="code_prefix_start">26</field>
+            <field name="parent_id" ref="account_group_2"/>
+        </record>
+        <record id="account_group_261" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">A definir pela empresa</field>
+            <field name="code_prefix_start">261</field>
+            <field name="parent_id" ref="account_group_26"/>
+        </record>
+        <record id="account_group_262" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">A definir pela empresa</field>
+            <field name="code_prefix_start">262</field>
+            <field name="parent_id" ref="account_group_26"/>
+        </record>
+        <record id="account_group_264" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Embalagens</field>
+            <field name="code_prefix_start">264</field>
+            <field name="parent_id" ref="account_group_26"/>
+        </record>
+        <record id="account_group_269" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Em poder de terceiros</field>
+            <field name="code_prefix_start">269</field>
+            <field name="parent_id" ref="account_group_26"/>
+        </record>
+        <record id="account_group_2691" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercadorias</field>
+            <field name="code_prefix_start">2691</field>
+            <field name="parent_id" ref="account_group_269"/>
+        </record>
+        <record id="account_group_27" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias-primas, mercadorias e outros materiais em trânsito</field>
+            <field name="code_prefix_start">27</field>
+            <field name="parent_id" ref="account_group_2"/>
+        </record>
+        <record id="account_group_271" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias-primas</field>
+            <field name="code_prefix_start">271</field>
+            <field name="parent_id" ref="account_group_27"/>
+        </record>
+        <record id="account_group_272" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros materiais</field>
+            <field name="code_prefix_start">272</field>
+            <field name="parent_id" ref="account_group_27"/>
+        </record>
+        <record id="account_group_273" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercadorias</field>
+            <field name="code_prefix_start">273</field>
+            <field name="parent_id" ref="account_group_27"/>
+        </record>
+        <record id="account_group_28" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Adiantamentos por conta de compras</field>
+            <field name="code_prefix_start">28</field>
+            <field name="parent_id" ref="account_group_2"/>
+        </record>
+        <record id="account_group_281" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias-primas e outros materiais</field>
+            <field name="code_prefix_start">281</field>
+            <field name="parent_id" ref="account_group_28"/>
+        </record>
+        <record id="account_group_2812" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">2812</field>
+            <field name="parent_id" ref="account_group_281"/>
+        </record>
+        <record id="account_group_282" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercadorias</field>
+            <field name="code_prefix_start">282</field>
+            <field name="parent_id" ref="account_group_28"/>
+        </record>
+        <record id="account_group_29" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Provisão para depreciação de existências</field>
+            <field name="code_prefix_start">29</field>
+            <field name="parent_id" ref="account_group_2"/>
+        </record>
+        <record id="account_group_291" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">A definir pela empresa</field>
+            <field name="code_prefix_start">291</field>
+            <field name="parent_id" ref="account_group_29"/>
+        </record>
+        <record id="account_group_292" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias-primas subsidiárias e de consumo</field>
+            <field name="code_prefix_start">292</field>
+            <field name="parent_id" ref="account_group_29"/>
+        </record>
+        <record id="account_group_293" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Produtos e trabalhos em curso</field>
+            <field name="code_prefix_start">293</field>
+            <field name="parent_id" ref="account_group_29"/>
+        </record>
+        <record id="account_group_294" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Produtos acabados e intermédios</field>
+            <field name="code_prefix_start">294</field>
+            <field name="parent_id" ref="account_group_29"/>
+        </record>
+        <record id="account_group_295" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Sub-produtos, desperdícios, resíduos e refugos</field>
+            <field name="code_prefix_start">295</field>
+            <field name="parent_id" ref="account_group_29"/>
+        </record>
+        <record id="account_group_296" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercadorias</field>
+            <field name="code_prefix_start">296</field>
+            <field name="parent_id" ref="account_group_29"/>
+        </record>
+        <record id="account_group_3" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">TERCEIROS</field>
+            <field name="code_prefix_start">3</field>
+        </record>
+        <record id="account_group_31" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Clientes</field>
+            <field name="code_prefix_start">31</field>
+            <field name="parent_id" ref="account_group_3"/>
+        </record>
+        <record id="account_group_311" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Clientes - correntes</field>
+            <field name="code_prefix_start">311</field>
+            <field name="parent_id" ref="account_group_31"/>
+        </record>
+        <record id="account_group_31111" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Grupo</field>
+            <field name="code_prefix_start">3111</field>
+            <field name="parent_id" ref="account_group_311"/>
+        </record>
+        <record id="account_group_3112" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Não Grupo</field>
+            <field name="code_prefix_start">3112</field>
+            <field name="parent_id" ref="account_group_311"/>
+        </record>
+        <record id="account_group_31121" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Nacionais</field>
+            <field name="code_prefix_start">31121</field>
+            <field name="parent_id" ref="account_group_3112"/>
+        </record>
+        <record id="account_group_311211" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Clientes - correntes</field>
+            <field name="code_prefix_start">311211</field>
+            <field name="parent_id" ref="account_group_31121"/>
+        </record>
+        <record id="account_group_31122" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Estrangeiros</field>
+            <field name="code_prefix_start">31122</field>
+            <field name="parent_id" ref="account_group_3112"/>
+        </record>
+        <record id="account_group_312" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Clientes - títulos a receber</field>
+            <field name="code_prefix_start">312</field>
+            <field name="parent_id" ref="account_group_31"/>
+        </record>
+        <record id="account_group_3121" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Grupo</field>
+            <field name="code_prefix_start">3121</field>
+            <field name="parent_id" ref="account_group_312"/>
+        </record>
+        <record id="account_group_3122" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Não Grupo</field>
+            <field name="code_prefix_start">3122</field>
+            <field name="parent_id" ref="account_group_312"/>
+        </record>
+        <record id="account_group_313" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Clientes - títulos descontados</field>
+            <field name="code_prefix_start">313</field>
+            <field name="parent_id" ref="account_group_31"/>
+        </record>
+        <record id="account_group_3131" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Grupo</field>
+            <field name="code_prefix_start">3131</field>
+            <field name="parent_id" ref="account_group_313"/>
+        </record>
+        <record id="account_group_3132" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Não Grupo</field>
+            <field name="code_prefix_start">3132</field>
+            <field name="parent_id" ref="account_group_313"/>
+        </record>
+        <record id="account_group_318" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Clientes de cobrança duvidosa</field>
+            <field name="code_prefix_start">318</field>
+            <field name="parent_id" ref="account_group_31"/>
+        </record>
+        <record id="account_group_319" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Clientes - saldos credores</field>
+            <field name="code_prefix_start">319</field>
+            <field name="parent_id" ref="account_group_31"/>
+        </record>
+        <record id="account_group_32" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Fornecedores</field>
+            <field name="code_prefix_start">32</field>
+            <field name="parent_id" ref="account_group_3"/>
+        </record>
+        <record id="account_group_321" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Fornecedores - Correntes</field>
+            <field name="code_prefix_start">321</field>
+            <field name="parent_id" ref="account_group_32"/>
+        </record>
+        <record id="account_group_3211" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Grupo</field>
+            <field name="code_prefix_start">3211</field>
+            <field name="parent_id" ref="account_group_321"/>
+        </record>
+        <record id="account_group_3212" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Grupo</field>
+            <field name="code_prefix_start">3212</field>
+            <field name="parent_id" ref="account_group_321"/>
+        </record>
+        <record id="account_group_32121" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Nacionais</field>
+            <field name="code_prefix_start">32121</field>
+            <field name="parent_id" ref="account_group_3212"/>
+        </record>
+        <record id="account_group_32122" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Estrangeiro</field>
+            <field name="code_prefix_start">32122</field>
+            <field name="parent_id" ref="account_group_3212"/>
+        </record>
+        <record id="account_group_32123" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Auto-Facturação</field>
+            <field name="code_prefix_start">32123</field>
+            <field name="parent_id" ref="account_group_3212"/>
+        </record>
+        <record id="account_group_322" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Fornecedores - título a pagar</field>
+            <field name="code_prefix_start">322</field>
+            <field name="parent_id" ref="account_group_32"/>
+        </record>
+        <record id="account_group_3221" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Grupo</field>
+            <field name="code_prefix_start">3221</field>
+            <field name="parent_id" ref="account_group_322"/>
+        </record>
+        <record id="account_group_3222" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Não Grupo</field>
+            <field name="code_prefix_start">3222</field>
+            <field name="parent_id" ref="account_group_322"/>
+        </record>
+        <record id="account_group_328" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Fornecedors - facturas em recepção e conferência</field>
+            <field name="code_prefix_start">328</field>
+            <field name="parent_id" ref="account_group_32"/>
+        </record>
+        <record id="account_group_329" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Fornecedors - saldos devedores</field>
+            <field name="code_prefix_start">329</field>
+            <field name="parent_id" ref="account_group_32"/>
+        </record>
+        <record id="account_group_33" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Empréstimos</field>
+            <field name="code_prefix_start">33</field>
+            <field name="parent_id" ref="account_group_3"/>
+        </record>
+        <record id="account_group_331" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Empréstimos bancários</field>
+            <field name="code_prefix_start">331</field>
+            <field name="parent_id" ref="account_group_33"/>
+        </record>
+        <record id="account_group_3311" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Moeda Nacional</field>
+            <field name="code_prefix_start">3311</field>
+            <field name="parent_id" ref="account_group_331"/>
+        </record>
+        <record id="account_group_3312" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Moeda Estrangeira</field>
+            <field name="code_prefix_start">3312</field>
+            <field name="parent_id" ref="account_group_331"/>
+        </record>
+        <record id="account_group_332" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Empréstimos por obrigações</field>
+            <field name="code_prefix_start">332</field>
+            <field name="parent_id" ref="account_group_33"/>
+        </record>
+        <record id="account_group_3321" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Convertíveis</field>
+            <field name="code_prefix_start">3321</field>
+            <field name="parent_id" ref="account_group_332"/>
+        </record>
+        <record id="account_group_3322" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Não Convertíveis</field>
+            <field name="code_prefix_start">3322</field>
+            <field name="parent_id" ref="account_group_332"/>
+        </record>
+        <record id="account_group_333" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Empréstimos por títulos de participação</field>
+            <field name="code_prefix_start">333</field>
+            <field name="parent_id" ref="account_group_33"/>
+        </record>
+        <record id="account_group_339" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros empréstimos obtidos</field>
+            <field name="code_prefix_start">339</field>
+            <field name="parent_id" ref="account_group_33"/>
+        </record>
+        <record id="account_group_3391" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Curto Prazo</field>
+            <field name="code_prefix_start">3391</field>
+            <field name="parent_id" ref="account_group_339"/>
+        </record>
+        <record id="account_group_3392" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Médio e Longo Prazo</field>
+            <field name="code_prefix_start">3392</field>
+            <field name="parent_id" ref="account_group_339"/>
+        </record>
+        <record id="account_group_3393" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Parte currente de empréstimo de médio e longo prazo</field>
+            <field name="code_prefix_start">3393</field>
+            <field name="parent_id" ref="account_group_339"/>
+        </record>
+        <record id="account_group_34" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Estado</field>
+            <field name="code_prefix_start">34</field>
+            <field name="parent_id" ref="account_group_3"/>
+        </record>
+        <record id="account_group_341" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imposto sobre os lucros</field>
+            <field name="code_prefix_start">341</field>
+            <field name="parent_id" ref="account_group_34"/>
+        </record>
+        <record id="account_group_3413" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Retenção na fonte</field>
+            <field name="code_prefix_start">3413</field>
+            <field name="parent_id" ref="account_group_341"/>
+        </record>
+        <record id="account_group_117" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imposto sobre os lucros</field>
+            <field name="code_prefix_start">117</field>
+            <field name="parent_id" ref="account_group_34"/>
+        </record>
+        <record id="account_group_341" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imposto sobre os lucros</field>
+            <field name="code_prefix_start">341</field>
+            <field name="parent_id" ref="account_group_34"/>
+        </record>
+        <record id="account_group_342" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imposto de produção e consumo</field>
+            <field name="code_prefix_start">342</field>
+            <field name="parent_id" ref="account_group_34"/>
+        </record>
+        <record id="account_group_343" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imposto de redimento de trabalho</field>
+            <field name="code_prefix_start">343</field>
+            <field name="parent_id" ref="account_group_34"/>
+        </record>
+        <record id="account_group_344" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imposto de circulação</field>
+            <field name="code_prefix_start">344</field>
+            <field name="parent_id" ref="account_group_34"/>
+        </record>
+        <record id="account_group_345" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA</field>
+            <field name="code_prefix_start">345</field>
+            <field name="parent_id" ref="account_group_34"/>
+        </record>
+        <record id="account_group_3451" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA suportado</field>
+            <field name="code_prefix_start">3451</field>
+            <field name="parent_id" ref="account_group_345"/>
+        </record>
+        <record id="account_group_3452" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA dedutível</field>
+            <field name="code_prefix_start">3452</field>
+            <field name="parent_id" ref="account_group_345"/>
+        </record>
+        <record id="account_group_3453" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA liquidado</field>
+            <field name="code_prefix_start">3453</field>
+            <field name="parent_id" ref="account_group_345"/>
+        </record>
+        <record id="account_group_3454" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA regularizações</field>
+            <field name="code_prefix_start">3454</field>
+            <field name="parent_id" ref="account_group_345"/>
+        </record>
+        <record id="account_group_3455" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA apuramento</field>
+            <field name="code_prefix_start">3455</field>
+            <field name="parent_id" ref="account_group_345"/>
+        </record>
+        <record id="account_group_3456" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA a pagar</field>
+            <field name="code_prefix_start">3456</field>
+            <field name="parent_id" ref="account_group_345"/>
+        </record>
+        <record id="account_group_3457" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA a recuperar de apuramentos</field>
+            <field name="code_prefix_start">3457</field>
+            <field name="parent_id" ref="account_group_345"/>
+        </record>
+        <record id="account_group_3458" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA a reembolsos pedidos</field>
+            <field name="code_prefix_start">3458</field>
+            <field name="parent_id" ref="account_group_345"/>
+        </record>
+        <record id="account_group_347" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imposto Selo</field>
+            <field name="code_prefix_start">347</field>
+            <field name="parent_id" ref="account_group_34"/>
+        </record>
+        <record id="account_group_348" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Subsídios a preços</field>
+            <field name="code_prefix_start">348</field>
+            <field name="parent_id" ref="account_group_34"/>
+        </record>
+        <record id="account_group_349" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros impostos</field>
+            <field name="code_prefix_start">349</field>
+            <field name="parent_id" ref="account_group_34"/>
+        </record>
+        <record id="account_group_35" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Entidades participantes e participadas</field>
+            <field name="code_prefix_start">35</field>
+            <field name="parent_id" ref="account_group_3"/>
+        </record>
+        <record id="account_group_351" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Entidades participantes</field>
+            <field name="code_prefix_start">351</field>
+            <field name="parent_id" ref="account_group_35"/>
+        </record>
+        <record id="account_group_3511" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Estado</field>
+            <field name="code_prefix_start">3511</field>
+            <field name="parent_id" ref="account_group_351"/>
+        </record>
+        <record id="account_group_3512" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Empresas do Grupo - Subsidiárias</field>
+            <field name="code_prefix_start">3512</field>
+            <field name="parent_id" ref="account_group_351"/>
+        </record>
+        <record id="account_group_3513" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Empresas do Grupo - Associadas</field>
+            <field name="code_prefix_start">3513</field>
+            <field name="parent_id" ref="account_group_351"/>
+        </record>
+        <record id="account_group_3514" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros</field>
+            <field name="code_prefix_start">3514</field>
+            <field name="parent_id" ref="account_group_351"/>
+        </record>
+        <record id="account_group_352" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Entidades participadas</field>
+            <field name="code_prefix_start">352</field>
+            <field name="parent_id" ref="account_group_35"/>
+        </record>
+        <record id="account_group_3521" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Estado</field>
+            <field name="code_prefix_start">3521</field>
+            <field name="parent_id" ref="account_group_352"/>
+        </record>
+        <record id="account_group_3522" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Empresas do Grupo -Subsidiárias</field>
+            <field name="code_prefix_start">3522</field>
+            <field name="parent_id" ref="account_group_352"/>
+        </record>
+        <record id="account_group_3523" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Empresas do Grupo -Subsidiárias</field>
+            <field name="code_prefix_start">3523</field>
+            <field name="parent_id" ref="account_group_352"/>
+        </record>
+        <record id="account_group_3524" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros</field>
+            <field name="code_prefix_start">3524</field>
+            <field name="parent_id" ref="account_group_352"/>
+        </record>
+        <record id="account_group_36" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Pessoal</field>
+            <field name="code_prefix_start">36</field>
+            <field name="parent_id" ref="account_group_3"/>
+        </record>
+        <record id="account_group_361" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Pessoal - remunerações</field>
+            <field name="code_prefix_start">361</field>
+            <field name="parent_id" ref="account_group_36"/>
+        </record>
+        <record id="account_group_3611" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Órgão Sociais</field>
+            <field name="code_prefix_start">3611</field>
+            <field name="parent_id" ref="account_group_361"/>
+        </record>
+        <record id="account_group_3612" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Empregados</field>
+            <field name="code_prefix_start">3612</field>
+            <field name="parent_id" ref="account_group_361"/>
+        </record>
+        <record id="account_group_362" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Pessoal - participação nos resultados</field>
+            <field name="code_prefix_start">362</field>
+            <field name="parent_id" ref="account_group_36"/>
+        </record>
+        <record id="account_group_3621" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Órgãos Sociais</field>
+            <field name="code_prefix_start">3621</field>
+            <field name="parent_id" ref="account_group_362"/>
+        </record>
+        <record id="account_group_3621" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Órgãos Sociais</field>
+            <field name="code_prefix_start">3621</field>
+            <field name="parent_id" ref="account_group_362"/>
+        </record>
+        <record id="account_group_3622" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Empregados</field>
+            <field name="code_prefix_start">3622</field>
+            <field name="parent_id" ref="account_group_362"/>
+        </record>
+        <record id="account_group_363" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Pessoal - adiantamentos</field>
+            <field name="code_prefix_start">363</field>
+            <field name="parent_id" ref="account_group_36"/>
+        </record>
+        <record id="account_group_369" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Pessoal - outros</field>
+            <field name="code_prefix_start">369</field>
+            <field name="parent_id" ref="account_group_36"/>
+        </record>
+        <record id="account_group_37" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros valores a receber e a pagar</field>
+            <field name="code_prefix_start">37</field>
+            <field name="parent_id" ref="account_group_3"/>
+        </record>
+        <record id="account_group_371" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Compras de imobilizado</field>
+            <field name="code_prefix_start">371</field>
+            <field name="parent_id" ref="account_group_37"/>
+        </record>
+        <record id="account_group_372" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Vendas de imobilizado</field>
+            <field name="code_prefix_start">372</field>
+            <field name="parent_id" ref="account_group_37"/>
+        </record>
+        <record id="account_group_373" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Proveitos a facturar</field>
+            <field name="code_prefix_start">373</field>
+            <field name="parent_id" ref="account_group_37"/>
+        </record>
+        <record id="account_group_374" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Encargos a repartir por períodos futuros</field>
+            <field name="code_prefix_start">374</field>
+            <field name="parent_id" ref="account_group_37"/>
+        </record>
+        <record id="account_group_375" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Encargos a pagar</field>
+            <field name="code_prefix_start">375</field>
+            <field name="parent_id" ref="account_group_37"/>
+        </record>
+        <record id="account_group_376" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Proveitos a repartir por períodos futuros</field>
+            <field name="code_prefix_start">376</field>
+            <field name="parent_id" ref="account_group_37"/>
+        </record>
+        <record id="account_group_377" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Contas transitórias</field>
+            <field name="code_prefix_start">377</field>
+            <field name="parent_id" ref="account_group_37"/>
+        </record>
+        <record id="account_group_379" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros valores a receber e a pagar</field>
+            <field name="code_prefix_start">379</field>
+            <field name="parent_id" ref="account_group_37"/>
+        </record>
+        <record id="account_group_38" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Provisões para COBRANÇAS DUVIDOSAS</field>
+            <field name="code_prefix_start">38</field>
+            <field name="parent_id" ref="account_group_3"/>
+        </record>
+        <record id="account_group_381" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Provesões para clientes</field>
+            <field name="code_prefix_start">381</field>
+            <field name="parent_id" ref="account_group_38"/>
+        </record>
+        <record id="account_group_3811" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Clientes - Correntes</field>
+            <field name="code_prefix_start">3811</field>
+            <field name="parent_id" ref="account_group_381"/>
+        </record>
+        <record id="account_group_3812" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Clientes - Títulos a Receber</field>
+            <field name="code_prefix_start">3812</field>
+            <field name="parent_id" ref="account_group_381"/>
+        </record>
+        <record id="account_group_3813" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Clientes - cobrança Duvidosa</field>
+            <field name="code_prefix_start">3813</field>
+            <field name="parent_id" ref="account_group_381"/>
+        </record>
+        <record id="account_group_382" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Previsões para saldos devedores de fornecedores</field>
+            <field name="code_prefix_start">382</field>
+            <field name="parent_id" ref="account_group_38"/>
+        </record>
+        <record id="account_group_383" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Provisões p/ participante e participadas</field>
+            <field name="code_prefix_start">383</field>
+            <field name="parent_id" ref="account_group_38"/>
+        </record>
+        <record id="account_group_384" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Previsões p/dívidas do pessoal</field>
+            <field name="code_prefix_start">384</field>
+            <field name="parent_id" ref="account_group_38"/>
+        </record>
+        <record id="account_group_389" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Previsões para outros saldos a receber</field>
+            <field name="code_prefix_start">389</field>
+            <field name="parent_id" ref="account_group_38"/>
+        </record>
+        <record id="account_group_39" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Previsões para outros riscos e encargos</field>
+            <field name="code_prefix_start">39</field>
+            <field name="parent_id" ref="account_group_3"/>
+        </record>
+        <record id="account_group_391" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Provisões para pensões</field>
+            <field name="code_prefix_start">391</field>
+            <field name="parent_id" ref="account_group_39"/>
+        </record>
+        <record id="account_group_392" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Provisões para processos judiciais em curso</field>
+            <field name="code_prefix_start">392</field>
+            <field name="parent_id" ref="account_group_39"/>
+        </record>
+        <record id="account_group_393" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Provisões para acidentes de trabalho</field>
+            <field name="code_prefix_start">393</field>
+            <field name="parent_id" ref="account_group_39"/>
+        </record>
+        <record id="account_group_394" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Provisões para garantias dadas a clientes</field>
+            <field name="code_prefix_start">394</field>
+            <field name="parent_id" ref="account_group_39"/>
+        </record>
+        <record id="account_group_399" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Provisões para outros riscos e encargos</field>
+            <field name="code_prefix_start">399</field>
+            <field name="parent_id" ref="account_group_39"/>
+        </record>
+        <record id="account_group_3451" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA suportado</field>
+            <field name="code_prefix_start">3451</field>
+            <field name="parent_id" ref="account_group_345"/>
+        </record>
+        <record id="account_group_3452" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA dedutível</field>
+            <field name="code_prefix_start">3452</field>
+            <field name="parent_id" ref="account_group_345"/>
+        </record>
+        <record id="account_group_3453" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA liquidado</field>
+            <field name="code_prefix_start">3453</field>
+            <field name="parent_id" ref="account_group_345"/>
+        </record>
+        <record id="account_group_3454" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA Regularizações</field>
+            <field name="code_prefix_start">3454</field>
+            <field name="parent_id" ref="account_group_345"/>
+        </record>
+        <record id="account_group_3455" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA Apuramento</field>
+            <field name="code_prefix_start">3455</field>
+            <field name="parent_id" ref="account_group_345"/>
+        </record>
+        <record id="account_group_3456" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA a Pagar</field>
+            <field name="code_prefix_start">3456</field>
+            <field name="parent_id" ref="account_group_345"/>
+        </record>
+        <record id="account_group_3457" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA a recuperar</field>
+            <field name="code_prefix_start">3457</field>
+            <field name="parent_id" ref="account_group_345"/>
+        </record>
+        <record id="account_group_3458" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA reembolsos pedidos</field>
+            <field name="code_prefix_start">3458</field>
+            <field name="parent_id" ref="account_group_345"/>
+        </record>
+        <record id="account_group_3459" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA reembolsos pedidos</field>
+            <field name="code_prefix_start">3459</field>
+            <field name="parent_id" ref="account_group_345"/>
+        </record>
+        <record id="account_group_4" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">MEIOS MONETÁRIOS</field>
+            <field name="code_prefix_start">4</field>
+        </record>
+        <record id="account_group_41" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Títulos negocíaveis</field>
+            <field name="code_prefix_start">41</field>
+            <field name="parent_id" ref="account_group_4"/>
+        </record>
+        <record id="account_group_411" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Acções</field>
+            <field name="code_prefix_start">411</field>
+            <field name="parent_id" ref="account_group_41"/>
+        </record>
+        <record id="account_group_412" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Obrigações</field>
+            <field name="code_prefix_start">412</field>
+            <field name="parent_id" ref="account_group_41"/>
+        </record>
+        <record id="account_group_413" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Títulos da dívida pública</field>
+            <field name="code_prefix_start">413</field>
+            <field name="parent_id" ref="account_group_41"/>
+        </record>
+        <record id="account_group_42" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Depósitos a prazo</field>
+            <field name="code_prefix_start">42</field>
+            <field name="parent_id" ref="account_group_4"/>
+        </record>
+        <record id="account_group_421" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Moedas nacional</field>
+            <field name="code_prefix_start">421</field>
+            <field name="parent_id" ref="account_group_42"/>
+        </record>
+        <record id="account_group_422" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Moeda estrangeira</field>
+            <field name="code_prefix_start">422</field>
+            <field name="parent_id" ref="account_group_42"/>
+        </record>
+        <record id="account_group_43" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Depósitos á ordem</field>
+            <field name="code_prefix_start">43</field>
+            <field name="parent_id" ref="account_group_4"/>
+        </record>
+        <record id="account_group_431" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Moeda nacional</field>
+            <field name="code_prefix_start">431</field>
+            <field name="parent_id" ref="account_group_43"/>
+        </record>
+        <record id="account_group_432" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Moeda estrangeira</field>
+            <field name="code_prefix_start">432</field>
+            <field name="parent_id" ref="account_group_43"/>
+        </record>
+        <record id="account_group_44" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros Depósitos</field>
+            <field name="code_prefix_start">44</field>
+            <field name="parent_id" ref="account_group_4"/>
+        </record>
+        <record id="account_group_441" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Moeda nacional</field>
+            <field name="code_prefix_start">441</field>
+            <field name="parent_id" ref="account_group_44"/>
+        </record>
+        <record id="account_group_442" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Moeda estrangeira</field>
+            <field name="code_prefix_start">442</field>
+            <field name="parent_id" ref="account_group_44"/>
+        </record>
+        <record id="account_group_45" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Caixa</field>
+            <field name="code_prefix_start">45</field>
+            <field name="parent_id" ref="account_group_4"/>
+        </record>
+        <record id="account_group_451" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Fundo fixo</field>
+            <field name="code_prefix_start">451</field>
+            <field name="parent_id" ref="account_group_45"/>
+        </record>
+        <record id="account_group_452" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Valores para depositar</field>
+            <field name="code_prefix_start">452</field>
+            <field name="parent_id" ref="account_group_45"/>
+        </record>
+        <record id="account_group_453" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Valores destinados a pagamentos específicos</field>
+            <field name="code_prefix_start">453</field>
+            <field name="parent_id" ref="account_group_45"/>
+        </record>
+        <record id="account_group_46" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">46...............</field>
+            <field name="code_prefix_start">46</field>
+            <field name="parent_id" ref="account_group_4"/>
+        </record>
+        <record id="account_group_464" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA</field>
+            <field name="code_prefix_start">464</field>
+            <field name="parent_id" ref="account_group_4"/>
+        </record>
+        <record id="account_group_4640" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA Suportado</field>
+            <field name="code_prefix_start">4640</field>
+            <field name="parent_id" ref="account_group_464"/>
+        </record>
+        <record id="account_group_4641" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA dedutivel</field>
+            <field name="code_prefix_start">4641</field>
+            <field name="parent_id" ref="account_group_464"/>
+        </record>
+        <record id="account_group_4642" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA liquidado</field>
+            <field name="code_prefix_start">4642</field>
+            <field name="parent_id" ref="account_group_464"/>
+        </record>
+        <record id="account_group_4643" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA regularizações</field>
+            <field name="code_prefix_start">4643</field>
+            <field name="parent_id" ref="account_group_464"/>
+        </record>
+        <record id="account_group_4644" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA apuramento</field>
+            <field name="code_prefix_start">4644</field>
+            <field name="parent_id" ref="account_group_464"/>
+        </record>
+        <record id="account_group_4645" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA a pagar</field>
+            <field name="code_prefix_start">4645</field>
+            <field name="parent_id" ref="account_group_464"/>
+        </record>
+        <record id="account_group_4646" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA a recuperar</field>
+            <field name="code_prefix_start">4646</field>
+            <field name="parent_id" ref="account_group_464"/>
+        </record>
+        <record id="account_group_4647" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA reembolsos pedidos</field>
+            <field name="code_prefix_start">4647</field>
+            <field name="parent_id" ref="account_group_464"/>
+        </record>
+        <record id="account_group_4648" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA liquidações oficiosas</field>
+            <field name="code_prefix_start">4648</field>
+            <field name="parent_id" ref="account_group_464"/>
+        </record>
+        <record id="account_group_47" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">47...............</field>
+            <field name="code_prefix_start">47</field>
+            <field name="parent_id" ref="account_group_4"/>
+        </record>
+        <record id="account_group_48" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Conta transitória</field>
+            <field name="code_prefix_start">48</field>
+            <field name="parent_id" ref="account_group_4"/>
+        </record>
+        <record id="account_group_481" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Banco</field>
+            <field name="code_prefix_start">481</field>
+            <field name="parent_id" ref="account_group_48"/>
+        </record>
+        <record id="account_group_482" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Banco</field>
+            <field name="code_prefix_start">482</field>
+            <field name="parent_id" ref="account_group_48"/>
+        </record>
+        <record id="account_group_49" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Provisões para aplicações de tesouraria</field>
+            <field name="code_prefix_start">49</field>
+            <field name="parent_id" ref="account_group_4"/>
+        </record>
+        <record id="account_group_491" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Títulos negociáveis</field>
+            <field name="code_prefix_start">491</field>
+            <field name="parent_id" ref="account_group_49"/>
+        </record>
+        <record id="account_group_492" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outras aplicações de tesouraria</field>
+            <field name="code_prefix_start">492</field>
+            <field name="parent_id" ref="account_group_49"/>
+        </record>
+        <record id="account_group_5" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">CAPITAL E RESERVAS</field>
+            <field name="code_prefix_start">5</field>
+
+        </record>
+        <record id="account_group_51" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Capital</field>
+            <field name="code_prefix_start">51</field>
+            <field name="parent_id" ref="account_group_5"/>
+        </record>
+        <record id="account_group_52" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Acções/quotas próprias</field>
+            <field name="code_prefix_start">52</field>
+            <field name="parent_id" ref="account_group_5"/>
+        </record>
+        <record id="account_group_521" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Valor nominal</field>
+            <field name="code_prefix_start">521</field>
+            <field name="parent_id" ref="account_group_52"/>
+        </record>
+        <record id="account_group_522" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Descontos</field>
+            <field name="code_prefix_start">522</field>
+            <field name="parent_id" ref="account_group_52"/>
+        </record>
+        <record id="account_group_523" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Prémios</field>
+            <field name="code_prefix_start">523</field>
+            <field name="parent_id" ref="account_group_52"/>
+        </record>
+        <record id="account_group_53" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Prémios de emissão</field>
+            <field name="code_prefix_start">53</field>
+            <field name="parent_id" ref="account_group_5"/>
+        </record>
+        <record id="account_group_54" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Prestações suplementares</field>
+            <field name="code_prefix_start">54</field>
+            <field name="parent_id" ref="account_group_5"/>
+        </record>
+        <record id="account_group_55" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Reservas legais</field>
+            <field name="code_prefix_start">55</field>
+            <field name="parent_id" ref="account_group_5"/>
+        </record>
+        <record id="account_group_56" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Reservas de reavaliação</field>
+            <field name="code_prefix_start">56</field>
+            <field name="parent_id" ref="account_group_5"/>
+        </record>
+        <record id="account_group_561" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Legais</field>
+            <field name="code_prefix_start">561</field>
+            <field name="parent_id" ref="account_group_56"/>
+        </record>
+        <record id="account_group_562" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Autónomas</field>
+            <field name="code_prefix_start">562</field>
+            <field name="parent_id" ref="account_group_56"/>
+        </record>
+        <record id="account_group_57" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Reservas com fins especiais</field>
+            <field name="code_prefix_start">57</field>
+            <field name="parent_id" ref="account_group_5"/>
+        </record>
+        <record id="account_group_58" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Reservas livres</field>
+            <field name="code_prefix_start">58</field>
+            <field name="parent_id" ref="account_group_5"/>
+        </record>
+        <record id="account_group_6" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">PROVEITOS E GANHOS POR NATUREZA</field>
+            <field name="code_prefix_start">6</field>
+        </record>
+        <record id="account_group_61" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Vendas</field>
+            <field name="code_prefix_start">61</field>
+            <field name="parent_id" ref="account_group_6"/>
+        </record>
+        <record id="account_group_611" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Produtos acabados e intermédios</field>
+            <field name="code_prefix_start">611</field>
+            <field name="parent_id" ref="account_group_61"/>
+        </record>
+        <record id="account_group_6111" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Nacional</field>
+            <field name="code_prefix_start">6111</field>
+            <field name="parent_id" ref="account_group_611"/>
+        </record>
+        <record id="account_group_6112" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Estrangeiro</field>
+            <field name="code_prefix_start">6112</field>
+            <field name="parent_id" ref="account_group_611"/>
+        </record>
+        <record id="account_group_612" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Sub - produtos, desperdicíos, resíduos e refugos</field>
+            <field name="code_prefix_start">612</field>
+            <field name="parent_id" ref="account_group_61"/>
+        </record>
+        <record id="account_group_613" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercadorias</field>
+            <field name="code_prefix_start">613</field>
+            <field name="parent_id" ref="account_group_61"/>
+        </record>
+        <record id="account_group_614" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Embalagens de consumo</field>
+            <field name="code_prefix_start">614</field>
+            <field name="parent_id" ref="account_group_61"/>
+        </record>
+        <record id="account_group_615" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Subsídios a preços</field>
+            <field name="code_prefix_start">615</field>
+            <field name="parent_id" ref="account_group_61"/>
+        </record>
+        <record id="account_group_617" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Devoluções</field>
+            <field name="code_prefix_start">617</field>
+            <field name="parent_id" ref="account_group_61"/>
+        </record>
+        <record id="account_group_618" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Descontos e abatimentos</field>
+            <field name="code_prefix_start">618</field>
+            <field name="parent_id" ref="account_group_61"/>
+        </record>
+        <record id="account_group_619" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resltados operacionais</field>
+            <field name="code_prefix_start">619</field>
+            <field name="parent_id" ref="account_group_61"/>
+        </record>
+        <record id="account_group_62" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Prestações de serviço</field>
+            <field name="code_prefix_start">62</field>
+            <field name="parent_id" ref="account_group_6"/>
+        </record>
+        <record id="account_group_621" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Serviços principas</field>
+            <field name="code_prefix_start">621</field>
+            <field name="parent_id" ref="account_group_62"/>
+        </record>
+        <record id="account_group_6211" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Mercado Nacional</field>
+            <field name="code_prefix_start">6211</field>
+            <field name="parent_id" ref="account_group_621"/>
+        </record>
+        <record id="account_group_622" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Serviços secundários</field>
+            <field name="code_prefix_start">622</field>
+            <field name="parent_id" ref="account_group_62"/>
+        </record>
+        <record id="account_group_628" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Descontos e abatimemos</field>
+            <field name="code_prefix_start">628</field>
+            <field name="parent_id" ref="account_group_62"/>
+        </record>
+        <record id="account_group_629" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados operacinais</field>
+            <field name="code_prefix_start">629</field>
+            <field name="parent_id" ref="account_group_62"/>
+        </record>
+        <record id="account_group_63" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros proveitos operacionais</field>
+            <field name="code_prefix_start">63</field>
+            <field name="parent_id" ref="account_group_6"/>
+        </record>
+        <record id="account_group_631" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Serviços suplementares</field>
+            <field name="code_prefix_start">631</field>
+            <field name="parent_id" ref="account_group_63"/>
+        </record>
+        <record id="account_group_632" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Royalties</field>
+            <field name="code_prefix_start">632</field>
+            <field name="parent_id" ref="account_group_63"/>
+        </record>
+        <record id="account_group_633" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Subsídios á exploração</field>
+            <field name="code_prefix_start">633</field>
+            <field name="parent_id" ref="account_group_63"/>
+        </record>
+        <record id="account_group_634" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Subsídios a investimentos</field>
+            <field name="code_prefix_start">634</field>
+            <field name="parent_id" ref="account_group_63"/>
+        </record>
+        <record id="account_group_638" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros proveitos e ganhos operacionais</field>
+            <field name="code_prefix_start">638</field>
+            <field name="parent_id" ref="account_group_63"/>
+        </record>
+        <record id="account_group_639" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados operacionais</field>
+            <field name="code_prefix_start">639</field>
+            <field name="parent_id" ref="account_group_63"/>
+        </record>
+        <record id="account_group_64" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Variação nos insventários de produtos acabados produtos em curso</field>
+            <field name="code_prefix_start">64</field>
+            <field name="parent_id" ref="account_group_6"/>
+        </record>
+        <record id="account_group_641" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Produtos e trabalhos em curso</field>
+            <field name="code_prefix_start">641</field>
+            <field name="parent_id" ref="account_group_64"/>
+        </record>
+        <record id="account_group_642" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Produtos acabados</field>
+            <field name="code_prefix_start">642</field>
+            <field name="parent_id" ref="account_group_64"/>
+        </record>
+        <record id="account_group_643" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Produtos intermédios</field>
+            <field name="code_prefix_start">643</field>
+            <field name="parent_id" ref="account_group_64"/>
+        </record>
+        <record id="account_group_65" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Trabalhos para a própria em empresa</field>
+            <field name="code_prefix_start">65</field>
+            <field name="parent_id" ref="account_group_6"/>
+        </record>
+        <record id="account_group_651" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Para imobilizados</field>
+            <field name="code_prefix_start">651</field>
+            <field name="parent_id" ref="account_group_65"/>
+        </record>
+        <record id="account_group_652" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Para encargos a repartir por exercícios futuros</field>
+            <field name="code_prefix_start">652</field>
+            <field name="parent_id" ref="account_group_65"/>
+        </record>
+        <record id="account_group_659" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados operacionais</field>
+            <field name="code_prefix_start">659</field>
+            <field name="parent_id" ref="account_group_65"/>
+        </record>
+        <record id="account_group_66" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Proveitos e ganhos financeiros gerais</field>
+            <field name="code_prefix_start">66</field>
+            <field name="parent_id" ref="account_group_6"/>
+        </record>
+        <record id="account_group_661" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Juros</field>
+            <field name="code_prefix_start">661</field>
+            <field name="parent_id" ref="account_group_66"/>
+        </record>
+        <record id="account_group_6611" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Investimentos Financeiros</field>
+            <field name="code_prefix_start">6611</field>
+            <field name="parent_id" ref="account_group_661"/>
+        </record>
+        <record id="account_group_6612" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Demora Relativos a Dívidas de Terceiros</field>
+            <field name="code_prefix_start">6612</field>
+            <field name="parent_id" ref="account_group_661"/>
+        </record>
+        <record id="account_group_662" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Diferenças de cambio favoráveis</field>
+            <field name="code_prefix_start">662</field>
+            <field name="parent_id" ref="account_group_66"/>
+        </record>
+        <record id="account_group_6624" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA</field>
+            <field name="code_prefix_start">6624</field>
+            <field name="parent_id" ref="account_group_66"/>
+        </record>
+        <record id="account_group_663" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Descontos de prontos pagamento obtidos</field>
+            <field name="code_prefix_start">663</field>
+            <field name="parent_id" ref="account_group_66"/>
+        </record>
+        <record id="account_group_664" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Rendimentos de investimentos em imóveis</field>
+            <field name="code_prefix_start">664</field>
+            <field name="parent_id" ref="account_group_66"/>
+        </record>
+        <record id="account_group_665" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Rendimento de participações de capital</field>
+            <field name="code_prefix_start">665</field>
+            <field name="parent_id" ref="account_group_66"/>
+        </record>
+        <record id="account_group_666" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Ganhos na alienção de aplicações financeiras</field>
+            <field name="code_prefix_start">666</field>
+            <field name="parent_id" ref="account_group_66"/>
+        </record>
+        <record id="account_group_6661" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Investimentos Financeiros</field>
+            <field name="code_prefix_start">6661</field>
+            <field name="parent_id" ref="account_group_666"/>
+        </record>
+        <record id="account_group_667" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Reposição de provisões</field>
+            <field name="code_prefix_start">667</field>
+            <field name="parent_id" ref="account_group_66"/>
+        </record>
+        <record id="account_group_6671" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Investimentos Financeiros</field>
+            <field name="code_prefix_start">6671</field>
+            <field name="parent_id" ref="account_group_667"/>
+        </record>
+        <record id="account_group_6672" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Aplicações de Tesouraria</field>
+            <field name="code_prefix_start">6672</field>
+            <field name="parent_id" ref="account_group_667"/>
+        </record>
+        <record id="account_group_669" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados financeiros</field>
+            <field name="code_prefix_start">669</field>
+            <field name="parent_id" ref="account_group_66"/>
+        </record>
+        <record id="account_group_67" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Proveitos e ganhos financeiros em filiais e associadas</field>
+            <field name="code_prefix_start">67</field>
+            <field name="parent_id" ref="account_group_6"/>
+        </record>
+        <record id="account_group_671" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Rendimentos de participações de capital</field>
+            <field name="code_prefix_start">671</field>
+            <field name="parent_id" ref="account_group_67"/>
+        </record>
+        <record id="account_group_679" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados em filiais e associadas</field>
+            <field name="code_prefix_start">679</field>
+            <field name="parent_id" ref="account_group_67"/>
+        </record>
+        <record id="account_group_68" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros proveitos e ganhos não operacionais</field>
+            <field name="code_prefix_start">68</field>
+            <field name="parent_id" ref="account_group_6"/>
+        </record>
+        <record id="account_group_681" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Reposição de provisões</field>
+            <field name="code_prefix_start">681</field>
+            <field name="parent_id" ref="account_group_68"/>
+        </record>
+        <record id="account_group_68011" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Reposição de provisões</field>
+            <field name="code_prefix_start">6801</field>
+            <field name="parent_id" ref="account_group_681"/>
+        </record>
+        <record id="account_group_68012" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Cobranças Duvidosas</field>
+            <field name="code_prefix_start">68012</field>
+            <field name="parent_id" ref="account_group_681"/>
+        </record>
+        <record id="account_group_68013" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Riscos e Encargos</field>
+            <field name="code_prefix_start">68013</field>
+            <field name="parent_id" ref="account_group_681"/>
+        </record>
+        <record id="account_group_6802" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Anulação de amortizações Extraordinárias</field>
+            <field name="code_prefix_start">6802</field>
+            <field name="parent_id" ref="account_group_681"/>
+        </record>
+        <record id="account_group_6803" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Ganhos em Imobilizações</field>
+            <field name="code_prefix_start">6803</field>
+            <field name="parent_id" ref="account_group_681"/>
+        </record>
+        <record id="account_group_6804" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Ganhos em Existências</field>
+            <field name="code_prefix_start">6804</field>
+            <field name="parent_id" ref="account_group_681"/>
+        </record>
+        <record id="account_group_6805" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Recuperação de Dívidas</field>
+            <field name="code_prefix_start">6805</field>
+            <field name="parent_id" ref="account_group_681"/>
+        </record>
+        <record id="account_group_6806" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Benefícios de Penalidades Contratuais</field>
+            <field name="code_prefix_start">6806</field>
+            <field name="parent_id" ref="account_group_681"/>
+        </record>
+        <record id="account_group_6810" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Correcções relativas a exercícios anteriores</field>
+            <field name="code_prefix_start">6810</field>
+            <field name="parent_id" ref="account_group_68"/>
+        </record>
+        <record id="account_group_6811" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros ganhos e perdas não operacionais</field>
+            <field name="code_prefix_start">6811</field>
+            <field name="parent_id" ref="account_group_68"/>
+        </record>
+        <record id="account_group_6819" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados não operacionais</field>
+            <field name="code_prefix_start">6819</field>
+            <field name="parent_id" ref="account_group_68"/>
+        </record>
+        <record id="account_group_682" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Anulação de amortizações extraordinárias</field>
+            <field name="code_prefix_start">682</field>
+            <field name="parent_id" ref="account_group_68"/>
+        </record>
+        <record id="account_group_683" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Ganhos em imobilizações</field>
+            <field name="code_prefix_start">683</field>
+            <field name="parent_id" ref="account_group_68"/>
+        </record>
+        <record id="account_group_684" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Ganhos em existencias</field>
+            <field name="code_prefix_start">684</field>
+            <field name="parent_id" ref="account_group_68"/>
+        </record>
+        <record id="account_group_685" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Recuperação de dívidas</field>
+            <field name="code_prefix_start">685</field>
+            <field name="parent_id" ref="account_group_68"/>
+        </record>
+        <record id="account_group_686" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Benefícios de penalidade contratuais</field>
+            <field name="code_prefix_start">686</field>
+            <field name="parent_id" ref="account_group_68"/>
+        </record>
+        <record id="account_group_688" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Descontinuidade de operações</field>
+            <field name="code_prefix_start">688</field>
+            <field name="parent_id" ref="account_group_68"/>
+        </record>
+        <record id="account_group_689" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Alterações de políticas contabilísticas</field>
+            <field name="code_prefix_start">689</field>
+            <field name="parent_id" ref="account_group_68"/>
+        </record>
+        <record id="account_group_69" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Proveitos e ganhos extraordinários</field>
+            <field name="code_prefix_start">69</field>
+            <field name="parent_id" ref="account_group_6"/>
+        </record>
+        <record id="account_group_691" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Ganhos resultantes de catástrofes naturais</field>
+            <field name="code_prefix_start">691</field>
+            <field name="parent_id" ref="account_group_69"/>
+        </record>
+        <record id="account_group_692" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Ganhos resultantes de convulsões políticas</field>
+            <field name="code_prefix_start">692</field>
+            <field name="parent_id" ref="account_group_69"/>
+        </record>
+        <record id="account_group_693" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Ganhos resultantes de expropriações</field>
+            <field name="code_prefix_start">693</field>
+            <field name="parent_id" ref="account_group_69"/>
+        </record>
+        <record id="account_group_694" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Ganhos resultantes de sinistros</field>
+            <field name="code_prefix_start">694</field>
+            <field name="parent_id" ref="account_group_69"/>
+        </record>
+        <record id="account_group_695" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Subsísdios</field>
+            <field name="code_prefix_start">695</field>
+            <field name="parent_id" ref="account_group_69"/>
+        </record>
+        <record id="account_group_696" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Anulação de passivos não exigíveis</field>
+            <field name="code_prefix_start">696</field>
+            <field name="parent_id" ref="account_group_69"/>
+        </record>
+        <record id="account_group_7" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">CUSTOS E PERDAS POR NATUREZA</field>
+            <field name="code_prefix_start">7</field>
+
+        </record>
+        <record id="account_group_71" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Custos das existencias vendidas</field>
+            <field name="code_prefix_start">71</field>
+            <field name="parent_id" ref="account_group_7"/>
+        </record>
+        <record id="account_group_711" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias - primas</field>
+            <field name="code_prefix_start">711</field>
+            <field name="parent_id" ref="account_group_71"/>
+        </record>
+        <record id="account_group_712" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Matérias subsidiárias</field>
+            <field name="code_prefix_start">712</field>
+            <field name="parent_id" ref="account_group_71"/>
+        </record>
+        <record id="account_group_713" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Materiais diversos</field>
+            <field name="code_prefix_start">713</field>
+            <field name="parent_id" ref="account_group_71"/>
+        </record>
+        <record id="account_group_714" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Embalagens de consumo</field>
+            <field name="code_prefix_start">714</field>
+            <field name="parent_id" ref="account_group_71"/>
+        </record>
+        <record id="account_group_715" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros materias</field>
+            <field name="code_prefix_start">715</field>
+            <field name="parent_id" ref="account_group_71"/>
+        </record>
+        <record id="account_group_719" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados operacionais</field>
+            <field name="code_prefix_start">719</field>
+            <field name="parent_id" ref="account_group_71"/>
+        </record>
+        <record id="account_group_72" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Custos com o pessoal</field>
+            <field name="code_prefix_start">72</field>
+            <field name="parent_id" ref="account_group_7"/>
+        </record>
+        <record id="account_group_721" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Remunerações órgãos sociais</field>
+            <field name="code_prefix_start">721</field>
+            <field name="parent_id" ref="account_group_72"/>
+        </record>
+        <record id="account_group_722" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Remunerações - pessoal</field>
+            <field name="code_prefix_start">722</field>
+            <field name="parent_id" ref="account_group_72"/>
+        </record>
+        <record id="account_group_723" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Pensões</field>
+            <field name="code_prefix_start">723</field>
+            <field name="parent_id" ref="account_group_72"/>
+        </record>
+        <record id="account_group_724" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Prémios para pensões</field>
+            <field name="code_prefix_start">724</field>
+            <field name="parent_id" ref="account_group_72"/>
+        </record>
+        <record id="account_group_725" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Encargas sobre remunerações</field>
+            <field name="code_prefix_start">725</field>
+            <field name="parent_id" ref="account_group_72"/>
+        </record>
+        <record id="account_group_726" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Seguros de acedentes de trabalho e doença profissionais</field>
+            <field name="code_prefix_start">726</field>
+            <field name="parent_id" ref="account_group_72"/>
+        </record>
+        <record id="account_group_727" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Formação</field>
+            <field name="code_prefix_start">727</field>
+            <field name="parent_id" ref="account_group_72"/>
+        </record>
+        <record id="account_group_728" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outras despesas com o pessoal</field>
+            <field name="code_prefix_start">728</field>
+            <field name="parent_id" ref="account_group_72"/>
+        </record>
+        <record id="account_group_729" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados operacionas</field>
+            <field name="code_prefix_start">729</field>
+            <field name="parent_id" ref="account_group_72"/>
+        </record>
+        <record id="account_group_73" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Amortizações de exercício</field>
+            <field name="code_prefix_start">73</field>
+            <field name="parent_id" ref="account_group_7"/>
+        </record>
+        <record id="account_group_731" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imobilizações corpóreas</field>
+            <field name="code_prefix_start">731</field>
+            <field name="parent_id" ref="account_group_73"/>
+        </record>
+        <record id="account_group_732" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imobilizações incorpóreas</field>
+            <field name="code_prefix_start">732</field>
+            <field name="parent_id" ref="account_group_73"/>
+        </record>
+        <record id="account_group_739" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados operacionais</field>
+            <field name="code_prefix_start">739</field>
+            <field name="parent_id" ref="account_group_73"/>
+        </record>
+        <record id="account_group_75" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros custos e perdas operacionais</field>
+            <field name="code_prefix_start">75</field>
+            <field name="parent_id" ref="account_group_7"/>
+        </record>
+        <record id="account_group_751" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Sub - contratos</field>
+            <field name="code_prefix_start">751</field>
+            <field name="parent_id" ref="account_group_75"/>
+        </record>
+        <record id="account_group_752" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Formecimentos e serviços de terceiros</field>
+            <field name="code_prefix_start">752</field>
+            <field name="parent_id" ref="account_group_75"/>
+        </record>
+        <record id="account_group_753" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Impostos</field>
+            <field name="code_prefix_start">753</field>
+            <field name="parent_id" ref="account_group_75"/>
+        </record>
+        <record id="account_group_7531" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Indirectos</field>
+            <field name="code_prefix_start">7531</field>
+            <field name="parent_id" ref="account_group_753"/>
+        </record>
+        <record id="account_group_75312" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">IVA</field>
+            <field name="code_prefix_start">75312</field>
+            <field name="parent_id" ref="account_group_7531"/>
+        </record>
+        <record id="account_group_7532" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Directos</field>
+            <field name="code_prefix_start">7532</field>
+            <field name="parent_id" ref="account_group_753"/>
+        </record>
+        <record id="account_group_754" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Despesas confidenciais</field>
+            <field name="code_prefix_start">754</field>
+            <field name="parent_id" ref="account_group_75"/>
+        </record>
+        <record id="account_group_755" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Quotizações</field>
+            <field name="code_prefix_start">755</field>
+            <field name="parent_id" ref="account_group_75"/>
+        </record>
+        <record id="account_group_756" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Ofertas e amostras de existencias</field>
+            <field name="code_prefix_start">756</field>
+            <field name="parent_id" ref="account_group_75"/>
+        </record>
+        <record id="account_group_758" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros custos e perdas operacionais</field>
+            <field name="code_prefix_start">758</field>
+            <field name="parent_id" ref="account_group_75"/>
+        </record>
+        <record id="account_group_759" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados operacionais</field>
+            <field name="code_prefix_start">759</field>
+            <field name="parent_id" ref="account_group_75"/>
+        </record>
+        <record id="account_group_76" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Custos e perdas financeiros gerais</field>
+            <field name="code_prefix_start">76</field>
+            <field name="parent_id" ref="account_group_7"/>
+        </record>
+        <record id="account_group_761" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Juros</field>
+            <field name="code_prefix_start">761</field>
+            <field name="parent_id" ref="account_group_76"/>
+        </record>
+        <record id="account_group_7611" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">De empréstimos</field>
+            <field name="code_prefix_start">7611</field>
+            <field name="parent_id" ref="account_group_761"/>
+        </record>
+        <record id="account_group_762" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Diferença de cambio desfavoráveis</field>
+            <field name="code_prefix_start">762</field>
+            <field name="parent_id" ref="account_group_76"/>
+        </record>
+        <record id="account_group_763" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Descontos de pronto pagamentos concedidos</field>
+            <field name="code_prefix_start">763</field>
+            <field name="parent_id" ref="account_group_76"/>
+        </record>
+        <record id="account_group_764" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Amortizações de investimentos em imóveis</field>
+            <field name="code_prefix_start">764</field>
+            <field name="parent_id" ref="account_group_76"/>
+        </record>
+        <record id="account_group_765" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Provisões para aplicações financeiras</field>
+            <field name="code_prefix_start">765</field>
+            <field name="parent_id" ref="account_group_76"/>
+        </record>
+        <record id="account_group_7651" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Investimentos financeiros</field>
+            <field name="code_prefix_start">7651</field>
+            <field name="parent_id" ref="account_group_765"/>
+        </record>
+        <record id="account_group_7652" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Aplicações de tesouraria</field>
+            <field name="code_prefix_start">7652</field>
+            <field name="parent_id" ref="account_group_765"/>
+        </record>
+        <record id="account_group_766" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Perdas na alienação de aplicações financeiras</field>
+            <field name="code_prefix_start">766</field>
+            <field name="parent_id" ref="account_group_76"/>
+        </record>
+        <record id="account_group_7661" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Investimentos financeiros</field>
+            <field name="code_prefix_start">7661</field>
+            <field name="parent_id" ref="account_group_766"/>
+        </record>
+        <record id="account_group_7662" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Aplicações de títulos negaciáveis</field>
+            <field name="code_prefix_start">7662</field>
+            <field name="parent_id" ref="account_group_766"/>
+        </record>
+        <record id="account_group_767" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Serviços bancários</field>
+            <field name="code_prefix_start">767</field>
+            <field name="parent_id" ref="account_group_76"/>
+        </record>
+        <record id="account_group_769" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferenceia para resultado financeira</field>
+            <field name="code_prefix_start">769</field>
+            <field name="parent_id" ref="account_group_76"/>
+        </record>
+        <record id="account_group_77" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Custos e perdas financeiros em filiais e associadas</field>
+            <field name="code_prefix_start">77</field>
+            <field name="parent_id" ref="account_group_7"/>
+        </record>
+        <record id="account_group_779" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados financeiros</field>
+            <field name="code_prefix_start">779</field>
+            <field name="parent_id" ref="account_group_77"/>
+        </record>
+        <record id="account_group_78" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros custos e perdas não operacionais</field>
+            <field name="code_prefix_start">78</field>
+            <field name="parent_id" ref="account_group_7"/>
+        </record>
+        <record id="account_group_781" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Provisões do exercícios</field>
+            <field name="code_prefix_start">781</field>
+            <field name="parent_id" ref="account_group_78"/>
+        </record>
+        <record id="account_group_78011" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Existências</field>
+            <field name="code_prefix_start">78011</field>
+            <field name="parent_id" ref="account_group_781"/>
+        </record>
+        <record id="account_group_78012" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Cobranças Duvidosas</field>
+            <field name="code_prefix_start">78012</field>
+            <field name="parent_id" ref="account_group_781"/>
+        </record>
+        <record id="account_group_78013" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Riscos e Encargos</field>
+            <field name="code_prefix_start">78013</field>
+            <field name="parent_id" ref="account_group_781"/>
+        </record>
+        <record id="account_group_7810" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Correcções relativas a exercícios anteriores</field>
+            <field name="code_prefix_start">7810</field>
+            <field name="parent_id" ref="account_group_78"/>
+        </record>
+        <record id="account_group_78101" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Estimativa impostos</field>
+            <field name="code_prefix_start">78101</field>
+            <field name="parent_id" ref="account_group_7810"/>
+        </record>
+        <record id="account_group_7811" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros custos e perdas não operacionais</field>
+            <field name="code_prefix_start">7811</field>
+            <field name="parent_id" ref="account_group_78"/>
+        </record>
+        <record id="account_group_78111" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Existencia</field>
+            <field name="code_prefix_start">78111</field>
+            <field name="parent_id" ref="account_group_781"/>
+        </record>
+        <record id="account_group_78112" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Donativos</field>
+            <field name="code_prefix_start">78112</field>
+            <field name="parent_id" ref="account_group_7811"/>
+        </record>
+        <record id="account_group_78113" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Reembolso de subsídios a exploração</field>
+            <field name="code_prefix_start">78113</field>
+            <field name="parent_id" ref="account_group_7811"/>
+        </record>
+        <record id="account_group_78114" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Reembolso de subsídio a investimentos</field>
+            <field name="code_prefix_start">78114</field>
+            <field name="parent_id" ref="account_group_7811"/>
+        </record>
+        <record id="account_group_7812" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Cobranças duvidosas</field>
+            <field name="code_prefix_start">7812</field>
+            <field name="parent_id" ref="account_group_781"/>
+        </record>
+        <record id="account_group_7813" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Riscos e encargos</field>
+            <field name="code_prefix_start">7813</field>
+            <field name="parent_id" ref="account_group_781"/>
+        </record>
+        <record id="account_group_7819" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados não operacionais</field>
+            <field name="code_prefix_start">7819</field>
+            <field name="parent_id" ref="account_group_78"/>
+        </record>
+        <record id="account_group_782" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Amortizações extraordinárias</field>
+            <field name="code_prefix_start">782</field>
+            <field name="parent_id" ref="account_group_78"/>
+        </record>
+        <record id="account_group_7821" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imobilizações corpóreas</field>
+            <field name="code_prefix_start">7821</field>
+            <field name="parent_id" ref="account_group_782"/>
+        </record>
+        <record id="account_group_7822" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imobilizações incorpóreas</field>
+            <field name="code_prefix_start">7822</field>
+            <field name="parent_id" ref="account_group_782"/>
+        </record>
+        <record id="account_group_783" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Perdas em imobilizações</field>
+            <field name="code_prefix_start">783</field>
+            <field name="parent_id" ref="account_group_78"/>
+        </record>
+        <record id="account_group_7831" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Vendas de imobilizações corpóreas</field>
+            <field name="code_prefix_start">7831</field>
+            <field name="parent_id" ref="account_group_783"/>
+        </record>
+        <record id="account_group_7832" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Vendas de imobilizações incorpóreas</field>
+            <field name="code_prefix_start">7832</field>
+            <field name="parent_id" ref="account_group_783"/>
+        </record>
+        <record id="account_group_7833" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Abates</field>
+            <field name="code_prefix_start">7833</field>
+            <field name="parent_id" ref="account_group_783"/>
+        </record>
+        <record id="account_group_784" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Perdas em existencias</field>
+            <field name="code_prefix_start">784</field>
+            <field name="parent_id" ref="account_group_78"/>
+        </record>
+        <record id="account_group_7841" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Quebras</field>
+            <field name="code_prefix_start">7841</field>
+            <field name="parent_id" ref="account_group_784"/>
+        </record>
+        <record id="account_group_785" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Dívidas incobránveis</field>
+            <field name="code_prefix_start">785</field>
+            <field name="parent_id" ref="account_group_78"/>
+        </record>
+        <record id="account_group_786" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Multas e penalidades contratuais</field>
+            <field name="code_prefix_start">786</field>
+            <field name="parent_id" ref="account_group_78"/>
+        </record>
+        <record id="account_group_7861" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Fiscais</field>
+            <field name="code_prefix_start">7861</field>
+            <field name="parent_id" ref="account_group_786"/>
+        </record>
+        <record id="account_group_7862" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Não fiscais</field>
+            <field name="code_prefix_start">7862</field>
+            <field name="parent_id" ref="account_group_786"/>
+        </record>
+        <record id="account_group_7863" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Penalidades contratuais</field>
+            <field name="code_prefix_start">7863</field>
+            <field name="parent_id" ref="account_group_786"/>
+        </record>
+        <record id="account_group_787" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Custos de reetruturação</field>
+            <field name="code_prefix_start">787</field>
+            <field name="parent_id" ref="account_group_78"/>
+        </record>
+        <record id="account_group_788" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Descontinuidade de operações</field>
+            <field name="code_prefix_start">788</field>
+            <field name="parent_id" ref="account_group_78"/>
+        </record>
+        <record id="account_group_789" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Alterações de políticas cantabilísticas</field>
+            <field name="code_prefix_start">789</field>
+            <field name="parent_id" ref="account_group_78"/>
+        </record>
+        <record id="account_group_79" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Custos e perdas extraordinárias</field>
+            <field name="code_prefix_start">79</field>
+            <field name="parent_id" ref="account_group_7"/>
+        </record>
+        <record id="account_group_791" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Perdas resultantes de catástrofes não operacionais</field>
+            <field name="code_prefix_start">791</field>
+            <field name="parent_id" ref="account_group_79"/>
+        </record>
+        <record id="account_group_792" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Perdas resultantes de convulsões políticas</field>
+            <field name="code_prefix_start">792</field>
+            <field name="parent_id" ref="account_group_79"/>
+        </record>
+        <record id="account_group_793" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Perdas resultantes de expropriações</field>
+            <field name="code_prefix_start">793</field>
+            <field name="parent_id" ref="account_group_79"/>
+        </record>
+        <record id="account_group_794" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Perdas resultantes de sinistros</field>
+            <field name="code_prefix_start">794</field>
+            <field name="parent_id" ref="account_group_79"/>
+        </record>
+        <record id="account_group_799" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados extraordinários</field>
+            <field name="code_prefix_start">799</field>
+            <field name="parent_id" ref="account_group_79"/>
+        </record>
+        <record id="account_group_8" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">RESULTADOS</field>
+            <field name="code_prefix_start">8</field>
+
+        </record>
+        <record id="account_group_81" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Resultados transitados</field>
+            <field name="code_prefix_start">81</field>
+            <field name="parent_id" ref="account_group_8"/>
+        </record>
+        <record id="account_group_811" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Ano__</field>
+            <field name="code_prefix_start">811</field>
+            <field name="parent_id" ref="account_group_81"/>
+        </record>
+        <record id="account_group_812" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Ano__</field>
+            <field name="code_prefix_start">812</field>
+            <field name="parent_id" ref="account_group_81"/>
+        </record>
+        <record id="account_group_82" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Resultados operacionais</field>
+            <field name="code_prefix_start">82</field>
+            <field name="parent_id" ref="account_group_8"/>
+        </record>
+        <record id="account_group_821" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Vendas</field>
+            <field name="code_prefix_start">821</field>
+            <field name="parent_id" ref="account_group_82"/>
+        </record>
+        <record id="account_group_8219" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados líquidos</field>
+            <field name="code_prefix_start">8219</field>
+            <field name="parent_id" ref="account_group_821"/>
+        </record>
+        <record id="account_group_822" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Prestações de serviços</field>
+            <field name="code_prefix_start">822</field>
+            <field name="parent_id" ref="account_group_82"/>
+        </record>
+        <record id="account_group_823" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros proveitos operacionais</field>
+            <field name="code_prefix_start">823</field>
+            <field name="parent_id" ref="account_group_82"/>
+        </record>
+        <record id="account_group_824" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Variação nos inventários de produtos acabados e produtos em vias de fabrico</field>
+            <field name="code_prefix_start">824</field>
+            <field name="parent_id" ref="account_group_82"/>
+        </record>
+        <record id="account_group_825" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Trabalho para a própria empresa</field>
+            <field name="code_prefix_start">825</field>
+            <field name="parent_id" ref="account_group_82"/>
+        </record>
+        <record id="account_group_826" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Custos das mercadorias vendidas e das matérias consumidas</field>
+            <field name="code_prefix_start">826</field>
+            <field name="parent_id" ref="account_group_82"/>
+        </record>
+        <record id="account_group_827" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Custos com o pessoal</field>
+            <field name="code_prefix_start">827</field>
+            <field name="parent_id" ref="account_group_82"/>
+        </record>
+        <record id="account_group_828" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Amortizações do exercício</field>
+            <field name="code_prefix_start">828</field>
+            <field name="parent_id" ref="account_group_82"/>
+        </record>
+        <record id="account_group_829" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Outros custos operacionais</field>
+            <field name="code_prefix_start">829</field>
+            <field name="parent_id" ref="account_group_82"/>
+        </record>
+        <record id="account_group_83" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Resultados financeiros</field>
+            <field name="code_prefix_start">83</field>
+            <field name="parent_id" ref="account_group_8"/>
+        </record>
+        <record id="account_group_831" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Proveitos e ganhos financeiros gerais</field>
+            <field name="code_prefix_start">831</field>
+            <field name="parent_id" ref="account_group_83"/>
+        </record>
+        <record id="account_group_832" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Custos e perdas financeiros gerais</field>
+            <field name="code_prefix_start">832</field>
+            <field name="parent_id" ref="account_group_83"/>
+        </record>
+        <record id="account_group_839" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados líquidos</field>
+            <field name="code_prefix_start">839</field>
+            <field name="parent_id" ref="account_group_83"/>
+        </record>
+        <record id="account_group_84" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Resultados financeiros em filiais e associadas</field>
+            <field name="code_prefix_start">84</field>
+            <field name="parent_id" ref="account_group_8"/>
+        </record>
+        <record id="account_group_841" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Proveitos e ganhos em filiais e associadas</field>
+            <field name="code_prefix_start">841</field>
+            <field name="parent_id" ref="account_group_84"/>
+        </record>
+        <record id="account_group_842" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Custos e perdas em filiais e associadas</field>
+            <field name="code_prefix_start">842</field>
+            <field name="parent_id" ref="account_group_84"/>
+        </record>
+        <record id="account_group_849" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados líquidos</field>
+            <field name="code_prefix_start">849</field>
+            <field name="parent_id" ref="account_group_84"/>
+        </record>
+        <record id="account_group_85" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Resultados não operacionais</field>
+            <field name="code_prefix_start">85</field>
+            <field name="parent_id" ref="account_group_8"/>
+        </record>
+        <record id="account_group_851" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Proveitos e ganhos não operacionais</field>
+            <field name="code_prefix_start">851</field>
+            <field name="parent_id" ref="account_group_85"/>
+        </record>
+        <record id="account_group_852" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Custos e perdas não operacionais</field>
+            <field name="code_prefix_start">852</field>
+            <field name="parent_id" ref="account_group_85"/>
+        </record>
+        <record id="account_group_859" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados líquidos</field>
+            <field name="code_prefix_start">859</field>
+            <field name="parent_id" ref="account_group_85"/>
+        </record>
+        <record id="account_group_86" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Resultados extraordinários</field>
+            <field name="code_prefix_start">86</field>
+            <field name="parent_id" ref="account_group_8"/>
+        </record>
+        <record id="account_group_861" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Proveitos e ganhos extraordinários</field>
+            <field name="code_prefix_start">861</field>
+            <field name="parent_id" ref="account_group_86"/>
+        </record>
+        <record id="account_group_862" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Custos e perdas extraordinários</field>
+            <field name="code_prefix_start">862</field>
+            <field name="parent_id" ref="account_group_86"/>
+        </record>
+        <record id="account_group_869" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados líquidos</field>
+            <field name="code_prefix_start">869</field>
+            <field name="parent_id" ref="account_group_86"/>
+        </record>
+        <record id="account_group_87" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Impostos sobre os lucros</field>
+            <field name="code_prefix_start">87</field>
+            <field name="parent_id" ref="account_group_8"/>
+        </record>
+        <record id="account_group_871" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imposto sobre os resultados correntes</field>
+            <field name="code_prefix_start">871</field>
+            <field name="parent_id" ref="account_group_87"/>
+        </record>
+        <record id="account_group_872" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imposto sobre os resultados extraordinários</field>
+            <field name="code_prefix_start">872</field>
+            <field name="parent_id" ref="account_group_87"/>
+        </record>
+        <record id="account_group_879" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados extraordinários</field>
+            <field name="code_prefix_start">879</field>
+            <field name="parent_id" ref="account_group_87"/>
+        </record>
+        <record id="account_group_88" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Resultados líquidos do exercícios</field>
+            <field name="code_prefix_start">88</field>
+            <field name="parent_id" ref="account_group_8"/>
+        </record>
+        <record id="account_group_881" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Resultados operacionais</field>
+            <field name="code_prefix_start">881</field>
+            <field name="parent_id" ref="account_group_88"/>
+        </record>
+        <record id="account_group_882" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Resultados financeiros gerais</field>
+            <field name="code_prefix_start">882</field>
+            <field name="parent_id" ref="account_group_88"/>
+        </record>
+        <record id="account_group_883" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Resultados em filiais e associadas</field>
+            <field name="code_prefix_start">883</field>
+            <field name="parent_id" ref="account_group_88"/>
+        </record>
+        <record id="account_group_884" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Resultados não operacionais</field>
+            <field name="code_prefix_start">884</field>
+            <field name="parent_id" ref="account_group_88"/>
+        </record>
+        <record id="account_group_885" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imposto sobre os resultados correntes</field>
+            <field name="code_prefix_start">885</field>
+            <field name="parent_id" ref="account_group_88"/>
+        </record>
+        <record id="account_group_886" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Resultados extraordinários</field>
+            <field name="code_prefix_start">886</field>
+            <field name="parent_id" ref="account_group_88"/>
+        </record>
+        <record id="account_group_887" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Imposto sobre os resultados extraordinários</field>
+            <field name="code_prefix_start">887</field>
+            <field name="parent_id" ref="account_group_88"/>
+        </record>
+        <record id="account_group_889" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados extraordinários</field>
+            <field name="code_prefix_start">889</field>
+            <field name="parent_id" ref="account_group_88"/>
+        </record>
+        <record id="account_group_89" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Dividendos antecipados</field>
+            <field name="code_prefix_start">89</field>
+            <field name="parent_id" ref="account_group_8"/>
+        </record>
+        <record id="account_group_899" model="account.group.template">
+            <field name="chart_template_id" ref="ao_chart_template"/>
+            <field name="name">Transferência para resultados transitados</field>
+            <field name="code_prefix_start">899</field>
+            <field name="parent_id" ref="account_group_89"/>
+        </record>
+    </data>
+</odoo>

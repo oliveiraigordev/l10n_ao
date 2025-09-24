@@ -1,0 +1,222 @@
+<odoo>
+    <record id="sales_order_form_view" model="ir.ui.view">
+        <field name="name">sale.order.form.view</field>
+        <field name="model">sale.order</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="after">
+                 <div class="alert alert-info" role="alert">
+                        Este Formulário representa o cálculo financeiro para elaboração de uma Factura Proforma ou orçamento.
+                    </div><br/>
+            </xpath>
+
+<!--            <xpath expr="//button[@states='draft']" position="attributes">
+                <attribute name="states">draft,valid</attribute>
+            </xpath>-->
+            <field name="product_template_id" position="attributes">
+                <attribute name="attrs">{'required': [('display_type','not in',['line_section','line_note'])]}
+                </attribute>
+                <attribute name="options">{'no_create': True, 'no_create_edit':True}</attribute>
+            </field>
+            <field name="tax_country_id" position="after">
+                <field string="Counter Value" name="counter_pricelist_id" options="{'no_open':True,'no_create': True}"/>
+            </field>
+            <button name="action_confirm" position="before">
+                <button string="Validate" name="action_validate" type="object" class="btn-danger"
+                        attrs="{'invisible':['|', ('state', 'not in', ['draft']), ('company_country_id','!=',%(base.ao)d)]}"/>
+            </button>
+            <button name="action_cancel" position="replace">
+                <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': ['|', ('state', 'not in', ['sent','sale']), ('id', '=', False)]}" data-hotkey="z"/>
+            </button>
+            <field name="partner_id" position="attributes">
+                <attribute name="options">{'no_create': True, 'no_create_edit':True}</attribute>
+            </field>
+            <xpath expr="//button[@name='action_confirm'][2]" position="attributes">
+                <attribute name="class">btn-primary</attribute>
+                <attribute name="attrs">{'invisible':[('state', 'in', ['draft', 'sale','done', 'cancel',
+                    'sent']),('company_country_id','=',%(base.ao)d)]}
+                </attribute>
+            </xpath>
+
+            <field name="payment_term_id" position="after">
+                <field name="document_type_id" string="Document Type"
+                       default="default_document_type_id.id"
+                       invisible="context.get('default_document_type_id')"
+                       options="{'no_open':True,'no_create': True}"
+                       domain="[('id', '=', context.get('default_document_type_id'))]"/>
+
+                <field name="company_country_id" invisible="1"/>
+                <field name="document_type_code" invisible="1"/>
+            </field>
+            <field name="partner_shipping_id" position="after">
+                <field name="document_type_id" invisible="1" options="{'no_open':True,'no_create': True}"/>
+            </field>
+            <field name="state" position="attributes">
+                <attribute name="statusbar_visible">draft,valid,sent,sale</attribute>
+            </field>
+            <field name="validity_date" position="attributes">
+                <attribute name="attrs">{
+                    'invisible': ['|', ("document_type_code", "=", "OU"), ('state', 'in', ['sale', 'done'])],
+                    'readonly': [("state", "not in", ["draft"])],
+                    'required': [("document_type_code", "not in", ["OU"])],
+                    }
+                </attribute>
+            </field>
+            <xpath expr="//field[@name='tax_totals']" position="after">
+                <field name="currency_counter_id" invisible="1"/>
+                <!--<t t-set="currency" t-value="counter_pricelist_id.currency_id"/>-->
+                <field name="counter_pricelist_id" invisible="1"/>
+                <field name="margin_total" string="Margem Total" class="oe_subtotal_footer_separator" widget='monetary'
+                       attrs="{'invisible':[('margin_total','=',0)]}"
+                       options='{"widget": "monetary"}'/>
+                <field name="amount_total_wth" class="oe_subtotal_footer_separator"
+                       attrs="{'invisible': [('amount_total_wth','=', 0)]}" widget='monetary'
+                       options="{'currency_field': 'currency_id'}"/>
+                <field name="counter_value" class="oe_subtotal_footer_separator" widget='monetary'
+                       attrs="{'invisible':[('counter_value','=',0)]}"
+                       options="{'currency_field': 'currency_counter_id'}"/>
+
+            </xpath>
+             <xpath expr="//page[@name='other_information']" position="after">
+                    <page string="Especificar contas bancarias a serem lançadas">
+                        <group>
+                            <field name="bank_account_ids" string="Conta" widget="many2many_tags"/>
+                        </group>
+                    </page>
+                </xpath>
+
+            <!-- READYONLY FIELDS-->
+            <field name="partner_id" position="attributes">
+                <attribute name="attrs">{'readonly':[('state','in',['sent', 'sale', 'done', 'cancel', 'valid'])]}
+                </attribute>
+            </field>
+            <field name="date_order" position="attributes">
+                <attribute name="attrs">{'readonly':[('state','in',['sent', 'sale', 'done', 'cancel', 'valid'])]}
+                </attribute>
+            </field>
+            <field name="is_downpayment" position="before">
+                 <!--<field name="amount_margin" string="Montante Margem" optional="hide"/>-->
+                <field name="margin_value" string="Margem %" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+
+    <record id="sale.sale_order_view_search_inherit_quotation" model="ir.ui.view">
+        <field name="arch" type="xml">
+            <filter name="my_sale_orders_filter" position="replace">
+                <field name="campaign_id"/>
+                <separator/>
+                <filter string="My Quotations" name="my_quotation"
+                        domain="[('user_id', '=', uid), ('document_type_code', '=', 'OU')]"/>
+                <separator/>
+                <filter string="Quotations" name="draft" domain="[('state','in',('draft', 'sent'))]"/>
+                <filter string="Sales Orders" name="sales" domain="[('state','in',('sale','done'))]"/>
+                <separator/>
+                <filter string="Create Date" name="filter_create_date" date="create_date"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="sale.action_quotations_with_onboarding" model="ir.actions.act_window">
+        <field name="domain">[('document_type_code', '=', "OU")]</field>
+        <field name="context">{'search_default_my_quotation': 1, 'default_document_type_id': 1}</field>
+    </record>
+
+    <record id="sale_view_order_line_tree_inherit" model="ir.ui.view">
+        <field name="name">sale.order.line.tree</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.view_order_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="product_uom" position="before">
+                <field name="margin_cost"/>
+
+            </field>
+        </field>
+    </record>
+
+<!--
+     <record id="sale_view_order_tree_inherit" model="ir.ui.view">
+        <field name="name">sale.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="message_needaction" position="before">
+                <field name="counter_pricelist_id" invisible="1"/>
+
+            </field>
+        </field>
+    </record>
+-->
+
+
+    <record id="search_sale_order_view_proposal" model="ir.ui.view">
+        <field name="name">sale.order.search.proposal</field>
+        <field name="model">sale.order</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <filter name="my_sale_orders_filter" position="replace">
+                <filter string="My Proposal" name="my_proposal"
+                        domain="[('user_id', '=', uid), ('document_type_code', '=', 'OR')]"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_sales_order_proposal" model="ir.actions.act_window">
+        <field name="name">Proposal</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+        <field name="search_view_id" ref="search_sale_order_view_proposal"/>
+        <field name="context">{'search_default_my_proposal': 1, 'default_document_type_id': 2}</field>
+        <field name="domain">[('document_type_code', '=', "OR")]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Proposal, the first step of a new sale!
+            </p>
+            <p>
+                Once the quotation is confirmed by the customer, it becomes a sales order.
+                <br/>
+                You will be able to create an invoice and collect the payment.
+            </p>
+        </field>
+    </record>
+
+
+    <record id="search_sale_order_view_proforma" model="ir.ui.view">
+        <field name="name">sale.order.search.proforma</field>
+        <field name="model">sale.order</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <filter name="my_sale_orders_filter" position="replace">
+                <filter string="My Proposal" name="my_proforma"
+                        domain="[('user_id', '=', uid), ('document_type_code', '=', 'PP')]"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_sales_order_proforma" model="ir.actions.act_window">
+        <field name="name">Proforma</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+        <field name="search_view_id" ref="search_sale_order_view_proforma"/>
+        <field name="context">{'search_default_my_proforma': 1, 'default_document_type_id': 3}</field>
+        <field name="domain">[('document_type_code', '=', "PP")]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Proforma, the first step of a new sale!
+            </p>
+            <p>
+                Once the quotation is confirmed by the customer, it becomes a sales order.
+                <br/>
+                You will be able to create an invoice and collect the payment.
+            </p>
+        </field>
+    </record>
+</odoo>

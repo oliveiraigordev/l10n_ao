@@ -1,0 +1,1680 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="account_financial_html_report_modelo1" model="account.financial.html.report">
+            <field name="analytic">False</field>
+            <field name="comparison">True</field>
+            <field name="show_journal_filter">False</field>
+            <field name="date_range">True</field>
+            <field name="name">Modelo 1 - Imposto Industrial</field>
+            <field name='parent_id' ref='account_reports_ao_statements_menu'/>
+            <field name="unfold_all_filter">False</field>
+            <field name="tax_report">False</field>
+            <field name="ao_report" eval="True"/>
+        </record>
+
+        <record id="account_financial_html_report_line_1"
+                model="account.financial.html.report.line">
+            <field name="name">DEMONSTRAÇÃO DE RESULTADOS</field>
+            <field name="code">2</field>
+            <field name="financial_report_id" ref="account_financial_html_report_modelo1"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="0" name="level"/>
+            <field eval="1" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_2"
+                model="account.financial.html.report.line">
+            <field name="name">SOMA DOS PROVEITOS OPERACIONAIS</field>
+            <field name="code">A</field>
+            <field name="parent_id" ref="account_financial_html_report_line_1"/>
+            <field eval="1" name="sequence"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="0" name="level"/>
+        </record>
+        <record id="account_financial_html_report_line_3"
+                model="account.financial.html.report.line">
+            <field name="name">SOMA DE OUTROS PROVEITOS E GANHOS NÃO OPERACIOANAIS</field>
+            <field name="code">B</field>
+            <field name="parent_id" ref="account_financial_html_report_line_1"/>
+            <field eval="2" name="sequence"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="0" name="level"/>
+        </record>
+        <record id="account_financial_html_report_line_4"
+                model="account.financial.html.report.line">
+            <field name="name">TOTAL DOS PROVEITOS (A+B)</field>
+            <field name="code">C</field>
+            <field name="parent_id" ref="account_financial_html_report_line_1"/>
+            <field eval="3" name="sequence"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="0" name="level"/>
+        </record>
+        <record id="account_financial_html_report_line_5"
+                model="account.financial.html.report.line">
+            <field name="name">TOTAL DOS CUSTOS</field>
+            <field name="code">D</field>
+            <field name="parent_id" ref="account_financial_html_report_line_1"/>
+            <field eval="4" name="sequence"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="0" name="level"/>
+        </record>
+        <record id="account_financial_html_report_line_6"
+                model="account.financial.html.report.line">
+            <field name="name">RESULTADO LÍQUIDO DO EXERCÍCIO (E-F)</field>
+            <field name="code">RES_LQD_EXE</field>
+            <field name="parent_id" ref="account_financial_html_report_line_1"/>
+            <field eval="5" name="sequence"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="0" name="level"/>
+        </record>
+        <record id="account_financial_html_report_line_7"
+                model="account.financial.html.report.line">
+            <field name="name">CUSTOS COM PESSOAL</field>
+            <field name="code">3</field>
+            <field name="financial_report_id" ref="account_financial_html_report_modelo1"/>
+            <field eval="6" name="sequence"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="0" name="level"/>
+        </record>
+
+        <record id="account_financial_html_report_line_9"
+                model="account.financial.html.report.line">
+            <field name="name">FORNECIMENTOS E SERVIÇOS DE TERCEIROS</field>
+            <field name="code">4</field>
+            <field name="financial_report_id" ref="account_financial_html_report_modelo1"/>
+            <field eval="7" name="sequence"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="0" name="level"/>
+        </record>
+
+        <record id="account_financial_html_report_line_11"
+                model="account.financial.html.report.line">
+            <field name="name">APURAMENTO DO LUCRO TRIBUTÁVEL</field>
+            <field name="code">5</field>
+            <field name="financial_report_id" ref="account_financial_html_report_modelo1"/>
+            <field eval="8" name="sequence"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="0" name="level"/>
+        </record>
+        <record id="account_financial_html_report_line_124"
+                model="account.financial.html.report.line">
+            <field name="name">SOMA (A ACRESCER)</field>
+            <field name="code">SOMA_ACRESCER</field>
+            <field name="parent_id" ref="account_financial_html_report_line_11"/>
+            <field eval="8" name="sequence"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="1" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_125"
+                model="account.financial.html.report.line">
+            <field name="name">SOMA (A DEDUZIR)</field>
+            <field name="code">SOMA_DEDUZIR</field>
+            <field name="parent_id" ref="account_financial_html_report_line_11"/>
+            <field eval="8" name="sequence"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+        </record>
+        <record id="account_financial_html_report_line_126"
+                model="account.financial.html.report.line">
+            <field name="name">LUCRO TRIBUTÁVEL(RES.LÍQUIDOS + A ACRESCER - A DEDUZIR)</field>
+            <field name="code">LT</field>
+            <field name="parent_id" ref="account_financial_html_report_line_11"/>
+           <!-- <field name="formulas">RES_LQD_EXE + SOMA_ACRESCER - SOMA_DEDUZIR</field>-->
+            <field eval="8" name="sequence"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+        </record>
+        <record id="account_financial_html_report_line_12"
+                model="account.financial.html.report.line">
+            <field name="name">APURAMENTO DA MATÉRIA COLECTAVEL</field>
+            <field name="code">6</field>
+            <field name="financial_report_id" ref="account_financial_html_report_modelo1"/>
+            <field eval="9" name="sequence"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="0" name="level"/>
+        </record>
+        <record id="account_financial_html_report_line_13"
+                model="account.financial.html.report.line">
+            <field name="name">CÁLCULO DO IMPOSTO</field>
+            <field name="code">7</field>
+            <field name="financial_report_id" ref="account_financial_html_report_modelo1"/>
+            <field eval="10" name="sequence"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="0" name="level"/>
+        </record>
+
+        <record id="account_financial_html_report_line_26"
+                model="account.financial.html.report.line">
+            <field name="name">SOMA DAS DEDUÇÕES</field>
+            <field name="code">SUMDEDU</field>
+            <field name="parent_id" ref="account_financial_html_report_line_13"/>
+           <!-- <field name="formulas">URBANO + BFISEN + LPROV + RET</field>-->
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="3" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_27"
+                model="account.financial.html.report.line">
+            <field name="name">TOTAL A PAGAR (L - M)</field>
+            <!--<field name="formulas">(COLECTA - DEDU) if (COLECTA - DEDU) &gt; 0 else 0</field>-->
+            <field name="financial_report_id" ref="account_financial_html_report_modelo1"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="0" name="level"/>
+        </record>
+
+        <record id="account_financial_html_report_line_28"
+                model="account.financial.html.report.line">
+            <field name="name">PROVEITOS E GANHOS POR NATUREZA</field>
+            <field name="code">0</field>
+            <field name="parent_id" ref="account_financial_html_report_line_2"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_29"
+                model="account.financial.html.report.line">
+            <field name="name">VENDAS DE PRODUTOS</field>
+            <field name="code">61.1/2</field>
+            <field name="parent_id" ref="account_financial_html_report_line_2"/>
+            <field name="domain" eval="['|',('account_id.code', '=ilike', '611%'),('account_id.code', '=ilike', '612%')]"/>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="2" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_30"
+                model="account.financial.html.report.line">
+            <field name="name">VENDAS DE MERCADORIAS</field>
+            <field name="code">61.3</field>
+            <field name="parent_id" ref="account_financial_html_report_line_2"/>
+            <field name="domain" eval="[('account_id.code', '=ilike', '613%')]"/>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="3" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_31"
+                model="account.financial.html.report.line">
+            <field name="name">PRESTAÇÕES DE SERVIÇOS</field>
+            <field name="code">62</field>
+            <field name="parent_id" ref="account_financial_html_report_line_2"/>
+            <field name="domain" eval="[('account_id.code', '=ilike', '62%')]"/>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="4" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_32"
+                model="account.financial.html.report.line">
+            <field name="name">OUTROS PROVEITOS OPERACIOANAIS</field>
+            <field name="code">63</field>
+            <field name="parent_id" ref="account_financial_html_report_line_2"/>
+            <field name="domain" eval="[('account_id.code', '=ilike', '63%')]"/>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="5" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_33"
+                model="account.financial.html.report.line">
+            <field name="name">VARIAÇÃO NOS INVENTÁRIOS DE PRO. ACAB. E PROD. CURSO</field>
+            <field name="code">64</field>
+            <field name="parent_id" ref="account_financial_html_report_line_3"/>
+            <field name="domain" eval="[('account_id.code', '=ilike', '63%')]"/>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_34"
+                model="account.financial.html.report.line">
+            <field name="name">TRABALHOS PARA A PRÓPRIA EMPRESA</field>
+            <field name="code">65</field>
+            <field name="parent_id" ref="account_financial_html_report_line_3"/>
+            <field name="domain">[('account_id.code', '=ilike', '65%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_35"
+                model="account.financial.html.report.line">
+            <field name="name">PROVEITOS E GANHOS FINANCEIROS GERAIS</field>
+            <field name="code">66</field>
+            <field name="parent_id" ref="account_financial_html_report_line_3"/>
+            <field name="domain">[('account_id.code', '=ilike', '66%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_36" model="account.financial.html.report.line">
+            <field name="name">COLECTA</field>
+            <field name="code">COLECTA</field>
+            <field name="parent_id" ref="account_financial_html_report_line_13"/>
+            <!--<field name="formulas">TAXR + TAXN</field>-->
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_37"
+                model="account.financial.html.report.line">
+            <field name="name">PROVEITOS E GANHOS FINANCEIROS EM FILIAIS E ASSOC.</field>
+            <field name="code">67</field>
+            <field name="parent_id" ref="account_financial_html_report_line_3"/>
+            <field name="domain">[('account_id.code', '=ilike', '67%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_38"
+                model="account.financial.html.report.line">
+            <field name="name">OUTROS PROVEITOS E GANHOS NÃO OPERACIONAIS</field>
+            <field name="code">68</field>
+            <field name="parent_id" ref="account_financial_html_report_line_3"/>
+            <field name="domain">[('account_id.code', '=ilike', '68%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_39"
+                model="account.financial.html.report.line">
+            <field name="name">PROVEITOS E GANHOS EXTRAORDINÁRIOS</field>
+            <field name="code">69</field>
+            <field name="parent_id" ref="account_financial_html_report_line_3"/>
+            <field name="domain">[('account_id.code', '=ilike', '69%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_107"
+                model="account.financial.html.report.line">
+            <field name="name">CUSTOS E PERDAS POR NATUREZA</field>
+            <field name="code">70</field>
+            <field name="parent_id" ref="account_financial_html_report_line_5"/>
+            <field name="domain">[('account_id.code', '=ilike', '70%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field eval="1" name="sequence"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+        </record>
+        <record id="account_financial_html_report_line_106"
+                model="account.financial.html.report.line">
+            <field name="name">CUSTO DAS MERCADORIAS VENDIDAS E M. CONSUMIDAS</field>
+            <field name="code">71</field>
+            <field name="parent_id" ref="account_financial_html_report_line_5"/>
+            <field name="domain">[('account_id.code', '=ilike', '71%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field eval="2" name="sequence"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+        </record>
+        <record id="account_financial_html_report_line_105"
+                model="account.financial.html.report.line">
+            <field name="name">CUSTOS COM PESSOAL</field>
+            <field name="code">72</field>
+            <field name="parent_id" ref="account_financial_html_report_line_5"/>
+            <field name="domain">[('account_id.code', '=ilike', '72%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field eval="3" name="sequence"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+        </record>
+        <record id="account_financial_html_report_line_104"
+                model="account.financial.html.report.line">
+            <field name="name">AMORTIZAÇÕES DO EXERCÍCIO</field>
+            <field name="code">73</field>
+            <field name="parent_id" ref="account_financial_html_report_line_5"/>
+            <field name="domain">[('account_id.code', '=ilike', '73%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="4" name="sequence"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+        </record>
+        <record id="account_financial_html_report_line_103"
+                model="account.financial.html.report.line">
+            <field name="name">SUB-CONTRATOS</field>
+            <field name="code">75.1</field>
+            <field name="parent_id" ref="account_financial_html_report_line_5"/>
+            <field name="domain">[('account_id.code', '=ilike', '751%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="5" name="sequence"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+        </record>
+        <record id="account_financial_html_report_line_86"
+                model="account.financial.html.report.line">
+            <field name="name">FORNECIMENTOS E SERVIÇOS DE TERCEIROS</field>
+            <field name="code">75.2</field>
+            <field name="parent_id" ref="account_financial_html_report_line_5"/>
+            <field name="domain">[('account_id.code', '=ilike', '752%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field eval="6" name="sequence"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_84" model="account.financial.html.report.line">
+            <field name="name">IMPOSTOS</field>
+            <field name="code">75.3</field>
+            <field name="parent_id" ref="account_financial_html_report_line_5"/>
+            <field name="domain">[('account_id.code', '=ilike', '753%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field eval="7" name="sequence"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_83"
+                model="account.financial.html.report.line">
+            <field name="name">OUTROS CUSTOS E PERDAS OPERACIONAIS</field>
+            <field name="code">75.8</field>
+            <field name="parent_id" ref="account_financial_html_report_line_5"/>
+            <field name="domain">[('account_id.code', '=ilike', '758%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field eval="8" name="sequence"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_80"
+                model="account.financial.html.report.line">
+            <field name="name">CUSTOS E PERDAS FINANCEIRAS GERAIS</field>
+            <field name="code">76</field>
+            <field name="parent_id" ref="account_financial_html_report_line_5"/>
+            <field name="domain">[('account_id.code', '=ilike', '76%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field eval="9" name="sequence"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_79"
+                model="account.financial.html.report.line">
+            <field name="name">CUSTOS E PERDAS FINANCEIRAS EM FILIAIS E ASSOCIADAS</field>
+            <field name="code">77</field>
+            <field name="parent_id" ref="account_financial_html_report_line_5"/>
+            <field name="domain">[('account_id.code', '=ilike', '77%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field eval="10" name="sequence"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_78"
+                model="account.financial.html.report.line">
+            <field name="name">OUTROS PROVEITOS E GANHOS NÃO OPERACIONAIS</field>
+            <field name="code">78</field>
+            <field name="parent_id" ref="account_financial_html_report_line_5"/>
+            <field name="domain">[('account_id.code', '=ilike', '78%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field eval="11" name="sequence"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_76"
+                model="account.financial.html.report.line">
+            <field name="name">CUSTOS E PERDAS EXTRAORDINÁRIAS</field>
+            <field name="code">79</field>
+            <field name="parent_id" ref="account_financial_html_report_line_5"/>
+            <field name="domain">[('account_id.code', '=ilike', '79%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field eval="12" name="sequence"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_75" model="account.financial.html.report.line">
+            <field name="name">QUOTIZAÇÕES</field>
+            <field name="code">755</field>
+            <field name="parent_id" ref="account_financial_html_report_line_5"/>
+            <field name="domain">[('account_id.code', '=ilike', '755%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field eval="13" name="sequence"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_755" model="account.financial.html.report.line">
+            <field name="name">OFERTAS E AMOSTRAS DE EXISTÊNCIAS</field>
+            <field name="code">756</field>
+            <field name="parent_id" ref="account_financial_html_report_line_5"/>
+            <field name="domain">[('account_id.code', '=ilike', '756%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field eval="14" name="sequence"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+
+        <record id="account_financial_html_report_line_8"
+                model="account.financial.html.report.line">
+            <field name="name">RESULTADOS ANTES DE IMPOSTOS (C-D)</field>
+            <field name="code">E</field>
+            <field name="parent_id" ref="account_financial_html_report_line_6"/>
+            <field eval="6" name="sequence"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+        </record>
+        <record id="account_financial_html_report_line_10"
+                model="account.financial.html.report.line">
+            <field name="name">IMPOSTO SOBRE O LUCRO</field>
+            <field name="code">IMPOSTO_LUCRO</field>
+            <field name="parent_id" ref="account_financial_html_report_line_6"/>
+            <field eval="7" name="sequence"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+        </record>
+
+        <!-- <record id="account_financial_html_report_line_40"
+                 models="account.financial.html.report.line">
+             <field name="name">BENEFICIOS FISCAIS (ISENÇÃO IIND. ATÉ 2017)</field>
+             <field name="parent_id" ref="account_financial_html_report_line_13"/>
+             <field name="figure_type">float</field>
+             <field eval="1" name="green_on_positive"/>
+             <field eval="1" name="level"/>
+             <field name="special_date_changer">normal</field>
+             <field name="show_domain">foldable</field>
+             <field eval="0" name="hide_if_zero"/>
+         </record>-->
+        <!--   <record id="account_financial_html_report_line_impostopredialurbanoartcii1"
+                   models="account.financial.html.report.line">
+               <field name="name">IMPOSTO PREDIAL URBANO (Artº 81 CII)</field>
+               <field name="parent_id" ref="account_financial_html_report_line_13"/>
+               <field name="figure_type">float</field>
+               <field eval="1" name="green_on_positive"/>
+               <field eval="1" name="level"/>
+               <field name="special_date_changer">normal</field>
+               <field name="show_domain">foldable</field>
+               <field eval="0" name="hide_if_zero"/>
+           </record>-->
+        <record id="account_financial_html_report_line_41"
+                model="account.financial.html.report.line">
+            <field name="name">DEDUÇÕES À COLECTA</field>
+            <field name="code">DEDU</field>
+            <field name="parent_id" ref="account_financial_html_report_line_13"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="2" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_49"
+                model="account.financial.html.report.line">
+            <field name="name">CÁLCULO DOS PREJUIZOS FISCAIS (Artº 46 CII)</field>
+            <field name="parent_id" ref="account_financial_html_report_line_12"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="sequence"/>
+        </record>
+
+
+        <record id="account_financial_html_report_line_60"
+                model="account.financial.html.report.line">
+            <field name="name">DEDUÇÕES À MATÉRIA COLECTÁVEL</field>
+            <field name="parent_id" ref="account_financial_html_report_line_12"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="2" name="sequence"/>
+        </record>
+
+
+        <record id="account_financial_html_report_line_68"
+                model="account.financial.html.report.line">
+            <field name="name">Remunerações - Orgão sociais</field>
+            <field name="code">72.1</field>
+            <field name="parent_id" ref="account_financial_html_report_line_7"/>
+            <field name="domain">[('account_id.code', '=ilike', '721%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_67"
+                model="account.financial.html.report.line">
+            <field name="name">Remunerações - Pessoal</field>
+            <field name="code">72.2</field>
+            <field name="parent_id" ref="account_financial_html_report_line_7"/>
+            <field name="domain">[('account_id.code', '=ilike', '722%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="2" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_72"
+                model="account.financial.html.report.line">
+            <field name="name">Pensões - Orgão sociais</field>
+            <field name="code">72.3.1</field>
+            <field name="parent_id" ref="account_financial_html_report_line_7"/>
+            <field name="domain">[('account_id.code', '=ilike', '7231%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="3" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_71"
+                model="account.financial.html.report.line">
+            <field name="name">Pensões - Pessoal</field>
+            <field name="code">72.3.2</field>
+            <field name="parent_id" ref="account_financial_html_report_line_7"/>
+            <field name="domain">[('account_id.code', '=ilike', '7232%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="4" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_70"
+                model="account.financial.html.report.line">
+            <field name="name">Prémios para pensões</field>
+            <field name="code">72.4</field>
+            <field name="parent_id" ref="account_financial_html_report_line_7"/>
+            <field name="domain">[('account_id.code', '=ilike', '724%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="5" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_66"
+                model="account.financial.html.report.line">
+            <field name="name">Encargos sobre remunerações</field>
+            <field name="code">72.5</field>
+            <field name="parent_id" ref="account_financial_html_report_line_7"/>
+            <field name="domain">[('account_id.code', '=ilike', '725%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="6" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_65"
+                model="account.financial.html.report.line">
+            <field name="name">Seguros de acidentes trabalho, doenças profissionais</field>
+            <field name="code">72.6</field>
+            <field name="parent_id" ref="account_financial_html_report_line_7"/>
+            <field name="domain">[('account_id.code', '=ilike', '726%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="7" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_63" model="account.financial.html.report.line">
+            <field name="name">Formação</field>
+            <field name="code">72.7</field>
+            <field name="parent_id" ref="account_financial_html_report_line_7"/>
+            <field name="domain">[('account_id.code', '=ilike', '727%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="8" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_62"
+                model="account.financial.html.report.line">
+            <field name="name">Outras despesas com pessoal</field>
+            <field name="code">72.8</field>
+            <field name="parent_id" ref="account_financial_html_report_line_7"/>
+            <field name="domain">[('account_id.code', '=ilike', '728%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="9" name="sequence"/>
+        </record>
+
+        <record id="account_financial_html_report_line_73"
+                model="account.financial.html.report.line">
+            <field name="name">SOMA DAS DEDUÇÕES</field>
+            <field name="parent_id" ref="account_financial_html_report_line_13"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_74"
+                model="account.financial.html.report.line">
+            <field name="name">OFERTAS E AMOSTRAS DE EXISTÊNCIAS</field>
+            <field name="code">765</field>
+            <field name="parent_id" ref="account_financial_html_report_line_1"/>
+            <field name="domain">[('account_id.code', '=ilike', '765%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <!--  <record id="account_financial_html_report_line_77"
+                  models="account.financial.html.report.line">
+              <field name="name">RETENÇÕES NA FONTE (LEI 7/97)</field>
+              <field name="parent_id" ref="account_financial_html_report_line_13"/>
+
+              <field name="figure_type">float</field>
+              <field eval="1" name="green_on_positive"/>
+              <field eval="1" name="level"/>
+              <field name="special_date_changer">normal</field>
+              <field name="show_domain">foldable</field>
+              <field eval="0" name="hide_if_zero"/>
+          </record>-->
+
+
+        <!--<record id="account_financial_html_report_line_81"
+                models="account.financial.html.report.line">
+            <field name="name">LIQUIDAÇÕES PROVISÓRIAS</field>
+            <field name="parent_id" ref="account_financial_html_report_line_13"/>
+            
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>-->
+        <record id="account_financial_html_report_line_85"
+                model="account.financial.html.report.line">
+            <field name="name">MATÉRIA COLECTÁVEL (H-I+J)</field>
+            <field name="code">MATCOL</field>
+            <field name="parent_id" ref="account_financial_html_report_line_12"/>
+            <!--<field name="formulas">LT1 - PREJUIZO + BENEF</field>-->
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="1" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_87" model="account.financial.html.report.line">
+            <field name="name">Água</field>
+            <field name="code">75.2.11</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75211%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="1" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_88"
+                model="account.financial.html.report.line">
+            <field name="name">Electricidade</field>
+            <field name="code">75.2.12</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75212%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="2" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_89"
+                model="account.financial.html.report.line">
+            <field name="name">Combustiveis, e outros fluídos</field>
+            <field name="code">75.2.13</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75213%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="3" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_90"
+                model="account.financial.html.report.line">
+            <field name="name">Conservação e reparação</field>
+            <field name="code">75.2.14</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75214%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="4" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_91"
+                model="account.financial.html.report.line">
+            <field name="name">Material de protecção, segurança e conforto</field>
+            <field name="code">75.2.15</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75215%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="5" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_92"
+                model="account.financial.html.report.line">
+            <field name="name">Ferramentas e utensilios de desgaste rápido</field>
+            <field name="code">75.2.16</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75216%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="6" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_93"
+                model="account.financial.html.report.line">
+            <field name="name">Material de escritório</field>
+            <field name="code">75.2.17</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75217%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="7" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_94"
+                model="account.financial.html.report.line">
+            <field name="name">Livros e documentação técnica</field>
+            <field name="code">75.2.18</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75218%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="8" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_95"
+                model="account.financial.html.report.line">
+            <field name="name">Outros fornecimentos</field>
+            <field name="code">75.2.19</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75219%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="9" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_96" model="account.financial.html.report.line">
+            <field name="name">Comunicação</field>
+            <field name="code">75.2.20</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75220%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="10" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_97"
+                model="account.financial.html.report.line">
+            <field name="name">Rendas e alugures</field>
+            <field name="code">75.2.21</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75221%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="11" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_98" model="account.financial.html.report.line">
+            <field name="name">Seguros</field>
+            <field name="code">75.2.22</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75222%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="12" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_99"
+                model="account.financial.html.report.line">
+            <field name="name">Deslocações e estadas</field>
+            <field name="code">75.2.23</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75223%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="13" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_100"
+                model="account.financial.html.report.line">
+            <field name="name">Despesas de representação</field>
+            <field name="code">75.2.24</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75224%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="14" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_101"
+                model="account.financial.html.report.line">
+            <field name="name">Conservação e reparação</field>
+            <field name="code">75.2.26</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75226%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="15" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_102"
+                model="account.financial.html.report.line">
+            <field name="name">Vigilância e segurança</field>
+            <field name="code">75.2.27</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75227%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="16" name="sequence"/>
+        </record>
+
+
+        <record id="account_financial_html_report_line_108"
+                model="account.financial.html.report.line">
+            <field name="name">Limpeza, higiene e conforto</field>
+            <field name="code">75.2.28</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75228%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="17" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_109"
+                model="account.financial.html.report.line">
+            <field name="name">Publicidade e propaganda</field>
+            <field name="code">75.2.29</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75229%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="18" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_14"
+                model="account.financial.html.report.line">
+            <field name="name">Contencioso e notariado</field>
+            <field name="code">75.2.30</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75230%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="19" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_15"
+                model="account.financial.html.report.line">
+            <field name="name">Comissões a intemediários</field>
+            <field name="code">75.2.31</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75231%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="20" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_16"
+                model="account.financial.html.report.line">
+            <field name="name">Assistência técnica - Estrangeira</field>
+            <field name="code">75.2.31.1</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '752311%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="21" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_17"
+                model="account.financial.html.report.line">
+            <field name="name">Assistência técnica - Nacional</field>
+            <field name="code">75.2.32.2</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '752322%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="22" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_18"
+                model="account.financial.html.report.line">
+            <field name="name">Trabalhos executados no exterior</field>
+            <field name="code">75.2.33</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75233%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="23" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_19"
+                model="account.financial.html.report.line">
+            <field name="name">Honorários e avenças</field>
+            <field name="code">75.2.34</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75234%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="24" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_20" model="account.financial.html.report.line">
+            <field name="name">Royalties</field>
+            <field name="code">75.2.35</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75235%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="25" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_21"
+                model="account.financial.html.report.line">
+            <field name="name">Outros serviços</field>
+            <field name="code">75.2.39</field>
+            <field name="parent_id" ref="account_financial_html_report_line_9"/>
+            <field name="domain">[('account_id.code', '=ilike', '75239%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="level"/>
+            <field eval="26" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_61"
+                model="account.financial.html.report.line">
+            <field name="name">Prémios de Seguro de vida (artigo 25º) CII</field>
+            <field name="parent_id" ref="account_financial_html_report_line_124"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_59"
+                model="account.financial.html.report.line">
+            <field name="name">Amortizações excessivas (Artigo 29º e 31º) CII</field>
+            <field name="parent_id" ref="account_financial_html_report_line_124"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="2" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_58"
+                model="account.financial.html.report.line">
+            <field name="name">Provisões excessivas (artigo 36º) CII</field>
+            <field name="parent_id" ref="account_financial_html_report_line_124"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="3" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_57"
+                model="account.financial.html.report.line">
+            <field name="name">Provisões não previstas (artigo 36º) CII</field>
+            <field name="parent_id" ref="account_financial_html_report_line_124"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="4" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_56"
+                model="account.financial.html.report.line">
+            <field name="name">Donativos execedentes aos previstos no (artigo 39º) CII</field>
+            <field name="parent_id" ref="account_financial_html_report_line_124"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="5" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_54"
+                model="account.financial.html.report.line">
+            <field name="name">Imposto Industrial (artigo 40º) CII</field>
+            <field name="parent_id" ref="account_financial_html_report_line_124"/>
+            <field name="formulas">IMPOSTO_LUCRO</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="6" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_53"
+                model="account.financial.html.report.line">
+            <field name="name">Multas fiscais (artigo40º) CII</field>
+            <field name="parent_id" ref="account_financial_html_report_line_124"/>
+            <field name="domain">[('account_id.code', '=ilike', '7861%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="7" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_51"
+                model="account.financial.html.report.line">
+            <field name="name">Despesas de representação (artigo 40º) CII</field>
+            <field name="parent_id" ref="account_financial_html_report_line_124"/>
+            <field name="domain">[('account_id.code', '=ilike', '75224%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="8" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_50"
+                model="account.financial.html.report.line">
+            <field name="name">Despesas de existências (artigo 42º) CII</field>
+            <field name="parent_id" ref="account_financial_html_report_line_124"/>
+            <field name="domain">[('account_id.code', '=ilike', '7811%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="9" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_48"
+                model="account.financial.html.report.line">
+            <field name="name">Despesas não especificas (artigo 49º) CII</field>
+            <field name="parent_id" ref="account_financial_html_report_line_124"/>
+            <field name="domain">[('account_id.code', '=ilike', '75224%')]</field>
+            <field name="formulas">sum</field>
+            <field name="groupby">account_id</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="10" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_47"
+                model="account.financial.html.report.line">
+            <field name="name">Outros acréscimos</field>
+            <field name="parent_id" ref="account_financial_html_report_line_124"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="11" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_120"
+                model="account.financial.html.report.line">
+            <field name="name">Rendimentos do artº 45º CII</field>
+            <field name="parent_id" ref="account_financial_html_report_line_125"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="12" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_121"
+                model="account.financial.html.report.line">
+            <field name="name">Amortizações até ao limite da portaria 755/72 (artº29º e 31)</field>
+            <field name="parent_id" ref="account_financial_html_report_line_125"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="13" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_55"
+                model="account.financial.html.report.line">
+            <field name="name">LUCRO TRIBUTAVEL</field>
+            <field name="code">LT1</field>
+            <field name="parent_id" ref="account_financial_html_report_line_49"/>
+            <field name="formulas">LT if LT &gt; 0 else 0</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_52" model="account.financial.html.report.line">
+            <field name="name">PREJUIZO</field>
+            <field name="code">PREJUIZO</field>
+            <field name="parent_id" ref="account_financial_html_report_line_49"/>
+            <!--<field name="formulas">LT if LT &lt; 0 else 0</field>-->
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_44" model="account.financial.html.report.line">
+            <field name="name">EXERCÍCIO Nº3</field>
+            <field name="code">EXE3</field>
+            <field name="parent_id" ref="account_financial_html_report_line_60"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_43" model="account.financial.html.report.line">
+            <field name="name">EXERCÍCIO Nº2</field>
+            <field name="code">EXE2</field>
+            <field name="parent_id" ref="account_financial_html_report_line_60"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_42" model="account.financial.html.report.line">
+            <field name="name">EXERCÍCIO Nº1</field>
+            <field name="code">EXE1</field>
+            <field name="parent_id" ref="account_financial_html_report_line_60"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_82"
+                model="account.financial.html.report.line">
+            <field name="name">PREJUIZOS FISCAIS</field>
+            <field name="parent_id" ref="account_financial_html_report_line_12"/>
+            <!--<field name="formulas">EXE1 + EXE2 + EXE3. + PREJUIZO</field>-->
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_64"
+                model="account.financial.html.report.line">
+            <field name="name">BENEFICIOS (LUCROS LEVADOS A RESERVAS, OUTROS)</field>
+            <field name="code">BENEF</field>
+            <field name="parent_id" ref="account_financial_html_report_line_12"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+        </record>
+        <record id="account_financial_html_report_line_46"
+                model="account.financial.html.report.line">
+            <field name="name">IMPOSTO À TAXA NORMAL</field>
+            <field name="code">TAXN</field>
+            <field name="parent_id" ref="account_financial_html_report_line_36"/>
+            <!--<field name="formulas">MATCOL * 0.30</field>-->
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_45"
+                model="account.financial.html.report.line">
+            <field name="name">IMPOSTO À TAXA REDUZIDA</field>
+            <field name="code">TAXR</field>
+            <field name="parent_id" ref="account_financial_html_report_line_36"/>
+            <!--<field name="formulas">MATCOL * 0.30</field>-->
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field eval="2" name="level"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="1" name="sequence"/>
+        </record>
+        <record id="account_financial_html_report_line_22"
+                model="account.financial.html.report.line">
+            <field name="name">IMPOSTO PREDIAL URBANO (Artº 81 CII)</field>
+            <field name="code">URBANO</field>
+            <field name="parent_id" ref="account_financial_html_report_line_41"/>
+            <field name="domain">[('account_id.code', '=ilike', '3494%')]</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="2" name="level"/>
+        </record>
+        <record id="account_financial_html_report_line_23"
+                model="account.financial.html.report.line">
+            <field name="name">BENEFICIOS FISCAIS (ISENÇÃO IIND. ATÉ 2017)</field>
+            <field name="code">BFISEN</field>
+            <field name="parent_id" ref="account_financial_html_report_line_41"/>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="2" name="level"/>
+        </record>
+        <record id="account_financial_html_report_line_24"
+                model="account.financial.html.report.line">
+            <field name="name">LIQUIDAÇÕES PROVISÓRIAS</field>
+            <field name="code">LPROV</field>
+            <field name="parent_id" ref="account_financial_html_report_line_41"/>
+            <field name="domain">[('account_id.code', '=ilike', '3414%')]</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="2" name="level"/>
+        </record>
+        <record id="account_financial_html_report_line_25"
+                model="account.financial.html.report.line">
+            <field name="name">RETENÇÕES NA FONTE (LEI 7/97)</field>
+            <field name="code">RET</field>
+            <field name="parent_id" ref="account_financial_html_report_line_41"/>
+            <field name="domain">[('account_id.code', '=ilike', '3417%')]</field>
+            <field name="figure_type">float</field>
+            <field eval="1" name="green_on_positive"/>
+            <field name="special_date_changer">normal</field>
+            <field name="show_domain">foldable</field>
+            <field eval="0" name="hide_if_zero"/>
+            <field eval="2" name="level"/>
+        </record>
+
+    </data>
+</odoo>

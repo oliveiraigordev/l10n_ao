@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="l10n_ao_hr_account_journal_formview" model="ir.ui.view">
+            <field name="name">L10N HR Angola account Journal View</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <field name="code" position="before">
+                    <field name="default_account_salary_id" attrs="{'invisible':[('type','not in',['general'])]}"
+                           domain="[('deprecated', '=', False), ('company_id', '=', company_id),('account_type', 'in', ['expense','liability_current'])]"
+                           options="{'no_quick_create': True, 'no_create_edit': True}"
+                           groups="account.group_account_readonly"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

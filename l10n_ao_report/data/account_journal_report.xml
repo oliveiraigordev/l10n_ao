@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="journal_report_ao" model="account.report">
+        <field name="name">Journal Report Ao</field>
+        <field name="filter_journals" eval="True"/>
+        <field name="filter_show_draft" eval="True"/>
+        <field name="filter_unfold_all" eval="True"/>
+        <field name="filter_period_comparison" eval="False"/>
+        <field name="filter_unreconciled" eval="False"/>
+        <field name="default_opening_date_filter">this_year</field>
+        <field name="load_more_limit" eval="80"/>
+        <field name="main_template">account_reports.main_template_journal_audit_report</field>
+        <field name="line_template">l10n_ao_report.line_template_journal_ao</field>
+        <field name="search_template">account_reports.search_template_journal_audit_report</field>
+        <field name="main_table_header_template">account_reports.main_table_header_journal_audit_report</field>
+        <field name="custom_handler_model_id" ref="l10n_ao_report.model_account_journal_report_ao"/>
+        <field name="column_ids">
+            <record id="journal_report_date" model="account.report.column">
+                <field name="name">Date</field>
+                <field name="expression_label">name</field>
+                <field name="figure_type">none</field>
+                <field name="blank_if_zero" eval="False"/>
+            </record>
+            <record id="journal_report_journal_number" model="account.report.column">
+                <field name="name">N° Journal</field>
+                <field name="expression_label">name</field>
+                <field name="figure_type">none</field>
+                <field name="blank_if_zero" eval="False"/>
+            </record>
+            <record id="journal_report_doc" model="account.report.column">
+                <field name="name">Doc</field>
+                <field name="expression_label">name</field>
+                <field name="figure_type">none</field>
+                <field name="blank_if_zero" eval="False"/>
+            </record>
+            <record id="journal_report_doc_number" model="account.report.column">
+                <field name="name">N° Doc</field>
+                <field name="expression_label">sequence</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record id="journal_report_origin_account" model="account.report.column">
+                <field name="name">Origin Account</field>
+                <field name="expression_label">name</field>
+                <field name="figure_type">none</field>
+                <field name="blank_if_zero" eval="False"/>
+            </record>
+        </field>
+    </record>
+
+</odoo>

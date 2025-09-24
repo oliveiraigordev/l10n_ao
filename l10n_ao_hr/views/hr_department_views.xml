@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- modify department tree view -->
+    <record id="l10n_ao_hr_department_tree_view" model="ir.ui.view">
+        <field name="name">Inherited Department Tree View</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_tree"/>
+        <field name="arch" type="xml">
+            <field name="total_employee" position="after">
+                <field name="direction_id"/>
+            </field>
+
+        </field>
+    </record>
+
+    <!-- modify department form view -->
+    <record id="l10n_ao_hr_department_form_view" model="ir.ui.view">
+        <field name="name">L10n_ao_hr - Inherited Department Form View</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="arch" type="xml">
+            <field name="manager_id" position="after">
+                <field name="direction_id" options="{'no_edit': True, 'no_create': True, 'no_open': True}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

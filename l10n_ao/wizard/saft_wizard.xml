@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="l10nao_saft_generator_wizard_view" model="ir.ui.view">
+            <field name="name">Saft ao View</field>
+            <field name="model">angola.saft.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Formulário para geração do SAFT">
+                     <div class="alert alert-info" role="alert">
+                        Os ficheiros SAFT devem ser enviados até o último dia do mês.
+                    </div><br/>
+                    <group>
+                        <field name="tax_accounting_basis" required="1"/>
+                    </group>
+                    <group>
+                        <field name="date_start" required="1"/>
+                        <field name="date_end" required="1"/>
+                    </group>
+                    <group>
+                        <field name="description_saft"/>
+                    </group>
+                    <footer>
+                        <button name="generate_saft_file_xml" string="Generate SAFT File" type="object" class="print btn-primary o_mail_send" data-hotkey="q"/>
+
+                        <button string="Cancel" special="cancel" class="btn-secondary" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="l10n_saft_generator_wizard_action" model="ir.actions.act_window">
+            <field name="name">SAFT AO Files</field>
+            <field name="res_model">angola.saft.wizard</field>
+            <field name="view_mode">form</field>
+            <!-- <field name="view_id" ref="10nao_saft_wizard_view"/> -->
+            <field name="target">new</field>
+        </record>
+        <menuitem id="menu_saft_generator_wizard" sequence="10" name="Create SAFT File" parent="menu_saft_register_ao"
+                  action="l10n_saft_generator_wizard_action"/>
+    </data>
+</odoo>

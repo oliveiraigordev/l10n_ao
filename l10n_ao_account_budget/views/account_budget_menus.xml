@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="account_budget_main_menu"
+              name="Orçamento"
+              parent="l10n_ao.menu_saft_register_ao"
+              sequence="44"/>
+
+    <menuitem id="menu_account_budget_group_action"
+              name="Posições Orçamentais"
+              parent="account_budget_main_menu"
+              sequence="10"
+              action="open_account_budget_group_action"/>
+
+    <menuitem id="account_budget_view_menu"
+              name="Registar Orçamento"
+              parent="account_budget_main_menu"
+              sequence="20"
+              action="act_account_budget_view"/>
+
+    <menuitem id="menu_act_financial_budget"
+              name="Relatório Finançeiro"
+              parent="account_budget_main_menu"
+              sequence="30"
+              action="act_financial_budget"/>
+
+    <menuitem id="menu_act_economic_budget_analysis"
+              name="Relatório Economico"
+              parent="account_budget_main_menu"
+              sequence="40"
+              action="act_economic_budget_analysis"/>
+
+</odoo>

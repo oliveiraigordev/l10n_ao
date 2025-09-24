@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <record id="l10n_ao_account_settings_view" model="ir.ui.view">
+            <field name="name">Angola Localization Account Settings</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <!--            <field name="account_fiscal_country_id" position="attributes">-->
+                <!--                <attribute name="groups">base.group_no_one</attribute>-->
+                <!--            </field>-->
+          <!--      <field name="show_line_subtotals_tax_selection" position="attributes">
+                    <attribute name="attrs">{'readonly':[('account_fiscal_country_id','=',%(base.ao)d)]}</attribute>
+                </field>
+                <field name="currency_id" position="attributes">
+                    <attribute name="attrs">
+                        {'readonly':[('account_fiscal_country_id','=',%(base.ao)d),('currency_id','=',%(base.AOA)d)]}
+                    </attribute>
+                </field>
+                <field name="tax_calculation_rounding_method" position="attributes">
+                    <attribute name="attrs">{'readonly':[('account_fiscal_country_id','=',%(base.ao)d)]}</attribute>
+                </field>-->
+                <xpath expr="//div[@id='invoicing_settings']" position="after">
+                    <h2 attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}">Angola Char of Account
+                    </h2>
+                    <div class="row mt16 o_settings_container" id="default_user_rights"
+                         attrs="{'invisible':[('account_fiscal_country_id','!=',%(base.ao)d)]}">
+                        <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="create_partner_account" readonly="0" groups="base.group_no_one"/>
+                            </div>
+                            <div class="o_setting_right_pane" name="l10n_eu_service_right_pane">
+                                <label for="create_partner_account"/>
+                                <div class="text-muted">This will create a Chart of account for client if client bit is
+                                    marked and/or for supplier
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="module_l10n_ao_autoinvoice" readonly="0" groups="base.group_no_one"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="module_l10n_ao_autoinvoice"/>
+                                <div class="text-muted">This will enable to create auto-invoice in accounting.</div>
+                            </div>
+                        </div>-->
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

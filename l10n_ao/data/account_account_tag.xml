@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <!-- Account Tags -->
+        <record id='account_tag_1' model='account.account.tag'>
+                <field name='name'>4819 Contas de transferência</field>
+                <field name='color'>1</field>
+                <field name='applicability'>accounts</field>
+        </record>
+           <record id='account_tag_1' model='account.account.tag'>
+                <field name='name'>1111 Terrenos em bruto</field>
+                <field name='color'>1</field>
+                <field name='applicability'>accounts</field>
+        </record>
+    </data>
+</odoo>

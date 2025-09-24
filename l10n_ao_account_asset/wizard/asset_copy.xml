@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="copy_asset_wizard_form_view" model="ir.ui.view">
+        <field name="name">copy.asset.wizard.form</field>
+        <field name="model">copy.asset.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Copy Asset">
+                <sheet>
+                    <group>
+                        <field name="number_of_copies" />
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Copiar Ativos" name="action_copy_asset" type="object" class="btn-primary" />
+                    <button string="Cancelar" special="cancel" class="btn-secondary" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_copy_asset_wizard" model="ir.actions.act_window">
+        <field name="name">Criar Cópias de Activo</field>
+        <field name="res_model">copy.asset.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="account_asset.model_account_asset" />
+    </record>
+
+    <record id="action_copy_asset_in_progress_wizard" model="ir.actions.act_window">
+        <field name="name">Criar Cópias de Imobilizado</field>
+        <field name="res_model">copy.asset.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="l10n_ao_account_asset.model_account_asset_in_progress" />
+    </record>
+</odoo>

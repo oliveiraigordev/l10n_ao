@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record model="account.tax.regime" id="regime_general">
+            <field name="name">Geral</field>
+        </record>
+         <record model="account.tax.regime" id="regime_simplified">
+            <field name="name">Simplificado</field>
+        </record>
+         <record model="account.tax.regime" id="regime_exclusion">
+            <field name="name">Exclusão</field>
+        </record>
+    </data>
+</odoo>

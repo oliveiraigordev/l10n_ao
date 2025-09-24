@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="pos_session_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.internal_layout">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <h2 class="text-center">
+                            <span><strong>Relatório de resumo de sessão</strong></span>
+                        </h2><br/>
+                        <div class="row mt32 mb32" style="font-size:12px;">
+                            <div class="col-auto mw-100 mb-2">
+                                <strong>Point Of Sale:</strong>
+                                <p t-field="doc.config_id"/>
+                            </div>
+                            <div class="col-auto mw-100 mb-2">
+                                <strong>Responsible Person:</strong>
+                                <p t-field="doc.user_id"/>
+                            </div>
+                            <div class="col-auto mw-100 mb-2">
+                                <strong>Opening Date:</strong>
+                                <p t-field="doc.start_at"/>
+                            </div>
+                            <div class="col-auto mw-100 mb-2">
+                                <strong>Closing Date:</strong>
+                                <p t-field="doc.stop_at"/>
+                            </div>
+                        </div><br/>
+                        <h5>Total orders sold</h5>
+                        <table class="table table-condensed table-striped" style="font-size:12px;">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <strong>Ordens</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Total Tax</strong>
+                                    </th>
+                                    <th class="text-right">
+                                        <strong>Total Amount</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.session_orders()" t-as="order">
+                                    <tr class="text-success">
+                                        <td>
+                                            <t t-esc="order['order']"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-esc="order['tax']"
+                                                  t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <strong>
+                                                <span t-esc="order['total']"
+                                                      t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+                                            </strong>
+                                        </td>
+                                    </tr>
+
+                                </t>
+                            </tbody>
+                        </table>
+                        <h5>Refunds</h5>
+                        <table class="table table-condensed table-striped" style="font-size:12px;">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <strong>Credit Notes</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Total Tax</strong>
+                                    </th>
+                                    <th class="text-right">
+                                        <strong>Total Amount</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.credit_notes_session()" t-as="order">
+                                    <tr class="text-danger">
+                                        <td>
+                                            <t t-esc="order['order']"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-esc="order['tax']"
+                                                  t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <strong>
+                                                <span t-esc="order['total']"
+                                                      t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+                                            </strong>
+                                        </td>
+                                    </tr>
+
+                                </t>
+                            </tbody>
+                        </table>
+                        <h5>Summary of payments per session</h5>
+                        <table class="table table-condensed table-striped" style="font-size:12px;">
+                            <thead>
+                                <tr>
+                                    <th>Referencia</th>
+                                    <th class="text-right">Journal</th>
+                                    <th class="text-right">Starting Balance</th>
+                                    <th class="text-right">Ending Balance</th>
+                                    <th class="text-right">Transactions Subtotal</th>
+                                    <!--<th class="text-right">Difference</th>-->
+                                    <th class="text-right">Currency</th>
+                                    <th class="text-right">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span t-field="doc.name"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="doc.cash_journal_id"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="doc.cash_register_balance_start"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="doc.cash_register_balance_end_real"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="doc.cash_register_total_entry_encoding"/>
+                                    </td>
+                                   <!-- <td class="text-right">
+                                        <span t-field="doc.cash_real_difference"/>
+                                    </td>-->
+                                    <td class="text-right">
+                                        <span t-field="doc.currency_id"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="doc.state"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h5>Summary By Type of Payment</h5>
+                        <table class="table table-condensed table-striped" style="font-size:12px;">
+                            <thead>
+                                <tr>
+                                    <th>Tipo de Pagamento</th>
+                                    <th class="text-right">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.total_payment_method()" t-as="payment">
+                                    <tr>
+                                        <td class="bg-light text-dark">
+                                            <span t-esc="payment['method']"/>
+                                        </td>
+                                        <td class="text-right text-dark">
+                                            <strong>
+                                                <span t-esc="payment['total_paid']"
+                                                      t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <h5>Sales ranking by seller</h5>
+                        <table class="table table-condensed table-striped" width="100%" style="font-size:12px;">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <strong>Salesperson</strong>
+                                    </th>
+
+                                    <th class="text-center">
+                                        <strong>Qtd Vendida</strong>
+                                    </th>
+
+                                    <th class="text-right">
+                                        <strong>Total Vendido</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.total_user_amount()" t-as="sale">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="sale['user']"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-esc="sale['qty']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="sale['total']"
+                                               t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+
+                        </table>
+                        <h5>Top Selling products</h5>
+                        <table class="table table-condensed table-striped" width="100%" style="font-size:12px;">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <strong>Product</strong>
+                                    </th>
+
+                                    <th class="text-center">
+                                        <strong>Qtd</strong>
+                                    </th>
+                                    <th class="text-right">
+                                        <strong>Montante Facturado</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.product_quantity()" t-as="p">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="p['name']"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-esc="p['total']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="p['total_sold']"
+                                               t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
+

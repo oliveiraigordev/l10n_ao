@@ -1,0 +1,27 @@
+<odoo>
+  <record id="view_salary_penalty_wizard_form" model="ir.ui.view">
+    <field name="name">salary.penalty.wizard.form</field>
+    <field name="model">salary.penalty.wizard</field>
+    <field name="arch" type="xml">
+      <form string="Pagar Multas e Juros">
+        <sheet>
+          <group>
+            <field name="salary_payment_id" invisible="1"/>
+            <group>
+              <field name="journal_id"/>
+              <field name="account_id"/>
+            </group>
+            <group>
+              <field name="amount"/>
+              <field name="currency_id" readonly="1"/>
+            </group>
+          </group>
+        </sheet>
+        <footer>
+          <button string="💰 Confirmar Pagamento" type="object" name="button_confirm" class="btn-primary"/>
+          <button string="Cancelar" type="object" class="btn-secondary" special="cancel"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+</odoo>

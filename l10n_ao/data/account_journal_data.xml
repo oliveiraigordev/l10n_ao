@@ -1,0 +1,93 @@
+<odoo>
+  <data noupdate="1">
+
+    <!-- Geral -->
+    <record id="journal_internal_transfer" model="account.journal">
+      <field name="name">Transferência Interna</field>
+      <field name="code">TRANSFINT</field>
+      <field name="type">general</field>
+      <field name="journal_ao_id" ref="l10n_ao.journal_ao_result_divs"/>
+      <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <!-- VENDAS -->
+    <record id="journal_vfa_sale" model="account.journal">
+      <field name="name">V/Factura a prazo</field>
+      <field name="type">sale</field>
+      <field name="code">VFA</field>
+      <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="journal_vfr_sale" model="account.journal">
+      <field name="name">V/Factura Recibo</field>
+      <field name="type">sale</field>
+      <field name="code">VFR</field>
+      <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="journal_vvd_sale" model="account.journal">
+      <field name="name">V/Venda-a-Dinheiro</field>
+      <field name="type">sale</field>
+      <field name="code">VVD</field>
+      <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="journal_vfg_sale" model="account.journal">
+      <field name="name">V/Factura Global</field>
+      <field name="type">sale</field>
+      <field name="code">VFG</field>
+      <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="journal_vgf_sale" model="account.journal">
+      <field name="name">V/Factura Genérica</field>
+      <field name="type">sale</field>
+      <field name="code">VGF</field>
+      <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <!-- COMPRAS -->
+    <record id="journal_vfr_purchase" model="account.journal">
+      <field name="name">V/Factura Recibo (Compras)</field>
+      <field name="type">purchase</field>
+      <field name="code">PFR</field>
+      <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="journal_vnd_purchase" model="account.journal">
+      <field name="name">V/Nota de Débito (Compras)</field>
+      <field name="type">purchase</field>
+      <field name="code">VND</field>
+      <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="journal_vfm_purchase" model="account.journal">
+      <field name="name">V/Factura de Imobilizado (Compras)</field>
+      <field name="type">purchase</field>
+      <field name="code">VFM</field>
+      <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="journal_vfg_purchase" model="account.journal">
+      <field name="name">V/Factura Global (Compras)</field>
+      <field name="type">purchase</field>
+      <field name="code">VFGP</field>
+      <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="journal_vfa_purchase" model="account.journal">
+      <field name="name">V/ Factura (Compras)</field>
+      <field name="type">purchase</field>
+      <field name="code">VFAP</field>
+      <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="journal_vvd_purchase" model="account.journal">
+      <field name="name">V/venda-a-Dinheiro (Compras)</field>
+      <field name="type">purchase</field>
+      <field name="code">VVDP</field>
+      <field name="company_id" ref="base.main_company"/>
+    </record>
+
+  </data>
+</odoo>

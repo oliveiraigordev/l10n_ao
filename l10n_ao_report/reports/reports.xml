@@ -1,0 +1,25 @@
+<odoo>
+  <data>
+    <!-- 1) formate paisagem customizado -->
+    <record id="l10n_ao_paperformat_landscape" model="report.paperformat">
+      <field name="name">AO Invoice Landscape</field>
+      <field name="format">A4</field>
+      <field name="orientation">Landscape</field>
+      <field name="margin_top">10.0</field>
+      <field name="margin_bottom">10.0</field>
+      <field name="margin_left">10.0</field>
+      <field name="margin_right">10.0</field>
+    </record>
+
+    <!-- 2) atualizar sua ação de relatório -->
+    <record id="l10n_ao_report_customer_invoice_rpt" model="ir.actions.report">
+      <field name="name">Resumo de facturação de venda</field>
+      <field name="model">wizard.customer_invoice</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">l10n_ao_report.report_customer_invoice_pdf</field>
+      <field name="report_file">l10n_ao_report.report_customer_invoice_pdf</field>
+      <!-- referenciando o novo paperformat -->
+      <field name="paperformat_id" ref="l10n_ao_paperformat_landscape"/>
+    </record>
+  </data>
+</odoo>

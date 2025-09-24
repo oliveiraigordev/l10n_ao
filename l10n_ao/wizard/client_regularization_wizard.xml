@@ -1,0 +1,45 @@
+<odoo>
+
+    <record id="l10n_ao_client_regularization_wizard_view" model="ir.ui.view">
+        <field name="name">l10n_ao.supplier.attachment.ao.wizard.view</field>
+        <field name="model">client.regularization.ao</field>
+        <field name="arch" type="xml">
+            <form string="Anexo Regularizações Cliente">
+                <group>
+                    <field name="month" required="1" />
+                    <field name="year" required="1" />
+                </group>
+                <group>
+                    <field name="url_download" readonly="1" invisible="1" widget="url"/>
+                </group>
+                <footer>
+                    <button name="print_report" string="Imprimir" type="object" class="print btn-primary" data-hotkey="q"/>
+                    <button name="print_report_xlsx" string="GERAR XLSX"
+                        type="object" class="oe_highlight"
+                        attrs="{'invisible':[('url_download', '!=', False)]}"/>
+                    <button name="action_download_salary_file" string="SALVAR XLSX"
+                        type="object" class="oe_highlight"
+                        attrs="{'invisible':[('url_download', '=', False)]}"/>
+                    <button string="Cancelar" special="cancel" class="btn-secondary" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="l10n_ao_client_regularization_wizard_action" model="ir.actions.act_window">
+        <field name="name">Anexo Regularizações Cliente</field>
+        <field name="res_model">client.regularization.ao</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="l10n_ao_attachments" name="Anexos" parent="menu_saft_register_ao" sequence="5"/>
+    <menuitem
+        id="menu_l10n_ao_client_regularization_wizard"
+        sequence="3"
+        name="Anexo Regularizações Cliente"
+        parent="l10n_ao.l10n_ao_attachments"
+        action="l10n_ao_client_regularization_wizard_action"
+    />
+
+</odoo>

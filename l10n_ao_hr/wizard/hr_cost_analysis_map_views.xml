@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="l10n_ao_hr_cost_analysis_map_view" model="ir.ui.view">
+            <field name="name">L10n HR - Cost Analysis MAP View</field>
+            <field name="model">wizard.hr.cost.analysis.map</field>
+            <field name="arch" type="xml">
+                <form>
+                    <h3>Este Assistente irá gerar o Relatório do mapa de análise de custos para os colaboradores.
+                        Seleccione um Lote de recibos de vencimento para gerar o Relatório para todos os recibos de vencimento no Lote.
+                        Seleccione um intervalo de datas para capturar todas as folhas de pagamento com data Fim dentro desse intervalo. As que estiverem marcadas como canceladas ou nota de crédito serão ignoradas.
+                    </h3>
+                    <br/>
+                    <group>
+                        <field name="url_download" readonly="1" invisible="1" widget="url"/>
+                        <field name="slip_filter_by"/>
+                    </group>
+                    <group attrs="{'invisible':[('slip_filter_by', '!=', 'payslip_batch')]}">
+                        <field name="hr_payslip_run_id" options="{'no_quick_create': True, 'no_create_edit': True}"
+                               attrs="{'required':[('slip_filter_by', '=', 'payslip_batch')]}" widget="many2one_tags"/>
+                    </group>
+                    <group attrs="{'invisible':[('slip_filter_by', '!=', 'payslip_date')]}">
+                        <field name="start_date"
+                               attrs="{'required':[('slip_filter_by', '=', 'payslip_date')]}"/>
+                        <field name="end_date"
+                               attrs="{'required':[('slip_filter_by', '=', 'payslip_date')]}"/>
+                    </group>
+                     <group>
+                        <field name="contract_type_id" string="Tipo de Colobarador"
+                               options="{'no_create': True, 'no_open': True}"/>
+                    </group>
+                    <footer>
+                        <button name="print_report_xlsx" string="BAIXAR MAPA (EXCEL)"
+                                type="object" class="btn-warning" icon="fa-cloud-download"/>
+<!--                        <button name="action_download_cost_analysis_file" string="BAIXAR MAPA DE BANCO"-->
+<!--                                type="object" class="oe_highlight"-->
+<!--                                attrs="{'invisible':[('url_download', '=', False)]}"/>-->
+                        or
+                        <button string="Cancel Wizard" special="cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_l10n_ao_hr_cost_analysis_map" model="ir.actions.act_window">
+            <field name="name">Cost Analysis Map Wizard</field>
+            <field name="res_model">wizard.hr.cost.analysis.map</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="l10n_ao_hr_cost_analysis_map_view"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

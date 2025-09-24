@@ -1,0 +1,12 @@
+<odoo>
+
+    <menuitem id="menu_sale_proposal"
+                action="action_sales_order_proposal"
+                groups="sales_team.group_sale_salesman"
+                sequence="11" parent="sale.sale_order_menu"/>
+    
+    <menuitem id="menu_sale_proforma"
+                action="action_sales_order_proforma"
+                groups="sales_team.group_sale_salesman"
+                sequence="12" parent="sale.sale_order_menu"/>
+</odoo>

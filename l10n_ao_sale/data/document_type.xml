@@ -1,0 +1,28 @@
+<odoo>
+    <data noupdate="1">
+        <record id="quotation" model="sale.order.document.type">
+            <field name="name">Quotation</field>
+            <field name="code">OU</field>
+        </record>
+        <record id="proposal" model="sale.order.document.type">
+            <field name="name">Proposal</field>
+            <field name="code">OR</field>
+        </record>
+        <record id="proforma" model="sale.order.document.type">
+            <field name="name">Proforma</field>
+            <field name="code">PP</field>
+        </record>
+    </data>
+    <data noupdate="1">
+        <record id="cron_create_doc_type_sequence" model="ir.cron">
+            <field name="name">Sequence: Create  some sequences when company country code is AO</field>
+            <field name="model_id" ref="model_ir_sequence"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.create_sequence_when_ao()</field>
+            <field name="interval_number">2</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">2</field>
+        </record>
+    </data>
+</odoo>

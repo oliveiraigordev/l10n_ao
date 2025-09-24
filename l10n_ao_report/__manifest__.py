@@ -1,0 +1,61 @@
+{
+    'name': 'Angola Accounting Reports',
+    'odoo_version': '16.0',
+    'version': '1.1.0',
+    'category': 'Localization',
+    'description': """Angola Accounting Reports""",
+    'author': 'Tistech Angola',
+    'website': 'https://www.tistech.co.ao',
+    "contributors": [
+        "Mateus Maquenguele <mateus.maquenguele@tistech.co.ao>",
+        "Salvador Bila <salvador.bila@tistech.co.ao>",
+        "António Daniel <antonio.daniel@tistech.co.ao>",
+        "Lucas Bergamin <lbergaminsantos2020@gmail.com>",
+    ],
+    'depends': ['base', 'account_accountant', 'account_reports', 'l10n_ao', 'account', 'sale'],
+    'data': [
+        #Security
+        'security/ir.model.access.csv',
+        #Views
+        'views/report_line_template.xml',
+        'views/main_table_header_template.xml',
+        'views/cell_template.xml',
+        'views/res_config_settings.xml',
+        'views/account_report_view.xml',
+        'views/account_report_line_view.xml',
+        'views/account_move_view.xml',
+        'views/cash_flow_statement_views.xml',
+        'views/cash_flow_statement_map_views.xml',
+        'views/account_payment_view.xml',
+        'views/report_templates.xml',
+        #Data
+        'data/search_balancete.xml',
+        'data/report_template_balancete.xml',
+        'data/account_trial_balance_ao.xml',
+        'data/financial_report_balanco.xml',
+        'data/financial_report_dr.xml',
+        'data/financial_report_fluxocaixa.xml',
+        'data/financial_report_fluxocaixa_indirecto.xml',
+        'data/account_statement_report.xml',
+        'data/account_journal_report.xml',
+        'data/account_report_actions.xml',
+        'data/menu_itens.xml',
+        'data/change_menu_parent.xml',
+        #Wizard
+        'wizard/wizard_customer_invoice_view.xml',
+        'wizard/account_payment_register_view.xml',
+        #Reports
+        'reports/reports.xml',
+        'reports/report_customer_invoice_pdf.xml',
+    ],
+    'assets': {
+        'web.assets_backend': [
+            'l10n_ao_report/static/src/xml/account_report_template.xml',
+            'l10n_ao_report/static/src/js/account_reports.js',
+            'l10n_ao_report/static/src/views/list/**/*',
+        ],
+    },
+    'license': 'LGPL-3',
+    'installable': True,
+    'auto_install': True,
+}

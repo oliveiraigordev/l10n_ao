@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--Resource Calendar LeavesTree View-->
+    <record id="hr_resource_calendar_leaves_tree" model="ir.ui.view">
+        <field name="name">resource.calendar.leaves.tree</field>
+        <field name="model">resource.calendar.leaves</field>
+        <field name="inherit_id" ref="hr_holidays.resource_calendar_leaves_tree_inherit"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="is_active" widget="boolean_toggle"/>
+            </field>
+
+        </field>
+    </record>
+
+</odoo>

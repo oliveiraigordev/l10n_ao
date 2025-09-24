@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Salary Deduction Rules -->
+        <record id="l10n_ao_hr_salary_rule_desconto_danos" model="hr.salary.rule">
+            <field name="name">Desconto por Danos</field>
+            <field name="code">DANO</field>
+            <field eval="140" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "DES_DANOS" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+				]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "DES_DANOS" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res * -1
+				]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_adiantamento_salarial" model="hr.salary.rule">
+            <field name="name">Adiantamento Salarial</field>
+            <field name="code">ADI</field>
+            <field eval="140" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "DES_ADI_SALARIO" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+				]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "DES_ADI_SALARIO" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res * -1
+				]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_desconto_seguro" model="hr.salary.rule">
+            <field name="name">Desconto Seguro</field>
+            <field name="code">Desc_Seguro</field>
+            <field eval="140" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = (inputs.Desc_Seguro and inputs.Desc_Seguro.amount) * -1</field>
+            <field name="amount_python_compute">
+                <![CDATA[
+
+				]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_licenca_sem_vencimento" model="hr.salary.rule">
+            <field name="name">Licença Sem Remuneração (LSV)</field>
+            <field name="code">LSV</field>
+            <field eval="140" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = (inputs.LSV and inputs.LSV.amount) * -1</field>
+            <field name="amount_python_compute">
+                <![CDATA[
+
+				]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_gozo_ferias" model="hr.salary.rule">
+            <field name="name">Gozo de Férias</field>
+            <field name="code">gozo_ferias</field>
+            <field eval="140" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = (inputs.gozo_ferias and inputs.gozo_ferias.amount) * -1</field>
+            <field name="amount_python_compute">
+                <![CDATA[
+
+				]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_licenca_pre_maternidade" model="hr.salary.rule">
+            <field name="code">R1005</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Licença Pré Maternidade</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result =  (inputs.R1005 and inputs.R1005.amount) * -1</field>
+            <field name="amount_python_compute">
+                <![CDATA[
+
+				]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_licenca_maternidade" model="hr.salary.rule">
+            <field name="code">R105</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Licença Maternidade</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result =  (inputs.R105 and inputs.R105.amount) * -1</field>
+            <field name="amount_python_compute">
+                <![CDATA[
+
+				]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_licenca_casamento" model="hr.salary.rule">
+            <field name="code">R1006</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Licença Casamento</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result =  (inputs.R1006 and inputs.R1006.amount) * -1 </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+
+				]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_licenca_paternal" model="hr.salary.rule">
+            <field name="code">R1007</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Licença Paternal</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result =  (inputs.R1007 and inputs.R1007.amount) * -1</field>
+            <field name="amount_python_compute">
+                <![CDATA[
+
+				]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_aviso_previo_descontado" model="hr.salary.rule">
+            <field name="code">AVPREVIODESC</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Grátificação Aviso Prévio (Descontado)</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = (inputs.AVPREVIODESC and inputs.AVPREVIODESC.amount) * -1</field>
+            <field name="amount_python_compute">
+                <![CDATA[
+
+				]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_atraso" model="hr.salary.rule">
+            <field name="code">ATRA</field>
+            <field eval="116" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_percentage_base">contract.wage</field>
+            <field eval="1" name="active"/>
+            <field name="name">Atraso</field>
+            <field name="condition_python">result = (inputs.ATRA and inputs.ATRA.amount) * -1</field>
+            <field name="amount_python_compute">
+                <![CDATA[
+
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_falta_justificada_nao_remunerada" model="hr.salary.rule">
+            <field name="code">FJNR</field>
+            <field eval="116" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_percentage_base">contract.wage</field>
+            <field eval="1" name="active"/>
+            <field name="name">Falta Justificada Não Remunerada</field>
+            <field name="condition_python">result = (inputs.FJNR and inputs.FJNR.amount) * -1</field>
+            <field name="amount_python_compute">
+                <![CDATA[
+
+
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+         <record id="l10n_ao_hr_salary_rule_falta_justificada_remunerada" model="hr.salary.rule">
+            <field name="code">FJR</field>
+            <field eval="116" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_percentage_base">contract.wage</field>
+            <field eval="1" name="active"/>
+            <field name="name">Falta Justificada Remunerada</field>
+            <field name="condition_python">result = (inputs.FJR and inputs.FJR.amount) * -1</field>
+            <field name="amount_python_compute">
+                <![CDATA[
+
+
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_remote_work" model="hr.salary.rule">
+            <field name="code">remote_work</field>
+            <field eval="116" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_percentage_base">contract.wage</field>
+            <field eval="1" name="active"/>
+            <field name="name">Trabalho Remoto</field>
+            <field name="condition_python">result = (inputs.remote_work and inputs.remote_work.amount) * -1</field>
+            <field name="amount_python_compute">
+                <![CDATA[
+
+
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_falta_injustificada" model="hr.salary.rule">
+            <field name="code">FI</field>
+            <field eval="116" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_percentage_base">contract.wage</field>
+            <field eval="1" name="active"/>
+            <field name="name">Falta Injustificada</field>
+            <field name="condition_python">result = (inputs.FI and inputs.FI.amount) * -1</field>
+            <field name="amount_python_compute">
+                <![CDATA[
+
+
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+    </data>
+</odoo>

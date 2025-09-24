@@ -1,0 +1,82 @@
+<odoo>
+    <data>
+        <record id="view_account_asset_form" model="ir.ui.view">
+            <field name="name">account.asset.form</field>
+            <field name="model">account.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[1]" position="before">
+                    <group string="Referencia Interna" attrs="{'invisible': [('state', '=', 'model')]}">
+                        <field name="numero_patrimonio" readonly="1" placeholder="Número de Patrimônio será gerado automaticamente" />
+                    </group>
+                </xpath>
+                <xpath expr="//group[last()]" position="after">
+                    <div>
+                        <group string="Localização" attrs="{'invisible': [('state', '!=', 'model')]}">
+                            <field name="asset_ids" string="Classificação do Ativo" />
+                            <field name="atividade_economica" />
+                            <field name="enquadramento" />
+                            <field name="codigo_resumido" string="Código Resumido" />
+                            <field name="vida_util" />
+                            <field name="taxa_anual" />
+                        </group>
+                    </div>
+                    <div>
+                        <group string="Localização" attrs="{'invisible': [('state', '=', 'model')]}">
+                            <field name="name_related" string="Classificação do Ativo" />
+                            <field name="atividade_economica_related" />
+                            <field name="enquadramento_related" />
+                            <field name="codigo_resumido_related" string="Código Resumido" />
+                            <field name="vida_util_related" readonly="0" />
+                            <field name="taxa_anual_related" readonly="0" />
+                        </group>
+                    </div>
+                </xpath>
+                <xpath expr="//page[last()]" position="after">
+                    <page string="Assets">
+                        <group>
+                            <group>
+                                <field name="asset_id" />
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='acquisition_date']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('asset_condition','=',False)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='acquisition_date']" position="before">
+                    <field name="asset_condition" required="1" widget="radio" />
+                </xpath>
+                <xpath expr="//field[@name='model_id']" position="after">
+                    <field name="date_of_use" required="1" attrs="{'invisible': [('asset_condition', '=', False)]}" />
+                    <field name="corrected_life_use" attrs="{'invisible': [('asset_condition', '!=', 'in_use')], 'required': [('asset_condition', '=', 'in_use')]}"/>
+                    <field name="corrected_rate" attrs="{'invisible': [('asset_condition', '!=', 'in_use')], 'required': [('asset_condition', '=', 'in_use')]}"/>
+                    <field name="in_use_description" attrs="{'invisible': [('asset_condition', '!=', 'in_use')], 'required': [('asset_condition', '=', 'in_use')]}"/>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_account_asset_model_purchase_tree_extension">
+            <field name="name">account.asset.model.purchase.tree.extension</field>
+            <field name="model">account.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_model_purchase_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="replace">
+                    <tree string="Asset Models">
+                        <field name="atividade_economica" />
+                        <field name="name" />
+                        <field name="codigo_resumido" string="Código Resumido" />
+                        <field name="taxa_anual" />
+                        <field name="vida_util" />
+                        <field name="account_asset_id" />
+                        <field name="account_depreciation_id" />
+                        <field name="method" />
+                        <field name="method_number" string="Number of Depreciations" />
+                        <field name="method_period" string="Period length" />
+                        <field name="company_id" invisible="1" />
+                        <field name="state" invisible="1" />
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

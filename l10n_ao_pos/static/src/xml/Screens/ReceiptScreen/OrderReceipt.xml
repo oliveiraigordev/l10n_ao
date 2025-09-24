@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+    <t t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('pos-receipt-contact')]" position="after">
+            <div id="pos-receipt-vendor-l10n-ao-pos" style="font-size:small;">
+
+                <!--     <div>
+                          Regime: <t t-esc="receipt.company.tax_regime_id.name or 'Geral'"/>
+                   </div>-->
+                <div>Operador:
+                    <t t-esc="receipt.cashier"/>
+                </div>
+                <div style="font-size:small;">Data:
+                    <t t-esc="receipt.date.localestring"/>
+                </div>
+            </div>
+            <!--<hr style="border: dashed black 0.1px; margin-bottom:5px;"/>-->
+        </xpath>
+        <xpath expr="//div[hasclass('pos-receipt-contact')]" position="replace">
+            <div id="pos-receipt-contact-l10n-ao-pos" style="font-size:small;">
+                <t t-if="receipt.company.contact_address">
+                    <div><t t-esc="receipt.company.contact_address" /></div>
+                </t>
+                <t t-if="receipt.company.phone">
+                    <div>Tel:<t t-esc="receipt.company.phone"/></div>
+                </t>
+                <t t-if="receipt.company.vat">
+                    <div><span>NIF:</span>:
+                        <t t-esc="receipt.company.vat"/></div>
+                </t>
+                <t t-if="receipt.company.email">
+                    <div><t t-esc="receipt.company.email" /></div>
+                </t>
+                <t t-if="receipt.company.website">
+                    <div><t t-esc="receipt.company.website" /></div>
+                </t>
+                <div><strong>---------------------------------------------------------------</strong></div>
+                <div>
+                    Factura Recibo
+                    <strong>
+                        <t t-esc="receipt.pos_number"/>
+                    </strong>
+                </div>
+                <div>
+                    Cliente:
+                    <t t-esc="receipt.partner and receipt.partner.name or 'Consumidor final'"/>
+                </div>
+                <div>
+                    NIF:
+                    <strong>
+                        <t t-esc="receipt.partner and receipt.partner.vat or '9999999999'"/>
+                    </strong>
+                </div>
+                <div>
+                    Regime:
+                    <t t-esc="receipt.company.tax_regime_id and receipt.company.tax_regime_id.name or 'Geral'"/>
+                </div>
+                <hr style="border: dashed black 0.1px; margin-bottom:5px;"/>
+            </div>
+            <t t-if="receipt.cashier">
+                <div class="cashier">
+                </div>
+            </t>
+
+        </xpath>
+        <xpath expr="//div[hasclass('orderlines')]" position="replace">
+
+            <div class="orderlines" style="font-size:small;">
+                <div>
+                    <strong>Produto</strong>
+                </div>
+                <table>
+                    <thead class="font-weight-bold" style="font-size:small;">
+                        <tr class="border">
+                            <th style="width:43px;text-align:left;">
+                                <strong>Qty</strong>
+                            </th>
+                            <th style="width:75px;text-align:left;">
+                                <strong>P. Unit.</strong>
+                            </th>
+                            <th style="width:35px;text-align:left;">
+                                <strong>IVA</strong>
+                            </th>
+                            <th style="width:35px;text-align:left;">
+                                <strong>Desc(%)</strong>
+                            </th>
+                            <th style="width:110px;text-align:right;">
+                                <strong>Amount</strong>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+                <hr style="border: dashed black 0.1px; margin-bottom:5px;"/>
+                <div style="width:100%;display:table;">
+
+                    <div style="width:100%;display:table-row;" t-foreach="receipt.orderlines" t-as="line"
+                         t-key="line.id">
+                        <div style="font-size:13px;max-width:680px">
+                            <t t-esc="line.product_name_wrapped"/>
+                            <t t-if="line.display_discount_policy == 'without_discount' and line.price != line.price_lst">
+                                <div class="pos-receipt-left-padding">
+                                    <t t-esc="env.pos.format_currency_no_symbol(line.price_lst)"/>
+                                    <t t-esc="env.pos.format_currency_no_symbol(line.price)"/>
+                                </div>
+                            </t>
+                        </div>
+                        <div style="font-size:13px;margin-top:3px;margin-bottom:3px;">
+                            <div style="width:43px;float:left;" class="pos-left-align">
+                                <t t-esc="Math.round(line.quantity * Math.pow(10, env.pos.dp['Product Unit of Measure'])) / Math.pow(10, env.pos.dp['Product Unit of Measure'])"/>
+                                <t t-if="!line.is_in_unit" t-esc="line.unit_name"/>
+                                <span class="float-right" style="padding-left:8px;">x</span>
+                            </div>
+
+                            <div style="width:75px;float:left;">
+                                <t t-esc="env.pos.format_currency_no_symbol(line.price_display_one)"/>
+                            </div>
+                            <div style="width:35px;float:left;text-align:left;">
+                                <!-- <t t-esc="line.tax"/>-->
+                                <span>
+                                    <t t-esc="line.tax_description"/>
+                                </span>
+                            </div>
+                            <div style="width:35px;float:left;text-align:center;">
+                                <span class="text-end">
+                                    <t t-esc="line.discount"/>
+                                </span>
+                            </div>
+                            <div style="float:right;">
+                                <t t-esc="env.pos.format_currency_no_symbol(line.price_with_tax)"/>
+                            </div>
+                            <div style="width:110px;float:right;" class="pos-right-align">
+                                <t t-esc="line.price_subtotal_incl"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr style="border: dashed black 0.1px; margin-top:10px;"/>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('pos-receipt-amount')]" position="replace">
+            <div class="pos-receipt-amount" style="font-size:small;">
+                TOTAL
+                <span t-esc="env.pos.format_currency(receipt.total_with_tax)" class="pos-receipt-right-align"/>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[hasclass('pos-receipt')]" position="inside">
+            <div style="text-align: center;">
+                <hr style="border: dashed black 0.1px;"/>
+                <span style="font-size:10px;"
+                      t-esc="receipt.hash[1]+receipt.hash[11]+receipt.hash[21]+receipt.hash[31]"/>
+                <span style="font-size:10px;">- Processado por Programa Validado</span>
+                <span style="font-size:10px;"
+                      t-esc="receipt.software_id"/>
+            </div>
+        </xpath>
+
+    </t>
+</templates>

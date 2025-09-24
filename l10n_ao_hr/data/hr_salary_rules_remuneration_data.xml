@@ -1,0 +1,1270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Salary Rules -->
+        <record id="l10n_ao_hr_salary_rule_reembolso_despesas" model="hr.salary.rule">
+            <field name="code">RENDES</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Subsídio Reembolso Despesas</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_REM_DES" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+				]]>
+
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_REM_DES" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+				]]>
+
+            </field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_renda_casa" model="hr.salary.rule">
+            <field name="code">RENC</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Subsídio de Renda de Casa</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_REM_CAS" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+				]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_REM_CAS" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+				]]>
+
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_compensacao_rescisao" model="hr.salary.rule">
+            <field name="code">CORES</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Subsídio de Compensação de Rescisão</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_COMP_RES" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+				]]>
+
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_COMP_RES" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+				]]>
+
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_ferias" model="hr.salary.rule">
+            <field name="code">FER</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Subsídio de Férias</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_FER" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+				]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_FER" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+				]]>
+
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_horas_extras_50%" model="hr.salary.rule">
+            <field name="code">HEXTRA_50</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Abono Horas Extras (50%)</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.HEXTRA_50 and inputs.HEXTRA_50.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_salario_feria" model="hr.salary.rule">
+            <field name="code">SAL_FER</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Salário Férias</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.SAL_FER and inputs.SAL_FER.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_gratificacao_feria" model="hr.salary.rule">
+            <field name="code">GRATIF_FER</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Grátificação de Férias</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.GRATIF_FER and inputs.GRATIF_FER.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_feria_proporcional_before" model="hr.salary.rule">
+            <field name="code">R89</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Férias Proporcional Ano Anterior</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.R89 and inputs.R89.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_feria_proporcional_before_9" model="hr.salary.rule">
+            <field name="code">R899</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Grátificação Férias Ano Anterior</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.R899 and inputs.R899.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_feria_proporcional_after" model="hr.salary.rule">
+            <field name="code">R891</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Férias Proporcional Ano Currente</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.R891 and inputs.R891.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_natal_proporcional" model="hr.salary.rule">
+            <field name="code">R36</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Proporcional Subsídio de Natal</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.R36 and inputs.R36.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_retroactivo_ajuda_custo" model="hr.salary.rule">
+            <field name="code">R92</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Retroactivo Ajuda Custo</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.R92 and inputs.R92.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_retroactivo_subs_alimentacao" model="hr.salary.rule">
+            <field name="code">R68</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Retroactivo Subsídio de Alimentação</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.R68 and inputs.R68.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_inss"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_retroactivo_subs_trans" model="hr.salary.rule">
+            <field name="code">R67</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Retroactivo Subsídio de Transporte</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.R67 and inputs.R67.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_inss"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_horas_extras_50%" model="hr.salary.rule">
+            <field name="code">HEXTRA_50</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Abono Horas Extras (50%)</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.HEXTRA_50 and inputs.HEXTRA_50.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_horas_extras_75%" model="hr.salary.rule">
+            <field name="code">HEXTRA_75</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Abono Horas Extras (75%)</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.HEXTRA_75 and inputs.HEXTRA_75.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_antiguidade" model="hr.salary.rule">
+            <field name="code">ANTI</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Salário Antiguidade</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.ANTI and inputs.ANTI.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_aviso_previo_compensacao" model="hr.salary.rule">
+            <field name="code">AVPREVIOCOMP</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Grátificação Aviso Prévio (Compensação)</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.AVPREVIOCOMP and inputs.AVPREVIOCOMP.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+
+        <record id="l10n_ao_hr_salary_rule_adicional_turno" model="hr.salary.rule">
+            <field name="code">ADTURNO</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Grátificação Adicional por Turno</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.ADTURNO and inputs.ADTURNO.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_adicional_regime_disponibilidade" model="hr.salary.rule">
+            <field name="code">ADREGDISP</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Grátificação Adicional em Regime de Disponibilidade</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.ADREGDISP and inputs.ADREGDISP.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_adicional_noturno" model="hr.salary.rule">
+            <field name="code">ADNOTURNO</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Grátificação Adicionar Nocturno</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.ADNOTURNO and inputs.ADNOTURNO.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_atavio" model="hr.salary.rule">
+            <field name="code">ATA</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Subsídio Atavio</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_ATA" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+				]]>
+
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_ATA" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+				]]>
+
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_representacao" model="hr.salary.rule">
+            <field name="code">REPR</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Subsídio de Representação</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_REPR" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+				]]>
+
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_REPR" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+				]]>
+
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_premios" model="hr.salary.rule">
+            <field name="code">PREM</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Prémios</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_PREM" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+				]]>
+
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_PREM" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+				]]>
+
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_natal" model="hr.salary.rule">
+            <field name="code">NAT</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Subsídio de Natal</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.NAT and inputs.NAT.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_fami" model="hr.salary.rule">
+            <field name="code">FAMI</field>
+            <field eval="106" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Abono de Família</field>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "FAMI" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+            ]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "FAMI" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+            ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_alimentao" model="hr.salary.rule">
+            <field name="code">ALI</field>
+            <field eval="106" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Subsídio de Alimentação</field>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_ALI" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+            ]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_ALI" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+            ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_inss"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_transporte" model="hr.salary.rule">
+            <field name="code">TRANS</field>
+            <field eval="107" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field eval="1000.0" name="amount_fix"/>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Subsídio de Transporte</field>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_TRANS" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+            ]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_TRANS" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+            ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_inss"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_excesso_alimentacao_transporte" model="hr.salary.rule">
+            <field name="code">EAT</field>
+            <field eval="108" name="sequence"/>
+            <field eval="0" name="appears_on_payslip"/>
+            <field eval="1000.0" name="amount_fix"/>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Excesso Sobre Alimentação e Transporte</field>
+            <field name="condition_python">
+                <![CDATA[
+ali = rules.ALI and ALI or 0.0
+trans = rules.TRANS and TRANS  or 0.0
+extra_ali = 0.0
+extra_trans = 0.0
+if ali > 30000.0:
+    extra_ali = ali - 30000.0
+if trans > 30000.0:
+    extra_trans = trans - 30000.0
+extra_all = extra_ali + extra_trans
+result = extra_all > 0.0
+            ]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+ali = rules.ALI and ALI or 0.0
+trans = rules.TRANS and TRANS  or 0.0
+extra_ali = 0.0
+extra_trans = 0.0
+if ali > 30000.0:
+    extra_ali = ali - 30000.0
+if trans > 30000.0:
+    extra_trans = trans - 30000.0
+extra_all = extra_ali + extra_trans
+result = extra_all
+            ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_famlia" model="hr.salary.rule">
+            <field name="code">FAMI</field>
+            <field eval="109" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Abonos de Família</field>
+            <field name="condition_python">result = inputs.FAMI and inputs.FAMI.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_excesso_abono_familia" model="hr.salary.rule">
+            <field name="code">FAMEXC</field>
+            <field eval="108" name="sequence"/>
+            <field eval="0" name="appears_on_payslip"/>
+            <field eval="1000.0" name="amount_fix"/>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Excesso Sobre Abono de Família</field>
+            <field name="condition_python">
+                <![CDATA[
+wage = contract.wage
+fam_amount = rules.FAMI and FAMI or 0.0
+limit = wage * 0.05
+result = fam_amount > limit
+            ]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+wage = contract.wage
+fam_amount = rules.FAMI and FAMI or 0.0
+limit = wage * 0.05
+result = fam_amount - limit
+            ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_aleitamento" model="hr.salary.rule">
+            <field name="code">ALEI</field>
+            <field eval="109" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Subsídio de Aleitamento</field>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_ALEI" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+                ]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_ALEI" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_chefia" model="hr.salary.rule">
+            <field name="code">CHEF</field>
+            <field eval="110" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Subsídio de Chefia</field>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_CHEF" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+                ]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_CHEF" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_combustvel" model="hr.salary.rule">
+            <field name="code">COMB</field>
+            <field eval="109" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Subsídio de Combustível</field>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_COMB" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+                ]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_COMB" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_comunicao" model="hr.salary.rule">
+            <field name="code">COMU</field>
+            <field eval="111" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Subsídio de Comunicação</field>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_COMU" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+                ]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_COMU" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_falhas" model="hr.salary.rule">
+            <field name="code">FALHA</field>
+            <field eval="112" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Subsídio de Falhas</field>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_FALHA" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+                ]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_FALHA" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_risco" model="hr.salary.rule">
+            <field name="code">RISC</field>
+            <field eval="113" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Subsídio de Risco</field>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_RISC" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+                ]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_RISC" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_supervisao" model="hr.salary.rule">
+            <field name="code">SUPER</field>
+            <field eval="114" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Subsídio de Supervisão</field>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_SUPER" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+                ]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_SUPER" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_noturno" model="hr.salary.rule">
+            <field name="code">NOT</field>
+            <field eval="116" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field eval="25.0" name="amount_percentage"/>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_percentage_base">contract.wage</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Subsídio Nocturno</field>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_NOT" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+                ]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "SUB_NOT" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_13" model="hr.salary.rule">
+            <field name="code">13</field>
+            <field eval="116" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field eval="25.0" name="amount_percentage"/>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_percentage_base">contract.wage</field>
+            <field name="amount_select">percentage</field>
+            <field eval="1" name="active"/>
+            <field name="name">13º Mês</field>
+            <field name="condition_python">result = inputs.M13 and inputs.M13.amount</field>
+            <field name="amount_python_compute">
+                <![CDATA[
+result_qty = 1
+result_rate = inputs.M13.amount
+result = contract.wage
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_deducoes_sujeitas_inss_irt"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_retr_isento" model="hr.salary.rule">
+            <field name="code">RETI</field>
+            <field eval="112" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Retroactivos isentos</field>
+            <field name="condition_python">
+                <![CDATA[
+result = inputs.RETI and inputs.RETI.amount
+                ]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+result_qty = 1.0
+result_rate = 100.0
+result = inputs.RETI.amount
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_bonus" model="hr.salary.rule">
+            <field name="code">BON</field>
+            <field eval="112" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Bonus</field>
+            <field name="condition_python">result = inputs.BON and inputs.BON.amount</field>
+            <field name="amount_python_compute">
+                <![CDATA[
+result_qty = 1.0
+result_rate = 100.0
+result = abs(inputs.BON.amount)
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_inss_irt"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_ajuda_custo" model="hr.salary.rule">
+            <field name="code">A_CUSTO</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Ajuda de Custo</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.A_CUSTO and inputs.A_CUSTO.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_alojamento" model="hr.salary.rule">
+            <field name="code">ALOJAMENTO</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Subsídio de Alojamento</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.ALOJAMENTO and inputs.ALOJAMENTO.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_gratificacao_reembolso" model="hr.salary.rule">
+            <field name="code">GRAT_REEMB</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Gratificação Reembolso</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.GRAT_REEMB and inputs.GRAT_REEMB.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_comp_fer_nao_gozadas" model="hr.salary.rule">
+            <field name="code">CFNG</field>
+            <field eval="112" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Compensação Férias Não Gozadas</field>
+            <field name="condition_python">result = inputs.CFNG and inputs.CFNG.amount</field>
+            <field name="amount_python_compute">
+                <![CDATA[
+result_qty = inputs.CFNG.amount
+result_rate = 100
+result = contract.wage
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_inss_irt"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_ad_ajuda_custo" model="hr.salary.rule">
+            <field name="code">R75</field>
+            <field eval="116" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field eval="25.0" name="amount_percentage"/>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_percentage_base">contract.wage</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Adiantamento Ajudas de Custo</field>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "R75" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+                ]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "R75" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_inss_irt"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_ad_alimentacao" model="hr.salary.rule">
+            <field name="code">R73</field>
+            <field eval="116" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_range">contract.wage</field>
+            <field eval="25.0" name="amount_percentage"/>
+            <field name="condition_select">python</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="amount_percentage_base">contract.wage</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Adiantamento Alimentação</field>
+            <field name="condition_python">
+                <![CDATA[
+res=False
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "R73" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res=True
+result = res
+                ]]>
+            </field>
+            <field name="amount_python_compute">
+                <![CDATA[
+res=0.0
+for rem in contract.remuneration_ids:
+    if rem.remuneration_code_id.code == "R73" and rem.date_start <= payslip.date_to:
+        if not rem.date_end or rem.date_end >= payslip.date_to:
+            res += rem.amount
+result = res
+                ]]>
+            </field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_inss_irt"/>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_gratificacao_voluntaria_acidente" model="hr.salary.rule">
+            <field name="code">R188</field>
+            <field name="is_irt_compensation" eval="True"/>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Gratificação Voluntária e Acidental</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.R188 and inputs.R188.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_inss_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_gratificacao_voluntaria_acidente_2" model="hr.salary.rule">
+            <field name="code">R189</field>
+            <field name="is_irt_compensation" eval="True"/>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Gratificação Voluntária e Acidental 2</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.R189 and inputs.R189.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_inss_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_gratificacao_por_resultado" model="hr.salary.rule">
+            <field name="code">R185</field>
+            <field name="is_irt_compensation" eval="True"/>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Gratificações por Resultado</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.R185 and inputs.R185.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_inss_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_premio_produçao_ajuda_custo" model="hr.salary.rule">
+            <field name="code">R20</field>
+            <field name="is_irt_compensation" eval="True"/>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Prémio de Produção + Ajuda de Custo</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.R20 and inputs.R20.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_inss_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_retroactivos" model="hr.salary.rule">
+            <field name="code">R02</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Retroactivos</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.R02 and inputs.R02.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_inss_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_diferenca_cambial" model="hr.salary.rule">
+            <field name="code">R26</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Diferença Cambial</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.R26 and inputs.R26.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_inss_irt"/>
+        </record>
+
+        <record id="l10n_ao_hr_salary_rule_licenca_remunerada_mutuo_acordo" model="hr.salary.rule">
+            <field name="code">R103</field>
+            <field eval="142" name="sequence"/>
+            <field eval="1" name="appears_on_payslip"/>
+            <field name="condition_select">python</field>
+            <field name="amount_select">code</field>
+            <field eval="1" name="active"/>
+            <field name="name">Licença Remunerada - Mútuo Acordo</field>
+            <field name="struct_id" ref="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base"/>
+            <field name="condition_python">result = inputs.R103 and inputs.R103.amount</field>
+            <field name="amount_python_compute"></field>
+            <field name="category_id" ref="hr_payroll_salary_rule_category_abonos_sujeitos_inss_irt"/>
+        </record>
+    </data>
+</odoo>

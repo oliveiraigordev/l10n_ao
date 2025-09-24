@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+          <record id="res_bank_ao_30" model="res.bank">
+            <field name="name">STANDARD BANK DE ANGOLA, S.A</field>
+            <field name="bic">SBICAOLU</field>
+              <field name="code">SBA</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_1" model="res.bank">
+            <field name="name">STANDARD CHARTERED, S.A</field>
+            <field name="bic">SCBLAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_2" model="res.bank">
+            <field name="name">BANCO YETU, S.A</field>
+            <field name="bic">YETUAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_3" model="res.bank">
+            <field name="name">BANCO CRÉDITO DO SUL, S.A</field>
+            <field name="bic">BCSAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_4" model="res.bank">
+            <field name="name">BANCO POSTAL, S.A</field>
+            <field name="bic"></field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_5" model="res.bank">
+            <field name="name">BANCO DA CHINA LIMITADA</field>
+            <field name="bic"></field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_6" model="res.bank">
+            <field name="name">BANCO PRESTIGIO, SA.</field>
+            <field name="bic">PRTSAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_7" model="res.bank">
+            <field name="name">BANCO DE INVESTIMENTO RURAL,</field>
+            <field name="code">BIR</field>
+            <field name="bic">BIRVAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_8" model="res.bank">
+            <field name="name">BANCO ANGOLANO DE INVESTIMENTO, S.A</field>
+            <field name="code">BAI</field>
+            <field name="bic">BAIPAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_9" model="res.bank">
+            <field name="name">BANCO ANGOLANO DE NEGÓCIOS E COMERCIO, S.A</field>
+            <field name="code">BANC</field>
+            <field name="bic">ANCEAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_10" model="res.bank">
+            <field name="name">BANCO BAI MICROFINANÇAS, S.A</field>
+            <field name="code">BMF</field>
+            <field name="bic">NOSAAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_11" model="res.bank">
+            <field name="name">BANCO BIC, S.A</field>
+            <field name="code">BIC</field>
+            <field name="bic">BCCBAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_12" model="res.bank">
+            <field name="name">BANCO CAIXA GERAL TOTTA DE ANGOLA, S.A</field>
+            <field name="code">BCGT</field>
+            <field name="bic">BCGTAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_13" model="res.bank">
+            <field name="name">BANCO COMERCIAL ANGOLANO, S.A</field>
+            <field name="code">BCA</field>
+            <field name="bic">COMLAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_14" model="res.bank">
+            <field name="name">BANCO COMERCIAL DO HUAMBO, S.A</field>
+            <field name="code">BCH</field>
+            <field name="bic">BCHUAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_15" model="res.bank">
+            <field name="name">BANCO DE COMÉRCIO E INDÚSTRIA, S.A</field>
+            <field name="code">BCI</field>
+            <field name="bic">BCIDAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_16" model="res.bank">
+            <field name="name">BANCO DE DESENVOLVIMENTO DE ANGOLA, S.A</field>
+            <field name="code">BDA</field>
+            <field name="bic">BDAAAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_17" model="res.bank">
+            <field name="name">BANCO DE FOMENTO ANGOLANO</field>
+            <field name="code">BFA</field>
+            <field name="bic">BFABAOL1</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_18" model="res.bank">
+            <field name="name">BANCO DE NEGÓCIOS INTERNACIONAL, S.A</field>
+             <field name="code">BNI</field>
+            <field name="bic">BNICAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_19" model="res.bank">
+            <field name="name">BANCO DE POUPANÇA E CRÉDITO, S.A</field>
+             <field name="code">BPC</field>
+            <field name="bic">BPCLAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_20" model="res.bank">
+            <field name="name">BANCO ECONÓMICO, S.A</field>
+            <field name="code">BE</field>
+            <field name="bic">BOEOBO22</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_21" model="res.bank">
+            <field name="name">BANCO KWANZA INVESTIMENTO, S.A</field>
+            <field name="code">BKI</field>
+            <field name="bic">BKIAAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_22" model="res.bank">
+            <field name="name">BANCO DE POUPANPÇA E PROMOÇÃO HABITACIONAL, S.A</field>
+            <field name="code">BPPH</field>
+            <field name="bic"></field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_23" model="res.bank">
+            <field name="name">BANCO MILLENNIUM ATLÂNTICO, S.A</field>
+            <field name="code">BPA</field>
+            <field name="bic">PRTLAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_24" model="res.bank">
+            <field name="name">BANCO KEVE, S.A</field>
+            <field name="code">KEVE</field>
+            <field name="bic">BRDKAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_25" model="res.bank">
+            <field name="name">BANCO SOL, S.A</field>
+            <field name="code">BSOL</field>
+            <field name="bic">SOLOAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_26" model="res.bank">
+            <field name="name">BANCO VALOR, S.A</field>
+             <field name="code">BVB</field>
+            <field name="bic">BVBXAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_27" model="res.bank">
+            <field name="name">ECOBANK DE ANGOLA, S.A</field>
+            <field name="code">ECO</field>
+            <field name="bic">AOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_28" model="res.bank">
+            <field name="name">BANCO VTB-ÁFRICA, S.A</field>
+            <field name="code">VTB</field>
+            <field name="bic">VTBLAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+        <record id="res_bank_ao_29" model="res.bank">
+            <field name="name">FINIBANCO ANGOLA, S.A</field>
+            <field name="code">FNB</field>
+            <field name="bic">FBCOAOLU</field>
+            <field name="country" ref="base.ao"/>
+        </record>
+    </data>
+</odoo>

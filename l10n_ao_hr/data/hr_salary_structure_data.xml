@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Salary Structure -->
+        <record id="l10n_ao_hr.l10n_ao_hr_payroll_salary_structure_base" model="hr.payroll.structure">
+            <field name="note">ESB</field>
+            <field name="name">Estrutura Salarial Base</field>
+            <field name="type_id" ref="hr_contract.structure_type_employee"/>
+            <field name="country_id" ref="base.ao"/>
+            <field name="rule_ids"
+                   eval="[(6,0,[
+                   ref('l10n_ao_hr_salary_rule_desconto_danos'),
+                   ref('l10n_ao_hr_salary_rule_adiantamento_salarial'),
+                   ref('l10n_ao_hr_salary_rule_reembolso_despesas'),
+                   ref('l10n_ao_hr_salary_rule_renda_casa'),
+                   ref('l10n_ao_hr_salary_rule_compensacao_rescisao'),
+                   ref('l10n_ao_hr_salary_rule_ferias'),
+                   ref('l10n_ao_hr_salary_rule_horas_extras'),
+                   ref('l10n_ao_hr_salary_rule_atavio'),
+                   ref('l10n_ao_hr_salary_rule_representacao'),
+                   ref('l10n_ao_hr_salary_rule_premios'),
+                   ref('l10n_ao_hr_salary_rule_natal'),
+                   ref('l10n_ao_hr_salary_rule_alimentao'),
+                   ref('l10n_ao_hr_salary_rule_transporte'),
+                   ref('l10n_ao_hr_salary_rule_excesso_alimentacao_transporte'),
+                   ref('l10n_ao_hr_salary_rule_famlia'),
+                   ref('l10n_ao_hr_salary_rule_excesso_abono_familia'),
+                   ref('l10n_ao_hr_salary_rule_aleitamento'),
+                   ref('l10n_ao_hr_salary_rule_chefia'),
+                   ref('l10n_ao_hr_salary_rule_combustvel'),
+                   ref('l10n_ao_hr_salary_rule_comunicao'),
+                   ref('l10n_ao_hr_salary_rule_falhas'),
+                   ref('l10n_ao_hr_salary_rule_risco'),
+                   ref('l10n_ao_hr_salary_rule_supervisao'),
+                   ref('l10n_ao_hr_salary_rule_noturno'),
+                   ref('l10n_ao_hr_salary_rule_13'),
+                   ref('l10n_ao_hr_salary_rule_falta_injustificada'),
+                   ref('l10n_ao_hr_salary_rule_atraso'),
+                   ref('l10n_ao_hr_salary_rule_falta_justificada_nao_remunerada'),
+                   ref('l10n_ao_hr_salary_rule_retr_isento'),
+                   ref('l10n_ao_hr_salary_rule_bonus'),
+                   ref('hr_salary_rule_ordenado_base'),
+                   ref('hr_salary_rule_seguranca_social'),
+                   ref('hr_salary_rule_seguranca_social8'),
+                   ref('hr_salary_rule_imposto_rendimento_sobre_trabalho_10'),
+                   ref('hr_salary_rule_imposto_rendimento_sobre_trabalho_13'),
+                   ref('hr_salary_rule_imposto_rendimentos_trabalho_16'),
+                   ref('hr_salary_rule_imposto_rendimentos_trabalho_18'),
+                   ref('hr_salary_rule_imposto_rendimentos_trabalho_19'),
+                   ref('hr_salary_rule_imposto_rendimentos_trabalho_20'),
+                   ref('hr_salary_rule_imposto_rendimentos_trabalho_21'),
+                   ref('hr_salary_rule_imposto_rendimentos_trabalho_22'),
+                   ref('hr_salary_rule_imposto_rendimentos_trabalho_23'),
+                   ref('hr_salary_rule_imposto_rendimentos_trabalho_24'),
+                   ref('hr_salary_rule_imposto_rendimentos_trabalho_25'),
+                   ref('hr_salary_rule_imposto_rendimentos_trabalho_26'),
+                   ])]"/>
+        </record>
+
+    </data>
+</odoo>

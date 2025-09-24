@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extra Deduction Codes -->
+    <data noupdate="1">
+        <record id="l10n_ao_hr_contract_type_nacional" model="hr.contract.type">
+            <field name="code">NACIONAL</field>
+            <field name="name">Nacional</field>
+        </record>
+
+        <record id="l10n_ao_hr_contract_type_expatriado" model="hr.contract.type">
+            <field name="code">EXPATRIADO</field>
+            <field name="name">Expatriado</field>
+        </record>
+
+        <record id="l10n_ao_hr_contract_type_expatriado_residente" model="hr.contract.type">
+            <field name="code">EXPATRIADO_RESIDENTE</field>
+            <field name="name">Expatriado Residente</field>
+        </record>
+    </data>
+</odoo>

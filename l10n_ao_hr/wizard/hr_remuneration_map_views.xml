@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="l10n_ao_hr_remuneration_map_view" model="ir.ui.view">
+            <field name="name">L10n HR - Remuneration MAP View</field>
+            <field name="model">wizard.hr.remuneration.map</field>
+            <field name="arch" type="xml">
+                <form>
+                    <h3>Este assistente irá gerar o Relatório do mapa de remuneração para os colaboradores.
+                        Seleccione um Lote de folhas de vencimento para gerar o Relatório para todas as folhas de vencimento no Lote.
+                        Seleccione um intervalo de datas para capturar todas as folhas de vencimento com data Fim dentro desse intervalo. As que estiverem marcadas como canceladas ou nota de crédito serão ignoradas.
+                    </h3>
+                    <br/>
+                    <group>
+                        <field name="url_download" readonly="1" invisible="1" widget="url"/>
+                        <field name="slip_filter_by"/>
+                    </group>
+                    <group attrs="{'invisible':[('slip_filter_by', '!=', 'payslip_batch')]}">
+                        <field name="hr_payslip_run_id" options="{'no_quick_create': True, 'no_create_edit': True}"
+                               attrs="{'required':[('slip_filter_by', '=', 'payslip_batch')]}" widget="many2one_tags"/>
+                    </group>
+                    <group attrs="{'invisible':[('slip_filter_by', '!=', 'payslip_date')]}">
+                        <field name="start_date"
+                               attrs="{'required':[('slip_filter_by', '=', 'payslip_date')]}"/>
+                        <field name="end_date"
+                               attrs="{'required':[('slip_filter_by', '=', 'payslip_date')]}"/>
+                    </group>
+                     <group>
+                        <field name="contract_type_id" string="Tipo de Colobarador"
+                               options="{'no_create': True, 'no_open': True}"/>
+                    </group>
+                    <footer>
+                        <button name="print_report_xml" string="Generate XML File"
+                                type="object" class="btn-warning" icon="fa-cloud-download"/>
+                        <button name="print_report_xlsx" string="Generate XLSX File"
+                                type="object" class="btn-warning" icon="fa-cloud-download"/>
+                        or
+                        <button string="Cancel Wizard" special="cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_l10n_ao_hr_remuneration_map" model="ir.actions.act_window">
+            <field name="name">Template do Mapa de IRT</field>
+            <field name="res_model">wizard.hr.remuneration.map</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="l10n_ao_hr_remuneration_map_view"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

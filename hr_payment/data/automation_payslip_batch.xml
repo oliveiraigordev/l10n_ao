@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="automated_action_payslip_batch_paid" model="base.automation">
+    <field name="name">Enviar Email DAF ao Pagar Lote de Payslip</field>
+    <field name="model_id" ref="hr_payroll.model_hr_payslip_run"/>
+    <field name="trigger">on_write</field>
+    <field name="filter_domain">[('payment_state','=','paid')]</field>
+    <!-- use state="code" e invoque o template manualmente -->
+    <field name="state">code</field>
+    <field name="code"><![CDATA[
+if record.payment_state == 'paid':
+    template = env.ref('hr_payment.email_template_payslip_batch_daf')
+    if template:
+        template.send_mail(record.id, force_send=True)
+        record.message_post(body="Notificação enviada ao grupo DAF via e-mail.")
+]]></field>
+  </record>
+</odoo>
+

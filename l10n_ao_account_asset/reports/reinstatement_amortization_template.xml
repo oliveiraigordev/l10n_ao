@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="reinstatement_amortization" name="Reintegrações e Amortizações">
+        <t t-set="orientation" t-value="'Landscape'" />
+        <t t-call="web.basic_layout">
+            <main>
+                <style>
+                    @charset "UTF-8";/*!
+                    /* Reset */
+                    * { box-sizing: border-box; }
+
+                    /* Container e grid */
+                    .container { width: 100%; padding: 0 15px; margin: 0 auto; }
+                    .row { display: flex; flex-wrap: wrap; margin: 0 -15px; }
+                    .col-md-6 { flex: 0 0 50%; max-width: 50%; padding: 0 15px; }
+                    .mb-0 { margin-bottom: 0 !important; }
+                    .mb-2 { margin-bottom: .5rem !important; }
+                    .mt-2 { margin-top: .5rem !important; }
+                    .mt-3 { margin-top: 1rem !important; }
+                    .mt-4 { margin-top: 1.5rem !important; }
+                    .mb-1 { margin-bottom: .25rem !important; }
+                    .mb-3 { margin-bottom: 1rem !important; }
+                    .p-0 { padding: 0 !important; }
+                    .p-1 { padding: .25rem !important; }
+                    .p-3 { padding: 1rem !important; }
+
+                    /* Flex utilitários */
+                    .d-flex { display: flex !important; }
+                    .flex-column { flex-direction: column !important; }
+                    .flex-md-row { flex-direction: row !important; }
+                    .flex-grow-1 { flex-grow: 1 !important; }
+                    .align-items-center { align-items: center !important; }
+                    .justify-content-center { justify-content: center !important; }
+                    .text-center { text-align: center !important; }
+                    .text-md-start { text-align: left !important; }
+
+                    /* Tipografia */
+                    .fw-bold { font-weight: bold !important; }
+                    .small { font-size: .875em !important; }
+                    .text-dark { color: #212529 !important; }
+                    .text-white { color: #fff !important; }
+
+                    /* Bordas */
+                    .border { border: 1px solid #dee2e6 !important; }
+                    .border-dark { border-color: #000 !important; }
+                    .border-end { border-right: 1px solid #dee2e6 !important; }
+
+                    /* Cores de fundo */
+                    .bg-light { background-color: #f8f9fa !important; }
+
+                    /* Tabela */
+                    .table { width: 100%; border-collapse: collapse; }
+                    .table th, .table td { padding: .5rem; border: 1px solid #dee2e6; }
+                    .table-borderless th, .table-borderless td { border: 0; }
+                    .table-bordered th, .table-bordered td { border: 1px solid #dee2e6; }
+                    .align-middle { vertical-align: middle !important; }
+
+                    /* Customizações originais */
+                    .table th, .table td { font-size: 11px; }
+                    .breakword {
+                        white-space: normal;
+                        word-break: break-word;
+                        overflow-wrap: break-word;
+                    }
+                    .logo-container { width: 120px; }
+                    .logo-container img { max-height: 60px; }
+                    .text-vertical {
+                        writing-mode: vertical-rl;
+                        vertical-align: middle;
+                        transform: rotate(180deg);
+                        white-space: nowrap;
+                    }
+                    .border-bottom-2 { border-bottom: 2px solid #000 !important; }
+                    .text-wrap-header {
+                        white-space: normal !important;
+                        word-wrap: break-word !important;
+                        line-height: 1.2;
+                        hyphens: auto;
+                    }
+                    .col-mes, .col-ano {
+                        width: 40px !important;
+                        max-width: 40px !important;
+                        min-width: 40px !important;
+                    }
+                    .col-numero { width: 40px !important; max-width: 40px !important; }
+                    .col-conta { width: 120px !important; max-width: 120px !important; }
+                    .col-descricao { width: 200px !important; max-width: 200px !important; }
+                
+                    .header-container {
+                        display: table;
+                        width: 100%;
+                        border: 1px solid #000;
+                        border-collapse: collapse;
+                    }
+                    .header-logo {
+                        display: table-cell;
+                        width: 120px;
+                        text-align: center;
+                        vertical-align: middle;
+                        border-right: 1px solid #000;
+                        padding: 10px;
+                    }
+                    .header-logo img {
+                        max-height: 60px;
+                    }
+                    .header-title {
+                        display: table-cell;
+                        text-align: center;
+                        vertical-align: middle;
+                        padding: 10px;
+                    }
+                    .header-title h6 {
+                        margin: 0;
+                        font-weight: bold;
+                        color: #3C4180;
+                    }
+                    .header-title small {
+                        display: block;
+                        margin-top: 3px;
+                    }
+                    .two-cols {
+                        display: table;
+                        width: 100%;
+                        table-layout: fixed;
+                        border-spacing: 15px 0; /* espaço horizontal entre colunas */
+                    }
+                    .col-half {
+                        display: table-cell;
+                        vertical-align: top;
+                        width: 50%;
+                    }
+                </style>
+                <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" /> -->
+                <div class="page" style="font-size: 10pt;">
+                    <div class="container mt-4">
+                        <div class="header-container mb-2">
+                            <div class="header-logo">
+                                <img t-att-src="image_data_uri(company.logo)" alt="Logo da empresa" />
+                            </div>
+                            <div class="header-title">
+                                <h6>MAPA DE REINTEGRAÇÕES E AMORTIZAÇÕES</h6>
+                                <small>
+                                    Elementos do activo imobilizado corpóreo e incorpóreo<br/>
+                                    (Incluindo os adquiridos em estado de uso)
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="two-cols">
+                            <div class="col-half">
+                                <table class="table table-bordered text-white align-middle mb-0" style="background-color: #10A0DB;">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" class="w-25">Nome da entidade</th>
+                                            <td colspan="2" class="bg-light text-dark">
+                                                <t t-esc="company.name" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Nº de Identificação Fiscal</th>
+                                            <td colspan="2" class="bg-light text-dark">
+                                                <t t-esc="company.vat" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Exercício de</th>
+                                            <td colspan="2" class="bg-light text-dark">
+                                                <t t-esc="exercise_year" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" rowspan="2" class="align-middle">Método utilizado</th>
+                                            <th style="width: 30%; background-color: #10A0DB;" class="text-white">Quotas constantes</th>
+                                            <td class="bg-light text-dark">
+                                                <t t-if="method == 'linear'" t-esc="'X'" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="background-color: #10A0DB;" class="text-white">Outro</th>
+                                            <td class="bg-light text-dark">
+                                                <t t-if="method != 'linear'" t-esc="'X'" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="col-half">
+                                <table class="table table-bordered text-white align-middle mb-0" style="background-color: #10A0DB;">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" rowspan="5" class="align-middle text-center" style="width: 15%;">Natureza do Activo</th>
+                                            <th style="width: 40%;">Activos Fixos Tangíveis</th>
+                                            <td class="bg-light text-dark">
+                                                <t t-if="'aft' in nature" t-esc="'X'" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Activos Fixos Intangíveis</th>
+                                            <td class="bg-light text-dark">
+                                                <t t-if="'afi' in nature" t-esc="'X'" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Activos Biológicos Não Consumíveis</th>
+                                            <td class="bg-light text-dark">
+                                                <t t-if="'abnc' in nature" t-esc="'X'" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Propriedade de Investimento</th>
+                                            <td class="bg-light text-dark">
+                                                <t t-if="'pi' in nature" t-esc="'X'" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Outros</th>
+                                            <td class="bg-light text-dark">
+                                                <t t-if="'other' in nature" t-esc="'X'" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <t t-if="is_unfolded"><th/></t>
+                                        <th colspan="3"/>
+                                        <th colspan="4" style="border-bottom: 2px solid #000;">Data</th>
+                                        <th colspan="7"/>
+                                        <th colspan="6" style="border-bottom: 2px solid #000;">Reintegrações e amortizações</th>
+                                    </tr>
+                                    <tr>
+                                        <t t-if="is_unfolded"><th/></t>
+                                        <th colspan="3"/>
+                                        <th colspan="2" class="text-wrap-header border-bottom-2 small">
+                                            Aquisição/construção/<br/>fabrico/doação/<br/>reparação ou benfeitoria
+                                        </th>
+                                        <th colspan="2" class="text-wrap-header border-bottom-2 small">
+                                            Entrada em funcionamento/<br/>Início de utilização
+                                        </th>
+                                        <th colspan="7"/>
+                                        <th colspan="3" class="border-bottom-2">Do Exercício</th>
+                                        <th colspan="2"/>
+                                    </tr>
+                                    <tr style="border-bottom: 2px solid #000;">
+                                        <t t-if="is_unfolded">
+                                            <th>Código</th>
+                                        </t>
+                                        <th class="col-numero">Nº</th>
+                                        <th class="col-conta">Conta do Plano Geral de Contabilidade</th>
+                                        <th class="col-descricao">Descrição do activo imobilizado</th>
+                                        <th class="col-mes">Mês</th>
+                                        <th class="col-ano">Ano</th>
+                                        <th class="col-mes">Mês</th>
+                                        <th class="col-ano">Ano</th>
+                                        <th style="width: 150px;">Isenção no Código Aduaneiro (Activo Importado)</th>
+                                        <th style="width: 150px;">Aquisição/construção/fabrico/doação</th>
+                                        <th style="width: 100px;">Nº de anos de utilidade esperada</th>
+                                        <th style="width: 80px;">Ano da reavaliação</th>
+                                        <th style="width: 100px;">Valor do acréscimo</th>
+                                        <th style="width: 100px;">Valor total reavaliado</th>
+                                        <th style="width: 100px;">Valores de exercícios anteriores</th>
+                                        <th class="width: 75px;">Taxa %</th>
+                                        <th class="width: 75px;">Taxa corrigida %</th>
+                                        <th class="width: 100px;">Valores</th>
+                                        <th style="width: 150px;">Valores das depreciações/amortizações acumuladas</th>
+                                        <th style="width: 150px;">Valor contabilístico (residual)</th>
+                                    </tr>
+                                    <tr style="background-color: #BBECFF;">
+                                        <t t-if="is_unfolded"><td/></t>
+                                        <td>(1)</td>
+                                        <td>(2)</td>
+                                        <td>(3)</td>
+                                        <td>(4)</td>
+                                        <td>(5)</td>
+                                        <td>(6)</td>
+                                        <td>(7)</td>
+                                        <td>(8)</td>
+                                        <td>(9)</td>
+                                        <td>(10)</td>
+                                        <td>(11)</td>
+                                        <td>(12)</td>
+                                        <td>(13)=(9)+(12)</td>
+                                        <td>(14)</td>
+                                        <td>(15)</td>
+                                        <td>(16)</td>
+                                        <td>(17)</td>
+                                        <td>(18)=(14)+(17)</td>
+                                        <td>(19)=(13)-(18)</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="docs" t-as="group">
+                                        <t t-foreach="group" t-as="line">
+                                            <t t-if="is_unfolded and line.get('account_group')">
+                                                <tr>
+                                                    <td class="border p-1 bg-light fw-bold">
+                                                        <t t-esc="line['account_group']" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light fw-bold" colspan="19">
+                                                        <t t-esc="line['account_group_name']" />
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="not line.get('is_group_total')">
+                                                <tr>
+                                                    <t t-if="is_unfolded"><td/></t>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="line['no']" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="line['account_code']" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="line['name']" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="line['acq_month']" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="line['acq_year']" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="line['start_month']" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="line['start_year']" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="line['customs_exempt']" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="'{:.2f}'.format(line['acquisition_value'])" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="line['useful_life']" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="line['reval_year']" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="'{:.2f}'.format(line['reval_amount'])" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="'{:.2f}'.format(line['total_revalued'])" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="'{:.2f}'.format(line['past_depre'])" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="line['rate']" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="line['corrected_rate']" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="'{:.2f}'.format(line['current_depre'])" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="'{:.2f}'.format(line['accumulated'])" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="'{:.2f}'.format(line['remaining_value'])" />
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-elif="line.get('is_group_total') and is_unfolded">
+                                                <tr style="border-top: 2px solid #000;">
+                                                    <td/>
+                                                    <td colspan="8" scope="row" class="border p-1 bg-light fw-bold">Subtotal</td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="'{:.2f}'.format(line['totals']['sum_acquisition_value'])" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light" />
+                                                    <td class="border p-1 bg-light" />
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="'{:.2f}'.format(line['totals']['sum_reval_amount'])" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="'{:.2f}'.format(line['totals']['sum_total_revalued'])" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="'{:.2f}'.format(line['totals']['sum_past_depre'])" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light" />
+                                                    <td class="border p-1 bg-light" />
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="'{:.2f}'.format(line['totals']['sum_current_depre'])" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="'{:.2f}'.format(line['totals']['sum_accumulated'])" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light">
+                                                        <t t-esc="'{:.2f}'.format(line['totals']['sum_remaining_value'])" />
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                        <tr>
+                                            <td colspan="19"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="border-top: 2px solid #000;">
+                                        <td colspan="8" scope="row" class="border p-1 bg-light fw-bold">TOTAL GERAL OU A TRANSPORTAR</td>
+                                        <t t-if="is_unfolded"><td class="border p-1 bg-light"/></t>
+                                        <td class="border p-1 bg-light">
+                                            <t t-esc="'{:.2f}'.format(totals['total_acquisition_value'])" />
+                                        </td>
+                                        <td class="border p-1 bg-light" />
+                                        <td class="border p-1 bg-light" />
+                                        <td class="border p-1 bg-light">
+                                            <t t-esc="'{:.2f}'.format(totals['total_reval_amount'])" />
+                                        </td>
+                                        <td class="border p-1 bg-light">
+                                            <t t-esc="'{:.2f}'.format(totals['total_total_revalued'])" />
+                                        </td>
+                                        <td class="border p-1 bg-light">
+                                            <t t-esc="'{:.2f}'.format(totals['total_past_depre'])" />
+                                        </td>
+                                        <td class="border p-1 bg-light" />
+                                        <td class="border p-1 bg-light" />
+                                        <td class="border p-1 bg-light">
+                                            <t t-esc="'{:.2f}'.format(totals['total_current_depre'])" />
+                                        </td>
+                                        <td class="border p-1 bg-light">
+                                            <t t-esc="'{:.2f}'.format(totals['total_accumulated'])" />
+                                        </td>
+                                        <td class="border p-1 bg-light">
+                                            <t t-esc="'{:.2f}'.format(totals['total_remaining_value'])" />
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </t>
+    </template>
+</odoo>

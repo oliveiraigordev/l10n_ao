@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="report_cash_direct_pdf">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="o">
+        <t t-set="order" t-value="o"/>
+        <t t-call="treasury_cash_flow_ao.external_fluxo_layout_standard">
+          <!-- template do report -->
+          <div class="page">
+            <br></br>
+            <br></br>
+
+            <!-- Lançamentos -->
+            <t t-if="o.cash_type == 'receita'">
+              <h5 style="color:#0B74CE; margin-top: 25px; border-bottom: 1px solid #0B74CE; padding-bottom: 3px;">
+                ENTRADA DE CAIXA
+              </h5>
+            </t>
+            <t t-elif="o.cash_type == 'despesa'">
+              <h5 style="color:#0B74CE; margin-top: 25px; border-bottom: 1px solid #0B74CE; padding-bottom: 3px;">
+                SAÍDA DE CAIXA
+              </h5>
+            </t>
+            <br></br>
+
+            <!-- cabeçalho -->
+            <div class="trans-header-radius">
+              <table  style="width:100%;font-size:12px;">
+                <tbody>
+                  <tr>
+                    <td colspan="5" class="text-start">
+                      <span style="padding-right: 5px;">
+                        <strong>Referência:</strong>
+                      </span>
+                      <span t-field="o.payment_number"/>
+                    </td>
+                    <td colspan="5" class="text-start">
+                      <span style="padding-left: 2px;">
+                        <strong>Método de Pagamento:</strong>
+                      </span>
+                      <span t-field="o.payment_method_line_id.name"/>
+                    </td>
+                    <td colspan="5" class="text-start">
+                      <span style="padding-left: 100px;">
+                        <strong>Diário:</strong>
+                      </span>
+                      <span class="text-end">
+                        <span t-field="o.journal_id.name"/>
+                      </span>
+                    </td>
+  <td colspan="5" class="text-start">
+    <span style="padding-right: 5px;">
+      <strong>
+        <t t-if="o.cash_type == 'receita'">Cliente:</t>
+        <t t-elif="o.cash_type == 'despesa'">Fornecedor:</t>
+      </strong>
+    </span>
+    <span t-field="o.cash_partner_name"/>
+  </td>
+                  </tr>
+                    <td colspan="4" class="text-start">
+                      <span style="padding-right: 5px;">
+                        <strong>Data:</strong>
+                      </span>
+                      <span t-field="o.date"/>
+                    </td>
+                </tbody>
+              </table>
+            </div>
+            <br></br>
+             <br></br>
+            <br></br>
+
+            <table class="table table-sm table-bordered" style="font-size: 12px;">
+              <thead style="background-color: #F2F4F4;">
+                <tr>
+                  <th>Descrição </th>
+                  <th class="text-right">Valor</th>
+                  <th colspan="2" class="text-center">Lançamento</th>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td class="text-center">Débito</td>
+                  <td class="text-center">Crédito</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <!-- Linha de descrição principal -->
+                  <td><span t-field="o.product_template_id.name"/></td>
+                  <td>
+                    <span t-field="o.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                  </td>
+                  <td></td>
+                  <td></td>
+                </tr>
+
+                <tr t-foreach="o.move_id.line_ids" t-as="line">
+                  <td><!--<span t-field="line.name"/>--></td>
+                  <td>
+                    <t t-if="line.debit > 0">
+                      <!--<span t-field="line.debit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>-->
+                    </t>
+                    <t t-elif="line.credit > 0">
+                      <!--<span t-field="line.credit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>-->
+                    </t>
+                  </td>
+                  <td class="text-center">
+                    <t t-if="line.debit > 0">
+                      <span t-field="line.debit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                    </t>
+                    <t t-else="">0.00</t>
+                  </td>
+                  <td class="text-center">
+                    <t t-if="line.credit > 0">
+                      <span t-field="line.credit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                    </t>
+                    <t t-else="">0.00</t>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Total da operação -->
+<table class="table table-sm table-bordered" style="font-size: 12px;">
+  <tr>
+    <td class="text-right" colspan="1"><strong>Total da Operação:</strong></td>
+    <td class="text-center" colspan="1">
+      <span t-field="o.amount"
+            t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"
+            style="font-weight: bold;"/>
+    </td>
+  </tr>
+  </table>
+
+<!-- Assinaturas -->
+            <div class="row mt-5">
+              <div class="col-6 text-center">
+                <p style="font-size: 12px;"><strong>O Responsável</strong></p>
+                <p style="margin-top:40px;">______________________________</p>
+                <p style="font-size: 12px;"><span t-field="o.create_uid.name"/></p>
+              </div>
+<!--              <div class="col-6 text-center">-->
+<!--                <p><strong>Data</strong></p>-->
+<!--                <p style="margin-top:40px;">______________________________</p>-->
+<!--                <p><span t-field="o.date"/></p>-->
+<!--              </div>-->
+            </div>
+          </div>
+        </t>
+      </t>
+    </t>
+  </template>
+  <record id="action_report_cash_direct" model="ir.actions.report">
+    <field name="name">Fluxo de Caixa Direta</field>
+    <field name="model">account.payment</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">treasury_cash_flow_ao.report_cash_direct_pdf</field>
+    <field name="report_file">treasury_cash_flow_ao.report_cash_direct_pdf</field>
+    <field name="binding_model_id" ref="account.model_account_payment"/>
+    <field name="binding_type">report</field>
+    <field name="print_report_name">'Fluxo de Caixa - %s' % (object.name)</field>
+  </record>
+</odoo>

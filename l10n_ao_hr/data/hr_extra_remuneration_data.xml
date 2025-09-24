@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extra Remuneration Codes -->
+    <data noupdate="1">
+
+<!--        <record id="l10n_ao_hr_remuneration_abono_famlia" model="hr.extra.remuneration.code">-->
+<!--            <field name="code">SUB_FAMI</field>-->
+<!--            <field name="name">Abono de Família</field>-->
+<!--            <field name="type">remuneration</field>-->
+<!--        </record>-->
+
+        <record id="l10n_ao_hr_remuneration_sub_aleitamento" model="hr.extra.remuneration.code">
+            <field name="code">SUB_ALEI</field>
+            <field name="name">Subsídio de Aleitamento</field>
+            <field name="type">remuneration</field>
+        </record>
+
+        <record id="l10n_ao_hr_remuneration_sub_alimentao" model="hr.extra.remuneration.code">
+            <field name="code">SUB_ALI</field>
+            <field name="name">Adiantamento Subsídio de Alimentação</field>
+            <field name="type">remuneration</field>
+        </record>
+
+        <record id="l10n_ao_hr_remuneration_sub_chefia" model="hr.extra.remuneration.code">
+            <field name="code">SUB_CHEF</field>
+            <field name="name">Subsídio de Chefia</field>
+            <field name="type">remuneration</field>
+        </record>
+
+        <record id="l10n_ao_hr_remuneration_sub_combustvel" model="hr.extra.remuneration.code">
+            <field name="code">SUB_COMB</field>
+            <field name="name">Subsídio de Combustível</field>
+            <field name="type">remuneration</field>
+        </record>
+
+        <record id="l10n_ao_hr_remuneration_sub_comunicacao" model="hr.extra.remuneration.code">
+            <field name="code">SUB_COMU</field>
+            <field name="name">Subsídio de Comunicação</field>
+            <field name="type">remuneration</field>
+        </record>
+
+        <record id="l10n_ao_hr_remuneration_sub_falhas" model="hr.extra.remuneration.code">
+            <field name="code">SUB_FALHA</field>
+            <field name="name">Subsídio de Falhas</field>
+            <field name="type">remuneration</field>
+        </record>
+
+        <record id="l10n_ao_hr_remuneration_sub_risco" model="hr.extra.remuneration.code">
+            <field name="code">SUB_RISC</field>
+            <field name="name">Subsídio de Risco</field>
+            <field name="type">remuneration</field>
+        </record>
+
+        <record id="l10n_ao_hr_remuneration_code_subsdio_transporte" model="hr.extra.remuneration.code">
+            <field name="code">SUB_TRANS</field>
+            <field name="name">Adiantamento Subsídio de Transporte</field>
+            <field name="type">remuneration</field>
+        </record>
+
+        <record id="hr_remuneration_code_subsdio_ferias" model="hr.extra.remuneration.code">
+            <field name="code">SUB_FER</field>
+            <field name="name">Subsídio de Férias</field>
+            <field name="type">remuneration</field>
+        </record>
+
+        <record id="hr_remuneration_code_premios" model="hr.extra.remuneration.code">
+            <field name="code">SUB_PREM</field>
+            <field name="name">Prémios</field>
+            <field name="type">remuneration</field>
+        </record>
+
+        <record id="hr_remuneration_code_subsdio_natal" model="hr.extra.remuneration.code">
+            <field name="code">SUB_NAT</field>
+            <field name="name">Subsídio de Natal</field>
+            <field name="type">remuneration</field>
+        </record>
+
+<!--        <record id="hr_remuneration_code_subsdio_horas_extras" model="hr.extra.remuneration.code">-->
+<!--            <field name="code">SUB_HOR_EXT</field>-->
+<!--            <field name="name">Subsídio Horas Extras</field>-->
+<!--            <field name="type">remuneration</field>-->
+<!--        </record>-->
+
+        <record id="hr_remuneration_code_subsdio_atavio" model="hr.extra.remuneration.code">
+            <field name="code">SUB_ATA</field>
+            <field name="name">Subsídio Atavio</field>
+            <field name="type">remuneration</field>
+        </record>
+
+        <record id="l10n_ao_hr_remuneration_code_subsidio_noturno" model="hr.extra.remuneration.code">
+            <field name="code">SUB_NOT</field>
+            <field name="name">Subsídio Noturno</field>
+            <field name="type">remuneration</field>
+        </record>
+
+        <record id="hr_remuneration_code_subsidio_reembolso_despesas" model="hr.extra.remuneration.code">
+            <field name="code">SUB_REM_DES</field>
+            <field name="name">Subsídio Reembolso Despesas</field>
+            <field name="type">remuneration</field>
+        </record>
+
+        <record id="hr_remuneration_code_subsidio_renda_casa" model="hr.extra.remuneration.code">
+            <field name="code">SUB_REM_CAS</field>
+            <field name="name">Subsídio de Renda de Casa</field>
+            <field name="type">remuneration</field>
+        </record>
+
+        <record id="l10n_ao_hr_remuneration_sub_supervisao" model="hr.extra.remuneration.code">
+            <field name="code">SUB_SUPER</field>
+            <field name="name">Subsídio de Supervisão</field>
+            <field name="type">remuneration</field>
+        </record>
+
+        <record id="l10n_ao_hr_remuneration_sub_compensacao_rescisao" model="hr.extra.remuneration.code">
+            <field name="code">SUB_COMP_RES</field>
+            <field name="name">Subsídio de Compensação de Rescisão</field>
+            <field name="type">remuneration</field>
+        </record>
+
+        <record id="l10n_ao_hr_remuneration_sub_representacao" model="hr.extra.remuneration.code">
+            <field name="code">SUB_REPR</field>
+            <field name="name">Subsídio de Representação</field>
+            <field name="type">remuneration</field>
+        </record>
+
+         <record id="l10n_ao_hr_remuneration_ad_ajuda_custo" model="hr.extra.remuneration.code">
+            <field name="code">R75</field>
+            <field name="name">Adiantamento Ajudas de Custo</field>
+            <field name="type">remuneration</field>
+        </record>
+
+        <record id="l10n_ao_hr_remuneration_ad_alimentacao" model="hr.extra.remuneration.code">
+            <field name="code">R73</field>
+            <field name="name">Adiantamento Alimentação</field>
+            <field name="type">remuneration</field>
+        </record>
+
+        <record id="l10n_ao_hr_remuneration_fami" model="hr.extra.remuneration.code">
+            <field name="code">FAMI</field>
+            <field name="name">Abono de Família</field>
+            <field name="type">remuneration</field>
+        </record>
+
+    </data>
+</odoo>

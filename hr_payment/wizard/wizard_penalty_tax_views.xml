@@ -1,0 +1,88 @@
+<odoo>
+  <record id="view_hr_tax_pay_wizard_form" model="ir.ui.view">
+    <field name="name">hr.tax.pay.wizard.form</field>
+    <field name="model">hr.tax.pay.wizard</field>
+    <field name="arch" type="xml">
+      <form string="Pagar Impostos / Multas &amp; Juros">
+        <group>
+          <group>
+            <field name="salary_payment_id" readonly="1"/>
+            <field name="company_id" readonly="1"/>
+            <field name="currency_id" readonly="1"/>
+            <field name="date"/>
+            <field name="journal_id" options="{'no_create': False}"/>
+            <field name="payment_ref"/>
+          </group>
+          <group>
+            <field name="include_taxes"/>
+            <field name="include_surcharges"/>
+            <field name="consolidate_move"/>
+          </group>
+        </group>
+
+        <notebook>
+          <page string="Impostos (IRT/INSS)">
+            <group attrs="{'invisible':[('include_taxes','=',False)]}">
+              <group>
+                <field name="pay_irt"/>
+                <field name="irt_amount"/>
+                <field name="irt_account_id"/>
+              </group>
+              <group>
+                <field name="pay_ss"/>
+                <field name="inss_amount"/>
+                <field name="inss_account_id"/>
+              </group>
+                <group>
+                <field name="pay_ss8"/>
+                <field name="inss8_amount"/>
+                <field name="inss8_account_id"/>
+              </group>
+            </group>
+          </page>
+
+          <page string="Multas &amp; Juros">
+            <group attrs="{'invisible':[('include_surcharges','=',False)]}">
+              <group>
+                <field name="penalty_amount"/>
+                <field name="penalty_account_id"/>
+              </group>
+              <group>
+                <field name="interest_amount"/>
+                <field name="interest_account_id"/>
+              </group>
+            </group>
+          </page>
+
+          <page string="Totais">
+            <group>
+              <field name="total_taxes" readonly="1"/>
+              <field name="total_surcharges" readonly="1"/>
+              <field name="total_to_pay" readonly="1"/>
+            </group>
+          </page>
+        </notebook>
+
+        <footer>
+          <button name="action_confirm" string="Confirmar Pagamento" type="object" class="btn-primary"/>
+          <button string="Cancelar" class="btn-secondary" special="cancel"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record id="view_account_payment_salary_form_tax_btn" model="ir.ui.view">
+    <field name="name">account.payment.salary.form.tax.btn</field>
+    <field name="model">account.payment.salary</field>
+    <field name="inherit_id" ref="hr_payment.view_account_payment_salary_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//header" position="inside">
+        <button name="action_open_tax_penalty_wizard"
+                string="Pagar Impostos"
+                type="object"
+                class="oe_highlight"
+               />
+      </xpath>
+    </field>
+  </record>
+</odoo>

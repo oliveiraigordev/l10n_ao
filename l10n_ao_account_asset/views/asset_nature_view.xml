@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_asset_nature_form" model="ir.ui.view">
+        <field name="name">asset.nature.form</field>
+        <field name="model">asset.nature</field>
+        <field name="arch" type="xml">
+            <form string="Natureza de Ativos ">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="account_ids" widget="many2many_tags" options="{'no_create': True}" placeholder="Selecione as contas associadas" />
+                        <field name="active" widget="boolean_toggle" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_asset_nature_tree" model="ir.ui.view">
+        <field name="name">asset.nature.tree</field>
+        <field name="model">asset.nature</field>
+        <field name="arch" type="xml">
+            <tree string="Naturezas de Ativos ">
+                <field name="name" />
+                <field name="account_ids" widget="many2many_tags" />
+                <field name="active" widget="boolean_toggle" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_asset_nature" model="ir.actions.act_window">
+        <field name="name">Naturezas de Ativos </field>
+        <field name="res_model">asset.nature</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_asset_nature_tree" />
+    </record>
+
+    <menuitem id="menu_asset_nature" name="Naturezas de Ativos " parent="account.account_management_menu" action="action_asset_nature" sequence="2" />
+</odoo>

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- ===== FORM ===== -->
+        <record id="view_account_payment_salary_form" model="ir.ui.view">
+            <field name="name">account_payment_salary.view.form</field>
+            <field name="model">account.payment.salary</field>
+            <field name="arch" type="xml">
+                <form string="Pagamento de Salários">
+                    <header>
+                        <!-- Ação principal -->
+<!--                        <button name="hr_payment_post"-->
+<!--                                type="object"-->
+<!--                                string="Confirmar Pagamento Total"-->
+<!--                                class="oe_highlight"-->
+<!--                                states="draft"-->
+<!--                                icon="fa-check"/>-->
+
+                        <!-- Toggle de impostos -->
+<!--                        <button name="toggle_pay_tax"-->
+<!--                                type="object"-->
+<!--                                string="(Exc) Incluir Impostos"-->
+<!--                                class="btn btn-outline-warning"-->
+<!--                                icon="fa-balance-scale"-->
+<!--                                attrs="{'invisible': [('tax_paid', '=', True)]}"/>-->
+
+                        <!-- Pagar impostos (após post) -->
+<!--                        <button name="action_pay_tax"-->
+<!--                                type="object"-->
+<!--                                string="Pagar Impostos"-->
+<!--                                class="btn btn-info"-->
+<!--                                icon="fa-money-bill"-->
+<!--                                attrs="{'invisible': [('state', '!=', 'posted'), ('tax_paid', '=', True)]}"/>-->
+
+                        <!-- Voltar para rascunho -->
+                        <button name="action_draft"
+                                type="object"
+                                string="Voltar para Rascunho"
+                                class="btn btn-secondary"
+                                icon="fa-undo"
+                                attrs="{'invisible': [('state', 'not in', ('posted', 'cancel'))]}"/>
+
+                        <!-- Pagamento parcial (enquanto rascunho) -->
+                        <button name="action_open_partial_payment_wizard"
+                                type="object"
+                                string="Pagamento"
+                                class="btn btn-primary"
+                                icon="fa-money-check-alt"
+                                attrs="{'invisible': [('state', '=', 'posted')]}"/>
+
+<!--                        <button name="action_open_tax_penalty_wizard"-->
+<!--                                type="object"-->
+<!--                                string="Pagamento de multas/impo "-->
+<!--                                class="btn btn-primary"-->
+<!--                                icon="fa-money-check-alt"-->
+<!--                                attrs="{'invisible': [('state', '=', 'posted')]}"/>-->
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
+                    </header>
+
+                    <sheet>
+                        <!-- KPIs / Smart Buttons -->
+                        <div class="oe_button_box" name="button_box">
+                            <!-- Multas & Juros: abre wizard -->
+                            <button name="action_open_penalty_wizard"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-gavel"
+                                    attrs="{'invisible': [('state','!=','posted')]}">
+                                <field name="total_penalties" widget="statinfo" string="Multas &amp; Juros"/>
+                            </button>
+
+                            <!-- Ver lançamentos de multas -->
+                            <button name="action_view_penalties"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-list"
+                                    attrs="{'invisible': [('penalty_count','=',0)]}">
+                                <field name="penalty_count" widget="statinfo" string="Lançamentos"/>
+                            </button>
+
+                            <!-- Totais -->
+                            <button type="action" class="oe_stat_button" icon="fa-wallet"
+                                    name="%(account.action_move_journal_line)d" context="{'search_default_posted':1}">
+                                <field name="slip_amount" string="Líquido" widget="statinfo"/>
+                            </button>
+                            <button type="action" class="oe_stat_button" icon="fa-coins"
+                                    name="%(account.action_move_journal_line)d" context="{'search_default_posted':1}">
+                                <field name="amount_paid" string="Bruto" widget="statinfo"/>
+                            </button>
+                        </div>
+
+                        <!-- Título ao postar -->
+                        <div class="oe_title" attrs="{'invisible': [('state', '=', 'draft')]}">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+
+                        <!-- Seção Impostos (mostra só quando pay_tax = True) -->
+                        <group string="Impostos" attrs="{'invisible': [('pay_tax', '=', False)]}" col="2">
+                            <field name="pay_irt" widget="boolean_toggle"
+                                   string="Incluir IRT"
+                                   help="Inclui o IRT neste pagamento."/>
+                            <field name="pay_ss" widget="boolean_toggle"
+                                   string="Incluir Segurança Social"
+                                   help="Inclui a contribuição da Segurança Social neste pagamento."/>
+                            <field name="pay_ss8" widget="boolean_toggle"
+                                   string="Incluir Segurança Social 8%"
+                                   help="Inclui a contribuição da Segurança Social neste pagamento."/>
+                            <field name="pay_tax" invisible="1" readonly="1"/>
+                            <field name="tax_paid" invisible="1"/>
+                        </group>
+
+                        <!-- Dados principais -->
+                        <group>
+                            <group string="Pagamento">
+                                <field name="payment_type" widget="radio" options="{'horizontal': True}" readonly="1"
+                                       force_save="1"
+                                       string="Tipo de Operação"/>
+
+                                <field name="slip_amount" string="Valor Líquido" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+
+                                <field name="amount_paid" string="Valor Bruto" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+
+                                <field name="hr_irt_amount" string="IRT" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}" readonly="1"/>
+                                <field name="hr_ss_amount" string="INSS" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}" readonly="1"/>
+
+                                <field name="hr_ss_amount8" string="INSS 8% " widget="monetary"
+                                       options="{'currency_field': 'currency_id'}" readonly="1"/>
+
+                                <field name="total_deductions" string="Total Descontos" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}" readonly="1"/>
+
+                                <separator string="Banco/Referência"/>
+                                <field name="journal_id" domain="[('type', 'in', ('bank', 'cash'))]"
+                                       options="{'no_create': True, 'no_open': True}" string="Banco"/>
+                                <field name="payment_method" string="Forma de Pagamento"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="date" string="Data"/>
+                                <field name="ref"
+                                       attrs="{'invisible': [('state', '!=', 'draft'), ('ref', '=', False)],
+                               'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="company_id" invisible="1"/>
+                            </group>
+
+                            <group string="Conversão cambial">
+                                <field name="currency_id" options="{'no_create': True}" string="Moeda"/>
+                                <field name="counter_currency_id" options="{'no_create': True}"
+                                       string="Moeda de Contra-valor"/>
+                                <field name="exchange_rate" string="Taxa de Câmbio" attrs="{'readonly': False}"/>
+                                <field name="amount_counter" string="Contra-valor" widget="monetary"
+                                       options="{'currency_field': 'counter_currency_id'}" readonly="1"/>
+
+                                <separator string="Lote de Referência"/>
+                                <field name="hr_payment" required="1" domain="[('state','=','treasury')]"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}" string="Referência"/>
+
+                                <separator string="Pagamentos"/>
+                                <field name="partial_paid_total" string="Total Pago" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="remaining_amount" string="Restante a Pagar" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            </group>
+                        </group>
+
+                        <!-- Abas -->
+                        <notebook>
+                            <page name="lines" string="Linhas do Pagamento">
+                                <field name="lines" attrs="{'readonly':[('state','!=', 'draft')]}">
+                                    <tree editable="bottom" string="Payment Items">
+
+                                        <field name="name" readonly="1" force_save="1" string="Descrição"/>
+                                        <field name="amount_paid" string="Salário Bruto"
+                                               widget="monetary" options="{'currency_field': 'currency_id'}"
+                                               attrs="{'readonly':[('payment_split','!=', 'manual')]}"
+                                               sum="Total Bruto"/>
+                                        <field name="slip_amount" string="Salário Líquido" readonly="1"
+                                               widget="monetary" options="{'currency_field': 'currency_id'}"
+                                               sum="Total Líquido" required="1"/>
+                                        <field name="payment_split" invisible="1"/>
+                                    </tree>
+                                </field>
+
+                            </page>
+
+                            <page string="Lançamentos de Impostos">
+                                <field name="tax_move_ids" readonly="1"
+                                       context="{'form_view_ref': 'account.view_move_form'}">
+                                    <tree editable="false" decoration-success="state=='posted'">
+                                        <field name="name" string="Lançamento"/>
+                                        <field name="date"/>
+                                        <field name="amount_total" string="Valor" widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="Pagamentos">
+                                <field name="partial_move_ids" context="{'default_move_type': 'entry'}" readonly="1">
+                                    <tree decoration-success="state=='posted'">
+                                        <field name="date"/>
+                                        <field name="ref"/>
+                                        <field name="amount_total" string="Valor" widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+<!--                            <page string="Lançamento do Pagamento">-->
+<!--                                <field name="move_id" readonly="1"-->
+<!--                                       context="{'form_view_ref': 'account.view_move_form'}">-->
+<!--                                    <tree editable="false" decoration-success="state=='posted'">-->
+<!--                                        <field name="name" string="Lançamento"/>-->
+<!--                                        <field name="date"/>-->
+<!--                                        <field name="amount_total" string="Valor" widget="monetary"-->
+<!--                                               options="{'currency_field': 'currency_id'}"/>-->
+<!--                                        <field name="state"/>-->
+<!--                                    </tree>-->
+<!--                                </field>-->
+<!--                            </page>-->
+
+                            <page string="Multas &amp; Juros">
+                                <field name="penalty_move_ids" readonly="1"
+                                       context="{'form_view_ref': 'account.view_move_form'}">
+                                    <tree editable="false" decoration-success="state=='posted'">
+                                        <field name="name" string="Lançamento"/>
+                                        <field name="date"/>
+                                        <field name="amount_total" string="Valor" widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                    <!-- Chatter -->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- ===== TREE ===== -->
+        <record id="view_account_payment_salary_view_tree" model="ir.ui.view">
+            <field name="name">account_payment_salary.view.tree</field>
+            <field name="model">account.payment.salary</field>
+            <field name="arch" type="xml">
+                <tree string="Pagamentos de Salário" decoration-success="state=='posted'">
+                    <field name="expatriate_only" invisible="1"/>
+                    <field name="payslip_run_id" string="Lote"/>
+                    <field name="name" string="Descrição"/>
+                    <field name="slip_amount" string="Total Líquido" sum="Total Líquido"
+                           widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="amount_paid" string="Total Bruto" sum="Total Bruto"
+                           widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="hr_ss_amount" string="Total INSS" sum="INSS"
+                           widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="hr_ss_amount8" string="Total INSS 8%" sum="INSS"
+                           widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="hr_irt_amount" string="Total IRT" sum="IRT"
+                           widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="journal_id" string="Banco"/>
+                    <field name="hr_payment" string="Referência"/>
+                    <field name="state" string="Estado"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ===== ACTION ===== -->
+        <record id="action_salary_payment_aoa" model="ir.actions.act_window">
+            <field name="name">Pagto Salários (AOA)</field>
+            <field name="res_model">account.payment.salary</field>
+            <field name="view_ids" eval="[
+        (5, 0, 0),
+        (0, 0, {'view_mode':'tree', 'view_id': ref('view_account_payment_salary_view_tree')}),
+        (0, 0, {'view_mode':'form', 'view_id': ref('view_account_payment_salary_form')})
+      ]"/>
+            <field name="domain">[('expatriate_only','=',False)]</field>
+            <field name="context" eval="{'default_counter_currency_id': ref('base.AOA')}"/>
+        </record>
+
+        <!-- ===== MENUS ===== -->
+        <menuitem id="menu_salary_root"
+                  name="Salários"
+                  parent="account.menu_finance_payables"
+                  sequence="20"/>
+
+        <menuitem id="account_payment_salary_menu"
+                  name="Pagamento de Salário"
+                  parent="menu_salary_root"
+                  action="action_salary_payment_aoa"
+                  sequence="5"/>
+    </data>
+</odoo>

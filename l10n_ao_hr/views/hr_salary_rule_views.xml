@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- modify HR Salary Rule form view -->
+    <record id="l1on_ao_hr_salary_rule_form_view" model="ir.ui.view">
+        <field name="name">AG - Inherited Salary Rule Form View</field>
+        <field name="model">hr.salary.rule</field>
+        <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='appears_on_payroll_report']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <field name="appears_on_employee_cost_dashboard" position="after">
+                <field name="inss_rule"/>
+                <field name="is_irt_compensation"/>
+                <field name="is_suffer_absence_discounts"/>
+                <field name="paid_in_kwanza_in_angola"/>
+                <field name="paid_in_kwanza_foreign_currency"/>
+            </field>
+
+            <field name="condition_range" position="after">
+                <field name="cool_parcel"/>
+                <field name="excess_amount"/>
+                <field name="irt_tax"/>
+                <field name="inss_tax" attrs="{'invisible': [('code', '!=', 'INSS')]}"/>
+                <field name="inss8_tax" attrs="{'invisible': [('code', '!=', 'INSS8')]}"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates>
+    <t t-name="l10nAoAccountReports.search_bar">
+            <div class="o_cp_searchview" t-if="report_options.search_bar">
+                <div class="o_searchview">
+                    <i class="o_searchview_icon oi oi-search" role="img" aria-label="Search..." title="Search..."></i>
+
+                    <div class="o_searchview_input_container">
+                        <input t-if="report_options.filter_by_account" class="input_ao_filter_by_account" type="text"
+                               placeholder="Search lines" style="border:none"/>
+                        <input t-else="" class="o_searchview_input" type="text" placeholder="Search line 2"/>
+                    </div>
+                </div>
+            </div>
+    </t>
+
+</templates>

@@ -1,0 +1,8 @@
+<odoo>
+    <data noupdate="1">
+        <record id="nif_search_url" model="ir.config_parameter">
+            <field name="key">nif.search.url</field>
+            <field name="value">https://invoice.minfin.gov.ao/commonServer/common/taxpayer/get/</field>
+        </record>
+    </data>
+</odoo>

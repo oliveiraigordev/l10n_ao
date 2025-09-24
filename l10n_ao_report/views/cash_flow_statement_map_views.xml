@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="l10n_cash_flow_statement_map_tree_view" model="ir.ui.view">
+        <field name="name">L10N - Cash Flow Statement Map View Tree</field>
+        <field name="model">cash.flow.statement.map</field>
+        <field name="arch" type="xml">
+            <tree string="Extracto do Fluxo de Caixa" create="false" edit="false"
+                  js_class="l10n_ao_report_cash_flow_map_list">
+                <field name="cash_flow_statement_line_id" invisible="1"/>
+                <field name="date"/>
+                <field name="journal_id"/>
+                <field name="description"/>
+                <field name="debit"/>
+                <field name="credit"/>
+                <field name="balance"/>
+                <field name="document"/>
+                <field name="doc_number"/>
+                <field name="origin_account_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="l10n_cash_flow_statement_map_search_view" model="ir.ui.view">
+        <field name="name">Extracto do Fluxo de Caixa.search.view</field>
+        <field name="model">cash.flow.statement.map</field>
+        <field name="arch" type="xml">
+            <search string="Extracto do Fluxos de Caixa">
+                <field name="cash_flow_statement_line_id"/>
+                <field name="journal_id"/>
+                <field name="origin_account_id"/>
+                <field name="date"/>
+                <filter string="Fluxo de Caixa" name="cash_flow_statement_line_id"
+                        domain="[('cash_flow_statement_line_id','ilike','cash_flow_statement_line_id')]"/>
+                <separator/>
+                <filter string="Diário" name="journal_id" domain="[('journal_id','ilike','journal_id')]"/>
+                <filter string="Conta Origem" name="origin_account_id"
+                        domain="[('origin_account_id','ilike','origin_account_id')]"/>
+                <separator/>
+<!--                <filter name="this_month" string="Mês Actual"-->
+<!--                        domain="['&amp;', ('date', '&gt;=', context_today().strftime('%Y-%m-1')),-->
+<!--                                      ('date', '&lt;=', context_today().strftime('%Y-%m-%d'))]"/>-->
+                <filter name="this_year" string="Ano Actual"
+                        domain="['&amp;', ('date', '&gt;=', context_today().strftime('%Y-1-1')),
+                                      ('date', '&lt;=', context_today().strftime('%Y-12-31'))]"/>
+                <filter name="filter_date" date="date"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_cash_flow_statement_line_id" string="Fluxo de Caixa"
+                            context="{'group_by': 'cash_flow_statement_line_id'}"/>
+                    <filter name="journal_id" string="Diário"
+                            context="{'group_by': 'journal_id'}"
+                            domain="[('journal_id','ilike','journal_id')]"/>
+                    <filter name="origin_account_id" string="Conta Origem"
+                            context="{'group_by': 'origin_account_id'}"
+                            domain="[('origin_account_id','ilike','origin_account_id')]"/>
+                </group>
+                <searchpanel>
+                    <field name="journal_id" string="Diário"/>
+                    <field name="origin_account_id" string="Conta Origem"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cash_flow_statement_map" model="ir.actions.act_window">
+        <field name="name">Extracto do Fluxos de Caixa</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cash.flow.statement.map</field>
+        <field name="context">{'search_default_group_cash_flow_statement_line_id': 1, 'search_default_this_year': 1}</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="l10n_cash_flow_statement_map_search_view"/>
+    </record>
+
+    <menuitem id="account_result_settlement_map_wizard_menu"
+              name="Extracto do Fluxo de Caixa"
+              parent="cash_flow_statement_menu"
+              sequence="2"
+              action="action_cash_flow_statement_map"/>
+
+</odoo>

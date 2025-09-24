@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="asset_disposal" name="Mapa de Abates">
+        <t t-set="orientation" t-value="'Landscape'" />
+        <t t-call="web.basic_layout">
+            <main>
+                <style>
+                    @charset "UTF-8";/*!
+                    * { box-sizing: border-box; }
+
+                    /* Tipografia utilitária */
+                    .fw-bold { font-weight: bold; }
+                    .text-center { text-align: center; }
+                    .text-dark { color: #212529; }
+                    .text-white { color: #fff; }
+                    .small { font-size: .875em; }
+
+                    /* Espaçamentos */
+                    .mt-2 { margin-top: .5rem; }
+                    .mt-3 { margin-top: 1rem; }
+                    .mt-4 { margin-top: 1.5rem; }
+                    .mb-0 { margin-bottom: 0; }
+                    .mb-1 { margin-bottom: .25rem; }
+                    .mb-2 { margin-bottom: .5rem; }
+                    .mb-3 { margin-bottom: 1rem; }
+                    .p-0 { padding: 0; }
+                    .p-1 { padding: .25rem; }
+                    .p-3 { padding: 1rem; }
+
+                    /* Bordas */
+                    .border { border: 1px solid #dee2e6; }
+                    .border-dark { border-color: #000; }
+                    .border-end { border-right: 1px solid #dee2e6; }
+
+                    .bg-light { background-color: #f8f9fa; }
+
+                    /* Tabelas */
+                    .table { width: 100%; border-collapse: collapse; }
+                    .table th, .table td { padding: .5rem; border: 1px solid #dee2e6; font-size: 11px; }
+                    .table-borderless th, .table-borderless td { border: 0; }
+                    .table-bordered th, .table-bordered td { border: 1px solid #dee2e6; }
+                    .align-middle { vertical-align: middle; }
+
+                    /* Helpers */
+                    .breakword {
+                        white-space: normal;
+                        word-break: break-word;
+                        overflow-wrap: break-word;
+                    }
+                    .text-vertical {
+                        writing-mode: vertical-rl;
+                        transform: rotate(180deg);
+                        white-space: nowrap;
+                    }
+
+                    /* Header layout */
+                    .header-container {
+                        display: table;
+                        width: 100%;
+                        border: 1px solid #000;
+                        border-collapse: collapse;
+                    }
+                    .header-logo {
+                        display: table-cell;
+                        width: 120px;
+                        text-align: center;
+                        vertical-align: middle;
+                        border-right: 1px solid #000;
+                        padding: 10px;
+                    }
+                    .header-logo img { max-height: 60px; }
+                    .header-title {
+                        display: table-cell;
+                        text-align: center;
+                        vertical-align: middle;
+                        padding: 10px;
+                    }
+                    .header-title h6 {
+                        margin: 0;
+                        font-weight: bold;
+                        color: #3C4180;
+                    }
+                    .header-title small {
+                        display: block;
+                        margin-top: 3px;
+                    }
+
+                    /* Duas colunas lado a lado */
+                    .two-cols {
+                        display: table;
+                        width: 100%;
+                        table-layout: fixed;
+                        border-spacing: 15px 0;
+                    }
+                    .col-half {
+                        display: table-cell;
+                        vertical-align: top;
+                        width: 50%;
+                    }
+                </style>
+
+                <div class="page" style="font-size: 10pt;">
+                    <div class="container mt-4">
+                        <div class="header-container mb-2">
+                            <div class="header-logo">
+                                <img t-att-src="image_data_uri(company.logo)" alt="Logo da empresa" />
+                            </div>
+                            <div class="header-title">
+                                <h6>MAPA DE ABATES</h6>
+                                <small>
+                                    Elementos do activo imobilizado corpóreo e incorpóreo<br/>
+                                    (Incluindo os adquiridos em estado de uso)
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="two-cols">
+                            <div class="col-half">
+                                <table class="table table-bordered text-white align-middle mb-0" style="background-color: #10A0DB;">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" class="w-25">Nome da entidade</th>
+                                            <td colspan="2" class="bg-light text-dark">
+                                                <t t-esc="company.name" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Nº de Identificação Fiscal</th>
+                                            <td colspan="2" class="bg-light text-dark">
+                                                <t t-esc="company.vat" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Exercício de</th>
+                                            <td colspan="2" class="bg-light text-dark">
+                                                <t t-esc="exercise_year" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" rowspan="2" class="align-middle">Método utilizado</th>
+                                            <th style="width: 30%; background-color: #10A0DB;" class="text-white">Quotas constantes</th>
+                                            <td class="bg-light text-dark">
+                                                <t t-if="method == 'linear'" t-esc="'X'" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="background-color: #10A0DB;" class="text-white">Outro</th>
+                                            <td class="bg-light text-dark">
+                                                <t t-if="method != 'linear'" t-esc="'X'" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="col-half">
+                                <table class="table table-bordered text-white align-middle mb-0" style="background-color: #10A0DB;">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" rowspan="5" class="align-middle text-center" style="width: 15%;">Natureza do Activo</th>
+                                            <th style="width: 40%;">Activos Fixos Tangíveis</th>
+                                            <td class="bg-light text-dark">
+                                                <t t-if="'aft' in nature" t-esc="'X'" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Activos Fixos Intangíveis</th>
+                                            <td class="bg-light text-dark">
+                                                <t t-if="'afi' in nature" t-esc="'X'" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Activos Biológicos Não Consumíveis</th>
+                                            <td class="bg-light text-dark">
+                                                <t t-if="'abnc' in nature" t-esc="'X'" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Propriedade de Investimento</th>
+                                            <td class="bg-light text-dark">
+                                                <t t-if="'pi' in nature" t-esc="'X'" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Outros</th>
+                                            <td class="bg-light text-dark">
+                                                <t t-if="'other' in nature" t-esc="'X'" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <!-- tabela principal -->
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <t t-if="is_unfolded"><th/></t>
+                                        <th colspan="3"></th>
+                                        <th colspan="4" style="border-bottom: 2px solid #000;">Data</th>
+                                        <th colspan="5"></th>
+                                    </tr>
+                                    <tr>
+                                        <t t-if="is_unfolded"><th/></t>
+                                        <th colspan="3"></th>
+                                        <th colspan="2" style="border-bottom: 2px solid #000;">Aquisição/construção/fabrico/doação/reparação ou benfeitoria</th>
+                                        <th colspan="2" style="border-bottom: 2px solid #000;">Entrada em funcionamento/Inicio de utilização</th>
+                                        <th colspan="5"></th>
+                                    </tr>
+                                    <tr style="border-bottom: 2px solid #000;">
+                                        <t t-if="is_unfolded"><th>Código</th></t>
+                                        <th>Nº</th>
+                                        <th>Conta do Plano Geral de Contabilidade</th>
+                                        <th>Descrição do activo imobilizado</th>
+                                        <th>Mês</th>
+                                        <th>Ano</th>
+                                        <th>Mês</th>
+                                        <th>Ano</th>
+                                        <th>Valor da aquisição/construção/fabrico/doação/reparação ou benfeitoria (incluindo os valores do acréscimo da reavaliação)</th>
+                                        <th>Valores das depreciações/amortizações acumuladas</th>
+                                        <th>Valor contabilístico(residual)</th>
+                                        <th>Valor da venda</th>
+                                        <th>Valor da mais-valia ou menos-valia</th>
+                                    </tr>
+                                    <tr style="background-color: #BBECFF;">
+                                        <t t-if="is_unfolded"><td/></t>
+                                        <td>(1)</td>
+                                        <td>(2)</td>
+                                        <td>(3)</td>
+                                        <td>(4)</td>
+                                        <td>(5)</td>
+                                        <td>(6)</td>
+                                        <td>(7)</td>
+                                        <td>(8)</td>
+                                        <td>(9)</td>
+                                        <td>(10)</td>
+                                        <td>(11)</td>
+                                        <td>(12)</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="docs" t-as="group">
+                                        <t t-foreach="group" t-as="line">
+                                            <t t-if="is_unfolded and line.get('account_group')">
+                                                <tr>
+                                                    <td class="border p-1 bg-light fw-bold">
+                                                        <t t-esc="line['account_group']" />
+                                                    </td>
+                                                    <td class="border p-1 bg-light fw-bold" colspan="19">
+                                                        <t t-esc="line['account_group_name']" />
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="not line.get('is_group_total')">
+                                                <tr>
+                                                    <t t-if="is_unfolded"><td/></t>
+                                                    <td class="border p-1 bg-light"><t t-esc="line['no']" /></td>
+                                                    <td class="border p-1 bg-light"><t t-esc="line['account_code']" /></td>
+                                                    <td class="border p-1 bg-light"><t t-esc="line['name']" /></td>
+                                                    <td class="border p-1 bg-light"><t t-esc="line['acq_month']" /></td>
+                                                    <td class="border p-1 bg-light"><t t-esc="line['acq_year']" /></td>
+                                                    <td class="border p-1 bg-light"><t t-esc="line['start_month']" /></td>
+                                                    <td class="border p-1 bg-light"><t t-esc="line['start_year']" /></td>
+                                                    <td class="border p-1 bg-light"><t t-esc="line['acquisition_value']" /></td>
+                                                    <td class="border p-1 bg-light"><t t-esc="line['depreciation_amount']" /></td>
+                                                    <td class="border p-1 bg-light"><t t-esc="line['remaining_value']" /></td>
+                                                    <td class="border p-1 bg-light"><t t-esc="line['sale_value']" /></td>
+                                                    <td class="border p-1 bg-light"><t t-esc="line['surplus_value']" /></td>
+                                                </tr>
+                                            </t>
+                                            <t t-elif="line.get('is_group_total') and is_unfolded">
+                                                <tr style="border-top: 2px solid #000;">
+                                                    <td/>
+                                                    <td colspan="7" scope="row" class="border p-1 bg-light fw-bold">Subtotal</td>
+                                                    <td class="border p-1 bg-light"><t t-esc="'{:.2f}'.format(line['totals']['sum_acquisition_value'])" /></td>
+                                                    <td class="border p-1 bg-light"><t t-esc="'{:.2f}'.format(line['totals']['sum_depreciation_amount'])" /></td>
+                                                    <td class="border p-1 bg-light"><t t-esc="'{:.2f}'.format(line['totals']['sum_remaining_value'])" /></td>
+                                                    <td class="border p-1 bg-light"><t t-esc="'{:.2f}'.format(line['totals']['sum_sale_value'])" /></td>
+                                                    <td class="border p-1 bg-light"><t t-esc="'{:.2f}'.format(line['totals']['sum_surplus_value'])" /></td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                        <tr><td colspan="19"/></tr>
+                                    </t>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="border-top: 2px solid #000;">
+                                        <td colspan="7" scope="row" class="border p-1 bg-light fw-bold">TOTAL GERAL OU A TRANSPORTAR</td>
+                                        <t t-if="is_unfolded"><td class="border p-1 bg-light"/></t>
+                                        <td class="border p-1 bg-light"><t t-esc="'{:.2f}'.format(totals['total_acquisition_value'])" /></td>
+                                        <td class="border p-1 bg-light"><t t-esc="'{:.2f}'.format(totals['total_depreciation_amount'])" /></td>
+                                        <td class="border p-1 bg-light"><t t-esc="'{:.2f}'.format(totals['total_remaining_value'])" /></td>
+                                        <td class="border p-1 bg-light"><t t-esc="'{:.2f}'.format(totals['total_sale_value'])" /></td>
+                                        <td class="border p-1 bg-light"><t t-esc="'{:.2f}'.format(totals['total_surplus_value'])" /></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- modify schedule form view -->
+        <record id="l10n_ao_hr_resource_calendar_form_view" model="ir.ui.view">
+            <field name="name">HR - Inherited Resource Calendar Form View</field>
+            <field name="model">resource.calendar</field>
+            <field name="inherit_id" ref="resource.resource_calendar_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="before">
+                    <group>
+                        <field name="calendar_type"/>
+                        <field name="define_manual_week_hours" widget="boolean_toggle"/>
+                        <field name="computed_week_hours"
+                               attrs="{'invisible':[('define_manual_week_hours','=',True)]}"/>
+                        <field name="manual_week_hours"
+                               attrs="{'invisible':[('define_manual_week_hours','=',False)], 'required':[('define_manual_week_hours','=',True)]}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- modify schedule tree view -->
+        <record id="l10n_ao_hr_resource_calendar_tree_view" model="ir.ui.view">
+            <field name="name">HR - Inherited Resource Calendar Tree View</field>
+            <field name="model">resource.calendar</field>
+            <field name="inherit_id" ref="resource.view_resource_calendar_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="calendar_type"/>
+                    <field name="week_hours_final"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

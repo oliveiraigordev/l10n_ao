@@ -1,0 +1,5 @@
+pycryptodome
+xmlschema==3.3.0
+dicttoxml2
+wkhtmltopdf
+openpyxl

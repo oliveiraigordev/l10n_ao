@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Vacation Balance Search View-->
+    <record id="hr_vacation_balance_report_search" model="ir.ui.view">
+        <field name="name">vacation.balance.report.search</field>
+        <field name="model">vacation.balance.report</field>
+        <field name="arch" type="xml">
+            <search string="Vocation Balance Report">
+                <field name="employee_id"/>
+                <field name="job_id"/>
+                <field name="department_id"/>
+                <field name="direction_id"/>
+                <filter string="Direcção" name="direction_id" domain="[('direction_id','ilike','direction_id')]"/>
+                <filter string="Funcionário" name="employee_id" domain="[('employee_id','ilike','employee_id')]"/>
+                <filter string="Departamento" name="department_id"
+                        domain="[('department_id','ilike','department_id')]"/>
+                <filter string="Cargo/Função" name="job_id" domain="[('job_id','ilike','job_id')]"/>
+                <separator/>
+                <filter string="Nacional" name="contract_type_id"
+                        domain="[('contract_type_id', '=', %(l10n_ao_hr.l10n_ao_hr_contract_type_nacional)d)]"/>
+                <filter string="EXPATRIADO" name="contract_type_id"
+                        domain="[('contract_type_id', '=', %(l10n_ao_hr.l10n_ao_hr_contract_type_expatriado)d)]"/>
+                <filter string="EXPATRIADO_RESIDENTE" name="contract_type_id"
+                        domain="[('contract_type_id', '=', %(l10n_ao_hr.l10n_ao_hr_contract_type_expatriado_residente)d)]"/>
+                <separator/>
+                <filter string="Activo" name="state_active" domain="[('state','=','active')]"/>
+                <filter string="Fechado" name="state_close" domain="[('state','=','close')]"/>
+                <filter name="this_year" string="Ano Actual"
+                        domain="[('vacation_year', '&gt;=', context_today().strftime('%Y'))]"/>
+                <group expand="0" string="Group By">
+                    <filter name="employee_id" string="Funcionário" context="{'group_by': 'employee_id'}"
+                            domain="[('employee_id','ilike','employee_id')]"/>
+                    <filter name="direction_id" string="Direcção" context="{'group_by': 'direction_id'}"
+                            domain="[('direction_id','ilike','direction_id')]"/>
+                    <filter name="department_id" string="Departamento" context="{'group_by': 'department_id'}"
+                            domain="[('department_id','ilike','department_id')]"/>
+                    <filter name="job_id" string="Cargo/Função" context="{'group_by': 'job_id'}"
+                            domain="[('job_id','ilike','job_id')]"/>
+                    <filter name="gender" string="Genêro" context="{'group_by': 'gender'}"
+                            domain="[('gender','ilike','gender')]"/>
+                    <filter name="country_id" string="País" context="{'group_by': 'country_id'}"
+                            domain="[('country_id','ilike','country_id')]"/>
+                    <filter name="vacation_year" string="Ano" context="{'group_by': 'vacation_year'}"
+                            domain="[('vacation_year','ilike','vacation_year')]"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!--Vocation Balance Tree View-->
+    <record id="hr_vacation_balance_report_tree" model="ir.ui.view">
+        <field name="name">vacation.balance.report.tree</field>
+        <field name="model">vacation.balance.report</field>
+        <field name="arch" type="xml">
+            <tree string="Vocation Balance Report" create="0" editable="bottom" sample="1"
+                  expand="context.get('expand', False)">
+                <field name="employee_id" readonly="1"/>
+                <field name="contract_type_id" string="Tipo"/>
+                <field name="gender" readonly="1"/>
+                <field name="date_from" readonly="1" invisible="1"/>
+                <field name="date_to" readonly="1" invisible="1"/>
+                <field name="country_id" invisible="1"/>
+                <field name="direction_id" invisible="1"/>
+                <field name="department_id" invisible="1"/>
+                <field name="job_id" invisible="1"/>
+                <field name="admission_date" invisible="1"/>
+                <field name="leave_type_id" invisible="1"/>
+                <field name="vacation_days" readonly="1"/>
+                <field name="additional_per_dependent_days" readonly="1"/>
+                <field name="subtracted_days" readonly="1"/>
+                <field name="days_already_enjoyed" readonly="1"/>
+                <field name="days_not_taken" readonly="1"/>
+                <field name="overdue_days" readonly="1"/>
+                <field name="current_balance_days" invisible="1"/>
+                <field name="total_balance_days"/>
+                <field name="vacation_year" readonly="1"/>
+                <field name="previous_report_id" invisible="1"/>
+                <field name="state" widget="badge" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Vocation Balance Summary Action-->
+    <record id="action_vacation_balance_report" model="ir.actions.act_window">
+        <field name="name">Vacation Balance Report</field>
+        <field name="res_model">vacation.balance.report</field>
+        <field name="view_mode">tree,pivot,graph</field>
+        <field name="search_view_id" ref="hr_vacation_balance_report_search"/>
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_state_active': 1}</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="account_financial_report_fluxocaixa_indirecto" model="account.report">
+            <field name="name">Fluxo de Caixa (Indirecto)</field>
+            <field name="country_id" ref="base.ao"/>
+            <field name="filter_unfold_all" eval="False"/>
+            <field name="filter_journals" eval="False"/>
+            <field name="filter_analytic" eval="False"/>
+            <field name="filter_date_range" eval="True"/>
+            <field name="filter_period_comparison" eval="True"/>
+            <field name="filter_show_draft" eval="False"/>
+            <field name="filter_multi_company">selector</field>
+            <field name="default_opening_date_filter">this_year</field>
+           <field name="line_template">l10n_ao_report.line_template_add_notes_ao</field>
+            <field name="main_table_header_template">l10n_ao_report.main_table_header_with_note</field>
+            <field name="search_bar" eval="False"/>
+            <field name="column_ids">
+                <record id="account_financial_fluxo_caixa_indirecto_report_ao_column" model="account.report.column">
+                    <field name="name">Saldo</field>
+                    <field name="expression_label">balance</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="blank_if_zero" eval="False"/>
+                </record>
+            </field>
+        </record>
+
+        <!-- Fluxo de caixa das actividades operacionais -->
+        <record id="account_financial_report_caixa_operacionais_indireto" model="account.report.line">
+            <field name="name">FLUXO DE CAIXA DAS ACTIVIDADES OPERACIONAIS</field>
+            <field name="code">CX_OPER_IND</field>
+            <field name="report_id" ref="account_financial_report_fluxocaixa_indirecto"/>
+            <field eval="1" name="sequence"/>
+            <field eval="0" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"></field>
+        </record>
+
+        <record id="account_financial_report_caixa_resultado_liquido" model="account.report.line">
+            <field name="name">Resultado líquido antes dos impostos e das rubricas extraordinárias</field>
+            <field name="code">RECEB_LIQ_IMP</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_operacionais_indireto"/>
+            <field eval="2" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <!-- AJUSTAMENTOS -->
+        <record id="account_financial_report_caixa_ajustamento" model="account.report.line">
+            <field name="name">AJUSTAMENTOS:</field>
+            <field name="code">AJUST</field>
+            <field name="parent_id" ref="account_financial_report_caixa_operacionais_indireto"/>
+            <field eval="3" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+        </record>
+
+        <record id="account_financial_report_caixa_depreciacoes" model="account.report.line">
+            <field name="name">Depreciações</field>
+            <field name="code">DEPRECIA</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_ajustamento"/>
+            <field eval="4" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_amortizacoes" model="account.report.line">
+            <field name="name">Amortizações</field>
+            <field name="code">AMORTIZA</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_ajustamento"/>
+            <field eval="5" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_ganhos" model="account.report.line">
+            <field name="name">Ganhos na alienação de imobilizações</field>
+            <field name="code">GANHOS_IMOB</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_ajustamento"/>
+            <field eval="6" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_perdas_imobili" model="account.report.line">
+            <field name="name">Perdas na alienação de imobilizações</field>
+            <field name="code">PERDAS_IMOB</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_ajustamento"/>
+            <field eval="7" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_resultado_financeiro" model="account.report.line">
+            <field name="name">Resultados financeiros</field>
+            <field name="code">RESULTADO_FINA</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_ajustamento"/>
+            <field eval="8" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_resultado_extr" model="account.report.line">
+            <field name="name">Resultados extraordinários</field>
+            <field name="code">RESULTADO_EXTR</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_ajustamento"/>
+            <field eval="9" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <!-- Resultados operacionais antes das alterações do capital circulante: -->
+        <record id="account_financial_report_caixa_resultado_capital_circulante" model="account.report.line">
+            <field name="name">RESULTADOS OPERACIONAIS ANTES DAS ALTERAÇÕES DO CAPITAL CIRCULANTE:</field>
+            <field name="code">RESULT_OPERA_CAPI_CIRCU</field>
+            <field name="parent_id" ref="account_financial_report_caixa_operacionais_indireto"/>
+            <field eval="10" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+        </record>
+
+        <record id="account_financial_report_caixa_aumento_existencia" model="account.report.line">
+            <field name="name">Aumento das existências</field>
+            <field name="code">AUMENTO_EXISTENCIA</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_resultado_capital_circulante"/>
+            <field eval="11" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_diminuicao_existencia" model="account.report.line">
+            <field name="name">Diminuição das existências</field>
+            <field name="code">DIMINUI_EXISTENCIA</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_resultado_capital_circulante"/>
+            <field eval="12" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_aumento_divid_operac" model="account.report.line">
+            <field name="name">Aumento das dívidas de terceiros operacionais</field>
+            <field name="code">AUMENTO_DIVIDA_TERCE_OPERACIONAIS</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_resultado_capital_circulante"/>
+            <field eval="13" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_dimin_divid_operac" model="account.report.line">
+            <field name="name">Diminuição das dívidas de terceiros operacionais</field>
+            <field name="code">DIMIN_DIVIDA_TERCE_OPERACIONAIS</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_resultado_capital_circulante"/>
+            <field eval="14" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_aumento_outro_activo_operac" model="account.report.line">
+            <field name="name">Aumento de outros activo operacionais</field>
+            <field name="code">AUMENT_OUTRO_ACTIVO_OPERAC</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_resultado_capital_circulante"/>
+            <field eval="15" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_dimin_outro_activo_operac" model="account.report.line">
+            <field name="name">Diminuição de outros activo operacionais</field>
+            <field name="code">DIMIN_OUTRO_ACTIVO_OPERAC</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_resultado_capital_circulante"/>
+            <field eval="16" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_aumento_div_a_terce_operac" model="account.report.line">
+            <field name="name">Aumento das dívidas a terceiros operacionais</field>
+            <field name="code">AUMENT_DIVID_A_TERCE_OPERACIONAIS</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_resultado_capital_circulante"/>
+            <field eval="17" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_dimin_div_a_terce_operac" model="account.report.line">
+            <field name="name">Diminuição das dívidas a terceiros operacionais</field>
+            <field name="code">DIMIN_DIVID_A_TERCE_OPERACIONAIS</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_resultado_capital_circulante"/>
+            <field eval="18" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_aument_outros_passivo_operac" model="account.report.line">
+            <field name="name">Aumento de Outros passivos operacionais</field>
+            <field name="code">AUMENT_OUTRO_PASSI_OPERACIONAIS</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_resultado_capital_circulante"/>
+            <field eval="19" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_dimin_outros_passivo_operac" model="account.report.line">
+            <field name="name">Diminuição de Outros passivos operacionais</field>
+            <field name="code">DIMIN_OUTRO_PASSI_OPERACIONAIS</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_resultado_capital_circulante"/>
+            <field eval="20" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <!-- Caixa gerada proveniente das operações -->
+        <record id="account_financial_report_caixa_caixa_gerada_prov_operac" model="account.report.line">
+            <field name="name">CAIXA GERADA PROVENIENTE DAS OPERAÇÕES:</field>
+            <field name="code">CAIXA_GERA_PROV_OPERAC</field>
+            <field name="parent_id" ref="account_financial_report_caixa_operacionais_indireto"/>
+            <field eval="21" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+        </record>
+
+        <record id="account_financial_report_juros_pagos" model="account.report.line">
+            <field name="name">Juros pagos</field>
+            <field name="code">JUROS_PAGOS</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_caixa_gerada_prov_operac"/>
+            <field eval="22" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_imposto_lucros_pagos" model="account.report.line">
+            <field name="name">Impostos s/os lucros pagos</field>
+            <field name="code">IMPOSTO_LUCRO_PAGOS</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_caixa_caixa_gerada_prov_operac"/>
+            <field eval="23" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <!-- Fluxo de caixa antes de resultados extraordinários: -->
+        <record id="account_financial_report_fluxo_caixa_result_extra" model="account.report.line">
+            <field name="name">FLUXO DE CAIXA ANTES DE RESULTADOS EXTRAORDINÁRIOS:</field>
+            <field name="code">FLUXO_CAIXA_RESUL_EXTRA</field>
+            <field name="parent_id" ref="account_financial_report_caixa_operacionais_indireto"/>
+            <field eval="24" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+        </record>
+
+        <record id="account_financial_report_caixa_liqui_prov_activ_operac" model="account.report.line">
+            <field name="name">Caixa líquida proveniente das actividades Operacionais</field>
+            <field name="code">CAIXA_LIQUIQ_ACTI_OPERAC</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_result_extra"/>
+            <field eval="25" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <!-- Fluxo de caixa das actividades de investimento: -->
+        <record id="account_financial_report_fluxo_caixa_activi_invest" model="account.report.line">
+            <field name="name">FLUXO DE CAIXA DAS ACTIVIDADES DE INVESTIMENTO</field>
+            <field name="code">FLUXO_CAIXA_ACTIVI_INVEST</field>
+            <field name="parent_id" ref="account_financial_report_caixa_operacionais_indireto"/>
+            <field eval="26" name="sequence"/>
+            <field eval="0" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+        </record>
+
+        <record id="account_financial_report_caixa_recebim_proven" model="account.report.line">
+            <field name="name">Recebimentos provenientes de:</field>
+            <field name="code">RECEBIM_PROVEN</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_activi_invest"/>
+            <field eval="27" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_imobiliz_corpor" model="account.report.line">
+            <field name="name">Imobilizações corpóreas</field>
+            <field name="code">IMOBI_CORPO</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_activi_invest"/>
+            <field eval="28" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_imobiliz_incorpo" model="account.report.line">
+            <field name="name">Imobilizações incorpóreas</field>
+            <field name="code">IMOBI_INCORPOR</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_activi_invest"/>
+            <field eval="29" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_investi_financ" model="account.report.line">
+            <field name="name">Investimentos financeiros</field>
+            <field name="code">INVEST_FINANCEIROS</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_activi_invest"/>
+            <field eval="30" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">46</field>
+        </record>
+
+        <record id="account_financial_report_caixa_subsid_invest" model="account.report.line">
+            <field name="name">Subsídios a investimento</field>
+            <field name="code">SUBSID_INVEST</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_activi_invest"/>
+            <field eval="31" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_juros_prove_simila" model="account.report.line">
+            <field name="name">Juros e proveitos similares</field>
+            <field name="code">JUROS_PROVEITOS_SIMILA</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_activi_invest"/>
+            <field eval="32" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_divid_lucro_receb" model="account.report.line">
+            <field name="name">Dividendos ou lucros recebidos</field>
+            <field name="code">DIVID_LUCRO_RECEBI</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_activi_invest"/>
+            <field eval="33" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_pagament_respeit" model="account.report.line">
+            <field name="name">Pagamentos respeitantes a:</field>
+            <field name="code">PAGAMENT_RESP</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_activi_invest"/>
+            <field eval="34" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_imob_corp" model="account.report.line">
+            <field name="name">Imobilizações corpórea</field>
+            <field name="code">IMOB_CORP</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_activi_invest"/>
+            <field eval="35" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_imob_incorp" model="account.report.line">
+            <field name="name">Imobilizações incorpóreas</field>
+            <field name="code">IMOB_INCORP</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_activi_invest"/>
+            <field eval="36" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_inve_fin" model="account.report.line">
+            <field name="name">Investimentos financeiros</field>
+            <field name="code">INVEST_FIN</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_activi_invest"/>
+            <field eval="37" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">45</field>
+        </record>
+
+        <!-- Fluxo de caixa antes da rubrica extraordinária:: -->
+        <record id="account_financial_report_fluxo_caixa_fluxo_rubr_extrar" model="account.report.line">
+            <field name="name">FLUXO DE CAIXA ANTES DA RUBRICA EXTRAORDINÁRIA:</field>
+            <field name="code">FLUXO_CAIXA_ANT_RUBR_EXTRA</field>
+            <field name="parent_id" ref="account_financial_report_caixa_operacionais_indireto"/>
+            <field eval="38" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+        </record>
+
+        <record id="account_financial_report_caixa_liquid_activ_invest" model="account.report.line">
+            <field name="name">Caixa líquida usada nas actividades de investimento</field>
+            <field name="code">CAIXA_LIQ_ACTIV_INVEST</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_fluxo_rubr_extrar"/>
+            <field eval="39" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <!-- FLUXO DE CAIXA DAS ACTIVIDADES DE FINANCIAMENTO: -->
+        <record id="account_financial_report_fluxo_caixa_fluxo_acti_financ" model="account.report.line">
+            <field name="name">FLUXO DE CAIXA DAS ACTIVIDADES DE FINANCIAMENTO</field>
+            <field name="code">FLUXO_CAIXA_ACTIV_FINANC</field>
+            <field name="parent_id" ref="account_financial_report_caixa_operacionais_indireto"/>
+            <field eval="40" name="sequence"/>
+            <field eval="0" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+        </record>
+
+        <record id="account_financial_report_caixa_recebime_prove" model="account.report.line">
+            <field name="name">Recebimentos provenientes de:</field>
+            <field name="code">RECEB_PROV</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_fluxo_acti_financ"/>
+            <field eval="41" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_aumt_capital" model="account.report.line">
+            <field name="name">Aumentos de capital, prestações suplementares e prémios de emissão</field>
+            <field name="code">AUMENTO_CAPITAL_PREST</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_fluxo_acti_financ"/>
+            <field eval="42" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_vendas_accoes_quotas" model="account.report.line">
+            <field name="name">Vendas de acções ou quotas próprias</field>
+            <field name="code">VENDAS_ACCOES_QUOTAS</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_fluxo_acti_financ"/>
+            <field eval="43" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_cobertura_prejuizo" model="account.report.line">
+            <field name="name">Cobertura de prejuízos</field>
+            <field name="code">COBERTU_PREJUIZO</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_fluxo_acti_financ"/>
+            <field eval="44" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_emprestimo_obtidos" model="account.report.line">
+            <field name="name">Empréstimos obtidos</field>
+            <field name="code">EMPREST_OBTIDOS</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_fluxo_acti_financ"/>
+            <field eval="45" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_subsi_explora_doacoes" model="account.report.line">
+            <field name="name">Subsídios à exploração e doações</field>
+            <field name="code">SUBS_EXPLOR_DOACOES</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_fluxo_acti_financ"/>
+            <field eval="46" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_pagament_respeita" model="account.report.line">
+            <field name="name">Pagamentos respeitantes a:</field>
+            <field name="code">PAGAMENTO_RESPEIT</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_fluxo_acti_financ"/>
+            <field eval="47" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_reducoes_capital_prest_suplem_comp" model="account.report.line">
+            <field name="name">Reduções de capital e prest. suplement. Compras de acções ou quotas próprias</field>
+            <field name="code">REDU_CAPI_SUPL_COMPR</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_fluxo_acti_financ"/>
+            <field eval="48" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_divid_lucro_pagos" model="account.report.line">
+            <field name="name">Dividendos ou lucros pagos</field>
+            <field name="code">DIVIDENDO_LUCRO_PAGOS</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_fluxo_acti_financ"/>
+            <field eval="49" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_emprest_obtid" model="account.report.line">
+            <field name="name">Empréstimos obtidos</field>
+            <field name="code">EMPREST_OBT</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_fluxo_acti_financ"/>
+            <field eval="50" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_amortiza_contra_locac_finan" model="account.report.line">
+            <field name="name">Amortizações de contratos de locação financeira</field>
+            <field name="code">AMORTIZA_CONTRA_LOCA_FINANC</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_fluxo_acti_financ"/>
+            <field eval="51" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_juros_custo_simi_pagos" model="account.report.line">
+            <field name="name">Juros e custos similares pagos</field>
+            <field name="code">JUROS_CUSTOS_SIMILA_PAGOS</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_fluxo_acti_financ"/>
+            <field eval="52" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <!-- FLUXOS DE CAIXA ANTES DA RUBRICA EXTRAORDINÁRIA: -->
+        <record id="account_financial_report_fluxo_caixa_fluxo_acti_rub_extra" model="account.report.line">
+            <field name="name">FLUXOS DE CAIXA ANTES DA RUBRICA EXTRAORDINÁRIA:</field>
+            <field name="code">FLUXO_CAIXA_RUB_EXTR</field>
+            <field name="parent_id" ref="account_financial_report_caixa_operacionais_indireto"/>
+            <field eval="53" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field eval="False" name="hide_if_zero"/>
+            <field name="note"></field>
+        </record>
+
+        <record id="account_financial_report_caixa_liquida_activ_financ" model="account.report.line">
+            <field name="name">Caixa líquida usada nas actividades de financiamento</field>
+            <field name="code">CAIXA_LIQUIDA_ACTIV_FINANC</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_fluxo_acti_rub_extra"/>
+            <field eval="54" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_liquida_caixa_equiva" model="account.report.line">
+            <field name="name">Aumento líquido de caixa e seus equivalentes</field>
+            <field name="code">AUMENT_LIQUID_CAIXA_EQUIVA</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_fluxo_acti_rub_extra"/>
+            <field eval="55" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+        </record>
+
+        <record id="account_financial_report_caixa_equiva_inic_periodo" model="account.report.line">
+            <field name="name">Caixa e seus equivalentes no início do período</field>
+            <field name="code">CAIXA_EQUIVA_INIC_PERIOD</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_fluxo_acti_rub_extra"/>
+            <field eval="56" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">43,47</field>
+        </record>
+
+        <record id="account_financial_report_caixa_equiva_fim_periodo" model="account.report.line">
+            <field name="name">Caixa e seus equivalentes no fim do período</field>
+            <field name="code">CAIXA_EQUIVA_FIM_PERIOD</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_fluxo_caixa_fluxo_acti_rub_extra"/>
+            <field eval="57" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="groupby">account_id</field>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">43,47</field>
+        </record>
+
+    </data>
+</odoo>

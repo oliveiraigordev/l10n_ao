@@ -1,0 +1,154 @@
+$main-color: grey;
+
+.iva-periodic-map{
+    border: solid 1px black;
+    width: 90%;
+    margin: auto;
+    border-collapse: collapse;
+    font-size: 13px;
+
+    td,th{
+        padding: 5px;
+        border: solid 1px black;
+        vertical-align: middle;
+    }
+
+ 
+    .bold{
+        font-weight: bold;
+    }
+    .bold-blue{
+        font-size: 1.5em;
+        font-weight: bold;
+        color: $main-color;
+    }
+    .text-box-border{
+        border: solid 1px black;
+        display: inline-block;
+        margin-right: 10px;
+        padding: 10px;
+    }
+    .text-box-border-bottom{
+        border-bottom: solid 1px black;
+        display: inline-block;
+        margin-right: 10px;
+        padding: 10px;
+    }
+    .dark-background{
+        color: white;
+        background-color: $main-color;
+        text-align: left;
+        padding-left: 10px;
+    }
+
+    .background-gray{
+        background-color: #d9d9d9;
+        font-weight: bold;
+        .text-right{
+            text-align: right;
+        }
+    }
+
+    .left-background-gray{
+        background-color: #d9d9d9;
+        font-weight: bold;
+        text-align:left;
+        
+       
+    }
+
+    .large-line{
+        padding: 5px;
+    }
+
+    .left-align{
+        text-align:left;
+        
+        
+        
+        
+
+    }
+
+    .large-text-box-border-bottom{
+        border-bottom: solid 1px black;
+        display: inline-block;
+        margin-right: 10px;
+        padding: 10px;
+        width:500px
+
+    }
+
+
+    .out-text-box-border{
+        border: solid 1px black;
+        display: inline-block;
+        margin-left: 40px;
+        padding: 10px;
+    }
+
+    .p-align-center{
+        text-align:center;
+    }
+ 
+    .span-align-right{
+        margin-left :40px;
+    }
+ 
+    .no-line-break{
+        white-space: nowrap;
+    }
+
+
+    .checkbox:before {
+        content: " ☐ ";
+        font-size:30px;
+    }
+        
+    .checkbox span  { vertical-align:middle;}
+
+
+    .blank-space{
+        padding:10px;
+    }
+    
+    .large-blank-space{
+        padding:13px;
+    }
+
+    .page-separator{
+        margin-top:50px;
+       
+        
+    }
+
+    .no-border{
+        border-bottom-style: hidden;
+        background-color: #E3FAE3;
+    }
+    .no-border-right{
+        border-right-style: hidden;
+        
+       
+    }
+
+    .green-bg{
+        background-color: #E3FAE3;
+    }
+
+    .large-border-box{
+        width: 300px; 
+        height: 150px; 
+        border: 2px solid black; 
+        margin: 20px; 
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .item09{
+        margin-left : 70px;
+        font-weight: bold;
+    }
+  
+}
+

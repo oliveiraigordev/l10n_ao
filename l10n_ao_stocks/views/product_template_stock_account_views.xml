@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="l10n_ao_product_template_stock_account_inv" model="ir.ui.view">
+      <field name="name">l10n_ao.product.template.stock.account.inventory</field>
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_form_view"/>
+      <field name="arch" type="xml">
+        <xpath expr="//page[@name='inventory']" position="after">
+          <page name="stock_accounting" string="Contabilidade Stock">
+            <group>
+              <field name="use_product_stock_account"/>
+            </group>
+            <group string="valorização de Inventário">
+            <group attrs="{'invisible': [('use_product_stock_account','=',False)]}" col="2">
+              <field name="costing_method"/>
+              <field name="stock_valuation"/>
+            </group>
+            <group attrs="{'invisible': ['|',
+                                         ('use_product_stock_account','=',False),
+                                         ('stock_valuation','!=','real_time')]}">
+              <field name="stock_input_account_id"/>
+              <field name="stock_output_account_id"/>
+              <field name="stock_valuation_account_id"/>
+              <field name="stock_journal_id"
+                     domain="[('type','in',('general','sale','purchase'))]"/>
+            </group>
+            </group>
+            <group string="Lógistica">
+              <field name="route_ids"
+                     widget="many2many_tags"
+                     groups="stock.group_adv_location" invisible="1"/>
+              <field name="categ_parent_id" invisible="1"/>
+<field name="total_route_ids"
+       widget="many2many_tags"
+       groups="stock.group_adv_location"
+       attrs="{'invisible': [('categ_parent_id','=',False)]}" invisible="1"/>
+              <field name="removal_strategy_id"
+                     options="{'no_create': True}"/>
+              <field name="putaway_rule_ids"
+                     widget="one2many_list"
+               invisible="1"/>
+              <field name="packaging_reserve_method"
+                     widget="radio"
+                     groups="product.group_stock_packaging" invisible="1"/>
+            </group>
+        <group string="Contas de Receita / Despesa" groups="account.group_account_readonly">
+          <field name="cat_price_difference_account_id" readonly="0"/>
+          <field name="cat_income_account_id" readonly="0"/>
+          <field name="cat_expense_account_id" readonly="0"/>
+        </group>
+          </page>
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>

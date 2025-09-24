@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="tangible_fixed_assets" model="asset.nature">
+            <field name="name">Activos Fixos Tangíveis</field>
+            <field name="code">aft</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="intangible_fixed_assets" model="asset.nature">
+            <field name="name">Activos Fixos Intangíveis</field>
+            <field name="code">afi</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="non_consumable_biological_assets" model="asset.nature">
+            <field name="name">Activos Biológicos Não Consumíveis</field>
+            <field name="code">abnc</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="investment_property" model="asset.nature">
+            <field name="name">Propriedade de Investimento</field>
+            <field name="code">pi</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="other_assets" model="asset.nature">
+            <field name="name">Outros</field>
+            <field name="code">other</field>
+            <field name="active">True</field>
+        </record>
+
+    </data>
+</odoo>

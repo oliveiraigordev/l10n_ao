@@ -1,0 +1,158 @@
+<odoo>
+    <template id="pos_report_body">
+        <t t-call="web.html_container">
+            <t t-set="doc_header" t-value="3"/>
+            <t t-foreach="docs" t-as="o">
+                <t t-call="l10n_ao.external_layout_agt">
+                    <t t-set="address">
+                        <div class="row" style="font-size:small;min-height:150px;max-height:150px;overflow:hidden;">
+                            <div id="address_first" class="col-4"></div>
+                            <div class="col-4"></div>
+                            <div class="col-4">
+                                <address style="font-size:small;" class="mb0 mt4">
+                                    <strong t-if="o.partner_id.name" t-esc="o.partner_id.name"/>
+                                    <br t-if="o.partner_id.street" t-esc="o.partner_id.street"/>
+                                    <br t-if="o.partner_id.city" t-esc="o.partner_id.city">,</br>
+                                    <span t-if="o.partner_id.country_id" t-esc="o.partner_id.country_id.name"/>
+                                </address>
+                                <div t-if="o.partner_id.vat" class="mt0" style="font-size:small;">
+                                    <t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>
+                                    :
+                                    <span t-field="o.partner_id.vat"/>
+                                </div>
+                                <div t-else="" class="mt0" style="font-size:small;">
+                                    <t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>
+                                    :
+                                    <span>Consumidor Final</span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                    <div class="page">
+                        <t t-set="document_type">
+                            <span>Factura-Recibo</span>
+                        </t>
+                        <t t-set="document_title">
+                            <span t-field="o.pos_number"/>
+                        </t>
+                        <t t-set="custom_agt_header">
+                            <div class="row mt32 mb32">
+                                <div class="col-auto mw-100 mb-2">
+                                    <strong>Data de Emissão:</strong>
+                                    <p class="m-0" t-field="o.date_order"/>
+                                </div>
+                                <div name="reference" class="col-auto mw-100 mb-2">
+                                    <strong>Referência:</strong>
+                                    <p class="m-0" t-field="o.name"/>
+                                </div>
+                                <div name="via" class="col-auto mw-100 mb-2">
+                                    <strong>Via:</strong>
+                                    <p>Original</p>
+                                </div>
+                            </div>
+                        </t>
+                        <table class="table table-sm o_main_table" name="pos_line_table">
+                            <thead>
+                                <tr>
+                                    <t t-set="colspan" t-value="6"/>
+                                    <th name="th_description" class="text-right">
+                                        <span>Descrição</span>
+                                    </th>
+                                    <th name="th_quantity" class="text-right">
+                                        <span>Qdt</span>
+                                    </th>
+                                    <th name="th_priceunit" t-attf-class="text-right">
+                                        <span>Preço Unitário</span>
+                                    </th>
+                                    <th name="th_price_unit" t-attf-class="text-right">
+                                        <span>Desc.(%)</span>
+                                        <t t-set="colspan" t-value="colspan+1"/>
+                                    </th>
+                                    <th name="th_taxes" t-attf-class="text-right">
+                                        <span>IVA</span>
+                                    </th>
+                                    <th name="th_taxes" t-attf-class="text-right">
+                                        <span >Ret.</span>
+                                    </th>
+                                    <th name="th_subtotal" class="text-left">
+                                        <span class="text-right">SubTotal</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.lines" t-as="line">
+                                    <tr t-att-class="'bg-200'">
+                                        <td name="pos_product_id_name">
+                                            <span t-field="line.product_id.name"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.qty"/>
+                                        </td>
+                                        <td t-attf-class="text-right">
+                                            <span t-field="line.price_unit"/>
+                                        </td>
+                                        <td t-attf-class="text-right">
+                                            <span t-field="line.discount"/>
+                                        </td>
+                                        <td t-attf-class="text-right">
+                                            <span t-esc="','.join(map(lambda x: (x.description or x.name), line.tax_ids_after_fiscal_position.filtered(lambda r: r.tax_type == 'IVA' and not r.hide_invoice)))"/>
+                                        </td>
+                                        <td t-attf-class="text-right">
+                                            <span t-esc="','.join(map(lambda x: (x.description or x.name), line.tax_ids_after_fiscal_position.filtered(lambda r: r.is_withholding)))"/>
+                                        </td>
+                                        <td t-attf-class="text-left">
+                                            <span t-field="line.price_subtotal_incl" t-options="{' widget': 'monetary','display_currency': o.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="is-subtotal text-right">
+                                        <td colspan="99"></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <div class="clearfix" style="font-size:small;">
+                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto row">
+                                <table class="table table-sm">
+                                    <tr class="border-black o_subtotal">
+                                        <td>
+                                            <strong>Subtotal</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="o.amount_total" t-options="{'widget': 'monetary', '
+                                            display_currency': o.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-black o_total">
+                                        <td>
+                                            <strong>Imposto</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="o.amount_tax" t-options="{'widget': 'monetary', '
+                                            display_currency': o.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-black o_total">
+                                        <td>
+                                            <strong>Total Pago</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="o.amount_total" t-options="{'widget': 'monetary', '
+                                            display_currency': o.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                        <t t-if="o.date_order" t-set="document_name"
+                           t-value="'Os bens/serviços foram colocados à disposição do adquirente à ' + o.date_order.strftime('%d-%m-%Y') +' no endereço acima referido.'"/>
+                        <t t-if="o.hash" t-set="document_signature"
+                           t-value="o.hash[1]+o.hash[11]+o.hash[21]+o.hash[31] + ' - Processado por Programa Validado n.º' + o.company_id.software_id + ' ' + 'Odoo Localização Angola/TIS TECH ANGOLA LDA'"/>
+                        <t t-if="not o.hash" t-set="document_signature"
+                           t-esc="'Processado por Programa Validado n.º' + o.company_id.software_id"/>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

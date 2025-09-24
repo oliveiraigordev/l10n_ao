@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="cell_template_note_ao" inherit_id="account_reports.cell_template" primary="True">
+        <xpath expr="//table/tr/td[@t-att-class='classes']" position="attributes">
+            <attribute name="t-att-style">'padding-right:0; padding-top:0; padding-bottom:0; ' + (cell.get('style') if cell.get('name') in ("Notes", "Notas", "Designação") else 'text-align:right;')</attribute>
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="saft_register_file_view" model="ir.ui.view">
+            <field name="name">SAFT File View</field>
+            <field name="model">saft.register.file</field>
+            <field name="arch" type="xml">
+                <form string="SAFT FILE" create="false">
+                    <header>
+                        <button name="action_validate" string="Validate" type="object"
+                                attrs="{'invisible': [('state', '!=', 'draft')]}" class="oe_highlight"/>
+                        <button name="action_download" states="valid" string="Download File" type="object"
+                                attrs="{'invisible': [('state', '!=', 'valid')]}" class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" class="oe_stat_button" icon="fa-pencil-square-o"
+                                    name="action_view_saft_invoices"
+                                    groups="account.group_account_invoice,account.group_account_readonly">
+                                <div class="o_form_field o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="total_invoiced" widget='monetary' readonly="1"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                    </span>
+                                    <span class="o_stat_text">Facturas</span>
+                                </div>
+                            </button>
+                            <button type="object" class="oe_stat_button" icon="fa-pencil-square-o"
+                                    name="action_view_saft_refund"
+                                    groups="account.group_account_invoice,account.group_account_readonly">
+                                <div class="o_form_field o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="total_refund" widget='monetary' readonly="1"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                    </span>
+                                    <span class="o_stat_text">Nota de Crédito</span>
+                                </div>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="create_date"/>
+                                <field name="fiscal_year"/>
+                                <field name="description_saft"/>
+                                <!-- <field name="is_valid"/> -->
+                            </group>
+                            <group>
+                                <field name="tax_account_Basis"/>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <field name="user_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <!--                             <page string="XML File"> -->
+                            <!--                                 <field name="text" widget="ace" options="{'mode': 'xml'}"/> -->
+                            <!--                             </page> -->
+                            <page string="Product Info">
+                                <group>
+                                    <!--<group>
+                                        <field name="Product_version"/>
+                                        <field name="product_company_tax_id"/>
+                                    </group>-->
+                                    <group>
+                                        <field name="product_company_tax_id"/>
+                                        <field name="software_validation_number"/>
+                                        <field name="Product_version"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="saft_file_register_tree_view">
+            <field name="name">Saft File tree view</field>
+            <field name="model">saft.register.file</field>
+            <field name="arch" type="xml">
+                <tree string="menu" create="false">
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="company_id"/>
+                    <field name="fiscal_year"/>
+                    <field name="tax_account_Basis"/>
+                    <field name="description_saft"/>
+                    <field name="Product_version"/>
+                    <field name="create_date"/>
+                    <field name="user_id"/>
+                    <field name="state"/>
+                    <!--<field name="is_valid"/>-->
+                </tree>
+            </field>
+        </record>
+        <record id="saft_file_register_search_view" model="ir.ui.view">
+            <field name="name">saft.file.register.search.view</field>
+            <field name="model">saft.register.file</field>
+            <field name="arch" type="xml">
+                <search string="SAFT file">
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="fiscal_year"/>
+                    <field name="tax_account_Basis"/>
+                    <field name="description_saft"/>
+                    <field name="Product_version"/>
+                    <field name="create_date"/>
+                    <field name="company_id"/>
+                    <field name="user_id"/>
+                    <field name="state"/>
+                    <group expand="0" string="Group By">
+                        <filter name="State" string="State" domain="[]" context="{'group_by':'state'}"
+                                help="Group Files for state"/>
+                        <filter name="Data_Start" string="Date Start" domain="[]" context="{'group_by':'date_start'}"
+                                help="Group Files for date end"/>
+                        <filter name="Data_End" string="Date End" domain="[]" context="{'group_by':'date_end'}"
+                                help="Group Files for state"/>
+                        <filter name="Company" string="Company" domain="[]" context="{'group_by':'company_id'}"
+                                help="Group Files for Company"/>
+                        <filter name="Document Type" string="Document Type" domain="[]"
+                                context="{'group_by':'tax_account_Basis'}" help="Group Files for Document Type"/>
+                    </group>
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                    <filter name="sent" string="Sent" domain="[('state','=','sent')]"/>
+                    <separator/>
+                    <filter name="I" string="Contablidade integrada com facturação"
+                            domain="[('tax_account_Basis','=','I')]"/>
+                    <filter name="C" string="Contablidade" domain="[('tax_account_Basis','=','C')]"/>
+                    <filter name="F" string="Facturação" domain="[('tax_account_Basis','=','F')]"/>
+                    <filter name="S" string="Autofacturação" domain="[('tax_account_Basis','=','S')]"/>
+                    <filter name="Q" string="Aquisição de bens e serviços integrada com a facturação"
+                            domain="[('tax_account_Basis','=','Q')]"/>
+                    <filter name="P" string="Facturação parcial" domain="[('tax_account_Basis','=','P')]"/>
+                    <filter name="R" string="Recibos" domain="[('tax_account_Basis','=','R')]"/>
+                    <filter name="A" string="Aquisição de bens e serviços" domain="[('tax_account_Basis','=','A')]"/>
+                    <separator/>
+                </search>
+            </field>
+        </record>
+        <record id="l10nao_saft_register_file_action" model="ir.actions.act_window">
+            <field name="name">SAFT Register Files</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">saft.register.file</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="context">{'group_by':'company_id'}</field> -->
+            <field name="target">current</field>
+        </record>
+        <menuitem name="Management" parent="account.menu_finance" id="menu_saft_register_ao" sequence="5"
+                  groups="account.group_account_user,account.group_account_manager,account.group_account_invoice"/>
+        <menuitem name="SAFT Management" parent="menu_saft_register_ao" id="menu_saft_register_file"/>
+        <menuitem id="saft_file" name="SAFT Files" parent="menu_saft_register_ao"
+                  action="l10nao_saft_register_file_action"/>
+    </data>
+</odoo>

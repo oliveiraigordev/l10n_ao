@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_move_extract_wizard_user,l10n_ao_stocks.stock.move.extract.wizard,model_stock_move_extract_wizard,base.group_user,1,1,1,1
+access_report_l10n_ao_stocks_report_stock_move_extract_xlsx_user,l10n_ao_stocks.report.l10n_ao_stocks.report_stock_move_extract_xlsx,model_report_l10n_ao_stocks_report_stock_move_extract_xlsx,base.group_user,1,1,1,1

@@ -1,0 +1,120 @@
+<odoo>
+    <template id="report_customer_invoice_pdf">
+        <t t-call="web.html_container">
+            <meta charset="utf-8"/>
+            <t t-call="l10n_ao.external_layout_agt">
+            <div class="page">
+                <style>
+                table.custom-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                    font-family: Arial, sans-serif;
+                }
+                table.custom-table th,
+                table.custom-table td {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                    text-align: left;
+                }
+                table.custom-table th {
+                    background-color: #f2f2f2;
+                    color: #000;
+                    font-weight: bold;
+                    font-size: 12px;
+                    text-align: center;
+                }
+                table.custom-table tr:nth-child(even) {
+                    background-color: #f9f9f9;
+                }
+                table.custom-table tr:hover {
+                    background-color: #ddd;
+                }
+                /* força o cabeçalho a repetir, mas o rodapé só uma vez */
+                table.custom-table thead { display: table-header-group; }
+                table.custom-table tfoot { display: table-row-group; }
+                /* evita quebra de uma linha no meio */
+                table.custom-table tr { page-break-inside: avoid; }
+                </style>
+
+                <t t-set="company" t-value="user.company_id"/>
+
+                <div class="row" style="font-size:small; min-height:150px; max-height:150px; overflow:hidden;">
+                <!-- Coluna esquerda pode ficar vazia ou receber outro conteúdo -->
+                <div class="col-8">
+                </div>
+
+                <!-- Coluna da direita: dados da empresa -->
+                <div class="col-4">
+                    <strong>
+                    <h6 class="mb-0"><t t-esc="company.name"/></h6>
+                    </strong>
+                    <t t-esc="company.street"/>
+                    <br/>
+                    <t t-esc="company.city"/> — <t t-esc="company.zip"/>
+                    <br/>
+                    <span>Email: <t t-esc="company.email or '-'"/></span>
+                    <br/>
+                    <span>Tel: <t t-esc="company.phone or '-'"/></span>
+                    <br/>
+                    <span>NIF: <t t-esc="company.vat or '-'"/></span>
+                </div>
+                </div>
+
+                <div style="font-weight: bold; width:100%; font-size:17px; padding:6px;                     background-color:#ced9e0; margin-top:20px; text-align:center;">
+                <p class="mb4">RESUMO DE FACTURAÇÃO DE VENDA</p>
+                </div>
+
+                <table class="custom-table">
+                <thead>
+                    <tr>
+                    <th>Nº de ordem</th>
+                    <th>Referência</th>
+                    <th>Data da fatura</th>
+                    <th>Nome do cliente</th>
+                    <th>Valor sem imposto</th>
+                    <th>Taxa de imposto</th>
+                    <th>Valor do imposto</th>
+                    <th>Taxa de retenção</th>
+                    <th>Valor da retenção</th>
+                    <th>Valor total retido</th>
+                    <th>Valor total da factura</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="invoices" t-as="invoice">
+                    <tr>
+                        <td><t t-esc="invoice[0]"/></td>
+                        <td><t t-esc="invoice[1]"/></td>
+                        <td><t t-esc="invoice[2]"/></td>
+                        <td><t t-esc="invoice[3]"/></td>
+                        <td style="text-align: right;"><t t-esc="invoice[4]"/></td>
+                        <td><t t-esc="invoice[5]"/></td>
+                        <td style="text-align: right;"><t t-esc="invoice[6]"/></td>
+                        <td><t t-esc="invoice[7]"/></td>
+                        <td style="text-align: right;"><t t-esc="invoice[8]"/></td>
+                        <td style="text-align: right;"><t t-esc="invoice[9]"/></td>
+                        <td style="text-align: right;"><t t-esc="invoice[10]"/></td>
+                    </tr>
+                    </t>
+                </tbody>
+                <tfoot>
+                    <t t-foreach="totais" t-as="total">
+                    <tr>
+                        <td colspan="4" style="text-align: right; font-weight: bold;">Totais:</td>
+                        <td style="text-align: right; font-weight: bold;"><t t-esc="total[0]"/></td>
+                        <td/>
+                        <td style="text-align: right; font-weight: bold;"><t t-esc="total[1]"/></td>
+                        <td/>
+                        <td style="text-align: right; font-weight: bold;"><t t-esc="total[2]"/></td>
+                        <td style="text-align: right; font-weight: bold;"><t t-esc="total[3]"/></td>
+                        <td style="text-align: right; font-weight: bold;"><t t-esc="total[4]"/></td>
+                    </tr>
+                    </t>
+                </tfoot>
+                </table>
+            </div>
+            </t>
+        </t>
+    </template>
+</odoo>

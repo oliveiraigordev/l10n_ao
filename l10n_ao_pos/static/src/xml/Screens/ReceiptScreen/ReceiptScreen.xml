@@ -1,0 +1,45 @@
+<templates id="template" xml:space="preserve">
+    <t t-name="PaymentScreen" t-inherit="point_of_sale.ReceiptScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('default-view')]" position="replace">
+
+            <div class="default-view">
+                    <div class="actions">
+                        <h1>How would you like to receive your receipt<t t-if="currentOrder.is_to_invoice()"> &amp; invoice</t>?</h1>
+                        <div class="buttons">
+                            <div class="button print" t-on-click="printReceipt">
+                                <i class="fa fa-print"></i> Print Receipt
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <div class="button print">
+                                <t t-set="currentName" t-value="currentOrder.pos.validated_orders_name_server_id_map"/>
+                                 <a t-attf-href="/report/pdf/l10n_ao_pos.pos_report_body/{{currentName[currentOrder.name]}}"  target="_blank">
+                                    <i class="fa fa-print"></i> Print Receipt A4
+                                </a>
+                            </div>
+                        </div>
+                        <form t-on-submit.prevent="onSendEmail" class="send-email">
+                            <div class="input-email">
+                                <input type="email" placeholder="Email Receipt" t-model="orderUiState.inputEmail" />
+                                <button class="send" t-att-class="{ highlight: is_email(orderUiState.inputEmail) }" type="submit">
+                                    <i class="fa fa-paper-plane" aria-hidden="true"/>
+                                </button>
+                            </div>
+                        </form>
+                        <div class="notice">
+                            <div t-if="orderUiState.emailSuccessful !== null" t-attf-class="{{ orderUiState.emailSuccessful ? 'successful' : 'failed' }}">
+                                <t t-esc="orderUiState.emailNotice"></t>
+                            </div>
+                            <div class="send-mail-info" t-if="currentOrder.is_to_invoice()">
+                                (Both will be sent by email)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pos-receipt-container" t-ref="order-receipt">
+                        <OrderReceipt order="currentOrder"/>
+                    </div>
+                </div>
+        </xpath>
+    </t>
+
+</templates>

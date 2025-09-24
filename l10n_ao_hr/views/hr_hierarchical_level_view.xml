@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_hierarchical_level_form_view" model="ir.ui.view">
+        <field name="name">HR - Hierarchical Level Form View</field>
+        <field name="model">hr.hierarchical.level</field>
+        <field name="arch" type="xml">
+            <form string="Hierarchical Level">
+                <sheet>
+                    <div class="oe_title" name="title">
+                        <h2>
+                            <field name="name"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="department_id"/>
+                            <field name="sector_id" domain="[('department_id','=',department_id)]"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_hierarchical_level_tree_view" model="ir.ui.view">
+        <field name="name">HR - Hierarchical Level Form View Tree</field>
+        <field name="model">hr.hierarchical.level</field>
+        <field name="arch" type="xml">
+            <tree string="Hierarchical Level" sample="1" multi_edit="1" expand="context.get('expand', False)">
+                <field name="name"/>
+                <field name="department_id"/>
+                <field name="sector_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_hr_hierarchical_level" model="ir.actions.act_window">
+        <field name="name">Nível hierárquico</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.hierarchical.level</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

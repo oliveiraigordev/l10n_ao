@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_hr_add_extra_salary_rules_wizard_form" model="ir.ui.view">
+        <field name="name">view.hr.add.extra.salary.rules.wizard.form</field>
+        <field name="model">hr.add.extra.salary.rules</field>
+        <field name="arch" type="xml">
+            <form string="Add Extra Salary Rules Wizard">
+                <h3>Este assistente irá adicionar regras de salário extra a um lote de recibos de vencimento.
+                    Seleccione os colaboradores e as respectivas regras para recalcular os recibos de vencimento no
+                    Lote.
+                </h3>
+                <br/>
+                <group col="2">
+                    <group>
+                        <field name="payslip_run_id" force_save="1" string="Lote"
+                               options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+                        <field name="company_id" string="Empresa"
+                               options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+                        <field name="employee_ids_batch_list" invisible="1"/>
+                    </group>
+                </group>
+                <separator string="Selecione os colaboradores que serão afetados"/>
+                <group>
+                    <field name="employee_ids" widget="many2many_tags" string="Colaboradores" required="1"
+                           domain="[('company_id', '=', company_id), ('id', 'in', employee_ids_batch_list)]"
+                           options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+                </group>
+                <separator string="Selecione as regras para adicionar"/>
+                <field name="rule_lines_ids" nolabel="1" string="Regras">
+                    <tree editable="top" widget="many2many" create="1">
+                        <field name="salary_rule_id"
+                               domain="[('category_id.code', 'not in', ['BASIC', 'BAS', 'FALTA', 'INSS','IRT','INSSCOLLECT'])]"
+                               options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+                        <field name="amount"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button name="add_extra_rules_payslip" type="object" string="Apply" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_hr_add_extra_salary_rules_wizard" model="ir.actions.act_window">
+        <field name="name">Add Extra Salary Rules</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.add.extra.salary.rules</field>
+        <field name="view_mode">form</field>
+        <field name="binding_model_id" ref="model_hr_add_extra_salary_rules"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

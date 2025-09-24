@@ -1,0 +1,166 @@
+<odoo>
+    <data>
+        <record id="account_result_settlement_form_view" model="ir.ui.view">
+            <field name="name">Apuramento de Resultados</field>
+            <field name="model">account.result.settlement</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_draft" string="Set to Draft" type="object" states="cancel"/>
+                        <button name="action_compute_result_14th" class="oe_highlight" states="draft" string="Computar Mês 14" 
+                                type="object"/>
+                        <button name="action_compute_result_15th" class="oe_highlight" states="draft" string="Computar Mês 15"
+                                type="object"/>
+                        <button name="action_recompute_result_14th" string="Recomputar Mês 14" states="compute"
+                                type="object"/>
+                        <button name="action_recompute_result_15th" string="Recomputar Mês 15" states="compute"
+                                type="object"/>
+                        <button name="action_post" class="oe_highlight" states="compute" string="Confirmar e Publicar"
+                                type="object"/>
+                        <button name="action_cancel" string="Cancelar" states="compute" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date" required="1" string = "Data"/>
+                                <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                                <field name="fiscal_year" string = "Ano Fiscal"/>
+                                <label for="date_start" string="Data Inicial"/>
+                                <div class="o_row">
+                                    <field name="date_start"/>
+                                    <label for="date_end" string="Data Final"/>
+                                    <field name="date_end"/>
+                                </div>
+                                <field name="tax_id" string = "Imposto"/>
+                                <field name="journal_id" domain="[('type','=','general')]" string = "Diário"/>
+                                <!-- ('company_id','=', user.company_id) -->
+                                <field name="tax_result" string = "Resultado do Imposto"/>
+                                <field name="rai_value" string = "RAI"/>
+                                <field name="net_result" string = "Resultado Líquido do Exercício"/>
+                            </group>
+                            <group>
+                                <field name="check_draft_moves" string  ="Verificar Movimentos em Rascunho"/>
+                                <field name="move_balance_id" string = "Transferências de Custos e Proveitos"/>
+                                <field name="move_pl_id" string = "Transferência para as Contas de Apuramento"/>
+                                <field name="move_result_id"/>
+                                <field name="move_netresult_id" string = "Movimentos dos Resultados Líquidos"/>
+                                <field name="move_tax_id" string = "Movimentos de Apuramento de Imposto"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string = "Apuramento Mês 14">
+                            <notebook>
+                            <page string="Transferências de Custos e Proveitos">
+                                <field name="move_balance_lines">
+                                    <tree>
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="ref"/>
+                                        <field name="debit" sum="Total Debit"/>
+                                        <field name="credit" sum="Total Credit"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            
+                            <page string="Transferência para as Contas de Apuramento">
+                                <field name="move_pl_lines">
+                                    <tree>
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="ref"/>
+                                        <field name="debit" sum="Total Debit"/>
+                                        <field name="credit" sum="Total Credit"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            </notebook>
+                            </page>
+                            <page string = "Apuramento Mês 15">
+                            <notebook>
+                            <page string="Result Balance Move">
+                                <field name="move_result_lines">
+                                    <tree>
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="ref"/>
+                                        <field name="debit" sum="Total Debit"/>
+                                        <field name="credit" sum="Total Credit"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Transferência para resultados líquidos">
+                                <field name="move_netresult_lines">
+                                    <tree>
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="ref"/>
+                                        <field name="debit" sum="Total Debit"/>
+                                        <field name="credit" sum="Total Credit"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Movimentos de Apuramento de Imposto">
+                                <field name="move_tax_lines">
+                                    <tree>
+                                        <field name="account_id"/>
+                                        <field name="name"/>
+                                        <field name="ref"/>
+                                        <field name="debit" sum="Total Debit"/>
+                                        <field name="credit" sum="Total Credit"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            </notebook>
+                            </page>
+                        </notebook>
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="net_result" readonly="1"/>
+                            <field name="tax_result" readonly="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="account_result_settlement_tree_view" model="ir.ui.view">
+            <field name="name">Account Result Settlement Tree</field>
+            <field name="model">account.result.settlement</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="date" string = "Data"/>
+                    <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                    <field name="fiscal_year"/>
+                    <field name="tax_id" string = "Imposto sobre os lucros"/>
+                    <field name="currency_id"/>
+                    <field name="communication"/>
+                    <field name="tax_result" string = "Resultado do imposto"/>
+                    <field name="net_result" string  = "Estado do resultado anual Líquido "/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_result_settlement" model="ir.actions.act_window">
+            <field name="name">Apuramento de Resultados</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.result.settlement</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+        <menuitem id="account_result_settlement_menu" name="Resultados" parent="menu_saft_register_ao"
+                  sequence="20"/>
+        <menuitem id="account_result_settlement_wizard_menu" name="Apuramento de Resultados"
+                  parent="account_result_settlement_menu" action="action_result_settlement"/>
+    </data>
+</odoo>

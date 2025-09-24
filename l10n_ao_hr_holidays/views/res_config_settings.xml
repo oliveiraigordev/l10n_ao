@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="l10n_ao_holidays_config_settings" model="ir.ui.view">
+        <field name="name">l10n.ao.holidays.config.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='employee_rights_setting_container']" position="after">
+                <h2>Regras de férias dos funcionários</h2>
+                <div class="row mt16 o_settings_container" id="employee_vacation_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane" id="vacation_after_admission">
+                            <div class="row">
+                                <div class="text-muted col-lg-8">
+                                    Número mínimo de meses antes que o funcionário possa tirar férias
+                                </div>
+                            </div>
+                            <br/>
+                            <label for="take_vacation_after_admission"/>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="take_vacation_after_admission" class="o_light_label"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="type_of_dependents"/>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="type_of_dependents" class="o_light_label"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="dependent_limit"/>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="dependent_limit" class="o_light_label"/>
+                                </div>
+                            </div>
+                        </div>
+                        <!--                        <div class="o_setting_right_pane">-->
+                        <!--                            <label for="dont_validate_vacation"/>-->
+                        <!--                            <div class="content-group">-->
+                        <!--                                <div class="mt16">-->
+                        <!--                                    <field name="dont_validate_vacation" widget="boolean_toggle"/>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <div class="o_setting_right_pane">
+                            <label for="vacation_balance_report_update_month"/>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="vacation_balance_report_update_month" class="o_light_label"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="vacation_balance_report_start_date"/>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="vacation_balance_report_start_date" class="o_light_label"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="age_range_dependent_children" string="Minimal dependent age"/>
+                            <div class="row">
+                                <div class="text-muted col-lg-8">
+                                    Faixa etária dos dependentes
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="age_range_dependent_children" class="o_light_label"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="dependent_children_until"/>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="dependent_children_until" class="o_light_label"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="o_setting_right_pane">
+                            <label for="right_to_more_vacation"/>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="right_to_more_vacation" class="o_light_label"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="o_setting_right_pane">
+                            <label for="vacation_subtract_days_limit_nacional"/>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="vacation_subtract_days_limit_nacional" class="o_light_label"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="o_setting_right_pane">
+                            <label for="vacation_alert"/>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="vacation_alert" class="o_light_label"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="vacation_update_balance"/>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="vacation_update_balance" class="o_light_label"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

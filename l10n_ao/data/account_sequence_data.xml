@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="payment_sequence_customer_invoice" model="ir.sequence">
+            <field name="name">Pagamentos de clientes</field>
+            <field eval="0" name="padding"/>
+            <field name="prefix">RG %(range_y)s/</field>
+            <field name="code">account.payment</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="payment_sequence_supplier_invoice" model="ir.sequence">
+            <field name="name">Pagamentos de Fornecedor</field>
+            <field eval="0" name="padding"/>
+            <field name="prefix">RF %(range_y)s/</field>
+            <field name="code">account.payment.supplier</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_opening" model="ir.sequence">
+            <field name="name">Abertura</field>
+            <field eval="4" name="padding"/>
+            <field name="code">ABRT</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_caixa_kz" model="ir.sequence">
+            <field name="name">Caixa KZ</field>
+            <field eval="4" name="padding"/>
+            <field name="code">CAIKZ</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_caixa_usd" model="ir.sequence">
+            <field name="name">Caixa USD</field>
+            <field eval="4" name="padding"/>
+            <field name="code">CAIUSD</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_compra_mn" model="ir.sequence">
+            <field name="name">Compra MN</field>
+            <field eval="4" name="padding"/>
+            <field name="code">PURCHMN</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_compra_me" model="ir.sequence">
+            <field name="name">Compra ME</field>
+            <field eval="4" name="padding"/>
+            <field name="code">PURCHME</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_venda_credito_mn" model="ir.sequence">
+            <field name="name">Venda-crédito MN</field>
+            <field eval="4" name="padding"/>
+            <field name="code">VENDCRE</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_venda_credito_me" model="ir.sequence">
+            <field name="name">Venda-crédito ME</field>
+            <field eval="4" name="padding"/>
+            <field name="code">VENDEXT</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_venda_dinheiro_mn" model="ir.sequence">
+            <field name="name">Venda-dinheiro MN</field>
+            <field eval="4" name="padding"/>
+            <field name="code">VENDINH</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_venda_dinheiro_me" model="ir.sequence">
+            <field name="name">Venda-crédito ME</field>
+            <field eval="4" name="padding"/>
+            <field name="code">VENDINEXT</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_salario" model="ir.sequence">
+            <field name="name">Salários</field>
+            <field eval="4" name="padding"/>
+            <field name="code">SAL</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_apuramento" model="ir.sequence">
+            <field name="name">Apuramento de IVA</field>
+            <field eval="4" name="padding"/>
+            <field name="code">APUIVA</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_apuramento_resultados" model="ir.sequence">
+            <field name="name">Apuramento de Resultados</field>
+            <field eval="4" name="padding"/>
+            <field name="code">APURESUL</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+         <record id="journal_ao_sequence_banco" model="ir.sequence">
+            <field name="name">Banco</field>
+            <field eval="4" name="padding"/>
+            <field name="code">BBANCO</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_banco_dp" model="ir.sequence">
+            <field name="name">Bancos Depósitos</field>
+            <field eval="4" name="padding"/>
+            <field name="code">BBANCODP</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_banco_pg" model="ir.sequence">
+            <field name="name">Bancos Pagamentos</field>
+            <field eval="4" name="padding"/>
+            <field name="code">BBANCOPG</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_banco_out" model="ir.sequence">
+            <field name="name">Bancos Outros Mov</field>
+            <field eval="4" name="padding"/>
+            <field name="code">BANCOUT</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+         <record id="journal_ao_sequence_banco_out" model="ir.sequence">
+            <field name="name">Bancos Outros Mov</field>
+            <field eval="4" name="padding"/>
+            <field name="code">BANCOUT</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_forn" model="ir.sequence">
+            <field name="name">Fornecedores</field>
+            <field eval="4" name="padding"/>
+            <field name="code">FFORN</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_compra_imob" model="ir.sequence">
+            <field name="name">Compras Imob</field>
+            <field eval="4" name="padding"/>
+            <field name="code">CIMOB</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_client" model="ir.sequence">
+            <field name="name">Compras Imob</field>
+            <field eval="4" name="padding"/>
+            <field name="code">AOCLIENT</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+         <record id="journal_ao_sequence_venda_imob" model="ir.sequence">
+            <field name="name">Vendas Imob</field>
+            <field eval="4" name="padding"/>
+            <field name="code">VENDIMOB</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_venda_acert" model="ir.sequence">
+            <field name="name">Vendas Acertos</field>
+            <field eval="4" name="padding"/>
+            <field name="code">VENDACERTOS</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+         <record id="journal_ao_sequence_op_div" model="ir.sequence">
+            <field name="name">Vendas Acertos</field>
+            <field eval="4" name="padding"/>
+            <field name="code">OPDIV</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+         <record id="journal_ao_sequence_regularizacoes_men" model="ir.sequence">
+            <field name="name">Regularizações Mensais</field>
+            <field eval="4" name="padding"/>
+            <field name="code">REGMEN</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_diversos" model="ir.sequence">
+            <field name="name">Diversos</field>
+            <field eval="4" name="padding"/>
+            <field name="code">DIVV</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_reavaliacao" model="ir.sequence">
+            <field name="name">Reavaliações</field>
+            <field eval="4" name="padding"/>
+            <field name="code">REAV</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_regu_anu" model="ir.sequence">
+            <field name="name">Regularizações Anuais</field>
+            <field eval="4" name="padding"/>
+            <field name="code">REGANU</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_apuramento_resultados" model="ir.sequence">
+            <field name="name">Apuramento de Resultados</field>
+            <field eval="4" name="padding"/>
+            <field name="code">APURESUL</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_letras_rec" model="ir.sequence">
+            <field name="name">Letras a Receber</field>
+            <field eval="4" name="padding"/>
+            <field name="code">LETREC</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+         <record id="journal_ao_sequence_letras_pag" model="ir.sequence">
+            <field name="name">Letras a Pagar</field>
+            <field eval="4" name="padding"/>
+            <field name="code">LETPAG</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+        <record id="journal_ao_sequence_opr_orc" model="ir.sequence">
+            <field name="name">Operações Orçamentais</field>
+            <field eval="4" name="padding"/>
+            <field name="code">OPRORC</field>
+            <field name="use_date_range">True</field>
+            <field name="implementation">no_gap</field>
+        </record>
+    </data>
+</odoo>

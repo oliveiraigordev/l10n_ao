@@ -1,0 +1,21 @@
+:root{
+    --blue-hover: #d4ebfa5c;
+    --blue-selected: #d4ebfa;
+}
+
+.l10n_ao_account_budget_search_panel{
+    width: 150px;
+
+    li{
+        cursor: pointer;
+        &:hover{
+            background-color: var(--blue-hover);
+            display:block;
+        }
+    }
+    li.selected{
+        background-color: var(--blue-selected);
+    }
+
+
+}

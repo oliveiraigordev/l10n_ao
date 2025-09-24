@@ -1,0 +1,4 @@
+xlsxwriter
+dicttoxml
+pandas
+numpy

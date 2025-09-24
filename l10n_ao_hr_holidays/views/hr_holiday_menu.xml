@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--Vacation Balance Summary Menu-->
+    <menuitem id="menu_action_vacation_balance_report"
+              name="Relatório de Saldo de Férias"
+              action="action_vacation_balance_report"
+              parent="hr_holidays.menu_hr_holidays_report"
+              sequence="3"/>
+
+
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_order_document_type,sale.order.document.type,model_sale_order_document_type,base.group_user,1,1,1,0
+user_admin_access_sale_order_document_type_,sale.order.document.type,model_sale_order_document_type,base.group_system,1,1,1,1

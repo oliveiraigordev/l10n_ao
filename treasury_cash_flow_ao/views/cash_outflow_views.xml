@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="account_cash_outflow_tree_view" model="ir.ui.view">
+            <field name="name">account.cash.outflow.tree</field>
+            <field name="model">account.cash.outflow</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="customer"/>
+                    <field name="entity_type"/>
+                    <field name="operation_type" widget="radio" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                    <field name="operation_type" widget="boolean_toggle" required="0"/>
+                    <field name="payment_date"/>
+                    <field name="payment_amount"/>
+                    <field name="journal_id"/>
+                    <field name="state" widget="badge"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="account_cash_outflow_form_view" model="ir.ui.view">
+            <field name="name">account.cash.outflow.form</field>
+            <field name="model">account.cash.outflow</field>
+            <field name="arch" type="xml">
+                <form string="Cash Out">
+                    <header>
+                        <button name="post" string="Confirm" type="object" class="btn btn-primary" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button name="action_draft" string="Draft" type="object" class="btn btn-secondary" attrs="{'invisible': [('state', '!=', 'cancelled')]}"/>
+                        <button name="action_cancel" string="Cancel" type="object" class="btn btn-danger" attrs="{'invisible': [('state', '!=', 'posted')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,posted,cancelled"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="operation_type" widget="boolean_toggle"/>
+                                <field name="entity_type"/>
+                                <field name="customer" attrs="{'invisible': [('entity_type', '=', False)]}"/>
+                                <field name="journal_id"/>
+<!--                                <field name="indefinido"/>-->
+                            </group>
+                            <group>
+                                <field name="payment_amount"/>
+                                <field name="payment_date"/>
+                                <field name="memo" widget="text"/>
+                            </group>
+                        </group>
+                    </sheet>
+                     <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_cash_outflow" model="ir.actions.act_window">
+            <field name="name">Saída de Caixa </field>
+            <field name="res_model">account.cash.outflow</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_cash_out"
+                  name="Saída de Caixa "
+                  action="action_cash_outflow"
+                  parent="account.menu_finance_payables"
+                  sequence="10"/>
+    </data>
+</odoo>

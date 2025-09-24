@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_account_report_ao" model="ir.actions.client">
+            <field name="name">Balanço</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'report_id': ref('l10n_ao_report.account_financial_report_balanco')}"/>
+        </record>
+        <record id="action_account_report_ao" model="ir.actions.client">
+            <field name="name">Balanço</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'report_id': ref('l10n_ao_report.account_financial_report_balanco')}"/>
+        </record>
+          <record id="action_account_report_ao_dre" model="ir.actions.client">
+            <field name="name">Demonstração de Resultados</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'report_id': ref('l10n_ao_report.account_financial_report_demoresultados')}"/>
+        </record>
+         <record id="action_account_report_ao_fluxocaixa" model="ir.actions.client">
+            <field name="name">Fluxo de Caixa (Directo)</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'report_id': ref('l10n_ao_report.account_financial_report_fluxocaixa')}"/>
+        </record>
+         <record id="action_account_report_ao_fluxocaixa_indirecto" model="ir.actions.client">
+            <field name="name">Fluxo de Caixa (Indirecto)</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'report_id': ref('l10n_ao_report.account_financial_report_fluxocaixa_indirecto')}"/>
+        </record>
+       <record id="action_account_statement_report_ao" model="ir.actions.client">
+            <field name="name">Extracto de conta</field>
+            <field name="tag">l10n_ao_account_report</field>
+            <field name="context" eval="{'report_id': ref('l10n_ao_report.account_statement_report')}"/>
+        </record>
+        <record id="action_account_journal_report_ao" model="ir.actions.client">
+            <field name="name">Journal Report Ao</field>
+            <field name="tag">l10n_ao_account_report</field>
+            <field name="context" eval="{'report_id': ref('l10n_ao_report.journal_report_ao')}"/>
+        </record>
+        <record id="action_account_trial_balance_ao" model="ir.actions.client">
+            <field name="name">Balancete AO</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'report_id': ref('l10n_ao_report.account_trial_balance_ao_report')}"/>
+        </record>
+        <record id="action_account_trial_balance_ao_anterior_period_acumulado" model="ir.actions.client">
+            <field name="name">Balancete Anterior Periodo Acumulado</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'report_id': ref('l10n_ao_report.account_trial_balance_ao_anterior_periodo_acumulado_report')}"/>
+        </record>
+    </data>
+</odoo>

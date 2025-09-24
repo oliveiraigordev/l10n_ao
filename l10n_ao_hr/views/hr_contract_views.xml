@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- modify contract form view -->
+    <record id="l1on_ao_hr_contract_form_view" model="ir.ui.view">
+        <field name="name">AG - Inherited Contract Form View</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+
+            <header>
+                <button name="action_print_declaration" type="object" string="Declaração de Trabalho" states="open"
+                        class="oe_stat_button" icon="fa-book"/>
+                <button name="action_report_mock_receipt" type="object" string="Gerar Simulação de Recibo"
+                        attrs="{'invisible':['|',('termination_confirm', '=', True),('state', '!=', 'termination')]}"
+                        class="oe_highlight"/>
+                <button name="action_report_termination_confirmation" type="object" string="Confirmação de rescisão"
+                        attrs="{'invisible':['|',('contract_situation', '=', 'fired'),('state', '!=', 'termination')]}"
+                        class="oe_highlight"/>
+                <!--                <button name="action_report_term_of_termination" type="object" string="Term of Termination"-->
+                <!--                        attrs="{'invisible':[('termination_confirm', '!=', True)]}"/>-->
+                <!--                <button name="action_report_certificate" type="object" string="Certificate"-->
+                <!--                        attrs="{'invisible':[('termination_confirm', '!=', True)]}"/>-->
+            </header>
+
+            <div name="button_box" class="oe_button_box">
+                <button type="object" name="action_view_employee_salary_history" icon="fa-bars">
+                    Salary History
+                </button>
+
+                <button type="object" name="action_view_disciplinary_situation" icon="fa-exclamation">
+                    Disciplinary Situations
+                </button>
+            </div>
+
+            <xpath expr="//field[@name='employee_id']" position="attributes">
+                <attribute name="domain">['|', ('company_id', '=', False), ('company_id', '=',
+                    company_id),('employee_type', '=', 'employee')]
+                </attribute>
+            </xpath>
+
+            <field name="contract_type_id" position="replace">
+                <field name="contract_type_id" readonly="1" force_save="1" string="Tipo de Funcionario"/>
+                <field name="contract_type"/>
+            </field>
+
+            <field name="name" position="after">
+                <div attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}">
+                    <field name="disciplinary_situation" invisible="1"/>
+                    <div class="float-right oe_title">
+                        <widget name="web_ribbon" text="Disciplinary Situation" bg_color="bg-warning"
+                                attrs="{'invisible': [('disciplinary_situation', '!=', True)]}"/>
+                    </div>
+
+                    <div class="float-right oe_title">
+                        <widget name="web_ribbon" text="Disciplinary Situation" bg_color="bg-warning"
+                                attrs="{'invisible': [('disciplinary_situation', '!=', True)]}"/>
+                    </div>
+
+                    <div class="float-right oe_title">
+                        <widget name="web_ribbon" text="Activo" bg_color="bg-success"
+                                attrs="{'invisible': [('contract_situation', '!=', 'active')]}"/>
+                    </div>
+
+                    <div class="float-right oe_title">
+                        <widget name="web_ribbon" text="Demitido" bg_color="bg-danger"
+                                attrs="{'invisible': [('contract_situation', '!=', 'fired')]}"/>
+                    </div>
+
+                    <div class="float-right oe_title">
+                        <widget name="web_ribbon" text="Rescisão" bg_color="bg-danger"
+                                attrs="{'invisible': [('contract_situation', '!=', 'termination')]}"/>
+                    </div>
+
+                    <div class="float-right oe_title">
+                        <widget name="web_ribbon" text="Férias não Remuneradas" bg_color="bg-warning"
+                                attrs="{'invisible': [('contract_situation', '!=', 'unpaid_leave')]}"/>
+                    </div>
+
+                    <div class="float-right oe_title">
+                        <widget name="web_ribbon" text="Licença Maternidade" bg_color="bg-warning"
+                                attrs="{'invisible': [('contract_situation', '!=', 'maternity_leave')]}"/>
+                    </div>
+
+                    <div class="float-right oe_title">
+                        <widget name="web_ribbon" text="Licença Pré-Maternidade" bg_color="bg-warning"
+                                attrs="{'invisible': [('contract_situation', '!=', 'pre_maternity_leave')]}"/>
+                    </div>
+
+                    <div class="float-right oe_title">
+                        <widget name="web_ribbon" text="Comissão de Serviço" bg_color="bg-secondary"
+                                attrs="{'invisible': [('contract_situation', '!=', 'service_commission')]}"/>
+                    </div>
+                </div>
+            </field>
+
+            <field name="employee_id" position="after">
+                <field name="contract_period"
+                       attrs="{'required':[('company_country_id','=',%(base.ao)d)], 'invisible':[('company_country_id','!=',%(base.ao)d)]}"/>
+                <field name="contract_end_date_automatically"
+                       attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}"/>
+                <field name="admission_date" attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}"/>
+            </field>
+
+            <field name="structure_type_id" position="after">
+                <field name="self_renewable"
+                       attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}"/>
+            </field>
+
+            <field name="department_id" position="after">
+                <field name="direction_id" attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}"/>
+            </field>
+
+            <field name="date_end" position="attributes">
+                <attribute name="attrs">{'readonly':[('contract_end_date_automatically','!=', False)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </field>
+
+            <field name="wage_type" position="after">
+                <field name="calendar_days"
+                       attrs="{'invisible': ['|',('company_country_id','!=',%(base.ao)d),('contract_type_id', '!=', %(l10n_ao_hr.l10n_ao_hr_contract_type_nacional)d)]}"/>
+                <field name="irt_exempt"
+                       attrs="{'invisible': ['|',('company_country_id','!=',%(base.ao)d),('contract_type_id', '!=', %(l10n_ao_hr.l10n_ao_hr_contract_type_nacional)d)]}"/>
+                <field name="salary_manual_processing"
+                       attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}"/>
+                <field name="salary_kz"
+                       attrs="{'invisible': ['|',('company_country_id','!=',%(base.ao)d),('contract_type_id', '=', %(l10n_ao_hr.l10n_ao_hr_contract_type_nacional)d)]}"/>
+                <field name="process_automatically_exchange" invisible="1"/>
+                <!--                attrs="{'invisible': ['|',('company_country_id','!=',%(base.ao)d),('contract_type_id', '=', %(l10n_ao_hr.l10n_ao_hr_contract_type_nacional)d)]}"-->
+                <field name="exchange_rate_id" domain="[('active_use','=',True)]"
+                       options="{'no_create':True,'no_create_edit':True,'no_open':True}" invisible="1"/>
+                <field name="show_total_paid_usd" invisible="1"/>
+                <field name="show_total_paid_euro" invisible="1"/>
+                <label for="total_paid_usd"
+                       attrs="{'invisible': ['|',('company_country_id','!=',%(base.ao)d),('contract_type_id', '=', %(l10n_ao_hr.l10n_ao_hr_contract_type_nacional)d)]}"/>
+                <div class="o_row mw-50"
+                     attrs="{'invisible': ['|',('company_country_id','!=',%(base.ao)d),('contract_type_id', '=', %(l10n_ao_hr.l10n_ao_hr_contract_type_nacional)d)]}">
+                    <field name="total_paid_usd" class="oe_inline o_hr_narrow_field" nolabel="1" force_save="1"
+                           attrs="{'readonly': [('salary_manual_processing', '=', False)], 'required': [('salary_manual_processing', '=', True)]}"/>
+                    <div class="mb-3" attrs="{'invisible': [('show_total_paid_usd', '=', False)]}">$</div>
+                    <div class="mb-3" attrs="{'invisible': [('show_total_paid_euro', '=', False)]}">€</div>
+                </div>
+
+            </field>
+
+            <xpath expr="//group[@name='salary']" position="inside">
+                <label for="wage_day"/>
+                <div class="o_row" name="wage_day">
+                    <field name="wage_day" nolabel="1"/>
+                    <span>/ dia</span>
+                </div>
+                <label for="wage_hour"/>
+                <div class="o_row" name="wage_hour">
+                    <field name="wage_hour" nolabel="1"/>
+                    <span>/ hora</span>
+                </div>
+
+            </xpath>
+
+            <xpath expr="//field[@name='wage']" position="attributes">
+                <attribute name="attrs">{'readonly':[('salary_manual_processing', '=', False)]}
+                </attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+
+            <field name="hr_responsible_id" position="after">
+                <field name="contract_situation" attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}"/>
+                <field name="fired_date"
+                       attrs="{'invisible': [('contract_situation', '!=', 'fired')], 'readonly': [('contract_situation', '!=', 'fired')]}"/>
+                <field name="leave_period_start_date"
+                       attrs="{'invisible': [('contract_situation', 'not in', ['unpaid_leave','maternity_leave','pre_maternity_leave'])], 'required': [('contract_situation', 'in', ['unpaid_leave','maternity_leave','pre_maternity_leave'])]}"/>
+                <field name="leave_period_end_date"
+                       attrs="{'invisible': [('contract_situation', 'not in', ['unpaid_leave','maternity_leave','pre_maternity_leave'])], 'required': [('contract_situation', 'in', ['unpaid_leave','maternity_leave','pre_maternity_leave'])]}"/>
+            </field>
+
+            <xpath expr="//notebook/page[last()]" position="after">
+                <page string="Remunerações de Deduções" attrs="{'invisible':[('company_country_id','!=',%(base.ao)d)]}">
+                    <field name="remuneration_ids">
+                        <tree name="Remunerations" editable="bottom" decoration-danger="rem_type == 'deduction'"
+                              decoration-success="rem_type == 'remuneration'" sample="1"
+                              expand="context.get('expand', False)">
+                            <field name="remuneration_code_id" options="{'no_create_edit': True}" string="Code"/>
+                            <field name="name"/>
+                            <field name="period"/>
+                            <field name="date_start" attrs="{'readonly': [('period_next_date', '=', True)]}"/>
+                            <field name="date_end"
+                                   attrs="{'readonly': [('period', 'in', ['quarterly','semi-annually','annually'])]}"/>
+                            <field name="period_next_date" readonly="1" force_save="1"/>
+                            <field name="amount" widget="monetary"/>
+                            <!--                            <field name="is_daily" widget="boolean_toggle"/>-->
+                            <field name="rem_type" readonly="1" widget="badge"/>
+                        </tree>
+                    </field>
+                </page>
+
+                <page string="Termination" attrs="{'invisible':[('state', '!=', 'termination')]}">
+                    <group>
+                        <group>
+                            <field name="type_of_agreement"
+                                   attrs="{'required': [('state','=', 'termination')]}"/>
+                            <field name="causes"
+                                   attrs="{'invisible': [('type_of_agreement','!=', 'just_cause_ob_c')], 'required': [('type_of_agreement','=', 'just_cause_ob_c')]}"/>
+                            <field name="is_seniority_allowance" widget="boolean_toggle"/>
+                            <field name="dont_include_base_rule" widget="boolean_toggle"/>
+                            <field name="early_warning"
+                                   attrs="{'required': [('type_of_agreement','in', ['mutual_agreement', 'resignation','work_request', 'expiry_of_cotract'])], 'readonly': ['|',('termination_confirm', '=', True),('type_of_agreement','not in', ['mutual_agreement', 'resignation','work_request', 'expiry_of_cotract'])]}"/>
+                            <field name="early_warning_date"
+                                   attrs="{'required': [('early_warning','=', 'trial')], 'readonly': ['|',('termination_confirm', '=', True),('type_of_agreement','not in', ['mutual_agreement', 'resignation','work_request', 'expiry_of_cotract'])]}"/>
+                            <field name="type_of_notice_days"
+                                   attrs="{'required': [('early_warning','=', 'trial')], 'readonly': ['|',('termination_confirm', '=', True),('type_of_agreement','not in', ['mutual_agreement', 'resignation','work_request','expiry_of_cotract'])]}"/>
+                            <field name="notice_days"
+                                   attrs="{'required': [('early_warning','=', 'trial')], 'readonly': ['|',('termination_confirm', '=', True),('type_of_agreement','not in', ['mutual_agreement', 'resignation','work_request','expiry_of_cotract'])]}"/>
+                            <field name="termination_date"
+                                   attrs="{'required': [('early_warning','=', 'trial')]}" readonly="1" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="contract_res"
+                                   attrs="{'required': [('state','=', 'termination')]}"/>
+
+                            <label for="contract_res_from" string="Data de Processamento"/>
+                            <div class="o_row">
+                                <span class="text-muted">From</span>
+                                <field name="contract_res_from" class="oe_inline" widget="daterange"
+                                       options="{'related_end_date': 'contract_res_to'}"
+                                       attrs="{'required': [('state','=', 'termination')]}"/>
+                                <span class="text-muted">To</span>
+                                <field name="contract_res_to" class="oe_inline" widget="daterange"
+                                       options="{'related_start_date': 'contract_res_from'}"
+                                       attrs="{'required': [('state','=', 'termination')]}"/>
+                            </div>
+
+                            <field name="date_of_medical_examination"
+                                   attrs="{'required': [('early_warning','=', 'trial')]}"/>
+                            <field name="attach_medical_exam" filename="attach_medical_exam_file_name"
+                                   attrs="{'required': [('early_warning','=', 'trial')]}"/>
+                            <field name="attach_medical_exam_file_name" invisible="1"/>
+                            <field name="termination_confirm" invisible="1"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- modify contract tree view -->
+    <record id="l10n_ao_hr_contract_tree_view" model="ir.ui.view">
+        <field name="name">HR Payroll - Inherited Contract Tree View</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="job_id" position="before">
+                <field name="department_id"/>
+                <field name="direction_id"/>
+            </field>
+            <field name="job_id" position="after">
+                <field name="wage_final"/>
+                <field name="week_hours" invisible="1"/>
+                <field name="wage_hour" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- modify contract type tree view -->
+    <record id="l10n_ao_hr_contract_type_tree_view" model="ir.ui.view">
+        <field name="name">HR - Inherited Contract Type Tree View</field>
+        <field name="model">hr.contract.type</field>
+        <field name="inherit_id" ref="hr.hr_contract_type_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <!--                <field name="is_exchange_adjustment" widget="boolean_toggle"/>-->
+                <field name="is_irt_compensation" widget="boolean_toggle"/>
+                <field name="is_inss_compensation" widget="boolean_toggle"/>
+                <field name="is_exempt_irt" widget="boolean_toggle"/>
+                <field name="is_exempt_inss" widget="boolean_toggle"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_contract_search_view" model="ir.ui.view">
+        <field name="name">hr_contract.search.view</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="before">
+                <separator/>
+                <filter name="date_end" string="Contractos que Caducam Hoje"
+                        domain="[
+                        ('date_end', '&gt;=', (context_today())),
+                        ('date_end', '&lt;', ((context_today() + relativedelta(days=1))))]"/>
+                <filter name="contracts_expiring_15_days" string="Contractos que Caducam dentro de (15 dias)"
+                        domain="[
+                        ('date_end', '&gt;=', context_today().strftime('%Y-%m-%d')),
+                        ('date_end', '&lt;=', (context_today() + relativedelta(days=15)).strftime('%Y-%m-%d'))]"
+                        help="Mostra os contratos que têm a data de fim a partir de hoje até os próximos 15 dias."/>
+                <filter name="contracts_expiring_30_days" string="Contractos que Caducam dentro de (30 dias)"
+                        domain="[
+                        ('date_end', '&gt;=', context_today().strftime('%Y-%m-%d')),
+                        ('date_end', '&lt;=', (context_today() + relativedelta(days=30)).strftime('%Y-%m-%d'))]"
+                        help="Mostra os contratos que têm a data de fim a partir de hoje até os próximos 30 dias."/>
+                <filter name="contracts_expiring_45_days" string="Contractos que Caducam dentro de (45 dias)"
+                        domain="[
+                        ('date_end', '&gt;=', context_today().strftime('%Y-%m-%d')),
+                        ('date_end', '&lt;=', (context_today() + relativedelta(days=45)).strftime('%Y-%m-%d'))]"
+                        help="Mostra os contratos que têm a data de fim a partir de hoje até os próximos 45 dias."/>
+                <separator/>
+                <filter string="Selecione o Período para Filtrar Contractos que Caducam" name="date_end" date="date_end"
+                        default_period="last_month"/>
+
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

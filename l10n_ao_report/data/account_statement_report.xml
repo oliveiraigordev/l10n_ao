@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="account_statement_report" model="account.report">
+            <field name="name">Extracto de conta</field>
+            <field name="country_id" ref="base.ao"/>
+            <field name="filter_journals" eval="True"/>
+            <field name="filter_analytic" eval="False"/>
+            <field name="filter_period_comparison" eval="True"/>
+            <field name="filter_multi_company">selector</field>
+            <field name="filter_unfold_all" eval="True"/>
+            <field name="default_opening_date_filter">this_month</field>
+            <field name="search_bar" eval="True"/>
+            <field name="load_more_limit" eval="80"/>
+            <field name="main_template">account_reports.template_general_ledger_report</field>
+            <field name="line_template">account_reports.line_template_general_ledger_report</field>
+            <field name="custom_handler_model_id" ref="model_account_statement_report_handler"/>
+            <field name="column_ids">
+                <record id="account_statement_report_date" model="account.report.column">
+                    <field name="name">Data</field>
+                    <field name="expression_label">date</field>
+                    <field name="figure_type">none</field>
+                </record>
+                <record id="account_statement_report_journal" model="account.report.column">
+                    <field name="name">Diário</field>
+                    <field name="expression_label">journal_ao</field>
+                    <field name="figure_type">none</field>
+                </record>
+                <record id="account_statement_report_journal_number" model="account.report.column">
+                    <field name="name">Nº Diário</field>
+                    <field name="expression_label">sequence_journal_ao</field>
+                    <field name="figure_type">none</field>
+                </record>
+                <record id="account_statement_report_description" model="account.report.column">
+                    <field name="name">Descrição</field>
+                    <field name="expression_label">communication</field>
+                    <field name="figure_type">none</field>
+                </record>
+                <record id="account_statement_report_debit" model="account.report.column">
+                    <field name="name">Débito</field>
+                    <field name="expression_label">debit</field>
+                    <field name="figure_type">monetary</field>
+                </record>
+                <record id="account_statement_report_credit" model="account.report.column">
+                    <field name="name">Crédito</field>
+                    <field name="expression_label">credit</field>
+                    <field name="figure_type">monetary</field>
+                </record>
+                <record id="account_statement_report_balance" model="account.report.column">
+                    <field name="name">Saldo</field>
+                    <field name="expression_label">balance</field>
+                    <field name="figure_type">monetary</field>
+                </record>
+                <record id="account_statement_report_document" model="account.report.column">
+                    <field name="name">Doc.</field>
+                    <field name="expression_label">journal_code</field>
+                    <field name="figure_type">none</field>
+                </record>
+                <record id="account_statement_report_document_number" model="account.report.column">
+                    <field name="name">Nº Doc.</field>
+                    <field name="expression_label">move_name</field>
+                    <field name="figure_type">none</field>
+                </record>
+                <record id="account_statement_report_origin_account" model="account.report.column">
+                    <field name="name">Conta Origem</field>
+                    <field name="expression_label">iva_origin_account</field>
+                    <field name="figure_type">none</field>
+                </record>
+            </field>
+        </record>
+    </data>
+</odoo>

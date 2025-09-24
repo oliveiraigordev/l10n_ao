@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="account_budget_group_form_view">
+        <field name="name">account.budget.group.form</field>
+        <field name="model">account.budget.group</field>
+        <field name="arch" type="xml">
+            <form string="Posição Orçamental">
+                <field name="company_id" invisible="1"/>
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                    </group>
+                    <notebook>
+                        <page string="Contas" name="accounts">
+                            <field name="account_ids">
+                                <tree>
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="account_budget_group_tree_view" model="ir.ui.view">
+        <field name="name">account.budget.group.tree</field>
+        <field name="model">account.budget.group</field>
+        <field name="arch" type="xml">
+            <tree string="Posição Orçamental">
+                <field name="name"/>
+                <field name="account_ids" widget="many2many_tags"/>
+                <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_budget_group_search_view" model="ir.ui.view">
+        <field name="name">account.budget.group.search</field>
+        <field name="model">account.budget.group</field>
+        <field name="arch" type="xml">
+            <search string="Posição Orçamental">
+                <field name="name" filter_domain="[('name','ilike',self)]" string="Posição Orçamental"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="open_account_budget_group_action" model="ir.actions.act_window">
+        <field name="name">Posições orçamentais</field>
+        <field name="res_model">account.budget.group</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="account_budget_group_tree_view"/>
+        <field name="search_view_id" ref="account_budget_group_search_view"/>
+    </record>
+
+</odoo>

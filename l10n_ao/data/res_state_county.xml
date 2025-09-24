@@ -1,0 +1,814 @@
+<odoo>
+    <data noupdate="1">
+        <record id="county_ao_163" model="res.state.county">
+            <field name="code">CAT</field>
+            <field name="name">Catumbela</field>
+            <field name="state_id" ref="state_ao_2"/>
+        </record>
+        <record id="county_ao_164" model="res.state.county">
+            <field name="code">BLZ</field>
+            <field name="name">Belize</field>
+            <field name="state_id" ref="state_ao_4"/>
+        </record>
+        <record id="county_ao_165" model="res.state.county">
+            <field name="code">CCP</field>
+            <field name="name">Camacupa</field>
+            <field name="state_id" ref="state_ao_3"/>
+        </record>
+        <record id="county_ao_166" model="res.state.county">
+            <field name="code">CCE</field>
+            <field name="name">Cuito Cuanavale</field>
+            <field name="state_id" ref="state_ao_5"/>
+        </record>
+        <record id="county_ao_167" model="res.state.county">
+            <field name="code">CGA</field>
+            <field name="name">Caungula</field>
+            <field name="state_id" ref="state_ao_12"/>
+        </record>
+        <record id="county_ao_168" model="res.state.county">
+            <field name="code">CAA</field>
+            <field name="name">Caála</field>
+            <field name="state_id" ref="state_ao_7"/>
+        </record>
+        <record id="county_ao_169" model="res.state.county">
+            <field name="code">BLB</field>
+            <field name="name">Balombo</field>
+            <field name="state_id" ref="state_ao_2"/>
+        </record>
+        <record id="county_ao_170" model="res.state.county">
+            <field name="code">CLI</field>
+            <field name="name">Calai</field>
+            <field name="state_id" ref="state_ao_5"/>
+        </record>
+        <record id="county_ao_171" model="res.state.county">
+            <field name="code">CG</field>
+            <field name="name">Cuango</field>
+            <field name="state_id" ref="state_ao_12"/>
+        </record>
+        <record id="county_ao_172" model="res.state.county">
+            <field name="code">MSG</field>
+            <field name="name">Massango</field>
+            <field name="state_id" ref="state_ao_14"/>
+        </record>
+        <record id="county_ao_173" model="res.state.county">
+            <field name="code">MCR</field>
+            <field name="name">Caculama-Mucari</field>
+            <field name="state_id" ref="state_ao_14"/>
+        </record>
+        <record id="county_ao_174" model="res.state.county">
+            <field name="code">QQ</field>
+            <field name="name">Quirima</field>
+            <field name="state_id" ref="state_ao_14"/>
+        </record>
+        <record id="county_ao_175" model="res.state.county">
+            <field name="code">KLD</field>
+            <field name="name">Calandula</field>
+            <field name="state_id" ref="state_ao_14"/>
+        </record>
+        <record id="county_ao_176" model="res.state.county">
+            <field name="code">LZ</field>
+            <field name="name">Luchazes</field>
+            <field name="state_id" ref="state_ao_15"/>
+        </record>
+        <record id="county_ao_177" model="res.state.county">
+            <field name="code">BBL</field>
+            <field name="name">Bibala</field>
+            <field name="state_id" ref="state_ao_16"/>
+        </record>
+        <record id="county_ao_178" model="res.state.county">
+            <field name="code">SG</field>
+            <field name="name">Songo</field>
+            <field name="state_id" ref="state_ao_17"/>
+        </record>
+        <record id="county_ao_179" model="res.state.county">
+            <field name="code">ZB</field>
+            <field name="name">Maquela do Zombo</field>
+            <field name="state_id" ref="state_ao_17"/>
+        </record>
+        <record id="county_ao_180" model="res.state.county">
+            <field name="code">MZK</field>
+            <field name="name">M'Banza Kongo</field>
+            <field name="state_id" ref="state_ao_18"/>
+        </record>
+        <record id="county_ao_181" model="res.state.county">
+            <field name="code">CAU</field>
+            <field name="name">Caungo</field>
+            <field name="state_id" ref="state_ao_12"/>
+        </record>
+        <record id="county_ao_182" model="res.state.county">
+            <field name="code">AMB</field>
+            <field name="name">Ambuíla</field>
+            <field name="state_id" ref="state_ao_17"/>
+        </record>
+        <record id="county_ao_183" model="res.state.county">
+            <field name="code">CA</field>
+            <field name="name">Cameia</field>
+            <field name="state_id" ref="state_ao_15"/>
+        </record>
+        <record id="county_ao_184" model="res.state.county">
+            <field name="code">QUL</field>
+            <field name="name">Quela</field>
+            <field name="state_id" ref="state_ao_14"/>
+        </record>
+        <record id="county_ao_185" model="res.state.county">
+            <field name="code">WK</field>
+            <field name="name">Waku Kungo</field>
+            <field name="state_id" ref="state_ao_10"/>
+        </record>
+        <record id="county_ao_186" model="res.state.county">
+            <field name="code">QPG</field>
+            <field name="name">Quipungo</field>
+            <field name="state_id" ref="state_ao_8"/>
+        </record>
+        <record id="county_ao_187" model="res.state.county">
+            <field name="code">CCD</field>
+            <field name="name">Caconda</field>
+            <field name="state_id" ref="state_ao_8"/>
+        </record>
+        <record id="county_ao_188" model="res.state.county">
+            <field name="code">KVG</field>
+            <field name="name">Kuvango</field>
+            <field name="state_id" ref="state_ao_8"/>
+        </record>
+        <record id="county_ao_189" model="res.state.county">
+            <field name="code">ATC</field>
+            <field name="name">Alto Cauale</field>
+            <field name="state_id" ref="state_ao_17"/>
+        </record>
+        <record id="county_ao_1" model="res.state.county">
+            <field name="code">DEM</field>
+            <field name="name">Dembos</field>
+            <field name="state_id" ref="state_ao_1"/>
+        </record>
+        <record id="county_ao_2" model="res.state.county">
+            <field name="code">AMB</field>
+            <field name="name">Ambriz</field>
+            <field name="state_id" ref="state_ao_1"/>
+        </record>
+        <record id="county_ao_3" model="res.state.county">
+            <field name="code">DAN</field>
+            <field name="name">Dande</field>
+            <field name="state_id" ref="state_ao_1"/>
+        </record>
+        <record id="county_ao_4" model="res.state.county">
+            <field name="code">NGO</field>
+            <field name="name">Nambuangongo</field>
+            <field name="state_id" ref="state_ao_1"/>
+        </record>
+        <record id="county_ao_5" model="res.state.county">
+            <field name="code">PGM</field>
+            <field name="name">Pango Aluquém</field>
+            <field name="state_id" ref="state_ao_1"/>
+        </record>
+        <record id="county_ao_6" model="res.state.county">
+            <field name="code">BFA</field>
+            <field name="name">Baía Farta</field>
+            <field name="state_id" ref="state_ao_2"/>
+        </record>
+        <record id="county_ao_7" model="res.state.county">
+            <field name="code">BEN</field>
+            <field name="name">Benguela</field>
+            <field name="state_id" ref="state_ao_2"/>
+        </record>
+        <record id="county_ao_8" model="res.state.county">
+            <field name="code">BCL</field>
+            <field name="name">Bocoio</field>
+            <field name="state_id" ref="state_ao_2"/>
+        </record>
+        <record id="county_ao_9" model="res.state.county">
+            <field name="code">CBB</field>
+            <field name="name">Caimbambo</field>
+            <field name="state_id" ref="state_ao_2"/>
+        </record>
+        <record id="county_ao_10" model="res.state.county">
+            <field name="code">CGI</field>
+            <field name="name">Chongoroi</field>
+            <field name="state_id" ref="state_ao_2"/>
+        </record>
+        <record id="county_ao_11" model="res.state.county">
+            <field name="code">CBL</field>
+            <field name="name">Cubal</field>
+            <field name="state_id" ref="state_ao_2"/>
+        </record>
+        <record id="county_ao_12" model="res.state.county">
+            <field name="code">GDA</field>
+            <field name="name">Ganda</field>
+            <field name="state_id" ref="state_ao_2"/>
+        </record>
+        <record id="county_ao_13" model="res.state.county">
+            <field name="code">LOB</field>
+            <field name="name">Lobito</field>
+            <field name="state_id" ref="state_ao_2"/>
+        </record>
+        <record id="county_ao_14" model="res.state.county">
+            <field name="code">CBL</field>
+            <field name="name">Catabola</field>
+            <field name="state_id" ref="state_ao_3"/>
+        </record>
+        <record id="county_ao_15" model="res.state.county">
+            <field name="code">CGR</field>
+            <field name="name">Chinguar</field>
+            <field name="state_id" ref="state_ao_3"/>
+        </record>
+        <record id="county_ao_16" model="res.state.county">
+            <field name="code">CTB</field>
+            <field name="name">Chitembo</field>
+            <field name="state_id" ref="state_ao_3"/>
+        </record>
+        <record id="county_ao_17" model="res.state.county">
+            <field name="code">CMO</field>
+            <field name="name">Cuembo</field>
+            <field name="state_id" ref="state_ao_3"/>
+        </record>
+        <record id="county_ao_18" model="res.state.county">
+            <field name="code">CNG</field>
+            <field name="name">Cunhinga</field>
+            <field name="state_id" ref="state_ao_3"/>
+        </record>
+        <record id="county_ao_19" model="res.state.county">
+            <field name="code">KTO</field>
+            <field name="name">Kuito</field>
+            <field name="state_id" ref="state_ao_3"/>
+        </record>
+        <record id="county_ao_20" model="res.state.county">
+            <field name="code">NRE</field>
+            <field name="name">Nharea</field>
+            <field name="state_id" ref="state_ao_3"/>
+        </record>
+        <record id="county_ao_21" model="res.state.county">
+            <field name="code">BZU</field>
+            <field name="name">Buco-Zau</field>
+            <field name="state_id" ref="state_ao_4"/>
+        </record>
+        <record id="county_ao_22" model="res.state.county">
+            <field name="code">CBA</field>
+            <field name="name">Cabinda</field>
+            <field name="state_id" ref="state_ao_4"/>
+        </record>
+        <record id="county_ao_23" model="res.state.county">
+            <field name="code">CCG</field>
+            <field name="name">Cacongo</field>
+            <field name="state_id" ref="state_ao_4"/>
+        </record>
+        <record id="county_ao_25" model="res.state.county">
+            <field name="code">CHA</field>
+            <field name="name">Cahama</field>
+            <field name="state_id" ref="state_ao_6"/>
+        </record>
+        <record id="county_ao_26" model="res.state.county">
+            <field name="code">CUR</field>
+            <field name="name">Cuangar</field>
+            <field name="state_id" ref="state_ao_5"/>
+        </record>
+        <record id="county_ao_27" model="res.state.county">
+            <field name="code">CHI</field>
+            <field name="name">Cuchi</field>
+            <field name="state_id" ref="state_ao_5"/>
+        </record>
+        <record id="county_ao_29" model="res.state.county">
+            <field name="code">DRO</field>
+            <field name="name">Dirico</field>
+            <field name="state_id" ref="state_ao_5"/>
+        </record>
+        <record id="county_ao_30" model="res.state.county">
+            <field name="code">LGA</field>
+            <field name="name">Longa</field>
+            <field name="state_id" ref="state_ao_5"/>
+        </record>
+        <record id="county_ao_31" model="res.state.county">
+            <field name="code">MVA</field>
+            <field name="name">Mavinga</field>
+            <field name="state_id" ref="state_ao_5"/>
+        </record>
+        <record id="county_ao_32" model="res.state.county">
+            <field name="code">MNG</field>
+            <field name="name">Menongue</field>
+            <field name="state_id" ref="state_ao_5"/>
+        </record>
+        <record id="county_ao_34" model="res.state.county">
+            <field name="code">RVO</field>
+            <field name="name">Rivungo</field>
+            <field name="state_id" ref="state_ao_5"/>
+        </record>
+        <record id="county_ao_35" model="res.state.county">
+            <field name="code">BDO</field>
+            <field name="name">Bailundo</field>
+            <field name="state_id" ref="state_ao_7"/>
+        </record>
+        <record id="county_ao_36" model="res.state.county">
+            <field name="code">CHA</field>
+            <field name="name">Cuanhama</field>
+            <field name="state_id" ref="state_ao_6"/>
+        </record>
+        <record id="county_ao_37" model="res.state.county">
+            <field name="code">CRA</field>
+            <field name="name">Curoca</field>
+            <field name="state_id" ref="state_ao_6"/>
+        </record>
+        <record id="county_ao_38" model="res.state.county">
+            <field name="code">CVI</field>
+            <field name="name">Cuvelai</field>
+            <field name="state_id" ref="state_ao_6"/>
+        </record>
+        <record id="county_ao_39" model="res.state.county">
+            <field name="code">NDE</field>
+            <field name="name">Namacunde</field>
+            <field name="state_id" ref="state_ao_6"/>
+        </record>
+        <record id="county_ao_40" model="res.state.county">
+            <field name="code">OJA</field>
+            <field name="name">Ombadja</field>
+            <field name="state_id" ref="state_ao_6"/>
+        </record>
+        <record id="county_ao_43" model="res.state.county">
+            <field name="code">CTG</field>
+            <field name="name">Catchiungo</field>
+            <field name="state_id" ref="state_ao_7"/>
+        </record>
+        <record id="county_ao_44" model="res.state.county">
+            <field name="code">EKA</field>
+            <field name="name">Ekunha</field>
+            <field name="state_id" ref="state_ao_7"/>
+        </record>
+        <record id="county_ao_45" model="res.state.county">
+            <field name="code">HUA</field>
+            <field name="name">Huambo</field>
+            <field name="state_id" ref="state_ao_7"/>
+        </record>
+        <record id="county_ao_46" model="res.state.county">
+            <field name="code">LDB</field>
+            <field name="name">Londuimbale</field>
+            <field name="state_id" ref="state_ao_7"/>
+        </record>
+        <record id="county_ao_47" model="res.state.county">
+            <field name="code">LGJ</field>
+            <field name="name">Longonjo</field>
+            <field name="state_id" ref="state_ao_7"/>
+        </record>
+        <record id="county_ao_48" model="res.state.county">
+            <field name="code">MGO</field>
+            <field name="name">Mungo</field>
+            <field name="state_id" ref="state_ao_7"/>
+        </record>
+        <record id="county_ao_49" model="res.state.county">
+            <field name="code">TTG</field>
+            <field name="name">Tchicala-Tcholoanga</field>
+            <field name="state_id" ref="state_ao_7"/>
+        </record>
+        <record id="county_ao_50" model="res.state.county">
+            <field name="code">TJJ</field>
+            <field name="name">Tchindjenje</field>
+            <field name="state_id" ref="state_ao_7"/>
+        </record>
+        <record id="county_ao_51" model="res.state.county">
+            <field name="code">UCA</field>
+            <field name="name">Ucuma</field>
+            <field name="state_id" ref="state_ao_7"/>
+        </record>
+        <record id="county_ao_52" model="res.state.county">
+            <field name="code">ABA</field>
+            <field name="name">Ambaca</field>
+            <field name="state_id" ref="state_ao_9"/>
+        </record>
+        <record id="county_ao_53" model="res.state.county">
+            <field name="code">CCE</field>
+            <field name="name">Caluquembe</field>
+            <field name="state_id" ref="state_ao_8"/>
+        </record>
+        <record id="county_ao_54" model="res.state.county">
+            <field name="code">CHG</field>
+            <field name="name">Chiange</field>
+            <field name="state_id" ref="state_ao_8"/>
+        </record>
+        <record id="county_ao_55" model="res.state.county">
+            <field name="code">CBA</field>
+            <field name="name">Chibia</field>
+            <field name="state_id" ref="state_ao_8"/>
+        </record>
+        <record id="county_ao_56" model="res.state.county">
+            <field name="code">CCA</field>
+            <field name="name">Chicomba</field>
+            <field name="state_id" ref="state_ao_8"/>
+        </record>
+        <record id="county_ao_57" model="res.state.county">
+            <field name="code">CPO</field>
+            <field name="name">Chipindo</field>
+            <field name="state_id" ref="state_ao_8"/>
+        </record>
+        <record id="county_ao_58" model="res.state.county">
+            <field name="code">CVO</field>
+            <field name="name">Cacula</field>
+            <field name="state_id" ref="state_ao_8"/>
+        </record>
+        <record id="county_ao_59" model="res.state.county">
+            <field name="code">HPA</field>
+            <field name="name">Humpata</field>
+            <field name="state_id" ref="state_ao_8"/>
+        </record>
+        <record id="county_ao_60" model="res.state.county">
+            <field name="code">JMA</field>
+            <field name="name">Jamba</field>
+            <field name="state_id" ref="state_ao_8"/>
+        </record>
+        <record id="county_ao_61" model="res.state.county">
+            <field name="code">LBO</field>
+            <field name="name">Lubango</field>
+            <field name="state_id" ref="state_ao_8"/>
+        </record>
+        <record id="county_ao_62" model="res.state.county">
+            <field name="code">MTA</field>
+            <field name="name">Matala</field>
+            <field name="state_id" ref="state_ao_8"/>
+        </record>
+        <record id="county_ao_63" model="res.state.county">
+            <field name="code">QLS</field>
+            <field name="name">Quilengues</field>
+            <field name="state_id" ref="state_ao_8"/>
+        </record>
+        <record id="county_ao_64" model="res.state.county">
+            <field name="code">BEN</field>
+            <field name="name">Amboim</field>
+            <field name="state_id" ref="state_ao_10"/>
+        </record>
+        <record id="county_ao_65" model="res.state.county">
+            <field name="code">BEN</field>
+            <field name="name">Banga</field>
+            <field name="state_id" ref="state_ao_9"/>
+        </record>
+        <record id="county_ao_66" model="res.state.county">
+            <field name="code">BEN</field>
+            <field name="name">Bolongongo</field>
+            <field name="state_id" ref="state_ao_9"/>
+        </record>
+        <record id="county_ao_67" model="res.state.county">
+            <field name="code">BEN</field>
+            <field name="name">Cambambe</field>
+            <field name="state_id" ref="state_ao_9"/>
+        </record>
+        <record id="county_ao_68" model="res.state.county">
+            <field name="code">BEN</field>
+            <field name="name">Cazengo</field>
+            <field name="state_id" ref="state_ao_9"/>
+        </record>
+        <record id="county_ao_69" model="res.state.county">
+            <field name="code">BEN</field>
+            <field name="name">Golungo Alto</field>
+            <field name="state_id" ref="state_ao_9"/>
+        </record>
+        <record id="county_ao_70" model="res.state.county">
+            <field name="code">BEN</field>
+            <field name="name">Gonguembo</field>
+            <field name="state_id" ref="state_ao_9"/>
+        </record>
+        <record id="county_ao_71" model="res.state.county">
+            <field name="code">BEN</field>
+            <field name="name">Lucala</field>
+            <field name="state_id" ref="state_ao_9"/>
+        </record>
+        <record id="county_ao_73" model="res.state.county">
+            <field name="code">BEN</field>
+            <field name="name">Quiculungo</field>
+            <field name="state_id" ref="state_ao_9"/>
+        </record>
+        <record id="county_ao_74" model="res.state.county">
+            <field name="code">BEN</field>
+            <field name="name">Samba Caju</field>
+            <field name="state_id" ref="state_ao_9"/>
+        </record>
+        <record id="county_ao_75" model="res.state.county">
+            <field name="code">BLS</field>
+            <field name="name">Belas</field>
+            <field name="state_id" ref="state_ao_11"/>
+        </record>
+        <record id="county_ao_76" model="res.state.county">
+            <field name="code">CSE</field>
+            <field name="name">Cassongue</field>
+            <field name="state_id" ref="state_ao_10"/>
+        </record>
+        <record id="county_ao_77" model="res.state.county">
+            <field name="code">CDA</field>
+            <field name="name">Conda</field>
+            <field name="state_id" ref="state_ao_10"/>
+        </record>
+        <record id="county_ao_78" model="res.state.county">
+            <field name="code">EBO</field>
+            <field name="name">Ebo</field>
+            <field name="state_id" ref="state_ao_10"/>
+        </record>
+        <record id="county_ao_79" model="res.state.county">
+            <field name="code">LBO</field>
+            <field name="name">Libolo</field>
+            <field name="state_id" ref="state_ao_10"/>
+        </record>
+        <record id="county_ao_80" model="res.state.county">
+            <field name="code">MSE</field>
+            <field name="name">Mussende</field>
+            <field name="state_id" ref="state_ao_10"/>
+        </record>
+        <record id="county_ao_81" model="res.state.county">
+            <field name="code">PAM</field>
+            <field name="name">Porto Amboim</field>
+            <field name="state_id" ref="state_ao_10"/>
+        </record>
+        <record id="county_ao_82" model="res.state.county">
+            <field name="code">QBA</field>
+            <field name="name">Quibala</field>
+            <field name="state_id" ref="state_ao_10"/>
+        </record>
+        <record id="county_ao_84" model="res.state.county">
+            <field name="code">QLA</field>
+            <field name="name">Quilenda</field>
+            <field name="state_id" ref="state_ao_10"/>
+        </record>
+        <record id="county_ao_85" model="res.state.county">
+            <field name="code">SLE</field>
+            <field name="name">Seles</field>
+            <field name="state_id" ref="state_ao_10"/>
+        </record>
+        <record id="county_ao_86" model="res.state.county">
+            <field name="code">SBE</field>
+            <field name="name">Sumbe</field>
+            <field name="state_id" ref="state_ao_10"/>
+        </record>
+        <record id="county_ao_91" model="res.state.county">
+            <field name="code">QUI</field>
+            <field name="name">Quiçama</field>
+            <field name="state_id" ref="state_ao_11"/>
+        </record>
+        <record id="county_ao_92" model="res.state.county">
+            <field name="code">CAC</field>
+            <field name="name">Cacuaco</field>
+            <field name="state_id" ref="state_ao_11"/>
+        </record>
+        <record id="county_ao_94" model="res.state.county">
+            <field name="code">CAZ</field>
+            <field name="name">Cambulo</field>
+            <field name="state_id" ref="state_ao_12"/>
+        </record>
+        <record id="county_ao_95" model="res.state.county">
+            <field name="code">CAZ</field>
+            <field name="name">Cazenga</field>
+            <field name="state_id" ref="state_ao_11"/>
+        </record>
+        <record id="county_ao_96" model="res.state.county">
+            <field name="code">ICB</field>
+            <field name="name">Icole e Bengo</field>
+            <field name="state_id" ref="state_ao_11"/>
+        </record>
+        <record id="county_ao_99" model="res.state.county">
+            <field name="code">LDA</field>
+            <field name="name">Luanda</field>
+            <field name="state_id" ref="state_ao_11"/>
+        </record>
+        <record id="county_ao_101" model="res.state.county">
+            <field name="code">VIA</field>
+            <field name="name">Viana</field>
+            <field name="state_id" ref="state_ao_11"/>
+        </record>
+        <record id="county_ao_104" model="res.state.county">
+            <field name="code">CPC</field>
+            <field name="name">Capenda-Camulemba</field>
+            <field name="state_id" ref="state_ao_12"/>
+        </record>
+        <record id="county_ao_107" model="res.state.county">
+            <field name="code">CTT</field>
+            <field name="name">Chitato</field>
+            <field name="state_id" ref="state_ao_12"/>
+        </record>
+        <record id="county_ao_108" model="res.state.county">
+            <field name="code">CLO</field>
+            <field name="name">Cuilo</field>
+            <field name="state_id" ref="state_ao_12"/>
+        </record>
+        <record id="county_ao_109" model="res.state.county">
+            <field name="code">LBL</field>
+            <field name="name">Lubalo</field>
+            <field name="state_id" ref="state_ao_12"/>
+        </record>
+        <record id="county_ao_110" model="res.state.county">
+            <field name="code">LCP</field>
+            <field name="name">Lucapa</field>
+            <field name="state_id" ref="state_ao_12"/>
+        </record>
+        <record id="county_ao_111" model="res.state.county">
+            <field name="code">XMB</field>
+            <field name="name">Xá-Muteba</field>
+            <field name="state_id" ref="state_ao_12"/>
+        </record>
+        <record id="county_ao_103" model="res.state.county">
+            <field name="code">CLO</field>
+            <field name="name">Cacolo</field>
+            <field name="state_id" ref="state_ao_13"/>
+        </record>
+        <record id="county_ao_113" model="res.state.county">
+            <field name="code">DLA</field>
+            <field name="name">Dala</field>
+            <field name="state_id" ref="state_ao_13"/>
+        </record>
+        <record id="county_ao_114" model="res.state.county">
+            <field name="code">MCA</field>
+            <field name="name">Muconda</field>
+            <field name="state_id" ref="state_ao_13"/>
+        </record>
+        <record id="county_ao_115" model="res.state.county">
+            <field name="code">SAU</field>
+            <field name="name">Saurimo</field>
+            <field name="state_id" ref="state_ao_13"/>
+        </record>
+        <record id="county_ao_112" model="res.state.county">
+            <field name="code">CCS</field>
+            <field name="name">Cacuso</field>
+            <field name="state_id" ref="state_ao_14"/>
+        </record>
+        <record id="county_ao_116" model="res.state.county">
+            <field name="code">AZZ</field>
+            <field name="name">Alto Zambeze</field>
+            <field name="state_id" ref="state_ao_15"/>
+        </record>
+        <record id="county_ao_118" model="res.state.county">
+            <field name="code">CCT</field>
+            <field name="name">Cambundi-Catembo</field>
+            <field name="state_id" ref="state_ao_14"/>
+        </record>
+        <record id="county_ao_119" model="res.state.county">
+            <field name="code">CGD</field>
+            <field name="name">Cangandala</field>
+            <field name="state_id" ref="state_ao_14"/>
+        </record>
+        <record id="county_ao_120" model="res.state.county">
+            <field name="code">CMB</field>
+            <field name="name">Caombo</field>
+            <field name="state_id" ref="state_ao_14"/>
+        </record>
+        <record id="county_ao_121" model="res.state.county">
+            <field name="code">CNZ</field>
+            <field name="name">Cuaba Nzogo</field>
+            <field name="state_id" ref="state_ao_14"/>
+        </record>
+        <record id="county_ao_122" model="res.state.county">
+            <field name="code">AZE</field>
+            <field name="name">Cunda-Diaza</field>
+            <field name="state_id" ref="state_ao_14"/>
+        </record>
+        <record id="county_ao_123" model="res.state.county">
+            <field name="code">LQB</field>
+            <field name="name">Luquembo</field>
+            <field name="state_id" ref="state_ao_14"/>
+        </record>
+        <record id="county_ao_124" model="res.state.county">
+            <field name="code">MAL</field>
+            <field name="name">Malanje</field>
+            <field name="state_id" ref="state_ao_14"/>
+        </record>
+        <record id="county_ao_125" model="res.state.county">
+            <field name="code">MRB</field>
+            <field name="name">Marimba</field>
+            <field name="state_id" ref="state_ao_14"/>
+        </record>
+        <record id="county_ao_128" model="res.state.county">
+            <field name="code">BDA</field>
+            <field name="name">Bundas</field>
+            <field name="state_id" ref="state_ao_15"/>
+        </record>
+        <record id="county_ao_129" model="res.state.county">
+            <field name="code">CUE</field>
+            <field name="name">Camanongue</field>
+            <field name="state_id" ref="state_ao_15"/>
+        </record>
+        <record id="county_ao_130" model="res.state.county">
+            <field name="code">LEA</field>
+            <field name="name">Léua</field>
+            <field name="state_id" ref="state_ao_15"/>
+        </record>
+        <record id="county_ao_131" model="res.state.county">
+            <field name="code">LNO</field>
+            <field name="name">Lucano</field>
+            <field name="state_id" ref="state_ao_15"/>
+        </record>
+        <record id="county_ao_132" model="res.state.county">
+            <field name="code">LAU</field>
+            <field name="name">Luau</field>
+            <field name="state_id" ref="state_ao_15"/>
+        </record>
+        <record id="county_ao_136" model="res.state.county">
+            <field name="code">MOX</field>
+            <field name="name">Moxico</field>
+            <field name="state_id" ref="state_ao_15"/>
+        </record>
+        <record id="county_ao_138" model="res.state.county">
+            <field name="code">CLO</field>
+            <field name="name">Camuculo</field>
+            <field name="state_id" ref="state_ao_16"/>
+        </record>
+        <record id="county_ao_139" model="res.state.county">
+            <field name="code">NAM</field>
+            <field name="name">Namibe</field>
+            <field name="state_id" ref="state_ao_16"/>
+        </record>
+        <record id="county_ao_140" model="res.state.county">
+            <field name="code">TOM</field>
+            <field name="name">Tômbua</field>
+            <field name="state_id" ref="state_ao_16"/>
+        </record>
+        <record id="county_ao_141" model="res.state.county">
+            <field name="code">VRL</field>
+            <field name="name">Virei</field>
+            <field name="state_id" ref="state_ao_16"/>
+        </record>
+        <record id="county_ao_142" model="res.state.county">
+            <field name="code">BBE</field>
+            <field name="name">Bembe</field>
+            <field name="state_id" ref="state_ao_17"/>
+        </record>
+        <record id="county_ao_143" model="res.state.county">
+            <field name="code">BEA</field>
+            <field name="name">Buengas</field>
+            <field name="state_id" ref="state_ao_17"/>
+        </record>
+        <record id="county_ao_144" model="res.state.county">
+            <field name="code">BGO</field>
+            <field name="name">Bungo</field>
+            <field name="state_id" ref="state_ao_17"/>
+        </record>
+        <record id="county_ao_145" model="res.state.county">
+            <field name="code">CBA</field>
+            <field name="name">Cuimba</field>
+            <field name="state_id" ref="state_ao_18"/>
+        </record>
+        <record id="county_ao_146" model="res.state.county">
+            <field name="code">DBA</field>
+            <field name="name">Damba</field>
+            <field name="state_id" ref="state_ao_17"/>
+        </record>
+        <record id="county_ao_147" model="res.state.county">
+            <field name="code">MCL</field>
+            <field name="name">Macocola</field>
+            <field name="state_id" ref="state_ao_17"/>
+        </record>
+        <record id="county_ao_149" model="res.state.county">
+            <field name="code">MBA</field>
+            <field name="name">Mucaba</field>
+            <field name="state_id" ref="state_ao_17"/>
+        </record>
+        <record id="county_ao_150" model="res.state.county">
+            <field name="code">NGG</field>
+            <field name="name">Negage</field>
+            <field name="state_id" ref="state_ao_17"/>
+        </record>
+        <record id="county_ao_151" model="res.state.county">
+            <field name="code">PRI</field>
+            <field name="name">Puri</field>
+            <field name="state_id" ref="state_ao_17"/>
+        </record>
+        <record id="county_ao_152" model="res.state.county">
+            <field name="code">QBE</field>
+            <field name="name">Quimbele</field>
+            <field name="state_id" ref="state_ao_17"/>
+        </record>
+        <record id="county_ao_153" model="res.state.county">
+            <field name="code">QTX</field>
+            <field name="name">Quitexe</field>
+            <field name="state_id" ref="state_ao_17"/>
+        </record>
+        <record id="county_ao_154" model="res.state.county">
+            <field name="code">ZNZ</field>
+            <field name="name">Sanza Pombo</field>
+            <field name="state_id" ref="state_ao_17"/>
+        </record>
+        <record id="county_ao_155" model="res.state.county">
+            <field name="code">UIG</field>
+            <field name="name">Uíge</field>
+            <field name="state_id" ref="state_ao_17"/>
+        </record>
+        <record id="county_ao_157" model="res.state.county">
+            <field name="code">NQI</field>
+            <field name="name">Noqui</field>
+            <field name="state_id" ref="state_ao_18"/>
+        </record>
+        <record id="county_ao_158" model="res.state.county">
+            <field name="code">ZTO</field>
+            <field name="name">Nzeto</field>
+            <field name="state_id" ref="state_ao_18"/>
+        </record>
+        <record id="county_ao_159" model="res.state.county">
+            <field name="code">SYO</field>
+            <field name="name">Soyo</field>
+            <field name="state_id" ref="state_ao_18"/>
+        </record>
+        <record id="county_ao_160" model="res.state.county">
+            <field name="code">TMO</field>
+            <field name="name">Tomboco</field>
+            <field name="state_id" ref="state_ao_18"/>
+        </record>
+        <record id="county_ao_161" model="res.state.county">
+            <field name="code">BAA</field>
+            <field name="name">Bula Atumba</field>
+            <field name="state_id" ref="state_ao_1"/>
+        </record>
+        <record id="county_ao_162" model="res.state.county">
+            <field name="code">AND</field>
+            <field name="name">Andulo</field>
+            <field name="state_id" ref="state_ao_3"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_advanced_extract,advanced.extract,model_advanced_extract,base.group_user,1,1,1,1
+access_combined_extract,combined.extract,model_combined_extract,base.group_user,1,1,1,1
+access_process_extract,access.process.extract,model_process_extract,base.group_user,1,1,1,1
+access_account_extract,access.account.extract,model_account_extract,base.group_user,1,1,1,1
+access_account_ndev,access.account.ndev,model_account_ndev,base.group_user,1,1,1,1
+access_account_rcc,access.account.rcc,model_account_rcc,base.group_user,1,1,1,1
+access_account_rcc_credit_line,access.account.rcc.credit.line,model_account_rcc_credit_line,base.group_user,1,1,1,1
+

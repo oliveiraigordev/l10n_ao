@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Salary Rule Categories -->
+<!--        <record id="hr_payroll.BASIC" model="hr.salary.rule.category">-->
+<!--            <field name="code">BAS</field>-->
+<!--            <field name="name">Base</field>-->
+<!--        </record>-->
+
+<!--        <record id="hr_payroll.ALW" model="hr.salary.rule.category">-->
+<!--            <field name="code">ABO</field>-->
+<!--            <field name="name">Abonos</field>-->
+<!--        </record>-->
+
+<!--        <record id="hr_payroll.DED" model="hr.salary.rule.category">-->
+<!--            <field name="code">DED</field>-->
+<!--            <field name="name">Deduções</field>-->
+<!--        </record>-->
+
+        <record id="hr_payroll_salary_rule_category_horas_extras" model="hr.salary.rule.category">
+            <field name="code">HEXTRA</field>
+            <field name="name">Horas Extras</field>
+        </record>
+
+        <record id="hr_payroll_salary_rule_category_faltas" model="hr.salary.rule.category">
+            <field name="code">FALTA</field>
+            <field name="name">Faltas</field>
+        </record>
+
+        <record id="hr_payroll_salary_rule_category_abonos_sujeitos_inss" model="hr.salary.rule.category">
+            <field name="code">ABOINSS</field>
+            <field name="name">Abonos Sujeitos à INSS</field>
+        </record>
+
+        <record id="hr_payroll_salary_rule_category_abonos_sujeitos_irt" model="hr.salary.rule.category">
+            <field name="code">ABOIRT</field>
+            <field name="name">Abonos Sujeitos à IRT</field>
+        </record>
+
+        <record id="hr_payroll_salary_rule_category_abonos_sujeitos_inss_irt" model="hr.salary.rule.category">
+            <field name="code">ABOINSSIRT</field>
+            <field name="name">Abonos Sujeitos à INSS e IRT</field>
+        </record>
+
+        <record id="hr_payroll_salary_rule_category_deducoes_sujeitas_inss_irt" model="hr.salary.rule.category">
+            <field name="code">DEDINSSIRT</field>
+            <field name="name">Deduções Sujeitas à INSS e IRT</field>
+        </record>
+
+        <record id="hr_payroll_salary_rule_category_inss" model="hr.salary.rule.category">
+            <field name="code">INSS</field>
+            <field name="name">INSS</field>
+        </record>
+
+        <!-- INSS 8%  -->
+
+        <record id="hr_payroll_salary_rule_category_inss8" model="hr.salary.rule.category">
+            <field name="code">INSS8</field>
+            <field name="name">INSS8%</field>
+        </record>
+
+        <record id="hr_payroll_salary_rule_category_irt" model="hr.salary.rule.category">
+            <field name="code">IRT</field>
+            <field name="name">IRT</field>
+        </record>
+    </data>
+</odoo>

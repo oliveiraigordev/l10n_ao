@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- modify employee form view -->
+    <record id="l10n_ao_holidays_employee_form_view" model="ir.ui.view">
+        <field name="name">L10n_ao_holidays - Inherited Employee Form View</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <field name="marital" position="after">
+                <field name="holiday_processing_policy"/>
+            </field>
+        </field>
+    </record>
+</odoo>

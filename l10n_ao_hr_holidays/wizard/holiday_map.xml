@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="l10n_ao_hr_holiday_map_view" model="ir.ui.view">
+        <field name="name">Mapa de Férias</field>
+        <field name="model">wizard.holiday.map</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="year"/>
+                    <field name="filename_out" invisible="1"/>
+                    <field name="file_out" widget="binary" filename="filename_out" readonly="1"
+                           attrs="{'invisible': [('file_out', '=', False)]}"/>
+                    <field name="direction_id" options="{'no_edit': True, 'no_create': True, 'no_open': True}" string="Direcção"/>
+                </group>
+                <footer>
+                    <button name="create_report" string="Gerar"
+                            type="object" class="oe_highlight"/>
+                    or
+                    <button string="Fechar" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_l10n_ao_hr_holiday_map" model="ir.actions.act_window">
+        <field name="name">Mapa de Férias</field>
+        <field name="res_model">wizard.holiday.map</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_action_holiday_map"
+              name="Mapa de Férias"
+              action="action_l10n_ao_hr_holiday_map"
+              parent="hr_holidays.menu_hr_holidays_report"
+              sequence="30"/>
+
+</odoo>

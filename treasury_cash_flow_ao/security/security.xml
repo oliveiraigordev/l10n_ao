@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+<record id="model_treasury_cash_flow_report" model="ir.model">
+    <field name="model">treasury.cash.flow.report</field>
+</record>
+    </data>
+</odoo>

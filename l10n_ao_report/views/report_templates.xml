@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="search_template_by_account">
+        <button type="button" class="o-no-caret btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+            <span class="fa fa-filter"/>
+            Filtro por conta:
+            <t t-if="options['comparison'].get('string') and options['comparison'].get('filter') != 'custom'">
+                <t t-out="options['comparison']['string']"/>
+            </t>
+            <t t-if="options['comparison'].get('filter') == 'custom'">
+                <t t-if="options['date']['mode'] == 'range'">
+                    <span class="o_reports_date_to">
+                        <span class="js_format_date">
+                            <t t-out="options['comparison']['date_from']"/>
+                        </span>
+                    </span>
+                    <span class="o_reports_date_to">-
+                        <span class="js_format_date">
+                            <t t-out="options['comparison']['date_to']"/>
+                        </span>
+                    </span>
+                </t>
+                <t t-if="options['date']['mode'] == 'single'">Date:
+                    <span class="js_format_date">
+                        <t t-out="options['comparison']['date_to']"/>
+                    </span>
+                </t>
+            </t>
+        </button>
+        <div class="dropdown-menu o_filter_menu" role="menu">
+            <div class="o_account_report_search_by_account px-2"  style="width:250px">
+                <input class="input_ao_filter_by_account mb-2 form-control form-select form-select-primary"/>
+                <button type="button" class="btn btn-primary" data-filter='previous_period'>Apply</button>
+            </div>
+        </div>
+    </template>
+
+    <template id="search_template" inherit_id="account_reports.search_template">
+        <xpath expr="//div[hasclass('o_account_reports_filter_date')]" position="before">
+            <div class="btn-group dropdown ao_account_reports_filter_by_account" t-if="report.filter_by_account">
+                <t t-call="l10n_ao_report.search_template_by_account"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

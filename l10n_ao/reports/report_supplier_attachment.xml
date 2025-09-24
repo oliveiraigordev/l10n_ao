@@ -1,0 +1,215 @@
+<odoo>
+    <record id="report_action_supplier_attachment" model="ir.actions.report">
+        <field name="name">Anexo de Fornecedor</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_ao.report_supplier_attachment</field>
+        <field name="report_file">l10n_ao.report_supplier_attachment</field>
+        <field name="paperformat_id" ref="paperformat_a4_agt_landscape"/>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'Anexo de Fornecedor {}-{}'.format(object[0].invoice_date.month, object[0].invoice_date.year)</field>
+    </record>
+
+
+    <template id="report_supplier_attachment_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <table class="retention-map-report">
+                    <thead>
+                        <tr>
+                            <th colspan="16">
+                                <p class="bold-blue">ANEXO DE FORNECEDORES<br/>
+Aquisição de Bens e Serviços</p>
+                            </th>
+                        </tr>
+                        <tr class="bold">
+                            <th class="no-line-break">
+                                01 - 
+                            </th>
+                            <th colspan="15" class="dark-background">
+                                PERÍODO DE TRIBUTAÇÃO E NÚMERO DE IDENTIFICAÇÃO FISCAL
+                            </th>
+                        </tr>
+                        <tr class="large-line">
+                            <th colspan="9">ANO: <div class="text-box-border">
+                                <t t-esc="year" />
+                            </div>  MÊS <div class="text-box-border">
+                            <t t-esc="month_number" />
+                        </div>
+                        <div class="text-box-border-bottom">
+                            <t t-esc="month" />
+                        </div>
+                    </th>
+                    <th colspan="6">NIF <div class="text-box-border">
+                        <t t-esc="o.company_id.vat" />
+                    </div>
+                </th>
+            </tr>
+            <tr class="bold">
+                <th class="no-line-break">
+                                02 - 
+                </th>
+                <th colspan="15" class="dark-background">
+                                OPERAÇÕES EFECTUADAS COM FORNECEDORES SUJEITAS A IVA
+                </th>
+            </tr>
+        </thead>
+        <!-- <t t-set="total_amount" t-value="0" />
+        <t t-set="total_paid" t-value="0" />
+        <t t-set="total_supported_iva_value" t-value="0" />
+        <t t-set="total_tribut_value" t-value="0" />
+        <t t-set="total_deductive_iva_value" t-value="0" />
+        <t t-set="total_captive_iva_value" t-value="0" />
+        <t t-set="sce_tipology" t-value="0" />
+        <t t-set="mfi_tipology" t-value="0" />
+        <t t-set="inv_tipology" t-value="0" />
+        <t t-set="obc_tipology" t-value="0" />
+        <t t-set="serv_tipology" t-value="0" />
+        <t t-set="tax_value" t-value="0" /> -->
+        <tbody>
+            <tr class="text-center">
+                <td colspan="9"></td>
+                <td colspan="2">IVA DEDUTIVEL</td>
+                <td colspan="2">IVA CATIVO</td>
+                <td colspan="2"></td>
+
+
+
+
+
+            </tr>
+            <tr class="text-center">
+                <td  >Nº ORDEM</td>
+                <td >Número de Identificação Fiscal</td>
+                <td >NOME/FIRMA</td>
+                <td >TIPO DE DOCUMENTO</td>
+                <td >DATA DO DOCUMENTO</td>
+                <td >NÚMERO DO DOCUMENTO</td>
+                <td >VALOR DA FACTURA</td>
+                <td >VALOR TRIBUTÁVEL</td>
+                <td >IVA SUPORTADO</td>
+                <td >%</td>
+                <td >VALOR</td>
+                <td >%</td>
+                <td >VALOR</td>
+                <td >TIPOLOGIA</td>
+                <td >CAMPO DE DESTINO NO MODELO</td>
+            </tr>
+
+
+            <t t-set="counter" t-value="0" />
+            <t t-foreach="invoice_data" t-as="line">
+                <tr>
+                    <td>
+                        <t t-out="line['order_number']" />
+                    </td>
+                    <td>
+                        <t t-out="line['partner_vat']" />
+                    </td>
+
+                    <td>
+                        <t t-out="line['partner_name']" />
+                    </td>
+                    <td class="no-line-break">
+                        <span t-out="line['document_type']" />
+                    </td>
+                    <td class="no-line-break">
+                        <span t-out="line['date_invoice']" />
+                    </td>
+                    <td>
+                        <t t-out="line['invoice_reference']" />
+                    </td>
+
+                    <td>
+
+                        <t t-out="line['amount_total']" />
+
+                    </td>
+                    <td>
+
+
+                        <t t-out="line['amount_untaxed']" />
+
+
+
+                    </td>
+                    <td>
+                        <t t-out="line['supported_iva']" />
+                    </td>
+                    <td>
+                    <t t-if="line['dedu_iva_value'] > 0" >
+                                        <t t-out="100" />
+                    </t>
+                     <t t-else="">
+                                       
+                        <t t-out="line['dedu_iva_percent']" />
+
+                    </t>
+
+                    </td>
+                    <td>
+                        <t t-out="line['dedu_iva_value']" />
+                    </td>
+                    <td>
+                        <t t-out="line['captive_iva_percent']" />
+                    </td>
+                    <td>
+                        <t t-out="line['captive_iva_value']" />
+                    </td>
+
+
+                    <td>
+                        <span t-esc="line['tipology']"/>
+                    </td>
+                    <td>
+                        <span t-esc="line['dest_tipology']"/>
+                    </td>
+                </tr>
+
+            </t>
+            <tr class="background-gray">
+                <td class="text-right" colspan="6">TOTAL</td>
+                <td>
+                    <t t-esc="amount_invoice_total" />
+                </td>
+                <td>
+                    <t t-esc="amount_untaxed_total" />
+                </td>
+                <td>
+                    <t t-esc="amount_supported_iva_total" />
+                </td>
+                
+                <td>
+                    
+                </td>
+                
+                <td>
+                    <t t-esc="amount_deductive_iva_total" />
+                </td>
+               
+                <td>
+
+                </td>
+                <td>
+                     <t t-esc="amount_captive_iva_total" />
+                </td>
+                <td>
+
+                </td>
+                <td colspan="2"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</t>
+</template>
+
+<template id="report_supplier_attachment">
+<t t-call="web.html_container">
+<t t-set="o" t-value="docs[0] if docs else False" />
+<t t-set="lang" t-value="o.user_id.partner_id.lang"/>
+<t t-call="l10n_ao.report_supplier_attachment_document" />
+</t>
+</template>
+</odoo>

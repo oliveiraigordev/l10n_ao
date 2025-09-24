@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_hr_payslip_form_individual_payment" model="ir.ui.view">
+            <field name="name">hr.payslip.form.individual.payment</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <!-- Botão para pagamento individual -->
+                <xpath expr="//div[@name='button_box']" position="inside">
+    <button name="action_post_treasury_single"
+            type="object"
+            class="oe_stat_button"
+            icon="fa-credit-card"
+            string="Pagar Funcionário"
+            attrs="{'invisible': [('state', '!=', 'done')]}"/>
+</xpath>
+                <xpath expr="//div[@name='button_box']" position="after">
+                        <button name="action_open_related_moves"
+                                class="oe_stat_button"
+                                icon="fa-file-text-o"
+                                type="object"
+                                help="Ver movimentos contábeis relacionados aos recibos"
+                                attrs="{'invisible': [('state', '!=', 'done')]}">
+                            <field name="salary_move_count" widget="statinfo" string="Lançamento"/>
+                        </button>
+                    </xpath>
+                    <xpath expr="//div[@name='button_box']" position="inside">
+                        <button name="action_view_salary_payments"
+                                type="object"
+                                string="Pagamentos Contábeis"
+                                class="oe_stat_button"
+                                icon="fa-credit-card"
+                                attrs="{'invisible': [('state', '!=', 'done')]}">
+                            <field name="payment_salary_count" widget="statinfo" string="Pagamentos"/>
+                        </button>
+                    </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="account_reports_ao_statements_menu" name="Relatórios de Angola" parent="account.menu_finance_reports"
+              sequence="0">
+        <menuitem id="menu_action_account_report_balance" name="Balanço" action="action_account_report_ao"/>
+        <menuitem id="menu_action_account_report_dre" name="Demonstração de Resultados(Por Natureza)"
+                  action="action_account_report_ao_dre"/>
+        <menuitem id="menu_action_account_report_fluxocaixa" name="Fluxo de Caixa (Directo)"
+                  action="action_account_report_ao_fluxocaixa" sequence="100"/>
+        <menuitem id="menu_action_account_report_fluxocaixa_indirecto" name="Fluxo de Caixa (Indirecto) EM DESENVOLVIMENTO"
+                  action="action_account_report_ao_fluxocaixa_indirecto" sequence="101"/>
+        <menuitem id="menu_action_account_statement_report_ao" name="Extracto de conta"
+                  action="action_account_statement_report_ao"/>
+        <menuitem id="menu_action_account_report_ja" name="Journal Report Ao" action="action_account_journal_report_ao"
+                  groups="account.group_account_readonly"/>
+        <menuitem id="menu_action_account_trial_balance_ao" name="Balancete AO"
+                  action="action_account_trial_balance_ao"/>
+        <menuitem id="menu_action_account_trial_balance_ao_anterior_periodo_acumulado"
+                  name="Balancete Anterior Periodo Acumulado"
+                  action="action_account_trial_balance_ao_anterior_period_acumulado"/>
+    </menuitem>
+
+    <!-- <menuitem id="account_journal_report_ao" name="Audit Reports Ao" parent="account.menu_finance_reports" sequence="2">
+  </menuitem> -->
+
+</odoo>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Extra Hours Search View-->
+    <record id="hr_extra_hours_search" model="ir.ui.view">
+        <field name="name">Launch of overtime Search</field>
+        <field name="model">extra.hours.report</field>
+        <field name="arch" type="xml">
+            <search string="Vocation Balance Report">
+                <field name="employee_id"/>
+                <field name="job_id"/>
+                <field name="department_id"/>
+                <field name="type_of_overtime"/>
+                <filter string="Employee" name="employee_id" domain="[('employee_id','ilike','employee_id')]"/>
+                <filter string="Department" name="department_id" domain="[('department_id','ilike','department_id')]"/>
+                <filter string="Job" name="job_id" domain="[('job_id','ilike','job_id')]"/>
+                <filter string="Type Of Overtime" name="type_of_overtime"
+                        domain="[('type_of_overtime','ilike','type_of_overtime')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="type_of_overtime" string="Type Of Overtime" context="{'group_by': 'type_of_overtime'}"
+                            domain="[('type_of_overtime','ilike','type_of_overtime')]"/>
+                    <filter name="employee_id" string="Employee" context="{'group_by': 'employee_id'}"
+                            domain="[('employee_id','ilike','employee_id')]"/>
+                    <filter name="department_id" string="Department" context="{'group_by': 'department_id'}"
+                            domain="[('department_id','ilike','department_id')]"/>
+                    <filter name="job_id" string="Job" context="{'group_by': 'job_id'}"
+                            domain="[('job_id','ilike','job_id')]"/>
+                    <filter name="gender" string="Gender" context="{'group_by': 'gender'}"
+                            domain="[('gender','ilike','gender')]"/>
+                    <filter name="country_id" string="Country" context="{'group_by': 'country_id'}"
+                            domain="[('country_id','ilike','country_id')]"/>
+                    <filter name="year" string="Year" context="{'group_by': 'year'}"
+                            domain="[('year','ilike','year')]"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!--Extra Hours Tree View-->
+    <record id="hr_extra_hours_report_tree" model="ir.ui.view">
+        <field name="name">Launch of overtime Tree</field>
+        <field name="model">extra.hours.report</field>
+        <field name="arch" type="xml">
+            <tree string="Launch of overtime Report" create="false" expand="context.get('expand', False)" sample="1">
+                <field name="employee_id"/>
+                <field name="gender"/>
+                <field name="job_id"/>
+                <field name="department_id"/>
+                <field name="type_of_overtime" widget="badge"/>
+                <field name="date"/>
+                <field name="hours" widget="float_time"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Extra Hours Summary Action-->
+    <record id="action_extra_hours_report" model="ir.actions.act_window">
+        <field name="name">Report Of Launch Of Overtime</field>
+        <field name="res_model">extra.hours.report</field>
+        <field name="view_mode">tree,pivot,graph</field>
+        <field name="search_view_id" ref="hr_extra_hours_search"/>
+        <field name="domain">[]</field>
+    </record>
+
+</odoo>

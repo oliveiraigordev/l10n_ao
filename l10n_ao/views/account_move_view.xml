@@ -1,0 +1,173 @@
+<odoo>
+    <data>
+        <record id="l10n_ao_account_move_view" model="ir.ui.view">
+            <field name="name">Account Move View Inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@widget='res_partner_many2one']" position="after">
+
+                    <field name="partner_street"/>
+                    <field name="partner_street2"/>
+                    <field name="partner_city"/>
+                    <field name="partner_state" class="oe_inline"/>
+                    -
+                    <field name="partner_vat" class="oe_inline"/>
+
+                </xpath>
+
+
+                <xpath expr="//div[@name='journal_div']" position="after">
+                    <field name="journal_ao_id" string="Nº de Diário" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                    <field name="sequence_journal_ao" string="Nº de Lançamento" readonly="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="is_retaining_entity_50" invisible="1"/>
+                    <field name="is_retaining_entity_100" invisible="1"/>
+                </xpath>
+
+                <field name="fiscal_position_id" position="before">
+                    <field name="reversal_move_id" readonly="1" widget="many2many_tags"/>
+                    <field name="reversed_entry_id" readonly="1"/>
+                </field>
+
+                <field name="invoice_user_id" position="before">
+                    <field name="reversal_move_id" readonly="1" widget="many2many_tags"/>
+                    <field name="reversed_entry_id" readonly="1"/>
+                </field>
+
+                <field name="name" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+                <field name="product_id" position="attributes">
+                    <attribute name="attrs">{'required': [('parent.move_type', 'in',
+                        ('out_invoice','out_refund')),('display_type','not in',['line_section','line_note'])]}
+                    </attribute>
+                </field>
+                <button name="button_draft" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('move_type', 'in', ['out_invoice', 'out_refund']),
+                        ('state', '=', 'draft')]}
+                    </attribute>
+                </button>
+                <!-- <button name="button_cancel" position="replace">
+                     <button name="button_cancel" string="Cancel" type="object" groups="account.group_account_invoice"
+                             data-hotkey="w"
+                             attrs="{'invisible' : [('state', 'in', ['draft','cancel'])]}"/>
+                 </button>-->
+                <field name="product_id" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit':True}</attribute>
+                </field>
+                <field name="partner_id" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit':True}</attribute>
+                </field>
+                <xpath expr="//group[@id='header_right_group']" position="inside">
+                    <field name="counter_currency_id" groups="base.group_multi_currency"
+                           attrs="{'readonly': [('state', '!=','draft')], 'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))]}"/>
+                </xpath>
+                <field name="price_subtotal" position="before">
+                    <field name="margin_value" optional="hide"/>
+                    <field name="amount_margin" optional="hide"/>
+                </field>
+                <field name="invoice_payments_widget" position="before">
+                    <field name="amount_tax_captive" class="oe_subtotal_footer_separator"
+                           attrs="{'invisible': [('amount_tax_captive','=', 0)]}"/>
+                    <field name="amount_total_wth" class="oe_subtotal_footer_separator"
+                           attrs="{'invisible': [('amount_total_wth','=', 0)]}"/>
+                </field>
+                <button name="button_cancel" position="before">
+                    <button name="button_apply_captive_100" string="CATIVAR IVA 100" type="object"
+                            groups="account.group_account_invoice"
+                            attrs="{
+                'invisible': [
+                  '|', '|',
+                  ('amount_tax_captive', '>', 0),
+                  ('move_type', 'not in', ['out_invoice','out_refund','in_invoice','in_refund']),
+                  ('is_retaining_entity_100', '=', False)
+
+                ]
+              }"/>
+                    <button name="button_apply_captive_50" string="CATIVAR IVA 50" type="object"
+                            groups="account.group_account_invoice"
+                            attrs="{
+                'invisible': [
+                  '|', '|',
+                  ('amount_tax_captive', '>', 0),
+                  ('move_type', 'not in', ['out_invoice','out_refund','in_invoice','in_refund']),
+                  ('is_retaining_entity_50', '=', False)
+                ]
+              }"/>
+                </button>
+                <!--<field name="invoice_line_ids" position="after">
+                    <group>
+                        <field name="apply_captive"/>
+                    </group>
+                </field>-->
+                <xpath expr="//header//button[@name='button_cancel'][2]" position="replace">
+
+                </xpath>
+
+                <button name="action_reverse" position="attributes">
+                    <attribute name="attrs">{'invisible': [('payment_state', '=', 'reversed')]}
+                    </attribute>
+                </button>
+
+            </field>
+        </record>
+
+        <record id="l10n_ao_account_journal_tree_inherit_view" model="ir.ui.view">
+            <field name="name">Account Move Entry tree View</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_tree"/>
+            <field name="arch" type="xml">
+                <field name="journal_id" position="after">
+                    <field name="journal_ao_id" string="Diário AO"/>
+                    <field name="sequence_journal_ao" string="SEQ Lancamento do Diário AO"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="l10n_ao_view_account_move_filter_inherit" model="ir.ui.view">
+            <field name="name">account.move.select.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_move_filter"/>
+            <field name="arch" type="xml">
+                <field name="journal_id" position="after">
+                    <field name="journal_ao_id" string="Diário AO"/>
+                </field>
+                <xpath expr="//group" position="inside">
+                    <filter string="Diário Angola" name="partner" domain="[]" context="{'group_by': 'journal_ao_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="l10n_ao_view_move_line_inherit" model="ir.ui.view">
+            <field name="name">account.move.line.form.inherit</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="journal_id" position="after">
+                    <field name="journal_ao_id" readonly="1" options='{"no_open":True}' optional="hide"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_account_view_move_inherit_form_page" model="ir.ui.view">
+            <field name="name">account.move.inherit.form.page</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <!-- Exemplo de Adição de Novo Filtro -->
+                <xpath expr="//notebook/page[@name='aml_tab']" position="after">
+                    <page string="Especificar contas bancarias a serem lançadas">
+                        <group>
+                            <field name="bank_account_ids" string="Conta" widget="many2many_tags"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

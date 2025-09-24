@@ -1,0 +1,158 @@
+<odoo>
+    <record id="report_action_supplier_retention_map" model="ir.actions.report">
+        <field name="name">Mapa de Retenção</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_ao.report_supplier_retention_map</field>
+        <field name="report_file">l10n_ao.report_supplier_retention_map</field>
+        <field name="paperformat_id" ref="paperformat_a4_agt_landscape"/>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'Mapa de Retenção Fornecedores {}-{}'.format(object[0].invoice_date.month, object[0].invoice_date.year)</field>
+    </record>
+
+    <template id="report_supplier_retention_map_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <table class="retention-map-report" >
+                    <thead>
+                        <tr>
+                            <th colspan="13">
+                                <p class="bold-blue">MAPA DE RETENÇÃO NA FONTE DE IMPOSTO INDUSTRIAL<br/>(PRESTADOR DE SERVIÇO - FORNECEDOR)</p>
+                            </th>
+                        </tr>
+                        <tr class="bold">
+                            <th colspan="13" class="brown-background">
+                                PERÍODO DE TRIBUTAÇÃO E NÚMERO DE IDENTIFICAÇÃO FISCAL
+                            </th>
+                        </tr>
+                        <t t-set="months_str" t-value="['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']" />
+                        <tr class="large-line">
+                            <th colspan="9">ANO: <div class="text-box-border"><t t-esc="o.invoice_date and o.invoice_date.year" /></div>  MÊS <div class="text-box-border"><t t-esc="o.invoice_date and o.invoice_date.month" /></div> <div class="text-box-border-bottom"><t t-esc="o.invoice_date and months_str[o.invoice_date.month - 1]" /></div></th>
+                            <th colspan="4">NIF <div class="text-box-border"><t t-esc="o.company_id.vat" /></div></th>
+                        </tr>
+                        <tr class="bold">
+                            <th colspan="13" class="brown-background">
+                                NOME, DESIGNAÇÃO SOCIAL DO SUJEITO PASSIVO
+                            </th>
+                        </tr>
+                        <tr>
+                        <th colspan="13">NOME/DESIGNAÇÃO <div class="text-box-border" style="padding-left: 300px; padding-right: 300px;"><t t-esc="o.company_id.name"/></div></th>
+                        </tr>
+                        <tr class="bold">
+                            <th colspan="13" class="brown-background">
+                                LISTA DE FACTURAS DISCRIMINADAS E RESPECTIVO VALOR RETIDO DE IMPOSTO INDUSTRIAL
+                            </th>
+                        </tr>
+                    </thead>
+                    <t t-set="total_amount" t-value="0" />
+                    <t t-set="amount_total_wth_paid" t-value="0" />
+                    <t t-set="total_tax_base" t-value="0" />
+                    <t t-set="total_tax_value" t-value="0" />
+                    <tbody>
+                        <tr class="text-center">
+                            <td rowspan="2">Nº</td>
+                            <td colspan="3">IDENTIFICAÇÃO DO PRESTADOR DE SERVIÇO</td>
+                            <td colspan="7">DETALHES DA FACTURA</td>
+                            <td rowspan="2">TAXA</td>
+                            <td rowspan="2">IMPOSTO RETIDO</td>
+                        </tr>
+                        <tr class="text-center">
+                            <td>NIF EM ANGOLA</td>
+                            <td>NIF</td>
+                            <td>NOME</td>
+                            <td>Nº DA FACTURA</td>
+                            <td>DESCRIÇÃO DO SERVIÇO</td>
+                            <td>DATA DA FACTURA</td>
+                            <td>DATA DO PAGAMENTO</td>
+                            <td>VALOR DA FACTURA</td>
+                            <td>VALOR PAGO</td>
+                            <td>VALOR SUJEITO A RETENÇÃO</td>
+                        </tr>
+                        <t t-set="counter" t-value="0" />
+                        <t t-foreach="docs" t-as="o">
+                            <t t-set="counter" t-value="counter + 1" />
+                            <t t-set="partner" t-value="o.partner_id.commercial_partner_id" />
+                            <tr>
+                                <td><t t-esc="counter" /></td>
+                                <td>
+                                    <t t-if="partner.country_id.code == 'AO' and o.partner_vat">
+                                        Sim
+                                    </t>
+                                    <t t-else="">
+                                        Não
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="partner.country_id.code == 'AO' and o.partner_vat">
+                                        <t t-esc="o.partner_vat" />
+                                    </t>
+                                </td>
+                                <td><t t-esc="partner.name" /></td>
+                                <td><t t-esc="o.name" /></td>
+                                <td><t t-esc="'&gt;br/&lt;'.join(o.invoice_line_ids.mapped('name'))" /></td>
+                                <td class="no-line-break"><span t-field="o.invoice_date" /></td>
+
+                                <td><t t-esc="o.get_supplier_payment_date()" /></td>
+                                <td class="no-line-break"><span t-field="o.amount_total" /></td>
+                                <!-- MAP VALUES TO PRINT REPORT -->
+                                <t t-set="retention_lines" t-value="o.invoice_line_ids.filtered(lambda x: any(item.is_withholding for item in x.tax_ids))" />
+                                <t t-set="retention_tax" t-value="o.invoice_line_ids.tax_ids.filtered(lambda x: x.is_withholding)" />
+                                <t t-if="len(retention_tax) > 1">
+                                    <t t-set="retention_tax" t-value="retention_tax[0]" />
+                                </t>
+                                <t t-if="retention_tax">
+                                    <t t-set="amount_wth_tax" t-value="o.amount_total - o.amount_total_wth" />
+                                </t>
+                                <t t-else="">
+                                    <t t-set="amount_wth_tax" t-value="o.late_wth_amount" />
+                                </t>
+                                <t t-set="amount_paid" t-value="o.amount_total - amount_wth_tax" />
+                                <td class="no-line-break">
+                                    <t t-esc="'{} {:.2f}'.format(o.currency_id.symbol, amount_paid)" />
+                                </td>
+                                <!-- SUM VALUES TO COUNTERS -->
+                                <t t-set="total_amount" t-value="total_amount + o.amount_total"/>
+                                <t t-set="amount_total_wth_paid" t-value="amount_total_wth_paid + amount_paid"/>
+                                <t t-set="amount_base" t-value="o.amount_untaxed" />
+                                <t t-set="total_tax_value" t-value="total_tax_value + amount_wth_tax" />
+                                <t t-set="total_tax_base" t-value="total_tax_base + amount_base" />
+
+                                <td class="no-line-break"><span t-esc="'{} {:.2f}'.format(o.currency_id.symbol, amount_base)" /></td>
+
+                                <td class="no-line-break">
+                                    <t t-if="retention_tax">
+                                        <t t-esc="str(retention_tax.amount) + '%'" />
+                                    </t>
+                                    <t t-if="o.late_wth_amount">
+                                        <t t-esc="'{:.2f}%'.format(o.late_wth_amount * 100 / amount_base)" />
+                                    </t>
+                                </td>
+                                <td class="no-line-break">
+                                    <t t-esc="'{} {:.2f}'.format(o.currency_id.symbol, amount_wth_tax)" />
+                                </td>
+                            </tr>
+                        </t>
+                        <tr class="background-gray">
+                            <td class="text-right" colspan="8">TOTAL</td>
+                            <td><t t-esc="'{} {:.2f}'.format(o.currency_id.symbol, total_amount)" /></td>
+                            <td style="white-space: nowrap;"><t t-esc="'{} {:.2f}'.format(o.currency_id.symbol, amount_total_wth_paid)" /></td>
+                            <td><t t-esc="'{} {:.2f}'.format(o.currency_id.symbol, total_tax_base)" /></td>
+                            <td></td>
+                            <td><t t-esc="'{} {:.2f}'.format(o.currency_id.symbol, total_tax_value)" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_supplier_retention_map">
+            <t t-call="web.html_container">
+                <t t-set="o" t-value="docs[0] if docs else False" />
+                <t t-set="lang" t-value="o.user_id.partner_id.lang"/>
+                <t t-call="l10n_ao.report_supplier_retention_map_document" />
+            </t>
+    </template>
+
+</odoo>

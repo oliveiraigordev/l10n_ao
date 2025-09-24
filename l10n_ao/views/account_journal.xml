@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="l10n_ao_account_journal_formview" model="ir.ui.view">
+            <field name="name"> Angola account Journal View</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <field name="account_control_ids" position="after">
+                    <field name="auto_invoicing" attrs="{'invisible':[('type','not in',['purchase'])]}"/>
+                    <!--<field name="document_type" attrs="{'required': [('type','in', ['sale','purchase'])],'invisible': [('type', 'not in', ['sale','purchase'])]}"/>-->
+                </field>
+                <field name="type" position="after">
+                    <field name="journal_ao_id" required="1"/>
+                    <field name="is_settlement" />
+                    <field name="settlement_type"   attrs="{'invisible': [('is_settlement','=',False)]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,959 @@
+<odoo>
+    <record id="report_action_periodic_iva" model="ir.actions.report">
+        <field name="name">Modelo de Declaração Periodica IVA</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_ao.report_periodic_iva</field>
+        <field name="report_file">l10n_ao.report_periodic_iva</field>
+        <field name="paperformat_id" ref="paperformat_a4_agt_landscape"/>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'Modelo de Declaracao Periodica IVA {}-{}'.format(object[0].invoice_date.month, object[0].invoice_date.year)</field>
+    </record>
+
+    <template id="report_periodic_iva_document">
+        <t t-call="web.internal_layout">
+            <div class="page">
+                <table class="iva-periodic-map">
+                    <thead>
+                        <tr>
+                            <th colspan="16">
+                                <p class="bold-blue">Declaração Periodica Modelo 7 </p>
+                            </th>
+                        </tr>
+                        <tr class="bold">
+                            <tr class="no-line-break">
+                                <th colspan="1">01- </th>
+                                <th colspan="1" class = "background-gray">REGIME DO IVA </th>
+                                <th colspan="1">02- </th>
+                                <th colspan="1" class = "background-gray">DECLARACAO </th>
+                                <th colspan="8" class = "background-gray"> 03 - MAPAS ANEXO </th>
+                                <th colspan="1">04- </th>
+                                <th colspan="3" class = "background-gray">NUMERO DE IDENTIFICAÇÃO FISCAL </th>
+                            </tr>
+                        </tr>
+                        <tr class="no-line-break">
+                            <th align = "center" colspan="2">
+
+                                <span > REGIME GERAL</span>
+                                <br></br>
+
+                                <span> REGIME DE CAIXA</span>
+                            </th>
+                            <th colspan="2">
+                                <p >
+                                    1 - NO PRAZO<br/>
+                                    2 - FORA DO PRAZO<br/>
+                                    3 - SUBSTITUIÇÃO
+                            </p>
+
+                        </th>
+
+                        <th colspan="7">
+                            <p >
+                                    1 - ANEXO DE FORNECEDORES (AQUISIÇÃO DE BENS E SERVIÇOS)<br/>
+                                    2 - ANEXO DE REGULARIZAÇÃO DE CLIENTES<br/>
+                                    3 - ANEXO DE REGULARIZAÇÃO DE FORNECEDORES
+                        </p>
+
+                    </th>
+
+
+                    <th colspan="6">NIF <div class="text-box-border">
+                        <t t-esc="o.company_id.vat" />
+                    </div>
+                </th>
+            </tr>
+            <tr class="bold">
+                <th class="no-line-break">
+                                05 - 
+                </th>
+                <th colspan="16" class="left-background-gray">
+                                PERIODO DA DECLARAÇÃO
+                </th>
+            </tr>
+
+            <t t-set="months_str" t-value="['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']" />
+            <tr class="large-line">
+                <th colspan="16">ANO: <div class="text-box-border">
+                    <t t-esc="o.invoice_date and o.invoice_date.year" />
+                </div>  MÊS <div class="text-box-border">
+                <t t-esc="o.invoice_date and o.invoice_date.month" />
+            </div>
+            <div class="text-box-border-bottom">
+                <t t-esc="o.invoice_date and months_str[o.invoice_date.month - 1]" />
+            </div>
+        </th>
+    </tr>
+
+    <tr class="bold">
+        <th class="no-line-break">
+                        07 - 
+        </th>
+        <th colspan="16" class="left-background-gray">
+            IDENTIFICAÇÃO DO CONTRIBUINTE
+        </th>
+    </tr>
+
+    <tr class="large-line">
+        <th colspan="16" class ="left-align">1 -  NOME OU DESIGNAÇÃO SOCIAL :  
+            <div class="large-text-box-border-bottom">
+                <t t-esc="o.company_id.name" />
+            </div>
+            <br></br>
+            2    ‐ REPRESENTANTE FISCAL : 
+            <div class="large-text-box-border-bottom">
+            </div>
+            <span class = "span-align-right">
+            </span>
+        </th>
+    </tr>
+
+    <tr class="bold">
+        <th class="no-line-break" width ="5px">
+                        09 - 
+        </th>
+        <th colspan="16" class="left-background-gray">
+            APURAMENTO DO IMPOSTO REFERENTE AO PERÍODO A QUE RESPEITA A DECLARAÇÃO
+            
+        </th>
+    </tr>
+
+</thead>
+</table>
+
+<table class ="iva-periodic-map">
+<t t-set="total_amount" t-value="0" />
+<t t-set="untaxed_total_amount" t-value="0" />
+<t t-set="exempt_without_deduction" t-value="0" />
+<t t-set="captive_iva" t-value="0" />
+<t t-set="tribute_base_captive_iva" t-value="0" />
+<t t-set="recover_iva" t-value="0" />
+<t t-set="to_pay_iva" t-value="0" />
+<t t-set="reimburse_iva" t-value="0" />
+<t t-set="report_iva" t-value="0" />
+<t t-set="reg_in_favor_tax_payer" t-value="0" />
+<t t-set="reg_in_favor_state" t-value="0" />
+<t t-set="sce_tipology" t-value="0" />
+<t t-set="mfi_tipology" t-value="0" />
+<t t-set="inv_tipology" t-value="0" />
+<t t-set="obc_tipology" t-value="0" />
+<t t-set="serv_tipology" t-value="0" />
+
+
+
+<tbody>
+    <tr >
+        <th width = "300px">TIPO DE OPERAÇÃO</th>
+        <th width = "250px"> Base Tributável </th>
+        <th width = "150px"></th>
+        <th>Imposto a favor do sujeito passivo</th>
+        <th>Imposto a favor do Estado</th>
+
+    </tr>
+    <tr>
+        <td rowspan = "2"> 1 - Transmissão de bens e prestação de serviços em que liquidou imposto </td>
+        <td class ="large-blank-space green-bg"></td>
+        <td class ="no-border"></td>
+        <td class ="no-border"></td>
+        <td class ="green-bg"></td>
+
+    </tr>
+    <t t-foreach="docs" t-as="o">
+
+
+
+
+
+        <!-- Campos de soma relacionado às operações com iva superior à 0 -->
+
+        <t t-if="o.move_type == 'out_invoice' ">
+            <t t-foreach="o.invoice_line_ids" t-as="sl">
+                <!-- <t t-foreach="sl.tax_ids" t-as="sl2"> -->
+                <t t-if="sl.tax_ids.filtered(lambda r:r.tax_type == 'IVA').amount != 0">
+                    <t t-foreach="sl.tax_ids.filtered(lambda r:r.tax_type == 'IVA')" t-as="sl2">
+                        <t t-set="total_amount" t-value=" (total_amount + sl.price_subtotal) +  (sl.price_subtotal * (sl2.amount/100)) "/>
+                    </t>
+                </t>
+            </t>
+        </t>
+
+
+
+        <t t-if="o.move_type == 'out_invoice' ">
+            <t t-foreach="o.invoice_line_ids" t-as="sl">
+                <!-- <t t-foreach="sl.tax_ids" t-as="sl2"> -->
+                <t t-if="sl.tax_ids.filtered(lambda r:r.tax_type == 'IVA').amount != 0">
+                    <t t-foreach="sl.tax_ids.filtered(lambda r:r.tax_type == 'IVA')" t-as="sl2">
+                        <t t-set="untaxed_total_amount" t-value=" (untaxed_total_amount + sl.price_subtotal)"/>
+                    </t>
+                </t>
+            </t>
+        </t>
+
+      
+         <t t-if="o.move_type == 'out_invoice' ">
+            <t t-foreach="o.invoice_line_ids" t-as="sl">
+                <!-- <t t-foreach="sl.tax_ids" t-as="sl2"> -->
+                <t t-if="sl.tax_ids.filtered(lambda r:r.tax_type == 'IVA').amount == 0">
+                    <t t-foreach="sl.tax_ids.filtered(lambda r:r.tax_type == 'IVA')" t-as="sl2">
+                        <t t-set="exempt_without_deduction" t-value=" (exempt_without_deduction + sl.price_subtotal)"/>
+                    </t>
+                </t>
+            </t>
+        </t>
+
+      
+          <t t-if="o.move_type == 'out_invoice' ">
+            <t t-foreach="o.invoice_line_ids" t-as="sl">
+                <!-- <t t-foreach="sl.tax_ids" t-as="sl2"> -->
+                <t t-if="sl.tax_ids.filtered(lambda r:r.tax_type == 'IVA').iva_tax_type in ('CAT50', 'CAT100')">
+                    <t t-foreach="sl.tax_ids.filtered(lambda r:r.tax_type == 'IVA')" t-as="sl2">
+                        <t t-set="captive_iva" t-value="captive_iva +  (sl.price_subtotal * (sl2.amount/100))" />
+                        <t t-set="tribute_base_captive_iva" t-value=" (tribute_base_captive_iva + sl.price_subtotal)" />
+                    </t>
+                </t>
+            </t>
+        </t>
+        
+
+        <!-- Campos de soma relacionado às notas de crédito (cliente/fornecedor) campos 28 e 29 da declaração. -->
+
+        <t t-if="o.move_type == 'out_refund' and o.invoice_line_ids.tax_ids.filtered(lambda r:r.tax_type == 'IVA')">
+            <t t-set="reg_in_favor_tax_payer" t-value="reg_in_favor_tax_payer + o.amount_tax" />
+        </t>
+
+        <t t-if="o.move_type == 'in_refund' and o.invoice_line_ids.tax_ids.filtered(lambda r:r.tax_type == 'IVA')">
+            <t t-set="reg_in_favor_state" t-value="reg_in_favor_state + o.amount_tax" />
+        </t>
+
+
+        <t t-if="o.move_type == 'in_invoice'">
+            <t t-foreach="o.invoice_line_ids" t-as="tp">
+                <t t-if="tp.product_id.tipology == 'SCE'">
+                    <t t-set="sce_tipology" t-value="sce_tipology + tp.price_unit" />
+                </t>
+
+                <t t-if="tp.product_id.tipology == 'MFI'">
+                    <t t-set="mfi_tipology" t-value="mfi_tipology + tp.price_unit" />
+                </t>
+                <t t-if="tp.product_id.tipology == 'INV'">
+                    <t t-set="inv_tipology" t-value="inv_tipology + tp.price_unit" />
+                </t>
+                <t t-if="tp.product_id.tipology == 'OBC'">
+                    <t t-set="obc_tipology" t-value="obc_tipology + tp.price_unit" />
+                </t>
+                <t t-if="tp.product_id.tipology == 'SERV'">
+                    <t t-set="serv_tipology" t-value="serv_tipology + tp.price_unit" />
+                </t>
+
+            </t>
+        </t>
+
+
+
+   
+
+
+    </t>
+    <t t-foreach="docs[0].get_apuramento_iva()" t-as="ap">
+
+        <t t-if="ap.month == o.invoice_date.month ">
+            <t t-set="to_pay_iva" t-value=" to_pay_iva + ap.line_ids.amount_to_pay"/>
+            <t t-set="recover_iva" t-value=" recover_iva + ap.line_ids.amount_to_recover"/>
+            <t t-set="report_iva" t-value=" report_iva + ap.line_ids.amount_to_report"/>
+            <t t-set="reimburse_iva" t-value=" reimburse_iva + ap.line_ids.amount_reimburse"/>
+        </t>
+
+    </t>
+    <tr>
+        <td>
+            <span>1</span>
+            <span class ="item09">
+                <t t-esc="untaxed_total_amount"  t-options='{"widget": "float", "precision": 2}'/>
+            </span>
+        </td>
+        <td class ="no-border"></td>
+        <td class ="no-border"></td>
+        <td>
+            <span>2</span>
+            <span class ="item09">
+                  <t t-esc="(total_amount - untaxed_total_amount) " t-options='{"widget": "float", "precision": 2}'/>
+            </span>
+        </td>
+
+
+    </tr>
+    <tr>
+        <td> 2 -Transmissões de bens e prestações de serviços abrangidas pelo regime de caixa (art. 60.º 
+            do CIVA) </td>
+        <td>3</td>
+        <td class ="no-border"></td>
+        <td class ="green-bg"></td>
+        <td>4</td>
+
+    </tr>
+    <tr>
+        <td> 4 -Operações em que o IVA foi cativo pelo declarante (art. 21.º do CIVA)</td>
+        <td>5</td>
+        <td class ="no-border"></td>
+        <td>6</td>
+        <td>7</td>
+
+    </tr>
+    <tr>
+        <td> 4 -Operações em que o IVA foi cativo pelo cliente (art. 31.º do CIVA) </td>
+        <t t-if="tribute_base_captive_iva == 0 ">
+            <td> 8 </td>
+        </t>
+        <t t-else="">
+            <td>
+                <span> 8 </span>
+                <span  class = "item09">
+                    <t t-esc="tribute_base_captive_iva" t-options='{"widget": "float", "precision": 2}'/>
+                </span>
+            </td>
+        </t>
+        <td class ="no-border"></td>
+        <t t-if="captive_iva == 0 ">
+            <td> 9 </td>
+        </t>
+        <t t-else="">
+            <td>
+                <span> 9 </span>
+                <span  class = "item09">
+                    <t t-esc="captive_iva" t-options='{"widget": "float", "precision": 2}'/>
+                </span>
+            </td>
+        </t>
+        <td class ="no-border"></td>
+
+    </tr>
+    <tr>
+        <td rowspan = "4"> 5 - Transmissão de bens e prestação de serviços em que liquidou imposto
+            <br/>
+            Isentas com direito à dedução  
+            <br/>
+ 
+            Isentas sem direito à dedução (art. 12.º excluíndo a alínea a) do CIVA
+            <br/>
+            Não tributadas (art. 10.º do CIVA)
+        </td>
+        <td class="large-blank-space green-bg"></td>
+        <td class ="no-border"></td>
+        <td class ="no-border"></td>
+        <td class ="no-border"></td>
+
+    </tr>
+    <tr>
+        <td> 10</td>
+        <td class ="no-border"></td>
+        <td class ="no-border"></td>
+        <td class ="no-border"></td>
+
+
+    </tr>
+    <tr>
+        <t t-if="exempt_without_deduction == 0 ">
+            <td> 11 </td>
+        </t>
+        <t t-else="">
+            <td>
+                <span> 11 </span>
+                <span  class = "item09">
+                    <t t-esc="exempt_without_deduction" t-options='{"widget": "float", "precision": 2}'/>
+                </span>
+            </td>
+        </t>
+
+        <td class ="no-border"></td>
+        <td class ="no-border"></td>
+        <td class ="no-border"></td>
+
+
+    </tr>
+    <tr>
+        <td>12</td>
+        <td class ="no-border"></td>
+        <td class ="no-border"></td>
+        <td class ="no-border"></td>
+
+
+    </tr>
+
+
+    <tr>
+        <td rowspan = "3"> 4 - Aquisição de serviços fornecidos por um prestador que não tenha sede, estabelecimento 
+            estável ou domicílio em Angola, cujo imposto foi liquidado pelo declarante (art. 29.º do 
+            CIVA) </td>
+        <td class ="blank-space no-border"></td>
+        <td class ="no-border"></td>
+        <td class ="no-border"></td>
+        <td class ="no-border"></td>
+
+    </tr>
+    <tr>
+        <td class ="blank-space green-bg"></td>
+        <td class ="no-border"></td>
+        <td class ="green-bg"></td>
+        <td class ="green-bg"></td>
+
+    </tr>
+
+    <tr>
+
+        <t t-if="sce_tipology == 0 ">
+            <td> 13 </td>
+        </t>
+        <t t-else="">
+            <td>
+                <span> 13 </span>
+                <span  class = "item09">
+                    <t t-esc="sce_tipology" />
+                </span>
+            </td>
+        </t>
+        <td class ="green-bg"></td>
+        <td>14</td>
+        <td>15</td>
+
+    </tr>
+
+
+    <tr>
+        <td rowspan = "5"> 6 -Aquisição de  bens e prestação de serviços efectuadas pelo sujeito passivo
+            <br/>
+
+
+
+
+
+
+            <span>Meios Fixos e Investimentos</span>
+            <br/>
+
+
+
+            <span>Existências/Inventários</span>
+            <br/>
+            <br/>
+
+
+
+            <span>Outros bens de consumo   </span>
+            <br/>
+            <br/>
+      
+            Serviços:
+        </td>
+        <td class="large-blank-space green-bg"></td>
+        <td class ="no-border"></td>
+        <td class ="green-bg"></td>
+        <td class ="no-border"></td>
+
+
+    </tr>
+
+
+    <tr>
+         <t t-if="mfi_tipology == 0 ">
+            <td> 16 </td>
+        </t>
+        <t t-else="">
+            <td>
+                <span> 16 </span>
+                <span  class = "item09">
+                    <t t-esc="mfi_tipology" />
+                </span>
+            </td>
+        </t>
+        <td class ="no-border"></td>
+        <td>17</td>
+        <td class ="no-border"></td>
+
+
+    </tr>
+
+    <tr>
+         <t t-if="inv_tipology == 0 ">
+            <td> 18 </td>
+        </t>
+        <t t-else="">
+            <td>
+                <span> 18 </span>
+                <span  class = "item09">
+                    <t t-esc="inv_tipology" />
+                </span>
+            </td>
+        </t>
+        <td class ="no-border"></td>
+        <td>19</td>
+        <td class ="no-border"></td>
+
+
+    </tr>
+    <tr>
+         <t t-if="obc_tipology == 0 ">
+            <td> 20 </td>
+        </t>
+        <t t-else="">
+            <td>
+                <span> 20 </span>
+                <span  class = "item09">
+                    <t t-esc="obc_tipology" />
+                </span>
+            </td>
+        </t>
+        <td class ="no-border"></td>
+        <td>21</td>
+        <td class ="no-border"></td>
+
+
+    </tr>
+    <tr>
+        <t t-if="serv_tipology == 0 ">
+            <td> 22 </td>
+        </t>
+        <t t-else="">
+            <td>
+                <span> 22 </span>
+                <span  class = "item09">
+                    <t t-esc="serv_tipology" />
+                </span>
+            </td>
+        </t>
+        <td class ="no-border"></td>
+        <td>23</td>
+        <td class ="no-border"></td>
+
+
+    </tr>
+
+    <tr>
+        <td rowspan = "2"> 7 - Imposto dedutível nas importações de bens efectuadas pelo sujeito passivo </td>
+        <td class ="large-blank-space green-bg"></td>
+        <td class ="no-border"></td>
+        <td class ="no-border"></td>
+        <td class ="green-bg"></td>
+
+    </tr>
+
+    <tr>
+        <td> 24</td>
+        <td class ="no-border"></td>
+        <td class ="green-bg"></td>
+        <td>25</td>
+
+
+    </tr>
+
+    <tr>
+        <td> 8 - Regularizações mensais ou anuais notificadas pela AGT</td>
+        <td class ="no-border"></td>
+        <td class ="no-border"></td>
+        <td class = "filled-cells-border-top">26</td>
+        <td>27</td>
+
+    </tr>
+    <tr>
+        <td> 9 - Regularizações mensais ou anuais, efectuadas pelo sujeito passivo</td>
+        <td class ="green-bg "></td>
+        <td class ="green-bg"></td>
+        <t t-if="reg_in_favor_tax_payer == 0 ">
+            <td> 28 </td>
+        </t>
+        <t t-else="">
+            <td>
+                <span> 28 </span>
+                <span  class = "item09">
+                    <t t-esc="reg_in_favor_tax_payer" />
+                </span>
+            </td>
+        </t>
+
+        <t t-if="reg_in_favor_state == 0 ">
+            <td> 29 </td>
+        </t>
+        <t t-else="">
+            <td>
+                <span> 29 </span>
+                <span  class = "item09">
+                    <t t-esc="reg_in_favor_state" />
+                </span>
+            </td>
+        </t>
+    </tr>
+
+    <tr>
+        <td class ="no-border-right"></td>
+        <td class ="no-border-right"></td>
+        <td colspan="2"> PERCENTAGEM ESTIMADA (DEDUÇÃO PARCIAL PRO RATA)</td>
+        <td>30</td>
+
+    </tr>
+
+    <tr>
+        <td style="text-align:right;">Somas</td>
+        <td colspan="2">31</td>
+        <td >32</td>
+        <td >33</td>
+    </tr>
+
+    <tr>
+        <td colspan ="5" style="text-align:center;">Apuramento do período </td>
+    </tr>
+
+    <tr>
+        <td ></td>
+        <td></td>
+        <td ></td>
+        <td ></td>
+        <td >34</td>
+    </tr>
+
+    <tr>
+        <td class ="no-border-right"></td>
+        <td class ="no-border-right"></td>
+        <td class ="no-border-right"></td>
+        <td></td>
+        <td >35</td>
+    </tr>
+
+    <tr>
+        <td colspan="5">UTILIZAÇÃO DE CRÉDITOS DE PERÍODOS ANTERIORES.  O campo 36 só poderá ser preenchido se tratar‐se de declaração apresentada dentro do prazo legal</td>
+    </tr>
+
+    <tr>
+        <td class ="no-border-right"></td>
+        <td class ="no-border-right"></td>
+        <td class ="no-border-right"></td>
+        <td style="text-align:right;">Excesso a reportar dos períodos anteriores</td>
+        <td >36</td>
+    </tr>
+
+
+</tbody>
+</table>
+
+
+
+<table class ="iva-periodic-map">
+
+<tr class="bold">
+
+    <th class="no-line-break" width ="5px">
+            10 - 
+    </th>
+
+    <td colspan="5" class="left-background-gray">
+       IMPOSTO A PAGAR AO ESTADO
+    </td>
+</tr>
+
+<tbody>
+    <tr class="bold">
+        <td>
+        IVA 
+        </td>
+        <t t-if="to_pay_iva == 0 ">
+            <td> 37 </td>
+        </t>
+        <t t-else="">
+            <td>
+                <span> 37 </span>
+                <span  class = "item09">
+                    <t t-esc="to_pay_iva" />
+                </span>
+            </td>
+        </t>
+        <td colspan="4" style="text-align:center;">
+            <span>
+        Entidade Competente:
+            </span>
+       ADMINISTRAÇÃO GERAL TRIBUTÁRIA
+        </td>
+    </tr>
+
+
+    <tr class="bold">
+
+        <th class="no-line-break" width ="5px">
+            11 - 
+        </th>
+
+        <td colspan="5" class="left-background-gray">
+       IMPOSTO A RECUPERAR
+        </td>
+    </tr>
+
+
+    <tr>
+        <td class = "no-border-right"></td>
+        <td width="250px">CRÉDITO DO IMPOSTO </td>
+        <td>REPORTE PARA O PERIODO SEGUINTE</td>
+        <td>PEDIDO DE REEMBOLSO</td>
+    </tr>
+
+    <tr>
+        <td class ="no-border-right"></td>
+        <t t-if="recover_iva == 0 ">
+            <td> 38 </td>
+        </t>
+        <t t-else="">
+            <td>
+                <span> 38 </span>
+                <span  class = "item09">
+                    <t t-esc="recover_iva" />
+                </span>
+            </td>
+        </t>
+
+        <t t-if="report_iva == 0 ">
+            <td> 39 </td>
+        </t>
+        <t t-else="">
+            <td>
+                <span> 39 </span>
+                <span  class = "item09">
+                    <t t-esc="report_iva" />
+                </span>
+            </td>
+        </t>
+
+        <t t-if="reimburse_iva == 0 ">
+            <td> 40 </td>
+        </t>
+        <t t-else="">
+            <td>
+                <span> 40 </span>
+                <span  class = "item09">
+                    <t t-esc="reimburse_iva" />
+                </span>
+            </td>
+        </t>
+
+
+    </tr>
+
+
+
+    <tr class="bold">
+
+        <th class="no-line-break" width ="5px">
+            12 - 
+        </th>
+
+        <td colspan="5" class="left-background-gray">
+        DESENVOLVIMENTO DO QUADRO 9
+        </td>
+    </tr>
+
+
+</tbody>
+</table>
+
+<table class ="iva-periodic-map">
+<tbody>
+    <tr >
+        <th width = "300px">A ‐ Valores de base tributável inscritos no campo 01 do quadro 9</th>
+        <th class ="no-border-right green-bg" width = "250px"></th>
+        <th class ="no-border-right green-bg" width = "150px"></th>
+        <th class ="no-border-right green-bg"></th>
+        <th class = "green-bg"></th>
+
+    </tr>
+
+    <tr>
+        <td rowspan = "4"> Adiantamento transmissão de bens e prestação de serviços tributadas
+            <br/>
+           
+            Amostras e ofertas para além do limite legal  
+            <br/>
+       
+ 
+            Operações sujeitas a tributação da margem
+            <br/>
+            <br/>
+            Operações efectuadas ao abrigo e) e f) do n.º 3 do art. 5.º e do n.º 2 do art. 6.º do CIVA
+        </td>
+        <td>41</td>
+        <td class ="no-border-right green-bg"></td>
+        <td class ="no-border-right green-bg"></td>
+        <td class = "green-bg"></td>
+
+    </tr>
+    <tr>
+        <td>42</td>
+        <td class ="no-border-right green-bg"></td>
+        <td class ="no-border-right green-bg"></td>
+        <td class = "green-bg"></td>
+    </tr>
+    <tr>
+        <td>43</td>
+        <td class ="no-border-right green-bg"></td>
+        <td class ="no-border-right green-bg"></td>
+        <td class = "green-bg"></td>
+    </tr>
+    <tr>
+        <td>44</td>
+        <td class ="no-border-right green-bg"></td>
+        <td class ="no-border-right green-bg"></td>
+        <td class = "green-bg"></td>
+    </tr>
+
+    <tr>
+        <td>B ‐ Valores de base tributável inscritos no campo 04</td>
+        <td class ="no-border-right green-bg"></td>
+        <td class ="no-border-right green-bg"></td>
+        <td class ="no-border-right green-bg"></td>
+        <td class = "green-bg"></td>
+    </tr>
+
+
+
+    <tr>
+        <td rowspan = "2"> Adiantamento transmissão de bens e prestação de serviços tributadas
+            <br/>
+          
+            Amostras e ofertas para além do limite legal  
+          
+           
+        </td>
+        <td>45</td>
+        <td class ="no-border-right green-bg"></td>
+        <td class ="no-border-right green-bg"></td>
+        <td class = "green-bg"></td>
+
+    </tr>
+    <tr>
+        <td>46</td>
+        <td class ="no-border-right green-bg"></td>
+        <td class ="no-border-right green-bg"></td>
+        <td class = "green-bg"></td>
+    </tr>
+
+
+    <tr>
+        <td>C ‐ Operações abrangidas pelo regime de IVA de caixa</td>
+        <td class ="no-border-right green-bg"></td>
+        <td class ="no-border-right green-bg"></td>
+        <td class ="no-border-right green-bg"></td>
+        <td class = "green-bg"></td>
+    </tr>
+
+
+    <tr>
+        <td rowspan = "2"> Facturas de transmissão de bens e prestação de serviços (Valor Facturado)
+            <br/>
+            Recibos de transmissão de bens e prestação de serviços (Valor recebido)
+          
+ 
+           
+        </td>
+        <td>47</td>
+        <td class ="no-border-right green-bg"></td>
+        <td class ="no-border-right green-bg"></td>
+        <td class = "green-bg"></td>
+
+    </tr>
+
+    <tr>
+        <td>48</td>
+        <td class ="no-border-right green-bg"></td>
+        <td class ="no-border-right green-bg"></td>
+        <td class = "green-bg"></td>
+    </tr>
+
+
+
+</tbody>
+
+</table>
+
+<!-- <table class ="iva-periodic-map">
+<tr class="bold">
+    <th class="no-line-break" width="5px">
+                        13 - 
+    </th>
+    <th colspan="9" class="left-background-gray">
+            APRESENTAÇÃO DA DECLARAÇÃO
+    </th>
+    <th class="no-line-break" width="5px">
+                        14 - 
+    </th>
+    <th colspan="4" class="background-gray">
+                        IDENTIFICAÇÃO DO CONTABILISTA
+    </th>
+</tr>
+
+<tr class="large-line">
+    <th colspan="10">ANO: <div class="text-box-border">
+        <t t-esc="o.invoice_date and o.invoice_date.year" />
+    </div>  MÊS <div class="text-box-border">
+    <t t-esc="o.invoice_date and o.invoice_date.month" />
+</div>
+DIA <div class="text-box-border">
+<t t-esc="o.invoice_date and o.invoice_date.day" />
+</div>
+
+<div class="text-box-border-bottom">
+<t t-esc="o.invoice_date and months_str[o.invoice_date.month - 1]" />
+
+</div>
+<br/>
+    LOCAL:
+<div class="text-box-border-bottom">
+        Local da geração do Report
+
+</div>
+
+</th>
+<th colspan="5">NIF <div class="text-box-border">
+<t t-esc="o.company_id.vat" />
+</div>
+<br/>
+    NOME
+<div class="text-box-border">
+
+</div>
+<br/>
+    Nº DA ORDEM
+<div class="text-box-border">
+
+</div>
+</th>
+</tr>
+
+<tr class="bold">
+
+<th class="no-line-break" width ="5px">
+        15 - 
+</th>
+
+<td colspan="16" class="left-background-gray">
+   OBSERVAÇÕES
+</td>
+</tr>
+<tr>
+
+<th colspan="16" class = "large-border-box">
+</th>
+</tr>
+
+
+
+
+</table> -->
+</div>
+</t>
+</template>
+
+<template id="report_periodic_iva">
+<t t-call="web.html_container">
+<t t-set="o" t-value="docs[0] if docs else False" />
+<t t-set="lang" t-value="o.user_id.partner_id.lang"/>
+<t t-call="l10n_ao.report_periodic_iva_document" />
+</t>
+</template>
+
+</odoo>

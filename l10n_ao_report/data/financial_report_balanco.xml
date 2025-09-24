@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <template id="main_template_journal_audit_report_ao" inherit_id="account_reports.main_template" primary="True">
+            <xpath expr="//div[hasclass('o_account_reports_header')]" position="inside">
+                <h1 class="print_only">Balanço</h1>
+            </xpath>
+        </template>
+
+        <record id="account_financial_report_balanco" model="account.report">
+            <field name="name">Balanço</field>
+            <field name="default_opening_date_filter">today</field>
+            <field name="filter_unfold_all" eval="True"/>
+            <field name="filter_journals" eval="True"/>
+            <field name="filter_date_range" eval="False"/>
+            <field name="filter_unreconciled" eval="True"/>
+            <field name="filter_show_draft" eval="True"/>
+            <field name="country_id" ref="base.ao"/>
+            <field name="main_template">l10n_ao_report.main_template_journal_audit_report_ao</field>
+            <field name="line_template">l10n_ao_report.line_template_add_notes_ao</field>
+            <field name="main_table_header_template">l10n_ao_report.main_table_header_with_note</field>
+            <field name="filter_multi_company">selector</field>
+            <field name="availability_condition">country</field>
+            <field name="column_ids">
+                <record id="account_financial_report_ao_balance_column" model="account.report.column">
+                    <field name="name">Saldo</field>
+                    <field name="expression_label">balance</field>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_total_activo" model="account.report.line">
+            <field name="name">ACTIVO</field>
+            <field name="code">ACTIVO</field>
+            <field name="report_id" ref="account_financial_report_balanco"/>
+            <field eval="1" name="sequence"/>
+            <field eval="0" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+            <field name="expression_ids">
+                <record id="account_report_activo_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">AC.balance + ANC.balance</field>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_nao_correntes_view" model="account.report.line">
+            <field name="name">Activos não Correntes</field>
+            <field name="code">ANC</field>
+            <field name="domain_formula"/>
+            <field name="parent_id" ref="account_financial_report_total_activo"/>
+            <field eval="2" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+            <field name="expression_ids">
+                <record id="account_report_anc_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">IMOCO.balance + IMOIN.balance + INVSA.balance + OAF.balance + OANC.balance
+                    </field>
+                    <field name="subformula"></field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_fixed_assets_view0" model="account.report.line">
+            <field name="name">Imobilizações Corpóreas</field>
+            <field name="code">IMOCO</field>
+            <field name="parent_id" ref="account_financial_report_nao_correntes_view"/>
+            <field eval="3" name="sequence"/>
+            <field name="groupby">account_id</field>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">4</field>
+            <field name="expression_ids">
+                <record id="account_report_imoco_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="formula">['|', ('account_id.code', '=ilike', '11%'), '|', ('account_id.code', '=ilike',
+                        '141%'),
+                        '|',('account_id.code', '=ilike', '142%'), '|',('account_id.code', '=ilike', '143%'),
+                        '|',('account_id.code', '=ilike', '144%'), '|',('account_id.code', '=ilike', '145%'),
+                        '|',('account_id.code', '=ilike', '146%'), '|',('account_id.code', '=ilike', '147%'),
+                        ('account_id.code', '=ilike', '181%')]
+                    </field>
+                    <field name="subformula">sum</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_finacial_report_line_imobilizaesincorpreas0"
+                model="account.report.line">
+            <field name="name">Imobilizações Incorpóreas</field>
+            <field name="code">IMOIN</field>
+            <field name="parent_id" ref="account_financial_report_nao_correntes_view"/>
+            <field eval="4" name="sequence"/>
+            <field name="groupby">account_id</field>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">5</field>
+            <field name="expression_ids">
+                <record id="account_report_imoin_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="formula">['|',('account_id.code', '=ilike', '12%'),'|',('account_id.code', '=ilike', '148%'),('account_id.code', '=ilike',
+                        '182%')]
+                    </field>
+                    <field name="subformula">sum</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_finacial_report_line_investimentosemsubsidiriaseassociadas0"
+                model="account.report.line">
+            <field name="name">Investimentos em Subsidiárias e Associadas</field>
+            <field name="code">INVSA</field>
+            <field name="parent_id" ref="account_financial_report_nao_correntes_view"/>
+            <field eval="5" name="sequence"/>
+            <field name="groupby">account_id</field>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">6</field>
+            <field name="expression_ids">
+                <record id="account_report_invsa_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="formula">['|',('account_id.code', '=ilike', '131%'),('account_id.code', '=ilike',
+                        '132%')]
+                    </field>
+                    <field name="subformula">sum</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_finacial_report_line_outrosactivosfinanceiros0"
+                model="account.report.line">
+            <field name="name">Outros Activos Financeiros</field>
+            <field name="code">OAF</field>
+            <field name="parent_id" ref="account_financial_report_nao_correntes_view"/>
+            <field eval="6" name="sequence"/>
+            <field name="groupby">account_id</field>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">7</field>
+            <field name="expression_ids">
+                <record id="account_report_oaf_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="formula">['|',('account_id.code', '=ilike', '133%'),'|',('account_id.code', '=ilike',
+                        '134%'),'|',('account_id.code', '=ilike', '135%'),'|',('account_id.code', '=ilike',
+                        '136%'),'|',('account_id.code', '=ilike', '137%'),'|',('account_id.code', '=ilike',
+                        '138%'),'|',('account_id.code', '=ilike', '139%'),'|',('account_id.code', '=ilike',
+                        '183%'),('account_id.code', '=ilike', '19%')]
+                    </field>
+                    <field name="subformula">sum</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_finacial_report_line_outrosactivosnocorrentes0" model="account.report.line">
+            <field name="name">Outros Activos não Correntes</field>
+            <field name="code">OANC</field>
+            <field name="groupby">account_id</field>
+            <field name="parent_id" ref="account_financial_report_nao_correntes_view"/>
+            <field eval="7" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">9</field>
+            <field name="expression_ids">
+                <record id="account_report_oanc_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="formula">['|',('account_id.account_type', '=',
+                        'asset_receivable'),'|',('account_id.code','=ilike', '361%'),('account_id.code','=ilike', '35%')]
+                    </field>
+                    <field name="subformula">sum_if_plus1year</field>
+                    <!--<field name="subformula">sum</field>-->
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_correntes_view" model="account.report.line">
+            <field name="name">Activos Correntes</field>
+            <field name="code">AC</field>
+            <field name="parent_id" ref="account_financial_report_total_activo"/>
+            <field eval="8" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">9</field>
+            <field name="expression_ids">
+                <record id="account_report_exist_rec_disp_oact_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">EXIST.balance + RECEBER.balance + DISPO.balance + OACT.balance</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_existencias" model="account.report.line">
+            <field name="name">Existências</field>
+            <field name="code">EXIST</field>
+            <field name="parent_id" ref='account_financial_report_correntes_view'/>
+            <field eval="9" name="sequence"/>
+            <field name="groupby">account_id</field>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">8</field>
+            <field name="expression_ids">
+                <record id="account_report_exist_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="formula">[('account_id.code', '=ilike', '2%')]</field>
+                    <field name="subformula">sum</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_receber" model="account.report.line">
+            <field name="name">Contas a Receber</field>
+            <field name="code">RECEBER</field>
+            <field name="parent_id" ref='account_financial_report_correntes_view'/>
+            <field eval="10" name="sequence"/>
+            <field name="groupby">account_id</field>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="foldable" eval="True"/>
+            <field name="note">9</field>
+            <field name="expression_ids">
+                <record id="account_report_receber_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="formula">['|',('account_id.account_type', '=',
+                        'asset_receivable'),'|',('account_id.code','=ilike',
+                        '32%'),'|',('account_id.code','=ilike','34%'),'|',('account_id.code','=ilike',
+                        '361%'),'|',('account_id.code','=ilike', '35%'),'|',('account_id.code','=ilike',
+                        '371%'),'|',('account_id.code','=ilike', '372%'),('account_id.code','=ilike', '377%')]
+                    </field>
+                    <field name="subformula">sum_if_pos</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+        <record id="account_financial_report_disponibilidades" model="account.report.line">
+            <field name="name">Disponibilidades</field>
+            <field name="code">DISPO</field>
+            <field name="parent_id" ref='account_financial_report_correntes_view'/>
+            <field eval="11" name="sequence"/>
+            <field name="groupby">account_id</field>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">10</field>
+            <field name="expression_ids">
+                <record id="account_report_dispo_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="formula">[('account_id.code', '=ilike', '4%')]</field>
+                    <field name="subformula">sum</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_current_activo" model="account.report.line">
+            <field name="name">Outros Activos Correntes</field>
+            <field name="code">OACT</field>
+            <field name="parent_id" ref='account_financial_report_correntes_view'/>
+            <field eval="12" name="sequence"/>
+            <field name="groupby">account_id</field>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">11</field>
+            <field name="expression_ids">
+                <record id="account_report_oact_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="formula">['|',('account_id.code', '=ilike', '374%'),('account_id.code', '=ilike',
+                        '373%')]
+                    </field>
+                    <field name="subformula">sum</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+         <record id="account_financial_report_line_totalactivos" model="account.report.line">
+            <field name="name">Total do activo</field>
+            <field name="code">TOTALACTIVO</field>
+            <field name="parent_id" ref="account_financial_report_total_activo"/>
+            <field eval="13" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="expression_ids">
+                <record id="account_report_total_activo_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">ANC.balance + AC.balance</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_capital_proprio_view" model="account.report.line">
+            <field name="name">CAPITAL PRÓPRIO E PASSIVO</field>
+            <field name="code">CPP</field>
+            <field name="report_id" ref="account_financial_report_balanco"/>
+            <field eval="14" name="sequence"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field eval="0" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="note"/>
+            <field name="expression_ids">
+                <record id="account_report_cpp_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">CP.balance + PNC.balance + PC.balance</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_capital_proprio" model="account.report.line">
+            <field name="name">Capital Próprio</field>
+            <field name="code">CP</field>
+            <field name="parent_id" ref="account_financial_report_capital_proprio_view"/>
+            <field eval="15" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+            <field name="expression_ids">
+                <record id="account_report_cp_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">CAP.balance + RES.balance + TRANS.balance + REXERC.balance</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_capital" model="account.report.line">
+            <field name="name">Capital</field>
+            <field name="code">CAP</field>
+            <field name="parent_id" ref="account_financial_report_capital_proprio"/>
+            <field eval="16" name="sequence"/>
+            <field name="groupby">account_id</field>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">12</field>
+            <field name="expression_ids">
+                <record id="account_report_cap_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="formula">['|',('account_id.code', '=ilike', '51%'),'|',('account_id.code',
+                        '=ilike','52%'),'|',('account_id.code', '=ilike', '53%'), ('account_id.code', '=ilike', '54%')]
+                    </field>
+                    <field name="subformula">-sum</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_reservas" model="account.report.line">
+            <field name="name">Reservas</field>
+            <field name="code">RES</field>
+            <field name="parent_id" ref="account_financial_report_capital_proprio"/>
+            <field eval="17" name="sequence"/>
+            <field name="groupby">account_id</field>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">13</field>
+            <field name="expression_ids">
+                <record id="account_report_res_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="formula">['|',('account_id.code', '=ilike', '55%'), '|',('account_id.code',
+                        '=ilike','56%'),'|',('account_id.code', '=ilike', '57%'),'|',('account_id.code',
+                        '=ilike','58%'),('account_id.code', '=ilike', '59%')]
+                    </field>
+                    <field name="subformula">-sum</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_previous_resultados_transitados" model="account.report.line">
+            <field name="name">Resultados Transitados</field>
+            <field name="code">TRANS</field>
+            <field name="parent_id" ref="account_financial_report_capital_proprio"/>
+            <field eval="18" name="sequence"/>
+            <field name="groupby">account_id</field>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">14</field>
+            <field name="expression_ids">
+                <record id="account_report_trans_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="formula">[('account_id.code', '=ilike', '81%')]</field>
+                    <field name="subformula">-sum</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_resultados_exercicio" model="account.report.line">
+            <field name="name">Resultados do Exercício</field>
+            <field name="code">REXERC</field>
+            <field name="parent_id" ref="account_financial_report_capital_proprio"/>
+            <field eval="19" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="expression_ids">
+                <record id="account_report_rexerc_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <!--<field name="date_scope">from_fiscalyear</field>-->
+                    <field name="formula">RLE.balance</field>
+                    <field name="subformula">cross_report</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_passivo_nao_corrente" model="account.report.line">
+            <field name="name">Passivo não Correntes</field>
+            <field name="code">PNC</field>
+            <field name="parent_id" ref='account_financial_report_capital_proprio_view'/>
+            <field eval="20" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="expression_ids">
+                <record id="account_report_pnc_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <!--<field name="date_scope">from_fiscalyear</field>-->
+                    <field name="formula">EMLP.balance + PP.balance + PORE.balance + OPNC.balance</field>
+                    <field name="date_scope">normal</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial__emlp" model="account.report.line">
+            <field name="name">Empréstimos de Médio e Longo Prazo</field>
+            <field name="code">EMLP</field>
+            <field name="parent_id" ref='account_financial_report_passivo_nao_corrente'/>
+            <field eval="21" name="sequence"/>
+            <field name="groupby">account_id</field>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">15</field>
+            <field name="expression_ids">
+                <record id="account_report_emlp_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="date_scope">normal</field>
+                    <field name="formula">[('account_id.code', '=ilike', '33%')]</field>
+                    <!--<field name="subformula">sum</field>-->
+                    <field name="subformula">sum_if_plus1year</field>
+                    <!--<field eval="1" name="green_on_positive"/>-->
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_impostos_diferidos" model="account.report.line">
+            <field name="name">Impostos Diferidos</field>
+            <field name="code">IMPD</field>
+            <field name="parent_id" ref='account_financial_report_passivo_nao_corrente'/>
+            <field eval="22" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">16</field>
+            <!--<field name="expression_ids">
+                <record id="account_report_impd_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="date_scope">normal</field>
+                    <field name="formula">[]</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>-->
+        </record>
+
+        <record id="account_financial_provisoes_pensoes" model="account.report.line">
+            <field name="name">Provisões para Pensões</field>
+            <field name="code">PP</field>
+            <field name="parent_id" ref='account_financial_report_passivo_nao_corrente'/>
+            <field eval="23" name="sequence"/>
+            <field name="groupby">account_id</field>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">17</field>
+            <field name="expression_ids">
+                <record id="account_report_pp_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="date_scope">normal</field>
+                    <field name="formula">[('account_id.code', '=ilike', '391%')]</field>
+                    <field name="subformula">sum</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_finacial_report_line_provisesparaoutrosriscoseencargos0" model="account.report.line">
+            <field name="name">Provisões para Outros Riscos e Encargos</field>
+            <field name="code">PORE</field>
+            <field name="parent_id" ref='account_financial_report_passivo_nao_corrente'/>
+            <field eval="24" name="sequence"/>
+            <field name="groupby">account_id</field>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">18</field>
+            <field name="expression_ids">
+                <record id="account_report_pore_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="date_scope">normal</field>
+                    <field name="formula">['|', ('account_id.code', '=ilike', '392%'), '|', ('account_id.code',
+                        '=ilike', '393%'),
+                        '|', ('account_id.code', '=ilike', '394%'), '|', ('account_id.code', '=ilike', '395%'), '|',
+                        ('account_id.code', '=ilike', '396%'), '|', ('account_id.code', '=ilike', '397%'), '|',
+                        ('account_id.code', '=ilike', '398%'), ('account_id.code', '=ilike', '399%')]
+                    </field>
+                    <field name="subformula">sum</field>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_finacial_report_line_outrospassivosnocorrentes0"
+                model="account.report.line">
+            <field name="name">Outros Passivos Não Correntes</field>
+            <field name="code">OPNC</field>
+            <field name="parent_id" ref='account_financial_report_passivo_nao_corrente'/>
+            <field name="groupby">account_id</field>
+            <field eval="25" name="sequence"/>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">19</field>
+            <field name="expression_ids">
+                <record id="account_report_opnc_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="date_scope">normal</field>
+                    <field name="formula">['|',('account_id.account_type', '=', 'payable'),'|',
+                        ('account_id.code','=ilike','34%'),'|', ('account_id.code','=ilike',
+                        '361%'),('account_id.code','=ilike', '35%')]
+                    </field>
+                    <field name="subformula">-sum_if_plus1year</field>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_passivo_corrente" model="account.report.line">
+            <field name="name">Passivos Corrente</field>
+            <field name="code">PC</field>
+            <field name="parent_id" ref='account_financial_report_capital_proprio_view'/>
+            <field eval="26" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="False"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note"/>
+            <field name="expression_ids">
+                <record id="account_report_pc_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">PAGAR.balance + ECP.balance + PCEMLP.balance + OPC.balance</field>
+                    <field name="date_scope">normal</field>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_pagar" model="account.report.line">
+            <field name="name">Contas a Pagar</field>
+            <field name="code">PAGAR</field>
+            <field name="parent_id" ref='account_financial_report_passivo_corrente'/>
+            <field eval="27" name="sequence"/>
+            <field name="groupby">account_id</field>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">19</field>
+            <field name="expression_ids">
+                <record id="account_report_pagar_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="date_scope">normal</field>
+                    <field name="formula">['|',('account_id.account_type', '=', 'payable'),'|',
+                        ('account_id.code','=ilike', '31%'),'|',('account_id.code','=ilike','34%'),'|',
+                        ('account_id.code','=ilike', '361%'),'|',('account_id.code','=ilike', '35%'),'|',
+                        ('account_id.code','=ilike', '371%'),'|',('account_id.code','=ilike', '372%'),
+                        ('account_id.code','=ilike', '377%')]
+                    </field>
+                    <field name="subformula">-sum_if_neg</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_finacial_report_line_emprstimosdecurtoprazo0"
+                model="account.report.line">
+            <field name="name">Empréstimos de Curto Prazo</field>
+            <field name="code">ECP</field>
+            <field name="parent_id" ref='account_financial_report_passivo_corrente'/>
+            <field eval="28" name="sequence"/>
+            <field name="groupby">account_id</field>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">20</field>
+            <field name="expression_ids">
+                <record id="account_report_ecp_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="date_scope">normal</field>
+                    <field name="formula">[('account_id.code', '=ilike', '33%')]</field>
+                    <field name="subformula">-sum_if_less1year</field>
+                    <!--<field name="subformula">sum</field>-->
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_finacial_report_line_pcemlp"
+                model="account.report.line">
+            <field name="name">Parte Corrente dos Emprést.a Médio/Longo Prazo</field>
+            <field name="code">PCEMLP</field>
+            <field name="parent_id" ref='account_financial_report_passivo_corrente'/>
+            <field eval="29" name="sequence"/>
+            <field name="groupby">account_id</field>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">15</field>
+            <field name="expression_ids">
+                <record id="account_report_pcemlp_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="date_scope">normal</field>
+                    <field name="formula">[('account_id.code', '=ilike', '33%')]</field>
+                    <field name="subformula">sum</field>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_outros_passivos_correntes" model="account.report.line">
+            <field name="name">Outros Passivos Correntes</field>
+            <field name="code">OPC</field>
+            <field name="parent_id" ref='account_financial_report_passivo_corrente'/>
+            <field eval="30" name="sequence"/>
+            <field name="groupby">account_id</field>
+            <field eval="2" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="note">21</field>
+            <field name="expression_ids">
+                <record id="account_report_opc_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">domain</field>
+                    <field name="date_scope">normal</field>
+                    <field name="formula">['|', ('account_id.code', '=ilike', '376%'), ('account_id.code',
+                        '=ilike','375%')]
+                    </field>
+                    <field name="subformula">sum_if_neg</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_line_totalapassivo" model="account.report.line">
+            <field name="name">Total do Passivo</field>
+            <field name="code">TOTALPASSIVO</field>
+            <field name="parent_id" ref="account_financial_report_capital_proprio_view"/>
+            <field eval="31" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="expression_ids">
+                <record id="account_report_total_passivo_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">PNC.balance + PC.balance</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="account_financial_report_line_totalcapital_proprio_apassivo" model="account.report.line">
+            <field name="name">Total do capital próprio e passivo</field>
+            <field name="code">TOTALCAPITAL_P_P</field>
+            <field name="parent_id" ref="account_financial_report_capital_proprio_view"/>
+            <field eval="32" name="sequence"/>
+            <field eval="1" name="hierarchy_level"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="False"/>
+            <field name="expression_ids">
+                <record id="account_report_capital_total_passivo_expr" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">PNC.balance + PC.balance + CP.balance</field>
+                    <field eval="1" name="green_on_positive"/>
+                </record>
+            </field>
+        </record>
+    </data>
+</odoo>

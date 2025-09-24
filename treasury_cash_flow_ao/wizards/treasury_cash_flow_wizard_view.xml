@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="treasury_cash_flow_report_view_form" model="ir.ui.view">
+            <field name="name">treasury_cash_flow_report_view_form</field>
+            <field name="model">treasury.cash.flow.report</field>
+            <field name="arch" type="xml">
+                <form string="treasury.cash.flow.report_form">
+                    <group>
+                        <field name="start_date" required="1"/>
+                        <field name="end_date" required="1"/>
+                        <field name="journal_id" required="1"
+                               options="{'no_open': True, 'no_create': True}"/>
+
+                    </group>
+
+                     <footer>
+<!--                        <span groups="base.group_user">-->
+<!--                            <button name="print_report" type="object"-->
+<!--                                    string="PDF" class="oe_highlight"/>-->
+<!--                            <button name="print_xlsx" type="object"-->
+<!--                                    string="XLSX" class="oe_highlight"/>-->
+<!--                            <span> </span>-->
+<!--                            <button string="Cancel" special="cancel"/>-->
+<!--                        </span>-->
+                          <div class="d-flex justify-content-start gap-3 align-items-center">
+        <button name="print_report" type="object" string="PDF" class="btn btn-outline-primary">
+            <i class="fa fa-file-pdf-o me-1"/> PDF
+        </button>
+        <button name="print_xlsx" type="object" string="XLSX" class="btn btn-outline-success">
+            <i class="fa fa-file-excel-o me-1"/> XLSX
+        </button>
+        <button special="cancel" string="Cancelar" class="btn btn-outline-danger ms-auto">
+            <i class="fa fa-times-circle me-1"/> Cancelar
+        </button>
+    </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="cash_flow_act_window" model="ir.actions.act_window">
+            <field name="name">Fluxo de Caixa </field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">treasury.cash.flow.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+  <menuitem
+    id="menu_financial_reports"
+    name="Relatórios Financeiros"
+    parent="account.menu_finance_reports"
+    sequence="10"
+    groups="base.group_user"/>
+
+<!-- Menu filho “Fluxo de Caixa”, também só para Administradores -->
+<menuitem
+    id="menu_cash_flow_report"
+    name="Relatório de Fluxo de Caixa"
+    parent="menu_financial_reports"
+    action="cash_flow_act_window"
+    sequence="1"
+    groups="base.group_user"/>
+    </data>
+</odoo>

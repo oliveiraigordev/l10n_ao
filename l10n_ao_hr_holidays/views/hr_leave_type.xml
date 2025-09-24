@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- modify Leave Type form view -->
+    <record id="l10n_ao_holidays_leave_type_form_view" model="ir.ui.view">
+        <field name="name">L10n_ao_holidays - Inherited Leave Type View</field>
+        <field name="model">hr.leave.type</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+        <field name="arch" type="xml">
+            <field name="time_type" position="after">
+                <field name="dont_validate_vacation"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="asset_modify_form">
+        <field name="name">wizard.asset.modify.form</field>
+        <field name="model">asset.modify</field>
+        <field name="inherit_id" ref="account_asset.asset_modify_form" />
+        <field name="arch" type="xml">
+            <footer position="replace">
+                <footer>
+                    <button name="pause"
+                            string="Pausar"
+                            type="object"
+                            class="btn-primary"
+                            data-hotkey="p"
+                            attrs="{'invisible': [('modify_action', '!=', 'pause')]}"/>
+                    <button name="modify"
+                            string="Modificar"
+                            type="object"
+                            class="btn-primary"
+                            data-hotkey="q"
+                            attrs="{'invisible': [('modify_action', '!=', 'modify')]}"/>
+                    <button name="modify"
+                            string="Continuar"
+                            type="object"
+                            class="btn-primary"
+                            data-hotkey="r"
+                            attrs="{'invisible': [('modify_action', '!=', 'resume')]}"/>
+                    <button name="sell_dispose"
+                            string="Vender"
+                            type="object"
+                            class="btn-primary"
+                            data-hotkey="s"
+                            attrs="{'invisible': [('modify_action', '!=', 'sell')]}" />
+                    <button name="sell_dispose"
+                            string="Abater"
+                            type="object"
+                            class="btn-primary"
+                            data-hotkey="t"
+                            attrs="{'invisible': [('modify_action', '!=', 'dispose')]}" />
+                    <button string="Cancelar"
+                            class="btn-secondary"
+                            special="cancel"
+                            data-hotkey="z"/>
+                </footer>
+            </footer>
+        </field>
+    </record>
+</odoo>

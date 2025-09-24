@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extra Deduction Codes -->
+    <data noupdate="1">
+        <record id="l10n_ao_hr_remuneration_code_desconto_danos" model="hr.extra.remuneration.code">
+            <field name="code">DES_DANOS</field>
+            <field name="name">Desconto por Danos</field>
+            <field name="type">deduction</field>
+        </record>
+
+        <record id="l10n_ao_hr_remuneration_code_desconto_adiantamento_salarial"
+                model="hr.extra.remuneration.code">
+            <field name="code">DES_ADI_SALARIO</field>
+            <field name="name">Desconto Adiantamento Salarial</field>
+            <field name="type">deduction</field>
+        </record>
+    </data>
+</odoo>

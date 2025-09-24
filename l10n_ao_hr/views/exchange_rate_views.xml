@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_exchange_rate_form_view" model="ir.ui.view">
+        <field name="name">HR - Exchange Rate Form View</field>
+        <field name="model">hr.exchange.rate</field>
+        <field name="arch" type="xml">
+            <form string="Rates">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="active_use"/>
+                        <field name="date"/>
+                    </group>
+                </sheet>
+                <!-- Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_exchange_rate_tree_view" model="ir.ui.view">
+        <field name="name">HR - Exchange Rate Form View Tree</field>
+        <field name="model">hr.exchange.rate</field>
+        <field name="arch" type="xml">
+            <tree string="Rates">
+                <field name="active_use"/>
+                <field name="name" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_hr_exchange_rate" model="ir.actions.act_window">
+        <field name="name">Taxa de Câmbio</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.exchange.rate</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

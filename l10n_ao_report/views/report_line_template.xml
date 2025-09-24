@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="line_template_journal_ao" inherit_id="account_reports.line_template" primary="True">
+        <xpath expr="//span[hasclass('account_report_line_name')]/parent::t" position="replace">
+            <!--  Targets the parent of this line so that we can update the ellipsis width  -->
+            <t t-if="not line.get('caret_options')">
+                <!--  Make the line name  -->
+                <t t-set="line_name">
+                    <t t-if="not context.get('print_mode')">
+                        <t t-if="'move_id' in line and 'date' in line">
+                            <a t-att-data-line_id="line.get('id')" action="journal_report_action_open_business_doc">
+                                <t t-esc="line.get('name')"/>
+                            </a>
+                        </t>
+                        <t t-else="" t-esc="line.get('name')"/>
+                    </t>
+                    <t t-else="">
+                        <t t-esc="line.get('name')"/>
+                        <br/>
+                        <t t-esc="line.get('date')"/>
+                    </t>
+                </t>
+                <!--  Update the ellipsis so that id match the complete line name  -->
+                <span class="account_report_line_name" t-att-title="line.get('title_hover')">
+                    <t t-esc="line_name"/>
+                    <span class="js_account_report_line_footnote" t-att-data-id="line['id']">
+                        <sup t-if="line.get('footnote')">
+                            <b class="o_account_reports_footnote_sup">
+                                <a t-att-href="'#footnote'+line['footnote']"/>
+                                <t t-esc="line['footnote']"/>
+                            </b>
+                        </sup>
+                    </span>
+
+                </span>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="line_template_add_notes_ao" inherit_id="account_reports.line_template" primary="True">
+        <xpath expr="//t/tr/td" position="after">
+                <td style="text-align:center" class="o_account_report_name_ellipsis line_template_add_notes_ao">
+                    <t t-out="line.get('note')"/>
+                </td>
+        </xpath>
+    </template>
+
+</odoo>

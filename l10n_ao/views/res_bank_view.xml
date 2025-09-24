@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="res_partner_bank_view" model="ir.ui.view">
+            <field name="name">AO Res partner bank inherit</field>
+            <field name="model">res.partner.bank</field>
+            <field name="inherit_id" ref="base.view_partner_bank_form"/>
+            <field name="arch" type="xml">
+
+                <field name="currency_id" position="after">
+                    <field name="show_document"/>
+                </field>
+
+                 <field name="acc_number" position="after">
+                    <field name="acc_iban"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

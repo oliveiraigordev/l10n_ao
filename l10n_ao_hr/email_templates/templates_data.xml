@@ -1,0 +1,77 @@
+<data>
+    <data noupdate="1">
+        <!--Email template -->
+        <record id="l10n_ao_hr_email_template_payslip_send_email" model="mail.template">
+            <field name="name">HR Payslip Sending Template</field>
+            <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+            <field name="email_from">{{object.user_id.partner_id.email}}</field>
+            <field name="email_to">{{object.employee_id.work_email}}</field>
+            <field name="subject">{{ object.company_id.name }} - Payslip [ {{object.number}}]</field>
+            <field name="description">Sent to employee to notify them about their payslip</field>
+            <field name="lang">{{object.user_id.lang}}</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" style="width:100%; margin:0px auto;">
+                    <tbody>
+                        <tr>
+                            <td valign="top" style="text-align: left; font-size: 14px;">
+                                Saudações <t t-esc="object.employee_id.name"></t>.
+                                <br/>
+                                <br/>
+                                Segue anexo o seu Recibo Salarial referente a
+                                <t t-esc="datetime.datetime.strptime(str(object.date_to), '%Y-%m-%d').strftime('%B %Y')"></t>
+                                <br/>
+                                <br/>
+                                Tenha um óptimo dia,
+                                <br/>
+                                A Equipa de HR
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </field>
+            <field name="report_template" ref="l10n_ao_hr.action_l10n_ao_hr_report_double_payslip"/>
+            <field name="report_name">l10n_ao HR - Payslip {{object.number}}</field>
+        </record>
+
+        <record id="l10n_ao_hr_email_template_notify_end_contract_employee" model="mail.template">
+            <field name="name">HR Contract: Notify End Contract Template</field>
+            <field name="model_id" ref="hr_payroll.model_hr_contract"/>
+            <field name="email_from">{{object.activity_user_id.partner_id.email}}</field>
+            <field name="email_to">{{object.hr_responsible_id.partner_id.email}}</field>
+            <field name="subject">Notification about the expiration of the employee contract</field>
+            <field name="description">Sent to the HR Responsible to notify him of the employee's end of contract</field>
+            <field name="lang">{{object.activity_user_id.lang}}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" style="width:100%; margin:0px auto;">
+                    <tbody>
+                        <tr>
+                            <td valign="top" style="text-align: left; font-size: 14px;">
+                                Saudações <t t-esc="object.hr_responsible_id.partner_id.name"></t>.
+                                <br/>
+                                <br/>
+                                Este e-mail é para informar sobre o término do contrato do funcionário
+                                <t t-esc="object.employee_id.name"></t>
+                                que será
+                                <t t-esc="datetime.datetime.strptime(str(object.date_end), '%Y-%m-%d').strftime('%B %Y')"></t>
+                                , pode acessar o contrato clicando no botão.
+                                <div style="text-align: center; padding: 16px 0px 16px 0px;">
+                                    <a t-attf-href="/"
+                                       style="padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px">
+                                       ABRIR O CONTRATO
+                                    </a>
+                                </div>
+                                <br/>
+                                <br/>
+                                Tenha um óptimo dia,
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </field>
+        </record>
+
+    </data>
+</data>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="l10n_ao_account_budget.L10nAOAccountBudgetListController" t-inherit="web.ListView" t-inherit-mode="primary" owl="1">
+        <xpath expr="//div/Layout/t[@t-component='props.Renderer']" position="replace">
+            <t t-component="props.Renderer"
+               list="model.root"
+               budgetList="state.budgetList"
+
+               activeActions="activeActions"
+               archInfo="archInfo"
+               allowSelectors="props.allowSelectors"
+               editable="editable"
+               openRecord.bind="openRecord"
+               noContentHelp="props.info.noContentHelp"
+               onAdd.bind="createRecord"
+               onOptionalFieldsChanged.bind="onOptionalFieldsChanged"
+               getBudget.bind="getBudget"
+            />
+
+        </xpath>
+    </t>
+</templates>

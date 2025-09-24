@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="l10n_ao_hr_holidays.DaysToEnjoy">
+        <div class="card" id="DaysToEnjoy" style="width: 17rem; height: 14rem; border:none;"
+             t-if="total_balance_days.length">
+                <div class="card-body">
+                    <h5 class="card-title" align="center">Férias <t t-esc="year_selected"/></h5>
+
+                    <t t-if="total_balance_days[0] > 0">
+                        <h1 class="card-title" style="color:blue;" align="center">
+                            <t t-esc="total_balance_days[0]"/>
+                        </h1>
+                    </t>
+                    <t t-else="">
+                      <h1 class="card-title" style="color:red;" align="center">
+                            <t t-esc="total_balance_days[0]"/>
+                        </h1>
+                    </t>
+
+                    <div style="text-align: center;">
+                        <img id="l10n_holidays_img" style="width: 70px" align="center"
+                             t-att-src="vacation_logo" class="card-img-top"/>
+                    </div>
+                    <p class="card-text" align="center">Dias para serem Gozados</p>
+                </div>
+        </div>
+    </t>
+
+</templates>

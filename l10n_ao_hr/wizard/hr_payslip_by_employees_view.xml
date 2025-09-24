@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_payslip_by_employees" model="ir.ui.view">
+        <field name="name">payroll_payslip_employees</field>
+        <field name="model">hr.payslip.employees</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_by_employees"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//separator" position="before">
+                <separator string="Tipo de Funcionário" colspan="2"/>
+                <div class="o_row">
+                    <p class="text-muted w-50">Defina um tipo de Funcionário específico se pretender selecionar todos os
+                        empregados desse tipo de funcionário de uma só vez. desse tipo de uma só vez.
+                    </p>
+                    <field name="contract_type" nolabel="1"
+                           options="{'no_edit': True, 'no_create': True, 'no_open': True}"/>
+                </div>
+
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

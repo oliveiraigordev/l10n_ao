@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- **** PAYROLL **** -->
+    <menuitem id="menu_hr_configuration_remuneration_codes"
+              name="Códigos de Remuneração"
+              parent="hr_payroll.menu_hr_salary_configuration"
+              sequence="40"
+              action="action_hr_extra_remuneration_codes"
+              groups="hr_payroll.group_hr_payroll_manager"/>
+
+    <menuitem
+            id="menu_hr_scale_group_configuration"
+            name="Grupo da Escala da Empresa"
+            parent="hr_work_entry_contract_enterprise.menu_hr_payroll_configuration"
+            sequence="80"
+            groups="hr_payroll.group_hr_payroll_manager"/>
+
+    <menuitem id="menu_hr_configuration_scale_group"
+              name="Grupo de Escala da Empresa"
+              parent="menu_hr_scale_group_configuration"
+              sequence="1"
+              action="action_hr_company_scale_group"/>
+
+    <menuitem id="menu_hr_configuration_exchange_rate"
+              name="Taxas de Câmbio"
+              parent="menu_hr_scale_group_configuration"
+              sequence="2"
+              action="action_hr_exchange_rate"/>
+
+
+    <!-- **** EMPLOYEE **** -->
+    <menuitem id="menu_hr_configuration_direction"
+              name="Direcção"
+              parent="hr.menu_config_employee"
+              sequence="3"
+              action="action_hr_direction"
+              groups="hr.group_hr_manager"/>
+
+    <menuitem id="menu_hr_sector"
+              action="action_hr_sector"
+              parent="hr.menu_config_employee"
+              sequence="4"
+              groups="hr.group_hr_manager"/>
+
+    <menuitem id="menu_hr_hierarchical_level"
+              action="action_hr_hierarchical_level"
+              parent="hr.menu_config_employee"
+              sequence="4"
+              groups="hr.group_hr_manager"/>
+
+    <menuitem id="menu_hr_configuration_salary_scale"
+              name="Escala Salarial"
+              parent="hr.menu_config_employee"
+              sequence="4"
+              action="action_hr_salary_scale"
+              groups="hr.group_hr_manager"/>
+
+
+    <!-- **** Reporting **** -->
+    <menuitem id="l10n_ao_hr_cost_analysis_map_menu"
+              name="Mapa de Análise de Custos"
+              parent="hr_payroll.menu_hr_payroll_report"
+              action="action_l10n_ao_hr_cost_analysis_map"
+              sequence="11"/>
+    <menuitem id="l10n_ao_hr_bank_map_menu"
+              name="Mapa de Banco"
+              parent="hr_payroll.menu_hr_payroll_report"
+              action="action_l10n_ao_hr_bank_map"
+              sequence="12"/>
+    <menuitem id="l10n_ao_hr_inss_map_menu"
+              name="Mapa de INSS"
+              parent="hr_payroll.menu_hr_payroll_report"
+              action="action_l10n_ao_hr_inss_map"
+              sequence="13"/>
+    <menuitem id="l10n_ao_hr_irt_map_menu"
+              name="Mapa de IRT"
+              parent="hr_payroll.menu_hr_payroll_report"
+              action="action_l10n_ao_hr_irt_map"
+              sequence="14"/>
+    <!--Extra Hours Report Menu-->
+    <menuitem id="l10n_ao_hr_remuneration_map_menu"
+              name="Mapa de Remuneração"
+              parent="hr_payroll.menu_hr_payroll_report"
+              action="action_l10n_ao_hr_remuneration_map"
+              sequence="15"/>
+    <!--    <menuitem id="l10n_ao_hr_salary_map_menu"-->
+    <!--              name="Salary Map"-->
+    <!--              parent="hr_payroll.menu_hr_payroll_report"-->
+    <!--              action="action_l10n_ao_hr_salary_map"-->
+    <!--              sequence="16"/>-->
+    <menuitem id="menu_action_extra_hours_report"
+              name="Lançamento das horas extraordinárias"
+              action="action_extra_hours_report"
+              parent="hr_payroll.menu_hr_payroll_report"
+              sequence="16"/>
+
+    <record id="hide" model="res.groups">
+        <field name="name">Hide</field>
+        <field name="comment">Hide.</field>
+    </record>
+
+    <!-- OCULTAR O MENU FOLHA DE SALARIOS-->
+      <menuitem id="hr_payroll.menu_report_payroll" name="Folha de Salários"
+              groups="hide"/>
+
+     <!-- OCULTAR O MENU Work Entry Analysis-->
+      <menuitem id="hr_payroll.menu_hr_work_entry_report" name="Work Entry Analysis"
+              groups="hide"/>
+
+    <!-- OCULTAR O MENU menu_hr_payroll_attachment_salary_report-->
+      <menuitem id="hr_payroll.menu_hr_payroll_attachment_salary_report" name="Salary Attachment Report"
+              groups="hide"/>
+
+    <!-- OCULTAR O MENU menu_hr_payroll_attachment_salary_report-->
+      <menuitem id="hr_payroll.menu_hr_payroll_attachment_salary_report" name="Salary Attachment Report"
+              groups="hide"/>
+</odoo>

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="ir_model_access_hr_remuneration_code_manager" model="ir.model.access">
+        <field name="name">HR Remuneration Code Manager</field>
+        <field name="model_id" ref="model_hr_extra_remuneration_code"/>
+        <field name="group_id" ref="hr_contract.group_hr_contract_manager"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_access_hr_remuneration_manager" model="ir.model.access">
+        <field name="name">HR Remuneration Manager</field>
+        <field name="model_id" ref="model_hr_extra_remuneration"/>
+        <field name="group_id" ref="hr_contract.group_hr_contract_manager"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_access_hr_remuneration_map_manager" model="ir.model.access">
+        <field name="name">HR Remuneration Map Manager</field>
+        <field name="model_id" ref="model_wizard_hr_remuneration_map"/>
+        <field name="group_id" ref="hr_contract.group_hr_contract_manager"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_access_hr_salary_map_manager" model="ir.model.access">
+        <field name="name">HR Salary Map Wizar Manager</field>
+        <field name="model_id" ref="model_wizard_hr_salary_map"/>
+        <field name="group_id" ref="hr_contract.group_hr_contract_manager"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_access_hr_irt_map_manager" model="ir.model.access">
+        <field name="name">HR IRT Map Manager</field>
+        <field name="model_id" ref="model_wizard_hr_irt_map"/>
+        <field name="group_id" ref="hr_contract.group_hr_contract_manager"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_access_hr_inss_map_manager" model="ir.model.access">
+        <field name="name">HR INSS Map Manager</field>
+        <field name="model_id" ref="model_wizard_hr_inss_map"/>
+        <field name="group_id" ref="hr_contract.group_hr_contract_manager"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_access_hr_bank_map_manager" model="ir.model.access">
+        <field name="name">HR Bank Map Manager</field>
+        <field name="model_id" ref="model_wizard_hr_bank_map"/>
+        <field name="group_id" ref="hr.group_hr_manager"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_access_hr_cost_analysis_map_manager" model="ir.model.access">
+        <field name="name">HR Cost Analysis Map Manager</field>
+        <field name="model_id" ref="model_wizard_hr_cost_analysis_map"/>
+        <field name="group_id" ref="hr.group_hr_manager"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_hr_company_scale_group_user" model="ir.model.access">
+        <field name="name">HR Company Scale Group Manager</field>
+        <field name="model_id" ref="model_hr_company_scale_group"/>
+        <field name="group_id" ref="hr.group_hr_manager"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_hr_salary_scale_manager" model="ir.model.access">
+        <field name="name">HR Salary Scale Manager</field>
+        <field name="model_id" ref="model_hr_salary_scale"/>
+        <field name="group_id" ref="hr.group_hr_manager"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_hr_salary_scale_steps_manager" model="ir.model.access">
+        <field name="name">HR Salary Scale Steps Manager</field>
+        <field name="model_id" ref="model_hr_salary_scale_steps"/>
+        <field name="group_id" ref="hr.group_hr_manager"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_hr_sector_user" model="ir.model.access">
+        <field name="name">HR Sector Manager</field>
+        <field name="model_id" ref="model_hr_sector"/>
+        <field name="group_id" ref="hr.group_hr_manager"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_hr_hierarchical_level_manager" model="ir.model.access">
+        <field name="name">HR Hierarchical Level Manager</field>
+        <field name="model_id" ref="model_hr_hierarchical_level"/>
+        <field name="group_id" ref="hr.group_hr_manager"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_hr_employee_dependents_manager" model="ir.model.access">
+        <field name="name">HR Employee Dependents Manager</field>
+        <field name="model_id" ref="model_hr_employee_dependents"/>
+        <field name="group_id" ref="hr.group_hr_manager"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_hr_direction_user" model="ir.model.access">
+        <field name="name">HR Direction Manager</field>
+        <field name="model_id" ref="model_hr_direction"/>
+        <field name="group_id" ref="hr.group_hr_manager"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <!--    <record id="ir_model_hr_holidays_vocation_balance_manager" model="ir.model.access">-->
+    <!--        <field name="name">HR Vacation Balance Report Manager</field>-->
+    <!--        <field name="model_id" ref="model_vacation_balance_report"/>-->
+    <!--        <field name="group_id" ref="hr_holidays.group_hr_holidays_manager"/>-->
+    <!--        <field eval="1" name="perm_read"/>-->
+    <!--        <field eval="1" name="perm_write"/>-->
+    <!--        <field eval="1" name="perm_create"/>-->
+    <!--        <field eval="1" name="perm_unlink"/>-->
+    <!--    </record>-->
+
+    <!--    <record id="ir_model_hr_holidays_vocation_balance_user" model="ir.model.access">-->
+    <!--        <field name="name">HR Vacation Balance Report User</field>-->
+    <!--        <field name="model_id" ref="model_vacation_balance_report"/>-->
+    <!--        <field name="group_id" ref="hr_holidays.group_hr_holidays_user"/>-->
+    <!--        <field eval="1" name="perm_read"/>-->
+    <!--        <field eval="1" name="perm_write"/>-->
+    <!--        <field eval="1" name="perm_create"/>-->
+    <!--        <field eval="0" name="perm_unlink"/>-->
+    <!--    </record>-->
+
+    <record id="ir_model_hr_extra_hours_report_manager" model="ir.model.access">
+        <field name="name">HR Extra Hours Report Manager</field>
+        <field name="model_id" ref="model_extra_hours_report"/>
+        <field name="group_id" ref="hr_payroll.group_hr_payroll_manager"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_hr_extra_hours_report_user" model="ir.model.access">
+        <field name="name">HR Extra Hours Report User</field>
+        <field name="model_id" ref="model_extra_hours_report"/>
+        <field name="group_id" ref="hr_payroll.group_hr_payroll_user"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="0" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_hr_exchange_rate_user" model="ir.model.access">
+        <field name="name">HR Exchange Rate User</field>
+        <field name="model_id" ref="model_hr_exchange_rate"/>
+        <field name="group_id" ref="hr_payroll.group_hr_payroll_user"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_hr_payslip_remove_lines_manager" model="ir.model.access">
+        <field name="name">hr.payslip.remove.lines Manager</field>
+        <field name="model_id" ref="model_hr_payslip_remove_lines"/>
+        <field name="group_id" ref="hr_payroll.group_hr_payroll_user"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+
+    <record id="ir_model_employee_salary_history_user" model="ir.model.access">
+        <field name="name">employee.salary.history Manager</field>
+        <field name="model_id" ref="model_employee_salary_history"/>
+        <field name="group_id" ref="hr_payroll.group_hr_payroll_user"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_disciplinary_situation_user" model="ir.model.access">
+        <field name="name">disciplinary_situation Manager</field>
+        <field name="model_id" ref="model_employee_disciplinary_situation"/>
+        <field name="group_id" ref="hr_payroll.group_hr_payroll_user"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_contract_update_user" model="ir.model.access">
+        <field name="name">Contract Update Manager</field>
+        <field name="model_id" ref="model_wizard_contract_update"/>
+        <field name="group_id" ref="hr_payroll.group_hr_payroll_user"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+    <record id="ir_model_add_extra_salary_rules_user" model="ir.model.access">
+        <field name="name">add extra salary rule Manager</field>
+        <field name="model_id" ref="model_hr_add_extra_salary_rules"/>
+        <field name="group_id" ref="hr_payroll.group_hr_payroll_user"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+     <record id="ir_model_add_extra_salary_rule_lines_user" model="ir.model.access">
+        <field name="name">add extra salary rule Lines Manager</field>
+        <field name="model_id" ref="model_hr_add_extra_salary_rule_lines"/>
+        <field name="group_id" ref="hr_payroll.group_hr_payroll_user"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_create"/>
+        <field eval="1" name="perm_unlink"/>
+    </record>
+
+</odoo>

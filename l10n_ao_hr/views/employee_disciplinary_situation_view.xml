@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="employee_disciplinary_situation_tree_view" model="ir.ui.view">
+        <field name="name">HR - employee_disciplinary.situation View Tree</field>
+        <field name="model">employee.disciplinary.situation</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="disciplinary_situation" widget="boolean_toggle" readonly="1"/>
+                <field name="contract_id" readonly="1" options="{'no_create': True}"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="disciplinary_date_start"/>
+                <field name="disciplinary_date_end"/>
+                <field name="disciplinary_wage" options="{'currency_field': 'currency_id'}"/>
+                <field name="note"/>
+                <button name="active_disciplinary_situation" type="object" string="Set Default"
+                        class="oe_highlight" attrs="{'invisible': [('disciplinary_situation', '=', True)]}"/>
+                <button name="remove_disciplinary_situation" type="object" string="Disable"
+                        class="btn-danger" attrs="{'invisible': [('disciplinary_situation', '=', False)]}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_employee_disciplinary_situation_history" model="ir.actions.act_window">
+        <field name="name">Employee Disciplinary Situation History</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">employee.disciplinary.situation</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="employee_disciplinary_situation_tree_view"/>
+    </record>
+
+</odoo>
